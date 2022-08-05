@@ -4,6 +4,3 @@
 **/.git
 **/.DS_Store
 **/npm-debug.log
-
-**/build/
-**/public/
