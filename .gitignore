@@ -1,0 +1,9 @@
+**/node_modules/
+**/.vscode
+**/package-lock.json
+**/.git
+**/.DS_Store
+**/npm-debug.log
+
+**/build/
+**/public/

@@ -1,0 +1,33 @@
+.element-hover {
+  animation-name: animation-element-hover;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes animation-element-hover {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes animation-element-hover {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
