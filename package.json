@@ -35,7 +35,6 @@
   "scripts": {
     "start": "node src-fs/webpack/run.js --dev",
     "build": "node src-fs/webpack/run.js --prod",
-    "build-s": "node src-fs/webpack/run.js --simple",
     "build-p": "node src-package/publish/webpack.js"
   }
 }
