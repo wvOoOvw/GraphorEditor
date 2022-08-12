@@ -1,7 +1,7 @@
 if (process.env === 'dev') {
-  // var baseIp = 'http://localhost'
-  // var baseIp = 'http://192.168.1.3'
-  var baseIp = 'http://124.222.36.246'
+  // var baseIp = '//localhost'
+  // var baseIp = '//192.168.1.3'
+  var baseIp = '//124.222.36.246'
 }
 if (process.env === 'prod' || process.env === 'simple') {
   var baseIp = window.location.origin

@@ -23,13 +23,13 @@ function App(props) {
   const handlePublish = async () => {
     const data = graphRef.current.getData()
 
-    var html = await fetch(baseIp + '/publish/html/index.html').then(res => res.text())
+    var html = await fetch(baseIp + '/graph/publish/html/index.html').then(res => res.text())
 
-    var render = await fetch(baseIp + '/publish/render/index.js').then(res => res.text())
+    var render = await fetch(baseIp + '/graph/publish/render/index.js').then(res => res.text())
 
-    // var element = await fetch(baseIp + '/publish/element-collection/index.js').then(res => res.text())
+    // var element = await fetch(baseIp + '/graph/publish/element-collection/index.js').then(res => res.text())
 
-    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(baseIp + `/publish/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
+    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(baseIp + `/graph/publish/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
     html = html
       .replace(
