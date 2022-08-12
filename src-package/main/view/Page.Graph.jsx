@@ -52,7 +52,6 @@ function Hover() {
   }
 
   React.useEffect(() => {
-    console.log(Imitation.state.modalContent, Imitation.state.elementHover, Imitation.state.graphContentUpdate)
     handle()
     setTimeout(() => handle(), 500)
   }, [Imitation.state.modalContent, Imitation.state.elementHover, Imitation.state.graphContentUpdate])
