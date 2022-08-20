@@ -40,7 +40,7 @@ http://xprofession.cloud/graph/#/graph
 
 想要本地跑项目，可以clone项目到本地，然后执行以下命令
 
-    npm i && cd ./src-fs && npm run start
+    npm i && npm run start
 
 **一般而言，操作的流程是这样的**
 
