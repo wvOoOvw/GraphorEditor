@@ -197,7 +197,7 @@ function App(props) {
               <ListItemButton>
                 <ListItemText sx={{ '& .MuiTypography-root': { fontWeight: 'bold' } }}>{i.name}</ListItemText>
                 <ListItemIcon>
-                  <Switch value={option[i.value]} onChange={e => setOption(pre => Object.assign(pre, { [i.value]: e.target.checked }))}></Switch>
+                  <Switch checked={option[i.value]} onChange={e => setOption(pre => Object.assign(pre, { [i.value]: e.target.checked }))}></Switch>
                 </ListItemIcon>
               </ListItemButton>
             </ListItem>

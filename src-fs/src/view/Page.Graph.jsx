@@ -11,6 +11,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
+import AirplayIcon from '@mui/icons-material/Airplay'
 
 import { GraphMain, GraphElement, GraphExample } from '../utils/graph.package'
 
@@ -19,6 +20,7 @@ import axios from '../utils/axios'
 
 import ModalPageList from './Modal.PageList'
 import ModalPagePublish from './Modal.PagePublish'
+import ModalPageSteal from './Modal.PageSteal'
 import ModalLogin from './Modal.Login'
 
 function Help(props) {
@@ -52,12 +54,16 @@ function Help(props) {
   const handlePublish = () => {
     setModalVisible('ModalPagePublish')
   }
+  const handleSteal = () => {
+    setModalVisible('ModalPageSteal')
+  }
 
   const actions = [
     { icon: <SaveIcon />, name: '保存', click: handleSave },
     { icon: <ClearAllIcon />, name: '清空', click: handleClear },
     { icon: <DeveloperModeIcon />, name: '拟真调试', click: handleDev },
     { icon: <DataSaverOffIcon />, name: '发布', click: handlePublish },
+    { icon: <AirplayIcon />, name: '参考', click: handleSteal },
   ]
 
   const [modalVisible, setModalVisible] = React.useState()
@@ -131,6 +137,9 @@ function Help(props) {
     }
     {
       modalVisible === 'ModalPagePublish' ? <ModalPagePublish onClose={() => setModalVisible()} graphRef={graphRef} name={name} /> : null
+    }
+    {
+      modalVisible === 'ModalPageSteal' ? <ModalPageSteal onClose={() => setModalVisible()} graphRef={graphRef} /> : null
     }
     {
       modalVisible === 'ModalLogin' ? <ModalLogin onClose={() => setModalVisible()} /> : null
