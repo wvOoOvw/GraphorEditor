@@ -36,15 +36,20 @@ module.exports = {
           },
           {
             loader: 'css-loader',
-            options: {
-              // modules: true,
-            }
           }
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/i,
-        use: ['file-loader']
+        test: /\.(png|jpg|jpeg|gif|mp3|m4a|wav)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'static'
+            }
+          }
+        ]
       },
     ]
   }
