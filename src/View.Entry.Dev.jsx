@@ -10,23 +10,39 @@ import { hash } from './utils.common'
 
 function App() {
   const [visible, setVisible] = React.useState()
+  const [height, setHeight] = React.useState(window.innerHeight - 32)
 
   React.useEffect(() => {
-    Imitation.assignState({ graphElement: GraphElement, graphElementUpdate: hash() })
+    Imitation.state.graphElement = GraphElement
+    Imitation.state.graphElementUpdate = hash()
 
-    const cache = localStorage.getItem('graphCache')
+    const cache = localStorage.getItem('graphCache') ? JSON.parse(localStorage.getItem('graphCache')) : undefined
 
     if (cache) {
-      const data = JSON.parse(cache)
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash() })
+      Imitation.state.graphContent = cache.graphContent
+      Imitation.state.graphConfig = cache.graphConfig
+      Imitation.state.graphContentUpdate = hash()
+      Imitation.state.graphConfigUpdate = hash()
     }
+
+    Imitation.state.navigationTabsValue = 'ElementShop'
+
+    Imitation.dispatch()
 
     setVisible(true)
   }, [])
 
+  React.useEffect(() => {
+    const event = () => setHeight(window.innerHeight - 32)
+
+    window.addEventListener('resize', event)
+
+    return () => window.removeEventListener('resize', event)
+  }, [])
+
   if (visible === undefined) return null
 
-  return <div style={{ width: 'calc(100% - 32px)', height: window.innerHeight - 32, display: 'flex', flexDirection: 'column', padding: 16 }}>
+  return <div style={{ width: 'calc(100% - 32px)', height: height, display: 'flex', flexDirection: 'column', padding: 16 }}>
     <div style={{ marginBottom: 16 }}>
       <NavigationBar />
     </div>

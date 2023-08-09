@@ -9,7 +9,7 @@ ImitationINS.state = {
 
   version: '1.0.0',
 
-  navigationTabsValue: 'AddElement',
+  navigationTabsValue: undefined,
   navigationTabsElementConfigValue: undefined,
 
   elementHover: undefined,

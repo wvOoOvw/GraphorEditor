@@ -17,10 +17,10 @@ const information = {
     { value: '@onMouseUp', label: '松开' },
     { value: 'onClick', label: '单项点击' },
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     value: [{ title: '列表标题', desciption: '列表描述' }],
     textAlign: 'left',
     disablePadding: true,

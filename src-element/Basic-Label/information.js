@@ -18,8 +18,8 @@ const information = {
     { value: '@onMouseDown', label: '按下' },
     { value: '@onMouseUp', label: '松开' },
   ],
-  outer: {},
-  inner: false
+  style: {},
+  property: false
 }
 
 export default information

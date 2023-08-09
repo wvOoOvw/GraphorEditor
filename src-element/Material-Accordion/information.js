@@ -20,10 +20,10 @@ const information = {
     { value: '@onMouseUp', label: '松开' },
     { value: 'onChange', label: '内容变动' },
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     title: '折叠面板',
     summaryHeight: 64,
     detailsHeight: 236,

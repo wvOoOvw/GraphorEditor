@@ -1,14 +1,14 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, inner, listen, pure, update } = props
+  const { compound, property, listen, pure, update } = props
 
   const ref = React.useRef()
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,13 +16,13 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (!pure || !inner.value) return
+    if (!pure || !property.value) return
     const script = document.createElement('script')
-    script.src = inner.value
+    script.src = property.value
     document.getElementsByTagName('head')[0].appendChild(script)
-  }, [inner.value])
+  }, [property.value])
 
-  return <div {...compound} id={inner.id} ref={el => ref.current = el}></div>
+  return <div {...compound} id={property.id} ref={el => ref.current = el}></div>
 }
 
 export default Render

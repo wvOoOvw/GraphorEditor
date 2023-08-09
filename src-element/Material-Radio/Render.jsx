@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Radio } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setCheckedOpen) {
       const remove = listen.setCheckedOpen(data => {
-        inner.checked = true
+        property.checked = true
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setCheckedClose) {
       const remove = listen.setCheckedClose(data => {
-        inner.checked = false
+        property.checked = false
         update()
       })
       return () => { remove() }
@@ -25,18 +25,18 @@ function Render(props) {
 
   const onChange = (e) => {
     if (!pure) return
-    inner.checked = true
+    property.checked = true
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(inner.checked, e)
+    if (dispatch && dispatch.onChange) dispatch.onChange(property.checked, e)
   }
 
   return <Radio
     {...compound}
-    checked={inner.checked}
+    checked={property.checked}
     onChange={onChange}
-    size={inner.size}
-    color={inner.color}
-    disabled={inner.disabled}
+    size={property.size}
+    color={property.color}
+    disabled={property.disabled}
   />
 }
 

@@ -6,12 +6,12 @@ function Render(props) {
   const React = window.React
   const { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setBody) {
       const remove = listen.setBody(data => {
-        inner.body = data
+        property.body = data
         update()
       })
       return () => { remove() }
@@ -20,7 +20,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setHead) {
       const remove = listen.setHead(data => {
-        inner.head = data
+        property.head = data
         update()
       })
       return () => { remove() }
@@ -29,7 +29,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setPaginationSize) {
       const remove = listen.setPaginationSize(data => {
-        inner.paginationSize = data
+        property.paginationSize = data
         update()
       })
       return () => { remove() }
@@ -38,7 +38,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setPaginationPage) {
       const remove = listen.setPaginationPage(data => {
-        inner.paginationPage = data
+        property.paginationPage = data
         update()
       })
       return () => { remove() }
@@ -47,7 +47,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setSelectClear) {
       const remove = listen.setSelectClear(data => {
-        inner.selectChecked = []
+        property.selectChecked = []
         update()
       })
       return () => { remove() }
@@ -60,87 +60,87 @@ function Render(props) {
 
   const onSelect = (e, item) => {
     if (!pure) return
-    inner.selectChecked = inner.selectChecked.includes(item) ? inner.selectChecked.filter(i => i !== item) : [...inner.selectChecked, item]
+    property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
-    if (dispatch && dispatch.onSelect) dispatch.onSelect(inner.selectChecked, e)
+    if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
   }
 
   const selectMultipleChecked = () => {
-    if (inner.usePagination) {
-      var body = inner.body.filter((i, index) => paginationFilter(index, inner.paginationSize, inner.paginationPage))
+    if (property.usePagination) {
+      var body = property.body.filter((i, index) => paginationFilter(index, property.paginationSize, property.paginationPage))
     } else {
-      var body = inner.body
+      var body = property.body
     }
-    return body.filter(i => inner.selectChecked.includes(i)).length === body.length
+    return body.filter(i => property.selectChecked.includes(i)).length === body.length
   }
 
   const onSelectMultiple = (e) => {
     if (!pure) return
 
-    if (inner.usePagination) {
-      var body = inner.body.filter((i, index) => paginationFilter(index, inner.paginationSize, inner.paginationPage))
+    if (property.usePagination) {
+      var body = property.body.filter((i, index) => paginationFilter(index, property.paginationSize, property.paginationPage))
     } else {
-      var body = inner.body
+      var body = property.body
     }
 
-    if (body.filter(i => inner.selectChecked.includes(i)).length === body.length) {
-      inner.selectChecked = []
+    if (body.filter(i => property.selectChecked.includes(i)).length === body.length) {
+      property.selectChecked = []
       update()
-      if (dispatch && dispatch.onSelect) dispatch.onSelect(inner.selectChecked, e)
+      if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
     } else {
-      inner.selectChecked = body
+      property.selectChecked = body
       update()
-      if (dispatch && dispatch.onSelect) dispatch.onSelect(inner.selectChecked, e)
+      if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
     }
   }
 
   const onPaginationChange = (e, value) => {
     if (!pure) return
-    inner.selectChecked = []
-    inner.paginationPage = value
+    property.selectChecked = []
+    property.paginationPage = value
     update()
-    if (dispatch && dispatch.onPaginationChange) dispatch.onPaginationChange(inner.paginationPage, e)
+    if (dispatch && dispatch.onPaginationChange) dispatch.onPaginationChange(property.paginationPage, e)
   }
 
-  return <Box {...compound} component={inner.componentPaper ? Paper : null}>
-    <TableContainer style={{ height: (inner.usePagination && inner.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
-      <Table size={inner.size} stickyHeader={inner.stickyHeader}>
+  return <Box {...compound} component={property.componentPaper ? Paper : null}>
+    <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
+      <Table size={property.size} stickyHeader={property.stickyHeader}>
         <TableHead>
           <TableRow>
             {
-              inner.useSelect && inner.selectMultiple ?
+              property.useSelect && property.selectMultiple ?
                 <TableCell>
                   <Checkbox checked={selectMultipleChecked()} onChange={onSelectMultiple} />
                 </TableCell> : null
             }
             {
-              inner.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
+              property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
             }
             {
-              inner.useAction ? <TableCell>{inner.actionTitle}</TableCell> : null
+              property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
             }
           </TableRow>
         </TableHead>
         <TableBody>
           {
-            inner.body.map((i, index) => {
-              if (inner.usePagination && !paginationFilter(index, inner.paginationSize, inner.paginationPage)) return null
+            property.body.map((i, index) => {
+              if (property.usePagination && !paginationFilter(index, property.paginationSize, property.paginationPage)) return null
               return <TableRow key={index}>
                 {
-                  inner.useSelect ?
+                  property.useSelect ?
                     <TableCell>
-                      <Checkbox checked={inner.selectChecked.includes(i)} onChange={(e) => onSelect(e, i)} />
+                      <Checkbox checked={property.selectChecked.includes(i)} onChange={(e) => onSelect(e, i)} />
                     </TableCell> : null
                 }
                 {
-                  inner.head.map((i_, index) => {
+                  property.head.map((i_, index) => {
                     return <TableCell key={index}>{i[i_.value]}</TableCell>
                   })
                 }
                 {
-                  inner.useAction ?
+                  property.useAction ?
                     <TableCell>
-                      <Button variant={inner.actionVariant} color={inner.actionColor} onClick={(e) => onClick(e, i)}>{inner.actionText}</Button>
+                      <Button variant={property.actionVariant} color={property.actionColor} onClick={(e) => onClick(e, i)}>{property.actionText}</Button>
                     </TableCell> : null
                 }
               </TableRow>
@@ -151,9 +151,9 @@ function Render(props) {
     </TableContainer>
 
     {
-      inner.usePagination && inner.paginationComponent ?
-        <div style={{ display: 'flex', justifyContent: inner.paginationJustifyContent, alignItems: 'center', height: 50 }}>
-          <Pagination count={Math.ceil(inner.body.length / Number(inner.paginationSize))} page={Number(inner.paginationPage)} onChange={onPaginationChange} size={inner.size} />
+      property.usePagination && property.paginationComponent ?
+        <div style={{ display: 'flex', justifyContent: property.paginationJustifyContent, alignItems: 'center', height: 50 }}>
+          <Pagination count={Math.ceil(property.body.length / Number(property.paginationSize))} page={Number(property.paginationPage)} onChange={onPaginationChange} size={property.size} />
         </div> : null
     }
   </Box>

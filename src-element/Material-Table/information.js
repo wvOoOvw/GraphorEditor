@@ -23,10 +23,10 @@ const information = {
     { value: 'onSelect', label: '选择框变动' },
     { value: 'onPaginationChange', label: '分页栏变动' }
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     size: 'medium',
     stickyHeader: false,
     componentPaper: true,

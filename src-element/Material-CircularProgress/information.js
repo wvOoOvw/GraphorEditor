@@ -15,10 +15,10 @@ const information = {
     { value: '@onMouseDown', label: '按下' },
     { value: '@onMouseUp', label: '松开' },
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     size: 40,
     thickness: 3.6,
     color: '#000000'

@@ -12,12 +12,12 @@ function Render(props) {
     },
   });
 
-  const { compound, inner, listen, dispatch, children, pure, update } = props
+  const { compound, property, listen, dispatch, children, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setOpenTrue) {
       const remove = listen.setOpenTrue(data => {
-        inner.open = true
+        property.open = true
         update()
       })
       return () => { remove() }
@@ -27,7 +27,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setOpenFalse) {
       const remove = listen.setOpenFalse(data => {
-        inner.open = false
+        property.open = false
         update()
       })
       return () => { remove() }
@@ -35,26 +35,26 @@ function Render(props) {
   }, [])
 
   const onOpen = (e) => {
-    inner.open = true
+    property.open = true
     update()
-    if (dispatch && dispatch.onOpen) dispatch.onOpen(inner.open, e)
+    if (dispatch && dispatch.onOpen) dispatch.onOpen(property.open, e)
   }
 
   const onClose = (e) => {
-    inner.open = false
+    property.open = false
     update()
-    if (dispatch && dispatch.onClose) dispatch.onClose(inner.open, e)
+    if (dispatch && dispatch.onClose) dispatch.onClose(property.open, e)
   }
 
   const R = children && children.main ? children.main() : null
 
   if (pure) return <TooltipS
-    open={inner.open}
-    enenterDelay={inner.enterDelay}
-    leaveDelay={inner.leaveDelay}
+    open={property.open}
+    enenterDelay={property.enterDelay}
+    leaveDelay={property.leaveDelay}
     title={children && children.float ? children.float() : null}
-    placement={inner.placementPosition + (inner.placementAlign === 'center' ? '' : '-' + inner.placementAlign)}
-    arrow={inner.arrow}
+    placement={property.placementPosition + (property.placementAlign === 'center' ? '' : '-' + property.placementAlign)}
+    arrow={property.arrow}
     onOpen={onOpen}
     onClose={onClose}
   >

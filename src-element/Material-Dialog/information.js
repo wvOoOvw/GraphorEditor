@@ -15,10 +15,10 @@ const information = {
   dispatch: [
     { value: 'onClose', label: '关闭' },
   ],
-  outer: {
+  style: {
     $use: ['width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'zIndex', 'render', 'visible']
   },
-  inner: {
+  property: {
     open: true,
     dividers: true,
   }

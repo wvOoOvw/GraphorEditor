@@ -1,199 +1,199 @@
 const translateNaN = r => isNaN(r) ? r : r + 'px'
 
-const fix = (outer) => {
-  if (outer.boxSizing) delete outer.boxSizing
-  if (outer.font) {
-    if (outer.font.fontFamily === undefined || Array.isArray(outer.font.fontFamily)) outer.font.fontFamily = defaultOuterAll.font.fontFamily
+const fix = (style) => {
+  if (style.boxSizing) delete style.boxSizing
+  if (style.font) {
+    if (style.font.fontFamily === undefined || Array.isArray(style.font.fontFamily)) style.font.fontFamily = defaultOuterAll.font.fontFamily
   }
 }
 
-const graphOuterStyle = (outer) => {
-  if (!outer) return
+const graphOuterStyle = (style) => {
+  if (!style) return
 
-  // fix(outer)
+  // fix(style)
 
-  const style = {}
+  const style_ = {}
 
-  if (outer.display !== undefined) style.display = outer.display
-  if (outer.overflow !== undefined) style.overflow = outer.overflow
-  if (outer.verticalAlign !== undefined) style.verticalAlign = outer.verticalAlign
-  if (outer.position !== undefined) style.position = outer.position
-  if (outer.zIndex !== undefined) style.zIndex = outer.zIndex
-  if (outer.cursor !== undefined) style.cursor = outer.cursor
+  if (style.display !== undefined) style_.display = style.display
+  if (style.overflow !== undefined) style_.overflow = style.overflow
+  if (style.verticalAlign !== undefined) style_.verticalAlign = style.verticalAlign
+  if (style.position !== undefined) style_.position = style.position
+  if (style.zIndex !== undefined) style_.zIndex = style.zIndex
+  if (style.cursor !== undefined) style_.cursor = style.cursor
 
-  if (outer.visible !== undefined) style.display = outer.visible ? style.display : 'none'
+  if (style.visible !== undefined) style_.display = style.visible ? style_.display : 'none'
 
-  if (outer.width !== undefined) style.width = translateNaN(outer.width)
-  if (outer.height !== undefined) style.height = translateNaN(outer.height)
-  if (outer.minWidth !== undefined) style.minWidth = translateNaN(outer.minWidth)
-  if (outer.minHeight !== undefined) style.minHeight = translateNaN(outer.minHeight)
-  if (outer.maxWidth !== undefined) style.maxWidth = translateNaN(outer.maxWidth)
-  if (outer.maxHeight !== undefined) style.maxHeight = translateNaN(outer.maxHeight)
+  if (style.width !== undefined) style_.width = translateNaN(style.width)
+  if (style.height !== undefined) style_.height = translateNaN(style.height)
+  if (style.minWidth !== undefined) style_.minWidth = translateNaN(style.minWidth)
+  if (style.minHeight !== undefined) style_.minHeight = translateNaN(style.minHeight)
+  if (style.maxWidth !== undefined) style_.maxWidth = translateNaN(style.maxWidth)
+  if (style.maxHeight !== undefined) style_.maxHeight = translateNaN(style.maxHeight)
 
-  if (outer.padding !== undefined) {
-    if (outer.padding.includes('')) {
-      if (outer.padding[0]) style.paddingTop = translateNaN(outer.padding[0])
-      if (outer.padding[1]) style.paddingRight = translateNaN(outer.padding[1])
-      if (outer.padding[2]) style.paddingBottom = translateNaN(outer.padding[2])
-      if (outer.padding[3]) style.paddingLeft = translateNaN(outer.padding[3])
+  if (style.padding !== undefined) {
+    if (style.padding.includes('')) {
+      if (style.padding[0]) style_.paddingTop = translateNaN(style.padding[0])
+      if (style.padding[1]) style_.paddingRight = translateNaN(style.padding[1])
+      if (style.padding[2]) style_.paddingBottom = translateNaN(style.padding[2])
+      if (style.padding[3]) style_.paddingLeft = translateNaN(style.padding[3])
     } else {
-      style.padding = outer.padding.map(i => translateNaN(i)).join(' ')
+      style_.padding = style.padding.map(i => translateNaN(i)).join(' ')
     }
   }
-  if (outer.margin !== undefined) {
-    if (outer.margin.includes('')) {
-      if (outer.margin[0]) style.marginTop = translateNaN(outer.margin[0])
-      if (outer.margin[1]) style.marginRight = translateNaN(outer.margin[1])
-      if (outer.margin[2]) style.marginBottom = translateNaN(outer.margin[2])
-      if (outer.margin[3]) style.marginLeft = translateNaN(outer.margin[3])
+  if (style.margin !== undefined) {
+    if (style.margin.includes('')) {
+      if (style.margin[0]) style_.marginTop = translateNaN(style.margin[0])
+      if (style.margin[1]) style_.marginRight = translateNaN(style.margin[1])
+      if (style.margin[2]) style_.marginBottom = translateNaN(style.margin[2])
+      if (style.margin[3]) style_.marginLeft = translateNaN(style.margin[3])
     } else {
-      style.margin = outer.margin.map(i => translateNaN(i)).join(' ')
+      style_.margin = style.margin.map(i => translateNaN(i)).join(' ')
     }
   }
-  if (outer.inset !== undefined) {
-    style.top = outer.inset[0] ? translateNaN(outer.inset[0]) : 'auto'
-    style.right = outer.inset[1] ? translateNaN(outer.inset[1]) : 'auto'
-    style.bottom = outer.inset[2] ? translateNaN(outer.inset[2]) : 'auto'
-    style.left = outer.inset[3] ? translateNaN(outer.inset[3]) : 'auto'
+  if (style.inset !== undefined) {
+    style_.top = style.inset[0] ? translateNaN(style.inset[0]) : 'auto'
+    style_.right = style.inset[1] ? translateNaN(style.inset[1]) : 'auto'
+    style_.bottom = style.inset[2] ? translateNaN(style.inset[2]) : 'auto'
+    style_.left = style.inset[3] ? translateNaN(style.inset[3]) : 'auto'
   }
 
-  if (outer.flex) {
-    Object.assign(style, {
-      flexDirection: outer.flex.flexDirection,
-      flexWrap: outer.flex.flexWrap,
-      justifyContent: outer.flex.justifyContent,
-      alignItems: outer.flex.alignItems,
-      alignContent: outer.flex.alignContent,
-      flexGrow: outer.flex.flexGrow,
-      flexShrink: outer.flex.flexShrink,
-      flexBasis: outer.flex.flexBasis,
+  if (style.flex) {
+    Object.assign(style_, {
+      flexDirection: style.flex.flexDirection,
+      flexWrap: style.flex.flexWrap,
+      justifyContent: style.flex.justifyContent,
+      alignItems: style.flex.alignItems,
+      alignContent: style.flex.alignContent,
+      flexGrow: style.flex.flexGrow,
+      flexShrink: style.flex.flexShrink,
+      flexBasis: style.flex.flexBasis,
     })
   }
 
-  if (outer.transform !== undefined) {
-    Object.assign(style, {
-      perspective: outer.transform.perspective,
-      transformStyle: outer.transform.transformStyle,
-      transformOrigin: outer.transform.transformOrigin.map(i => translateNaN(i)).join(' '),
+  if (style.transform !== undefined) {
+    Object.assign(style_, {
+      perspective: style.transform.perspective,
+      transformStyle: style.transform.transformStyle,
+      transformOrigin: style.transform.transformOrigin.map(i => translateNaN(i)).join(' '),
       transform: `
-        translateX(${translateNaN(outer.transform.transformTranslate[0])})
-        translateY(${translateNaN(outer.transform.transformTranslate[1])})
-        translateZ(${translateNaN(outer.transform.transformTranslate[2])})
-        rotateX(${outer.transform.transformRotate[0]}deg)
-        rotateY(${outer.transform.transformRotate[1]}deg)
-        rotateZ(${outer.transform.transformRotate[2]}deg)
-        scaleX(${outer.transform.transformScale[0]})
-        scaleY(${outer.transform.transformScale[1]})
-        scaleZ(${outer.transform.transformScale[2]})
+        translateX(${translateNaN(style.transform.transformTranslate[0])})
+        translateY(${translateNaN(style.transform.transformTranslate[1])})
+        translateZ(${translateNaN(style.transform.transformTranslate[2])})
+        rotateX(${style.transform.transformRotate[0]}deg)
+        rotateY(${style.transform.transformRotate[1]}deg)
+        rotateZ(${style.transform.transformRotate[2]}deg)
+        scaleX(${style.transform.transformScale[0]})
+        scaleY(${style.transform.transformScale[1]})
+        scaleZ(${style.transform.transformScale[2]})
       `
     })
   }
 
-  if (outer.transition !== undefined) {
-    Object.assign(style, {
-      transition: `${outer.transition.transitionTime}s all`
+  if (style.transition !== undefined) {
+    Object.assign(style_, {
+      transition: `${style.transition.transitionTime}s all`
     })
   }
 
-  if (outer.filter !== undefined) {
-    Object.assign(style, {
-      filter: `blur(${outer.filter.filterBlur}px) brightness(${outer.filter.filterBrightness}%) opacity(${outer.filter.filterOpacity}%)`
+  if (style.filter !== undefined) {
+    Object.assign(style_, {
+      filter: `blur(${style.filter.filterBlur}px) brightness(${style.filter.filterBrightness}%) opacity(${style.filter.filterOpacity}%)`
     })
   }
 
-  if (outer.border !== undefined) {
-    if (outer.border.borderPosition.includes('top')) {
-      Object.assign(style, {
-        borderTop: `${outer.border.borderColor} ${outer.border.borderStyle} ${outer.border.borderWidth}px`
+  if (style.border !== undefined) {
+    if (style.border.borderPosition.includes('top')) {
+      Object.assign(style_, {
+        borderTop: `${style.border.borderColor} ${style.border.borderStyle} ${style.border.borderWidth}px`
       })
     }
-    if (outer.border.borderPosition.includes('bottom')) {
-      Object.assign(style, {
-        borderBottom: `${outer.border.borderColor} ${outer.border.borderStyle} ${outer.border.borderWidth}px`
+    if (style.border.borderPosition.includes('bottom')) {
+      Object.assign(style_, {
+        borderBottom: `${style.border.borderColor} ${style.border.borderStyle} ${style.border.borderWidth}px`
       })
     }
-    if (outer.border.borderPosition.includes('left')) {
-      Object.assign(style, {
-        borderLeft: `${outer.border.borderColor} ${outer.border.borderStyle} ${outer.border.borderWidth}px`
+    if (style.border.borderPosition.includes('left')) {
+      Object.assign(style_, {
+        borderLeft: `${style.border.borderColor} ${style.border.borderStyle} ${style.border.borderWidth}px`
       })
     }
-    if (outer.border.borderPosition.includes('right')) {
-      Object.assign(style, {
-        borderRight: `${outer.border.borderColor} ${outer.border.borderStyle} ${outer.border.borderWidth}px`
+    if (style.border.borderPosition.includes('right')) {
+      Object.assign(style_, {
+        borderRight: `${style.border.borderColor} ${style.border.borderStyle} ${style.border.borderWidth}px`
       })
     }
 
   }
 
-  if (outer.borderRadius !== undefined) {
-    Object.assign(style, {
+  if (style.borderRadius !== undefined) {
+    Object.assign(style_, {
       borderRadius: `
-        ${translateNaN(outer.borderRadius[0])}
-        ${translateNaN(outer.borderRadius[1])}
-        ${translateNaN(outer.borderRadius[2])}
-        ${translateNaN(outer.borderRadius[3])}
+        ${translateNaN(style.borderRadius[0])}
+        ${translateNaN(style.borderRadius[1])}
+        ${translateNaN(style.borderRadius[2])}
+        ${translateNaN(style.borderRadius[3])}
       `
     })
   }
 
-  if (outer.boxShadow !== undefined) {
-    Object.assign(style, {
-      boxShadow: `${outer.boxShadow.boxShadowPosition[0]}px ${outer.boxShadow.boxShadowPosition[1]}px ${outer.boxShadow.boxShadowSize}px ${outer.boxShadow.boxShadowColor} ${outer.boxShadow.boxShadowInset ? 'inset' : ''}`
+  if (style.boxShadow !== undefined) {
+    Object.assign(style_, {
+      boxShadow: `${style.boxShadow.boxShadowPosition[0]}px ${style.boxShadow.boxShadowPosition[1]}px ${style.boxShadow.boxShadowSize}px ${style.boxShadow.boxShadowColor} ${style.boxShadow.boxShadowInset ? 'inset' : ''}`
     })
   }
 
-  if (outer.outline !== undefined) {
-    Object.assign(style, {
-      outline: `${outer.outline.outlineColor} ${outer.outline.outlineStyle} ${outer.outline.outlineWidth}px`
+  if (style.outline !== undefined) {
+    Object.assign(style_, {
+      outline: `${style.outline.outlineColor} ${style.outline.outlineStyle} ${style.outline.outlineWidth}px`
     })
   }
 
-  if (outer.background !== undefined) {
-    Object.assign(style, {
+  if (style.background !== undefined) {
+    Object.assign(style_, {
       background: `
-        ${outer.background.backgroundColor} 
-        ${outer.background.backgroundPosition[0]}${outer.background.backgroundPosition[1]}/${outer.background.backgroundSize[0]}${outer.background.backgroundSize[1]} 
-        ${outer.background.backgroundRepeat} 
-        ${outer.background.backgroundAttachment} 
-        ${outer.background.backgroundImage ? `url(${outer.background.backgroundImage})` : 'none'}
+        ${style.background.backgroundColor} 
+        ${style.background.backgroundPosition[0]}${style.background.backgroundPosition[1]}/${style.background.backgroundSize[0]}${style.background.backgroundSize[1]} 
+        ${style.background.backgroundRepeat} 
+        ${style.background.backgroundAttachment} 
+        ${style.background.backgroundImage ? `url(${style.background.backgroundImage})` : 'none'}
       `
     })
   }
 
-  if (outer.font !== undefined) {
-    if (outer.font.fontSize) style.fontSize = outer.font.fontSize + 'px'
-    if (outer.font.fontWeight) style.fontWeight = outer.font.fontWeight
-    if (outer.font.fontFamily) style.fontFamily = outer.font.fontFamily
+  if (style.font !== undefined) {
+    if (style.font.fontSize) style_.fontSize = style.font.fontSize + 'px'
+    if (style.font.fontWeight) style_.fontWeight = style.font.fontWeight
+    if (style.font.fontFamily) style_.fontFamily = style.font.fontFamily
   }
 
-  if (outer.text !== undefined) {
-    if (outer.text.lineHeight) style.lineHeight = outer.text.lineHeight
-    if (outer.text.letterSpacing) style.letterSpacing = outer.text.letterSpacing + 'px'
-    if (outer.text.textAlign) style.textAlign = outer.text.textAlign
-    if (outer.text.whiteSpace) style.whiteSpace = outer.text.whiteSpace
-    if (outer.text.color) style.color = outer.text.color
+  if (style.text !== undefined) {
+    if (style.text.lineHeight) style_.lineHeight = style.text.lineHeight
+    if (style.text.letterSpacing) style_.letterSpacing = style.text.letterSpacing + 'px'
+    if (style.text.textAlign) style_.textAlign = style.text.textAlign
+    if (style.text.whiteSpace) style_.whiteSpace = style.text.whiteSpace
+    if (style.text.color) style_.color = style.text.color
   }
 
-  if (outer.textDecoration !== undefined) {
-    Object.assign(style, {
-      textDecoration: `${outer.textDecoration.textDecorationColor} ${outer.textDecoration.textDecorationLine} ${outer.textDecoration.textDecorationStyle}`
+  if (style.textDecoration !== undefined) {
+    Object.assign(style_, {
+      textDecoration: `${style.textDecoration.textDecorationColor} ${style.textDecoration.textDecorationLine} ${style.textDecoration.textDecorationStyle}`
     })
   }
 
-  if (outer.textShadow !== undefined) {
-    Object.assign(style, {
-      textShadow: `${outer.textShadow.textShadowPosition[0]}px ${outer.textShadow.textShadowPosition[1]}px ${outer.textShadow.textShadowSize}px ${outer.textShadow.textShadowColor}`
+  if (style.textShadow !== undefined) {
+    Object.assign(style_, {
+      textShadow: `${style.textShadow.textShadowPosition[0]}px ${style.textShadow.textShadowPosition[1]}px ${style.textShadow.textShadowSize}px ${style.textShadow.textShadowColor}`
     })
   }
 
-  if (outer.textStroke !== undefined) {
-    Object.assign(style, {
-      textStroke: `${outer.textStroke.textStrokeWidth}px ${outer.textStroke.textStrokeColor}`,
-      webkitTextStroke: `${outer.textStroke.textStrokeWidth}px ${outer.textStroke.textStrokeColor}`
+  if (style.textStroke !== undefined) {
+    Object.assign(style_, {
+      textStroke: `${style.textStroke.textStrokeWidth}px ${style.textStroke.textStrokeColor}`,
+      webkitTextStroke: `${style.textStroke.textStrokeWidth}px ${style.textStroke.textStrokeColor}`
     })
   }
 
-  return style
+  return style_
 }
 
 const defaultOuterAll = {

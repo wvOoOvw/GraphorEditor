@@ -2,7 +2,7 @@ function Render(props) {
   const React = window.React
   const echarts = window.echarts
 
-  const { compound, inner, listen, update } = props
+  const { compound, property, listen, update } = props
 
   const ref = React.useRef()
   const chartRef = React.useRef()
@@ -12,8 +12,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    chartRef.current.setOption(inner.option)
-  }, [JSON.stringify(inner.option)])
+    chartRef.current.setOption(property.option)
+  }, [JSON.stringify(property.option)])
 
   const resize = () => chartRef.current.resize()
 

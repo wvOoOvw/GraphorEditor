@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { ToggleButtonGroup, ToggleButton } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setOptions) {
       const remove = listen.setOptions(data => {
-        inner.options = data
+        property.options = data
         update()
       })
       return () => { remove() }
@@ -25,9 +25,9 @@ function Render(props) {
 
   const onChange = (e, v) => {
     if (!pure) return
-    inner.value = v
+    property.value = v
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(inner.value, e)
+    if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
   }
 
   const style = {
@@ -38,9 +38,9 @@ function Render(props) {
     alignItems: 'center'
   }
 
-  return <ToggleButtonGroup {...compound} fullWidth={inner.fullWidth} size={inner.size} color={inner.color} orientation={inner.orientation} exclusive={inner.exclusive} disabled={inner.disabled} value={inner.value} onChange={onChange}>
+  return <ToggleButtonGroup {...compound} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
     {
-      inner.options.map((i, index) => {
+      property.options.map((i, index) => {
         return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>
       })
     }

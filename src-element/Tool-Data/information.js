@@ -9,10 +9,10 @@ const information = {
   dispatch: [
     { value: 'onEffect', label: '执行' }
   ],
-  outer: {
+  style: {
     $use: ['render']
   },
-  inner: {
+  property: {
     value: {},
     immediate: false,
     useWindow: false,

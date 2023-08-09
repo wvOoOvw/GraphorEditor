@@ -75,7 +75,7 @@ function Hover() {
 }
 
 function ElementRender(props) {
-  const { license, only, inner, outer, children } = props
+  const { license, only, property, style, children } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -120,7 +120,7 @@ function ElementRender(props) {
   })
 
   const compound = {
-    style: { ...graphOuterStyle(outer), cursor: 'pointer', transition: '0.5s all', boxSizing: 'border-box' },
+    style: { ...graphOuterStyle(style), cursor: 'pointer', transition: '0.5s all', boxSizing: 'border-box' },
     onClick,
     onMouseDown,
     onMouseUp,
@@ -138,15 +138,15 @@ function ElementRender(props) {
 
   const Render_exe = <Render
     compound={compound}
-    inner={inner}
-    outer={outer}
+    property={property}
+    style={style}
     children={children_exe}
     pure={false}
     update={update}
     only={only}
   />
 
-  if (outer.render === false) return null
+  if (style.render === false) return null
 
   return Render_exe
 }

@@ -9,10 +9,10 @@ const information = {
     { value: 'onResponse', label: '请求成功' },
     { value: 'onError', label: '请求失败' }
   ],
-  outer: {
+  style: {
     $use: ['render']
   },
-  inner: {
+  property: {
     mode: 'fetch',
     method: 'post',
     bodyType: 'json',

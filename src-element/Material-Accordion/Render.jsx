@@ -9,12 +9,12 @@ function Render(props) {
   const React = window.React
   const { Accordion, AccordionSummary, AccordionDetails, Divider } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, children, pure, update } = props
+  const { compound, property, listen, dispatch, children, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setExpandedOpen) {
       const remove = listen.setExpandedOpen(data => {
-        inner.expanded = true
+        property.expanded = true
         update()
       })
       return () => { remove() }
@@ -23,7 +23,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setExpandedClose) {
       const remove = listen.setExpandedClose(data => {
-        inner.expanded = false
+        property.expanded = false
         update()
       })
       return () => { remove() }
@@ -32,24 +32,24 @@ function Render(props) {
 
   const onChange = (e) => {
     if (!pure) return
-    inner.expanded = !inner.expanded
+    property.expanded = !property.expanded
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(inner.expanded, e)
+    if (dispatch && dispatch.onChange) dispatch.onChange(property.expanded, e)
   }
 
-  return <Accordion {...compound} expanded={inner.expanded} onChange={onChange} disabled={inner.disabled}>
+  return <Accordion {...compound} expanded={property.expanded} onChange={onChange} disabled={property.disabled}>
 
-    <AccordionSummary style={{ minHeight: 'auto', height: isNaN(inner.summaryHeight) ? inner.summaryHeight : inner.summaryHeight + 'px', transition: '0.5s all' }} expandIcon={inner.expandIcon ? <Icon /> : undefined}>
+    <AccordionSummary style={{ minHeight: 'auto', height: isNaN(property.summaryHeight) ? property.summaryHeight : property.summaryHeight + 'px', transition: '0.5s all' }} expandIcon={property.expandIcon ? <Icon /> : undefined}>
       {
-        inner.title
+        property.title
       }
     </AccordionSummary>
 
     {
-      inner.divider ? <Divider /> : null
+      property.divider ? <Divider /> : null
     }
 
-    <AccordionDetails style={{ position: 'relative', height: isNaN(inner.detailsHeight) ? inner.detailsHeight : inner.detailsHeight + 'px', padding: 0, transition: '0.5s all', overflow: 'scroll' }}>
+    <AccordionDetails style={{ position: 'relative', height: isNaN(property.detailsHeight) ? property.detailsHeight : property.detailsHeight + 'px', padding: 0, transition: '0.5s all', overflow: 'scroll' }}>
       {
         children && children.main ? children.main() : null
       }

@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Autocomplete, TextField } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setOptions) {
       const remove = listen.setOptions(data => {
-        inner.options = data
+        property.options = data
         update()
       })
       return () => { remove() }
@@ -26,17 +26,17 @@ function Render(props) {
   const onChange = (e, v) => {
     if (!pure) return
     if (v) {
-      inner.value = Array.isArray(v) ? v.map(i => i.value) : v.value
+      property.value = Array.isArray(v) ? v.map(i => i.value) : v.value
     } else {
-      inner.value = ''
+      property.value = ''
     }
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(inner.value, e)
+    if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
   }
 
   const getValue = () => {
-    if (inner.value) {
-      return Array.isArray(inner.value) ? inner.value.map(i => inner.options.find(i_ => i_.value === i)) : inner.options.find(i => i.value === inner.value)
+    if (property.value) {
+      return Array.isArray(property.value) ? property.value.map(i => property.options.find(i_ => i_.value === i)) : property.options.find(i => i.value === property.value)
     } else {
       return null
     }
@@ -44,13 +44,13 @@ function Render(props) {
 
   const Render = <Autocomplete
     {...compound}
-    multiple={inner.multiple}
-    size={inner.size}
-    options={inner.options}
+    multiple={property.multiple}
+    size={property.size}
+    options={property.options}
     getOptionLabel={(option) => option.label}
     value={getValue()}
     onChange={onChange}
-    renderInput={(params) => <TextField {...params} label={inner.label} variant={inner.variant} />}
+    renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
   />
 
   if (pure) {

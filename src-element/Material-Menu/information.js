@@ -16,10 +16,10 @@ const information = {
     { value: '@onMouseUp', label: '松开' },
     { value: 'onClick', label: '单项点击' },
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     options: [{ label: '菜单', value: 'option' }],
   }
 }

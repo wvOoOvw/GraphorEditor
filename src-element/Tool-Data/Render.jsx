@@ -1,18 +1,18 @@
 function Render(props) {
   const React = window.React
 
-  const { inner, listen, dispatch, pure } = props
+  const { property, listen, dispatch, pure } = props
 
   const bindWindow = () => {
-    if (inner.useWindow && inner.windowName) window[inner.windowName] = inner.value
+    if (property.useWindow && property.windowName) window[property.windowName] = property.value
   }
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(inner.value)
+        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
       })
       return () => { remove() }
     }
@@ -21,9 +21,9 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.assignValue) {
       const remove = listen.assignValue(data => {
-        Object.assign(inner.value, data)
+        Object.assign(property.value, data)
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(inner.value)
+        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
       })
       return () => { remove() }
     }
@@ -32,15 +32,15 @@ function Render(props) {
   if (!pure) return null
 
   React.useEffect(() => {
-    if (inner.immediate) {
+    if (property.immediate) {
       Promise.resolve().then(() => {
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(inner.value)
+        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
       })
     }
   }, [])
 
-  React.useEffect(() => { bindWindow() }, [inner.useWindow, inner.windowName])
+  React.useEffect(() => { bindWindow() }, [property.useWindow, property.windowName])
 
   return null
 }

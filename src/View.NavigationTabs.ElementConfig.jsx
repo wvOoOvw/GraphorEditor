@@ -81,7 +81,7 @@ function OuterConfig(props) {
 
   const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
-  if (!currentGraphContent.outer || !information) return null
+  if (!currentGraphContent.style || !information) return null
 
   const handleChange = (callback) => {
     callback()
@@ -91,12 +91,12 @@ function OuterConfig(props) {
   const use = (name, children) => {
     var status = true
     name.forEach(i => {
-      if (information.outer.$use) {
-        const r = information.outer.$use.find(i_ => i_ === i)
+      if (information.style.$use) {
+        const r = information.style.$use.find(i_ => i_ === i)
         if (!r) status = false
       }
-      if (information.outer.$nonuse) {
-        const r = information.outer.$nonuse.find(i_ => i_ === i)
+      if (information.style.$nonuse) {
+        const r = information.style.$nonuse.find(i_ => i_ === i)
         if (r) status = false
       }
     })
@@ -184,7 +184,7 @@ function OuterConfig(props) {
 function InnerConfig(props) {
   const { currentGraphContent, parentGraphContent } = props
 
-  if (!currentGraphContent.inner) return null
+  if (!currentGraphContent.property) return null
 
   const { Edit } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -192,10 +192,10 @@ function InnerConfig(props) {
 
   const handleChange = (value) => {
     if (typeof value === 'function') {
-      value(currentGraphContent.inner)
+      value(currentGraphContent.property)
       Imitation.assignState({ graphContentUpdate: hash() })
     } else {
-      currentGraphContent.inner = value
+      currentGraphContent.property = value
       Imitation.assignState({ graphContentUpdate: hash() })
     }
   }
@@ -203,7 +203,7 @@ function InnerConfig(props) {
   return <Grid item xs={12}>
     <AccordionS defaultExpanded={false} title='元素属性配置'>
       <Edit
-        value={currentGraphContent.inner}
+        value={currentGraphContent.property}
         onChange={handleChange}
         component={{ CodeModal }}
       />

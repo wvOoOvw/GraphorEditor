@@ -1,15 +1,15 @@
 const evalEventListenDefault = `function(data, env) {
-  const { inner, outer, flow, update } = env
+  const { property, style, flow, update } = env
 }`
 
 const evalEventDispatchDefault = `function(data, env, resolve) {
-  const { inner, outer, flow, update, dispatch, event } = env
+  const { property, style, flow, update, dispatch, event } = env
 
   resolve(data)
 }`
 
 const evalBeforeRenderHook = `function(env) {
-  const { inner, outer, flow } = env
+  const { property, style, flow } = env
 }`
 
 const defaultEventListener = [

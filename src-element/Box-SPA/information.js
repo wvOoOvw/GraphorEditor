@@ -16,8 +16,8 @@ const information = {
     { value: '@onMouseDown', label: '按下' },
     { value: '@onMouseUp', label: '松开' },
   ],
-  outer: {},
-  inner: {
+  style: {},
+  property: {
     value: '',
     id: 'graph-root'
   }

@@ -3,12 +3,12 @@ function Render(props) {
 
   const Hls = window.Hls
 
-  const { compound, inner, listen, update } = props
+  const { compound, property, listen, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setSrc) {
       const remove = listen.setSrc(data => {
-        inner.src = data
+        property.src = data
         update()
       })
       return () => { remove() }
@@ -18,20 +18,20 @@ function Render(props) {
   const ref = React.useRef()
 
   React.useEffect(() => {
-    if (inner.src.endsWith('.m3u8')) {
+    if (property.src.endsWith('.m3u8')) {
       const hls = new Hls()
-      hls.loadSource(inner.src)
+      hls.loadSource(property.src)
       hls.attachMedia(ref.current)
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        if (inner.autoplay) ref.current.play()
+        if (property.autoplay) ref.current.play()
       })
 
       return () => {
         hls.destroy()
       }
     }
-  }, [inner.src])
+  }, [property.src])
 
   React.useEffect(() => {
     if (listen && listen.setPlay) {
@@ -60,11 +60,11 @@ function Render(props) {
   return <video
     {...compound}
     ref={el => ref.current = el}
-    src={inner.src}
-    poster={inner.poster}
-    controls={inner.controls}
-    autoPlay={inner.autoplay}
-    loop={inner.loop}
+    src={property.src}
+    poster={property.poster}
+    controls={property.controls}
+    autoPlay={property.autoplay}
+    loop={property.loop}
     onEnded={onEnded}
   />
 }

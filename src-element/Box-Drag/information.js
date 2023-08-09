@@ -24,8 +24,8 @@ const information = {
     { value: 'onDragEnd', label: '拖动物移出' },
     { value: 'onDrop', label: '拖动物放置' },
   ],
-  outer: {},
-  inner: {
+  style: {},
+  property: {
     draggable: true,
   }
 }

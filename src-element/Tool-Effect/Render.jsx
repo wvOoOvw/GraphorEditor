@@ -1,7 +1,7 @@
 function Render(props) {
   const React = window.React
 
-  const { inner, listen, dispatch, pure } = props
+  const { property, listen, dispatch, pure } = props
 
   React.useEffect(() => {
     if (listen && listen.setEffect) {
@@ -15,7 +15,7 @@ function Render(props) {
   if (!pure) return null
 
   React.useEffect(() => {
-    if (inner.immediate) {
+    if (property.immediate) {
       Promise.resolve().then(() => {
         if (dispatch && dispatch.onEffect) dispatch.onEffect()
       })

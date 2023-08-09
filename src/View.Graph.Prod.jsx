@@ -5,7 +5,7 @@ import { graphOuterStyle } from './utils.graph.style'
 function ElementRender(props) {
   const React = window.React
   const { graphElement } = window
-  const { flow, license, only, inner, outer, children, listen, dispatch, hook } = props
+  const { flow, license, only, property, style, children, listen, dispatch, hook } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
 
@@ -14,7 +14,7 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const env = { inner, outer, flow, update }
+  const env = { property, style, flow, update }
 
   const dispatch_exe = React.useMemo(() => {
     if (!dispatch) return
@@ -28,7 +28,7 @@ function ElementRender(props) {
       })
     })
     return r
-  }, [inner, outer, flow, dispatch])
+  }, [property, style, flow, dispatch])
 
   env.dispatch = dispatch_exe
 
@@ -45,7 +45,7 @@ function ElementRender(props) {
       }
     })
     return r
-  }, [inner, outer, flow, listen])
+  }, [property, style, flow, listen])
 
   React.useEffect(() => {
     if (!listen) return
@@ -54,16 +54,16 @@ function ElementRender(props) {
         return graphEvent.addEventListener({ name: i.name, event: i.event, env })
       }),
       ...listen.filter(i => i.key === '@setVisibleTrue').map(i => {
-        return graphEvent.addEventListener({ name: i.name, event: v => { outer.hidden = false; update() } })
+        return graphEvent.addEventListener({ name: i.name, event: v => { style.hidden = false; update() } })
       }),
       ...listen.filter(i => i.key === '@setVisibleFalse').map(i => {
-        return graphEvent.addEventListener({ name: i.name, event: v => { outer.hidden = true; update() } })
+        return graphEvent.addEventListener({ name: i.name, event: v => { style.hidden = true; update() } })
       }),
     ]
     return () => remove.forEach(i => i())
-  }, [inner, outer, flow, listen])
+  }, [property, style, flow, listen])
 
-  const hookEnv = { inner, outer, flow }
+  const hookEnv = { property, style, flow }
 
   if (hook.useBeforeRenderHook) {
     try {
@@ -83,7 +83,7 @@ function ElementRender(props) {
   }, [children, flow])
 
   const compound = {
-    style: { ...graphOuterStyle(outer), boxSizing: 'border-box' }
+    style: { ...graphOuterStyle(style), boxSizing: 'border-box' }
   }
 
   if (dispatch_exe['@onClick']) compound.onClick = e => dispatch_exe['@onClick'](undefined, e)
@@ -99,8 +99,8 @@ function ElementRender(props) {
 
   const Render_exe = <Render
     compound={compound}
-    outer={outer}
-    inner={inner}
+    style={style}
+    property={property}
     listen={listen_exe}
     dispatch={dispatch_exe}
     children={children_exe}
@@ -109,7 +109,7 @@ function ElementRender(props) {
     only={only}
   />
 
-  if (outer.render === false) return null
+  if (style.render === false) return null
 
   return Render_exe
 }

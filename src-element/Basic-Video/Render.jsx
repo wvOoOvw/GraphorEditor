@@ -1,14 +1,14 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, inner, listen, update } = props
+  const { compound, property, listen, update } = props
 
   const ref = React.useRef()
 
   React.useEffect(() => {
     if (listen && listen.setSrc) {
       const remove = listen.setSrc(data => {
-        inner.src = data
+        property.src = data
         update()
       })
       return () => { remove() }
@@ -42,11 +42,11 @@ function Render(props) {
   return <video
     {...compound}
     ref={el => ref.current = el}
-    src={inner.src}
-    poster={inner.poster}
-    controls={inner.controls}
-    autoPlay={inner.autoplay}
-    loop={inner.loop}
+    src={property.src}
+    poster={property.poster}
+    controls={property.controls}
+    autoPlay={property.autoplay}
+    loop={property.loop}
     onEnded={onEnded}
   />
 }

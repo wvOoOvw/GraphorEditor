@@ -19,7 +19,7 @@ export function Render_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>渲染元素</div>
-      <Switch checked={value.outer.render} onChange={e => onChange(() => value.outer.render = e.target.checked)} />
+      <Switch checked={value.style.render} onChange={e => onChange(() => value.style.render = e.target.checked)} />
     </Grid>
   </>
 }
@@ -30,7 +30,7 @@ export function Visible_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>显示元素</div>
-      <Switch checked={value.outer.visible} onChange={e => onChange(() => value.outer.visible = e.target.checked)} />
+      <Switch checked={value.style.visible} onChange={e => onChange(() => value.style.visible = e.target.checked)} />
     </Grid>
   </>
 }
@@ -40,40 +40,40 @@ export function ToolButton(props) {
 
   const handleHorizontalCenter = () => {
     onChange(() => {
-      if (value.outer.margin === undefined) {
-        value.outer.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
+      if (value.style.margin === undefined) {
+        value.style.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
       }
-      if (value.outer.position === undefined) {
-        value.outer.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
+      if (value.style.position === undefined) {
+        value.style.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
       }
-      if (value.outer.inset === undefined) {
-        value.outer.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
+      if (value.style.inset === undefined) {
+        value.style.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
       }
 
-      value.outer.position = 'absolute'
-      value.outer.inset[1] = '0'
-      value.outer.inset[3] = '0'
-      value.outer.margin[1] = 'auto'
-      value.outer.margin[3] = 'auto'
+      value.style.position = 'absolute'
+      value.style.inset[1] = '0'
+      value.style.inset[3] = '0'
+      value.style.margin[1] = 'auto'
+      value.style.margin[3] = 'auto'
     })
   }
   const handleVerticalCenter = () => {
     onChange(() => {
-      if (value.outer.margin === undefined) {
-        value.outer.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
+      if (value.style.margin === undefined) {
+        value.style.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
       }
-      if (value.outer.position === undefined) {
-        value.outer.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
+      if (value.style.position === undefined) {
+        value.style.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
       }
-      if (value.outer.inset === undefined) {
-        value.outer.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
+      if (value.style.inset === undefined) {
+        value.style.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
       }
 
-      value.outer.position = 'absolute'
-      value.outer.inset[0] = '0'
-      value.outer.inset[2] = '0'
-      value.outer.margin[0] = 'auto'
-      value.outer.margin[2] = 'auto'
+      value.style.position = 'absolute'
+      value.style.inset[0] = '0'
+      value.style.inset[2] = '0'
+      value.style.margin[0] = 'auto'
+      value.style.margin[2] = 'auto'
     })
   }
 
@@ -97,11 +97,11 @@ export function Size_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.width = JSON.parse(JSON.stringify(defaultOuterAll.width))
-        value.outer.height = JSON.parse(JSON.stringify(defaultOuterAll.height))
+        value.style.width = JSON.parse(JSON.stringify(defaultOuterAll.width))
+        value.style.height = JSON.parse(JSON.stringify(defaultOuterAll.height))
       } else {
-        delete value.outer.width
-        delete value.outer.height
+        delete value.style.width
+        delete value.style.height
       }
     })
   }
@@ -109,16 +109,16 @@ export function Size_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>宽高</div>
-      <Switch checked={value.outer.width !== undefined && value.outer.height !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.width !== undefined && value.style.height !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.width !== undefined && value.outer.height !== undefined ?
+      value.style.width !== undefined && value.style.height !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='宽度' value={value.outer.width} onChange={e => onChange(() => value.outer.width = e.target.value)} />
+            <TextField fullWidth label='宽度' value={value.style.width} onChange={e => onChange(() => value.style.width = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='高度' value={value.outer.height} onChange={e => onChange(() => value.outer.height = e.target.value)} />
+            <TextField fullWidth label='高度' value={value.style.height} onChange={e => onChange(() => value.style.height = e.target.value)} />
           </Grid>
         </> : null
     }
@@ -131,15 +131,15 @@ export function SizeLimit_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.minWidth = JSON.parse(JSON.stringify(defaultOuterAll.minWidth))
-        value.outer.minHeight = JSON.parse(JSON.stringify(defaultOuterAll.minHeight))
-        value.outer.maxWidth = JSON.parse(JSON.stringify(defaultOuterAll.maxWidth))
-        value.outer.maxHeight = JSON.parse(JSON.stringify(defaultOuterAll.maxHeight))
+        value.style.minWidth = JSON.parse(JSON.stringify(defaultOuterAll.minWidth))
+        value.style.minHeight = JSON.parse(JSON.stringify(defaultOuterAll.minHeight))
+        value.style.maxWidth = JSON.parse(JSON.stringify(defaultOuterAll.maxWidth))
+        value.style.maxHeight = JSON.parse(JSON.stringify(defaultOuterAll.maxHeight))
       } else {
-        delete value.outer.minWidth
-        delete value.outer.minHeight
-        delete value.outer.maxWidth
-        delete value.outer.maxHeight
+        delete value.style.minWidth
+        delete value.style.minHeight
+        delete value.style.maxWidth
+        delete value.style.maxHeight
       }
     })
   }
@@ -147,28 +147,28 @@ export function SizeLimit_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>宽高限制</div>
-      <Switch checked={value.outer.minWidth !== undefined && value.outer.minHeight !== undefined && value.outer.maxWidth !== undefined && value.outer.maxHeight !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.minWidth !== undefined && value.style.minHeight !== undefined && value.style.maxWidth !== undefined && value.style.maxHeight !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.minWidth !== undefined && value.outer.minHeight !== undefined && value.outer.maxWidth !== undefined && value.outer.maxHeight !== undefined ?
+      value.style.minWidth !== undefined && value.style.minHeight !== undefined && value.style.maxWidth !== undefined && value.style.maxHeight !== undefined ?
         <>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={6}>
-                <TextField fullWidth label='最小宽度' value={value.outer.minWidth} onChange={e => onChange(() => value.outer.minWidth = e.target.value)} />
+                <TextField fullWidth label='最小宽度' value={value.style.minWidth} onChange={e => onChange(() => value.style.minWidth = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth label='最小高度' value={value.outer.minHeight} onChange={e => onChange(() => value.outer.minHeight = e.target.value)} />
+                <TextField fullWidth label='最小高度' value={value.style.minHeight} onChange={e => onChange(() => value.style.minHeight = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={6}>
-                <TextField fullWidth label='最大宽度' value={value.outer.maxWidth} onChange={e => onChange(() => value.outer.maxWidth = e.target.value)} />
+                <TextField fullWidth label='最大宽度' value={value.style.maxWidth} onChange={e => onChange(() => value.style.maxWidth = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth label='最大高度' value={value.outer.maxHeight} onChange={e => onChange(() => value.outer.maxHeight = e.target.value)} />
+                <TextField fullWidth label='最大高度' value={value.style.maxHeight} onChange={e => onChange(() => value.style.maxHeight = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -183,9 +183,9 @@ export function Position_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
+        value.style.position = JSON.parse(JSON.stringify(defaultOuterAll.position))
       } else {
-        delete value.outer.position
+        delete value.style.position
       }
     })
   }
@@ -193,15 +193,15 @@ export function Position_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>定位</div>
-      <Switch checked={value.outer.position !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.position !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.position !== undefined ?
+      value.style.position !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>定位</InputLabel>
-              <Select label='定位' value={value.outer.position} onChange={e => onChange(() => value.outer.position = e.target.value)}  >
+              <Select label='定位' value={value.style.position} onChange={e => onChange(() => value.style.position = e.target.value)}  >
                 <MenuItem value='static'>static</MenuItem>
                 <MenuItem value='relative'>relative</MenuItem>
                 <MenuItem value='absolute'>absolute</MenuItem>
@@ -220,9 +220,9 @@ export function Inset_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
+        value.style.inset = JSON.parse(JSON.stringify(defaultOuterAll.inset))
       } else {
-        delete value.outer.inset
+        delete value.style.inset
       }
     })
   }
@@ -230,24 +230,24 @@ export function Inset_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>位置</div>
-      <Switch checked={value.outer.inset !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.inset !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.inset !== undefined ?
+      value.style.inset !== undefined ?
         <>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField fullWidth label='上' value={value.outer.inset[0]} onChange={e => onChange(() => value.outer.inset[0] = e.target.value)} />
+                <TextField fullWidth label='上' value={value.style.inset[0]} onChange={e => onChange(() => value.style.inset[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='右' value={value.outer.inset[1]} onChange={e => onChange(() => value.outer.inset[1] = e.target.value)} />
+                <TextField fullWidth label='右' value={value.style.inset[1]} onChange={e => onChange(() => value.style.inset[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='下' value={value.outer.inset[2]} onChange={e => onChange(() => value.outer.inset[2] = e.target.value)} />
+                <TextField fullWidth label='下' value={value.style.inset[2]} onChange={e => onChange(() => value.style.inset[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='左' value={value.outer.inset[3]} onChange={e => onChange(() => value.outer.inset[3] = e.target.value)} />
+                <TextField fullWidth label='左' value={value.style.inset[3]} onChange={e => onChange(() => value.style.inset[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -262,9 +262,9 @@ export function Display_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.display = JSON.parse(JSON.stringify(defaultOuterAll.display))
+        value.style.display = JSON.parse(JSON.stringify(defaultOuterAll.display))
       } else {
-        delete value.outer.display
+        delete value.style.display
       }
     })
   }
@@ -272,15 +272,15 @@ export function Display_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>布局</div>
-      <Switch checked={value.outer.display !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.display !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.display !== undefined ?
+      value.style.display !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>布局</InputLabel>
-              <Select label='布局' value={value.outer.display} onChange={e => onChange(() => value.outer.display = e.target.value)}  >
+              <Select label='布局' value={value.style.display} onChange={e => onChange(() => value.style.display = e.target.value)}  >
                 <MenuItem value='inline'>inline</MenuItem>
                 <MenuItem value='block'>block</MenuItem>
                 <MenuItem value='inline-block'>inline-block</MenuItem>
@@ -300,9 +300,9 @@ export function ZIndex_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.zIndex = JSON.parse(JSON.stringify(defaultOuterAll.zIndex))
+        value.style.zIndex = JSON.parse(JSON.stringify(defaultOuterAll.zIndex))
       } else {
-        delete value.outer.zIndex
+        delete value.style.zIndex
       }
     })
   }
@@ -310,13 +310,13 @@ export function ZIndex_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>层级</div>
-      <Switch checked={value.outer.zIndex !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.zIndex !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.zIndex !== undefined ?
+      value.style.zIndex !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='层级' value={value.outer.zIndex} onChange={e => onChange(() => value.outer.zIndex = e.target.value)} type='number' />
+            <TextField fullWidth label='层级' value={value.style.zIndex} onChange={e => onChange(() => value.style.zIndex = e.target.value)} type='number' />
           </Grid>
         </> : null
     }
@@ -329,9 +329,9 @@ export function Cursor_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.cursor = JSON.parse(JSON.stringify(defaultOuterAll.cursor))
+        value.style.cursor = JSON.parse(JSON.stringify(defaultOuterAll.cursor))
       } else {
-        delete value.outer.cursor
+        delete value.style.cursor
       }
     })
   }
@@ -339,15 +339,15 @@ export function Cursor_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>光标</div>
-      <Switch checked={value.outer.cursor !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.cursor !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.cursor !== undefined ?
+      value.style.cursor !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>光标</InputLabel>
-              <Select label='光标' value={value.outer.cursor} onChange={e => onChange(() => value.outer.cursor = e.target.value)}  >
+              <Select label='光标' value={value.style.cursor} onChange={e => onChange(() => value.style.cursor = e.target.value)}  >
                 <MenuItem value='default'>默认</MenuItem>
                 <MenuItem value='pointer'>点击</MenuItem>
                 <MenuItem value='move'>移动</MenuItem>
@@ -366,9 +366,9 @@ export function Overflow_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.overflow = JSON.parse(JSON.stringify(defaultOuterAll.overflow))
+        value.style.overflow = JSON.parse(JSON.stringify(defaultOuterAll.overflow))
       } else {
-        delete value.outer.overflow
+        delete value.style.overflow
       }
     })
   }
@@ -376,15 +376,15 @@ export function Overflow_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>溢出</div>
-      <Switch checked={value.outer.overflow !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.overflow !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.overflow !== undefined ?
+      value.style.overflow !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>溢出</InputLabel>
-              <Select label='溢出' value={value.outer.overflow} onChange={e => onChange(() => value.outer.overflow = e.target.value)}  >
+              <Select label='溢出' value={value.style.overflow} onChange={e => onChange(() => value.style.overflow = e.target.value)}  >
                 <MenuItem value='visible'>显示</MenuItem>
                 <MenuItem value='hidden'>隐藏</MenuItem>
                 <MenuItem value='auto'>滑动</MenuItem>
@@ -402,9 +402,9 @@ export function VerticalAlign_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.verticalAlign = JSON.parse(JSON.stringify(defaultOuterAll.verticalAlign))
+        value.style.verticalAlign = JSON.parse(JSON.stringify(defaultOuterAll.verticalAlign))
       } else {
-        delete value.outer.verticalAlign
+        delete value.style.verticalAlign
       }
     })
   }
@@ -412,15 +412,15 @@ export function VerticalAlign_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>对齐</div>
-      <Switch checked={value.outer.verticalAlign !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.verticalAlign !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.verticalAlign !== undefined ?
+      value.style.verticalAlign !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>对齐</InputLabel>
-              <Select label='对齐' value={value.outer.verticalAlign} onChange={e => onChange(() => value.outer.verticalAlign = e.target.value)}  >
+              <Select label='对齐' value={value.style.verticalAlign} onChange={e => onChange(() => value.style.verticalAlign = e.target.value)}  >
                 <MenuItem value='baseline'>基线</MenuItem>
                 <MenuItem value='top'>上</MenuItem>
                 <MenuItem value='middle'>中</MenuItem>
@@ -440,9 +440,9 @@ export function Padding_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.padding = JSON.parse(JSON.stringify(defaultOuterAll.padding))
+        value.style.padding = JSON.parse(JSON.stringify(defaultOuterAll.padding))
       } else {
-        delete value.outer.padding
+        delete value.style.padding
       }
     })
   }
@@ -450,24 +450,24 @@ export function Padding_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>内间距</div>
-      <Switch checked={value.outer.padding !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.padding !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.padding !== undefined ?
+      value.style.padding !== undefined ?
         <>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField fullWidth label='上' value={value.outer.padding[0]} onChange={e => onChange(() => value.outer.padding[0] = e.target.value)} />
+                <TextField fullWidth label='上' value={value.style.padding[0]} onChange={e => onChange(() => value.style.padding[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='右' value={value.outer.padding[1]} onChange={e => onChange(() => value.outer.padding[1] = e.target.value)} />
+                <TextField fullWidth label='右' value={value.style.padding[1]} onChange={e => onChange(() => value.style.padding[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='下' value={value.outer.padding[2]} onChange={e => onChange(() => value.outer.padding[2] = e.target.value)} />
+                <TextField fullWidth label='下' value={value.style.padding[2]} onChange={e => onChange(() => value.style.padding[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='左' value={value.outer.padding[3]} onChange={e => onChange(() => value.outer.padding[3] = e.target.value)} />
+                <TextField fullWidth label='左' value={value.style.padding[3]} onChange={e => onChange(() => value.style.padding[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -482,9 +482,9 @@ export function Margin_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
+        value.style.margin = JSON.parse(JSON.stringify(defaultOuterAll.margin))
       } else {
-        delete value.outer.margin
+        delete value.style.margin
       }
     })
   }
@@ -492,24 +492,24 @@ export function Margin_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>外间距</div>
-      <Switch checked={value.outer.margin !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.margin !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.margin !== undefined ?
+      value.style.margin !== undefined ?
         <>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField fullWidth label='上' value={value.outer.margin[0]} onChange={e => onChange(() => value.outer.margin[0] = e.target.value)} />
+                <TextField fullWidth label='上' value={value.style.margin[0]} onChange={e => onChange(() => value.style.margin[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='右' value={value.outer.margin[1]} onChange={e => onChange(() => value.outer.margin[1] = e.target.value)} />
+                <TextField fullWidth label='右' value={value.style.margin[1]} onChange={e => onChange(() => value.style.margin[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='下' value={value.outer.margin[2]} onChange={e => onChange(() => value.outer.margin[2] = e.target.value)} />
+                <TextField fullWidth label='下' value={value.style.margin[2]} onChange={e => onChange(() => value.style.margin[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='左' value={value.outer.margin[3]} onChange={e => onChange(() => value.outer.margin[3] = e.target.value)} />
+                <TextField fullWidth label='左' value={value.style.margin[3]} onChange={e => onChange(() => value.style.margin[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -525,9 +525,9 @@ export function Flex_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.flex = JSON.parse(JSON.stringify(defaultOuterAll.flex))
+        value.style.flex = JSON.parse(JSON.stringify(defaultOuterAll.flex))
       } else {
-        delete value.outer.flex
+        delete value.style.flex
       }
     })
   }
@@ -535,15 +535,15 @@ export function Flex_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>弹性</div>
-      <Switch checked={value.outer.flex !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.flex !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.flex !== undefined ?
+      value.style.flex !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>方向</InputLabel>
-              <Select label='方向' value={value.outer.flex.flexDirection} onChange={e => onChange(() => value.outer.flex.flexDirection = e.target.value)}  >
+              <Select label='方向' value={value.style.flex.flexDirection} onChange={e => onChange(() => value.style.flex.flexDirection = e.target.value)}  >
                 <MenuItem value='row'>水平</MenuItem>
                 <MenuItem value='row-reverse'>水平（逆向）</MenuItem>
                 <MenuItem value='column'>垂直</MenuItem>
@@ -554,7 +554,7 @@ export function Flex_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>换行</InputLabel>
-              <Select label='换行' value={value.outer.flex.flexWrap} onChange={e => onChange(() => value.outer.flex.flexWrap = e.target.value)}  >
+              <Select label='换行' value={value.style.flex.flexWrap} onChange={e => onChange(() => value.style.flex.flexWrap = e.target.value)}  >
                 <MenuItem value='nowrap'>不换行</MenuItem>
                 <MenuItem value='wrap'>换行</MenuItem>
                 <MenuItem value='wrap-reverse'>换行（逆向）</MenuItem>
@@ -564,7 +564,7 @@ export function Flex_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>水平布局</InputLabel>
-              <Select label='水平布局' value={value.outer.flex.justifyContent} onChange={e => onChange(() => value.outer.flex.justifyContent = e.target.value)}  >
+              <Select label='水平布局' value={value.style.flex.justifyContent} onChange={e => onChange(() => value.style.flex.justifyContent = e.target.value)}  >
                 <MenuItem value='flex-start'>起始</MenuItem>
                 <MenuItem value='flex-end'>末尾</MenuItem>
                 <MenuItem value='center'>中心</MenuItem>
@@ -576,7 +576,7 @@ export function Flex_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>垂直布局</InputLabel>
-              <Select label='垂直布局' value={value.outer.flex.alignItems} onChange={e => onChange(() => value.outer.flex.alignItems = e.target.value)}  >
+              <Select label='垂直布局' value={value.style.flex.alignItems} onChange={e => onChange(() => value.style.flex.alignItems = e.target.value)}  >
                 <MenuItem value='stretch'>占据全部</MenuItem>
                 <MenuItem value='flex-start'>起始</MenuItem>
                 <MenuItem value='flex-end'>末尾</MenuItem>
@@ -588,7 +588,7 @@ export function Flex_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>轴布局</InputLabel>
-              <Select label='轴布局' value={value.outer.flex.alignContent} onChange={e => onChange(() => value.outer.flex.alignContent = e.target.value)}  >
+              <Select label='轴布局' value={value.style.flex.alignContent} onChange={e => onChange(() => value.style.flex.alignContent = e.target.value)}  >
                 <MenuItem value='stretch'>占据全部</MenuItem>
                 <MenuItem value='flex-start'>起始</MenuItem>
                 <MenuItem value='flex-end'>末尾</MenuItem>
@@ -599,13 +599,13 @@ export function Flex_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <TextField fullWidth label='单元 扩展量' value={value.outer.flex.flexGrow} onChange={e => onChange(() => value.outer.flex.flexGrow = e.target.value)} type='number' />
+            <TextField fullWidth label='单元 扩展量' value={value.style.flex.flexGrow} onChange={e => onChange(() => value.style.flex.flexGrow = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={6}>
-            <TextField fullWidth label='单元 收缩量' value={value.outer.flex.flexShrink} onChange={e => onChange(() => value.outer.flex.flexShrink = e.target.value)} type='number' />
+            <TextField fullWidth label='单元 收缩量' value={value.style.flex.flexShrink} onChange={e => onChange(() => value.style.flex.flexShrink = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='单元 初始长度' value={value.outer.flex.flexBasis} onChange={e => onChange(() => value.outer.flex.flexBasis = e.target.value)} />
+            <TextField fullWidth label='单元 初始长度' value={value.style.flex.flexBasis} onChange={e => onChange(() => value.style.flex.flexBasis = e.target.value)} />
           </Grid>
         </> : null
     }
@@ -618,9 +618,9 @@ export function Transform_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.transform = JSON.parse(JSON.stringify(defaultOuterAll.transform))
+        value.style.transform = JSON.parse(JSON.stringify(defaultOuterAll.transform))
       } else {
-        delete value.outer.transform
+        delete value.style.transform
       }
     })
   }
@@ -628,72 +628,72 @@ export function Transform_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>变化</div>
-      <Switch checked={value.outer.transform !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.transform !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.transform !== undefined ?
+      value.style.transform !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>呈现形式</InputLabel>
-              <Select label='呈现形式' value={value.outer.transform.transformStyle} onChange={e => onChange(() => value.outer.transform.transformStyle = e.target.value)}  >
+              <Select label='呈现形式' value={value.style.transform.transformStyle} onChange={e => onChange(() => value.style.transform.transformStyle = e.target.value)}  >
                 <MenuItem value='flat'>平面</MenuItem>
                 <MenuItem value='preserve-3d'>立体</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='透视距离' value={value.outer.transform.perspective} onChange={e => onChange(() => value.outer.transform.perspective = e.target.value)} />
+            <TextField fullWidth label='透视距离' value={value.style.transform.perspective} onChange={e => onChange(() => value.style.transform.perspective = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={4}>
-                <TextField fullWidth label='基点 X' value={value.outer.transform.transformOrigin[0]} onChange={e => onChange(() => value.outer.transform.transformOrigin[0] = e.target.value)} />
+                <TextField fullWidth label='基点 X' value={value.style.transform.transformOrigin[0]} onChange={e => onChange(() => value.style.transform.transformOrigin[0] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth label='基点 Y' value={value.outer.transform.transformOrigin[1]} onChange={e => onChange(() => value.outer.transform.transformOrigin[1] = e.target.value)} />
+                <TextField fullWidth label='基点 Y' value={value.style.transform.transformOrigin[1]} onChange={e => onChange(() => value.style.transform.transformOrigin[1] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth label='基点 Z' value={value.outer.transform.transformOrigin[2]} onChange={e => onChange(() => value.outer.transform.transformOrigin[2] = e.target.value)} />
+                <TextField fullWidth label='基点 Z' value={value.style.transform.transformOrigin[2]} onChange={e => onChange(() => value.style.transform.transformOrigin[2] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={4}>
-                <TextField fullWidth label='平移 X' value={value.outer.transform.transformTranslate[0]} onChange={e => onChange(() => value.outer.transform.transformTranslate[0] = e.target.value)} />
+                <TextField fullWidth label='平移 X' value={value.style.transform.transformTranslate[0]} onChange={e => onChange(() => value.style.transform.transformTranslate[0] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth label='平移 Y' value={value.outer.transform.transformTranslate[1]} onChange={e => onChange(() => value.outer.transform.transformTranslate[1] = e.target.value)} />
+                <TextField fullWidth label='平移 Y' value={value.style.transform.transformTranslate[1]} onChange={e => onChange(() => value.style.transform.transformTranslate[1] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth label='平移 Z' value={value.outer.transform.transformTranslate[2]} onChange={e => onChange(() => value.outer.transform.transformTranslate[2] = e.target.value)} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container alignItems='center'>
-              <Grid item xs={4}>
-                <TextField fullWidth type='number' label='旋转 X' value={value.outer.transform.transformRotate[0]} onChange={e => onChange(() => value.outer.transform.transformRotate[0] = e.target.value)} />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField fullWidth type='number' label='旋转 Y' value={value.outer.transform.transformRotate[1]} onChange={e => onChange(() => value.outer.transform.transformRotate[1] = e.target.value)} />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField fullWidth type='number' label='旋转 Z' value={value.outer.transform.transformRotate[2]} onChange={e => onChange(() => value.outer.transform.transformRotate[2] = e.target.value)} />
+                <TextField fullWidth label='平移 Z' value={value.style.transform.transformTranslate[2]} onChange={e => onChange(() => value.style.transform.transformTranslate[2] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={4}>
-                <TextField fullWidth type='number' label='缩放 X' value={value.outer.transform.transformScale[0]} onChange={e => onChange(() => value.outer.transform.transformScale[0] = e.target.value)} />
+                <TextField fullWidth type='number' label='旋转 X' value={value.style.transform.transformRotate[0]} onChange={e => onChange(() => value.style.transform.transformRotate[0] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth type='number' label='缩放 Y' value={value.outer.transform.transformScale[1]} onChange={e => onChange(() => value.outer.transform.transformScale[1] = e.target.value)} />
+                <TextField fullWidth type='number' label='旋转 Y' value={value.style.transform.transformRotate[1]} onChange={e => onChange(() => value.style.transform.transformRotate[1] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth type='number' label='缩放 Z' value={value.outer.transform.transformScale[2]} onChange={e => onChange(() => value.outer.transform.transformScale[2] = e.target.value)} />
+                <TextField fullWidth type='number' label='旋转 Z' value={value.style.transform.transformRotate[2]} onChange={e => onChange(() => value.style.transform.transformRotate[2] = e.target.value)} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container alignItems='center'>
+              <Grid item xs={4}>
+                <TextField fullWidth type='number' label='缩放 X' value={value.style.transform.transformScale[0]} onChange={e => onChange(() => value.style.transform.transformScale[0] = e.target.value)} />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField fullWidth type='number' label='缩放 Y' value={value.style.transform.transformScale[1]} onChange={e => onChange(() => value.style.transform.transformScale[1] = e.target.value)} />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField fullWidth type='number' label='缩放 Z' value={value.style.transform.transformScale[2]} onChange={e => onChange(() => value.style.transform.transformScale[2] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -708,9 +708,9 @@ export function Transition_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.transition = JSON.parse(JSON.stringify(defaultOuterAll.transition))
+        value.style.transition = JSON.parse(JSON.stringify(defaultOuterAll.transition))
       } else {
-        delete value.outer.transition
+        delete value.style.transition
       }
     })
   }
@@ -718,14 +718,14 @@ export function Transition_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>过渡</div>
-      <Switch checked={value.outer.transition !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.transition !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.transition !== undefined ?
+      value.style.transition !== undefined ?
         <>
           <Grid item xs={12}>
             <div>时间</div>
-            <Slider value={value.outer.transition.transitionTime} onChange={(e, v) => onChange(() => value.outer.transition.transitionTime = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
+            <Slider value={value.style.transition.transitionTime} onChange={(e, v) => onChange(() => value.style.transition.transitionTime = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
           </Grid>
         </> : null
     }
@@ -738,9 +738,9 @@ export function Filter_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.filter = JSON.parse(JSON.stringify(defaultOuterAll.filter))
+        value.style.filter = JSON.parse(JSON.stringify(defaultOuterAll.filter))
       } else {
-        delete value.outer.filter
+        delete value.style.filter
       }
     })
   }
@@ -748,22 +748,22 @@ export function Filter_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>滤镜</div>
-      <Switch checked={value.outer.filter !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.filter !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.filter !== undefined ?
+      value.style.filter !== undefined ?
         <>
           <Grid item xs={12}>
             <div>模糊</div>
-            <Slider value={value.outer.filter.filterBlur} onChange={(e, v) => onChange(() => value.outer.filter.filterBlur = v)} min={0} max={50} step={1} valueLabelDisplay='auto' />
+            <Slider value={value.style.filter.filterBlur} onChange={(e, v) => onChange(() => value.style.filter.filterBlur = v)} min={0} max={50} step={1} valueLabelDisplay='auto' />
           </Grid>
           <Grid item xs={12}>
             <div>亮暗</div>
-            <Slider value={value.outer.filter.filterBrightness} onChange={(e, v) => onChange(() => value.outer.filter.filterBrightness = v)} min={0} max={200} step={1} valueLabelDisplay='auto' />
+            <Slider value={value.style.filter.filterBrightness} onChange={(e, v) => onChange(() => value.style.filter.filterBrightness = v)} min={0} max={200} step={1} valueLabelDisplay='auto' />
           </Grid>
           <Grid item xs={12}>
             <div>透明</div>
-            <Slider value={value.outer.filter.filterOpacity} onChange={(e, v) => onChange(() => value.outer.filter.filterOpacity = v)} min={0} max={100} step={1} valueLabelDisplay='auto' />
+            <Slider value={value.style.filter.filterOpacity} onChange={(e, v) => onChange(() => value.style.filter.filterOpacity = v)} min={0} max={100} step={1} valueLabelDisplay='auto' />
           </Grid>
         </> : null
     }
@@ -776,9 +776,9 @@ export function Border_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.border = JSON.parse(JSON.stringify(defaultOuterAll.border))
+        value.style.border = JSON.parse(JSON.stringify(defaultOuterAll.border))
       } else {
-        delete value.outer.border
+        delete value.style.border
       }
     })
   }
@@ -786,24 +786,24 @@ export function Border_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>边框</div>
-      <Switch checked={value.outer.border !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.border !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.border !== undefined ?
+      value.style.border !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='宽度' value={value.outer.border.borderWidth} onChange={e => onChange(() => value.outer.border.borderWidth = e.target.value)} type='number' />
+            <TextField fullWidth label='宽度' value={value.style.border.borderWidth} onChange={e => onChange(() => value.style.border.borderWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.border.borderColor} onChange={e => onChange(() => value.outer.border.borderColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.border.borderColor} onChange={e => onChange(() => value.style.border.borderColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.border.borderColor} onChange={e => onChange(() => value.outer.border.borderColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.border.borderColor} onChange={e => onChange(() => value.style.border.borderColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select label='线条类型' value={value.outer.border.borderStyle} onChange={e => onChange(() => value.outer.border.borderStyle = e.target.value)}>
+              <Select label='线条类型' value={value.style.border.borderStyle} onChange={e => onChange(() => value.style.border.borderStyle = e.target.value)}>
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>
@@ -814,7 +814,7 @@ export function Border_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>位置</InputLabel>
-              <Select label='位置' value={value.outer.border.borderPosition} onChange={e => onChange(() => value.outer.border.borderPosition = e.target.value)} multiple>
+              <Select label='位置' value={value.style.border.borderPosition} onChange={e => onChange(() => value.style.border.borderPosition = e.target.value)} multiple>
                 <MenuItem value='top'>上</MenuItem>
                 <MenuItem value='bottom'>下</MenuItem>
                 <MenuItem value='left'>左</MenuItem>
@@ -833,9 +833,9 @@ export function BorderRadius_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.borderRadius = JSON.parse(JSON.stringify(defaultOuterAll.borderRadius))
+        value.style.borderRadius = JSON.parse(JSON.stringify(defaultOuterAll.borderRadius))
       } else {
-        delete value.outer.borderRadius
+        delete value.style.borderRadius
       }
     })
   }
@@ -843,24 +843,24 @@ export function BorderRadius_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>圆角</div>
-      <Switch checked={value.outer.borderRadius !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.borderRadius !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.borderRadius !== undefined ?
+      value.style.borderRadius !== undefined ?
         <>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField fullWidth label='左上' value={value.outer.borderRadius[0]} onChange={e => onChange(() => value.outer.borderRadius[0] = e.target.value)} />
+                <TextField fullWidth label='左上' value={value.style.borderRadius[0]} onChange={e => onChange(() => value.style.borderRadius[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='右上' value={value.outer.borderRadius[1]} onChange={e => onChange(() => value.outer.borderRadius[1] = e.target.value)} />
+                <TextField fullWidth label='右上' value={value.style.borderRadius[1]} onChange={e => onChange(() => value.style.borderRadius[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='右下' value={value.outer.borderRadius[2]} onChange={e => onChange(() => value.outer.borderRadius[2] = e.target.value)} />
+                <TextField fullWidth label='右下' value={value.style.borderRadius[2]} onChange={e => onChange(() => value.style.borderRadius[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField fullWidth label='左下' value={value.outer.borderRadius[3]} onChange={e => onChange(() => value.outer.borderRadius[3] = e.target.value)} />
+                <TextField fullWidth label='左下' value={value.style.borderRadius[3]} onChange={e => onChange(() => value.style.borderRadius[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -875,9 +875,9 @@ export function BoxShadow_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.boxShadow = JSON.parse(JSON.stringify(defaultOuterAll.boxShadow))
+        value.style.boxShadow = JSON.parse(JSON.stringify(defaultOuterAll.boxShadow))
       } else {
-        delete value.outer.boxShadow
+        delete value.style.boxShadow
       }
     })
   }
@@ -885,29 +885,29 @@ export function BoxShadow_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>阴影</div>
-      <Switch checked={value.outer.boxShadow !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.boxShadow !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.boxShadow !== undefined ?
+      value.style.boxShadow !== undefined ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>内阴影</div>
-            <Switch checked={value.outer.boxShadow.boxShadowInset} onChange={e => onChange(() => value.outer.boxShadow.boxShadowInset = e.target.checked)} />
+            <Switch checked={value.style.boxShadow.boxShadowInset} onChange={e => onChange(() => value.style.boxShadow.boxShadowInset = e.target.checked)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='位置 X' value={value.outer.boxShadow.boxShadowPosition[0]} onChange={e => onChange(() => value.outer.boxShadow.boxShadowPosition[0] = e.target.value)} type='number' />
+            <TextField fullWidth label='位置 X' value={value.style.boxShadow.boxShadowPosition[0]} onChange={e => onChange(() => value.style.boxShadow.boxShadowPosition[0] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='位置 Y' value={value.outer.boxShadow.boxShadowPosition[1]} onChange={e => onChange(() => value.outer.boxShadow.boxShadowPosition[1] = e.target.value)} type='number' />
+            <TextField fullWidth label='位置 Y' value={value.style.boxShadow.boxShadowPosition[1]} onChange={e => onChange(() => value.style.boxShadow.boxShadowPosition[1] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='尺寸' value={value.outer.boxShadow.boxShadowSize} onChange={e => onChange(() => value.outer.boxShadow.boxShadowSize = e.target.value)} type='number' />
+            <TextField fullWidth label='尺寸' value={value.style.boxShadow.boxShadowSize} onChange={e => onChange(() => value.style.boxShadow.boxShadowSize = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.boxShadow.boxShadowColor} onChange={e => onChange(() => value.outer.boxShadow.boxShadowColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.boxShadow.boxShadowColor} onChange={e => onChange(() => value.style.boxShadow.boxShadowColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.boxShadow.boxShadowColor} onChange={e => onChange(() => value.outer.boxShadow.boxShadowColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.boxShadow.boxShadowColor} onChange={e => onChange(() => value.style.boxShadow.boxShadowColor = e.target.value)} type='color' />
           </Grid>
 
         </> : null
@@ -921,9 +921,9 @@ export function Outline_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.outline = JSON.parse(JSON.stringify(defaultOuterAll.outline))
+        value.style.outline = JSON.parse(JSON.stringify(defaultOuterAll.outline))
       } else {
-        delete value.outer.outline
+        delete value.style.outline
       }
     })
   }
@@ -931,24 +931,24 @@ export function Outline_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>轮廓</div>
-      <Switch checked={value.outer.outline !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.outline !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.outline !== undefined ?
+      value.style.outline !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='宽度' value={value.outer.outline.outlineWidth} onChange={e => onChange(() => value.outer.outline.outlineWidth = e.target.value)} type='number' />
+            <TextField fullWidth label='宽度' value={value.style.outline.outlineWidth} onChange={e => onChange(() => value.style.outline.outlineWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.outline.outlineColor} onChange={e => onChange(() => value.outer.outline.outlineColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.outline.outlineColor} onChange={e => onChange(() => value.style.outline.outlineColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.outline.outlineColor} onChange={e => onChange(() => value.outer.outline.outlineColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.outline.outlineColor} onChange={e => onChange(() => value.style.outline.outlineColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select label='线条类型' value={value.outer.outline.outlineStyle} onChange={e => onChange(() => value.outer.outline.outlineStyle = e.target.value)}  >
+              <Select label='线条类型' value={value.style.outline.outlineStyle} onChange={e => onChange(() => value.style.outline.outlineStyle = e.target.value)}  >
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>
@@ -967,9 +967,9 @@ export function Background_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.background = JSON.parse(JSON.stringify(defaultOuterAll.background))
+        value.style.background = JSON.parse(JSON.stringify(defaultOuterAll.background))
       } else {
-        delete value.outer.background
+        delete value.style.background
       }
     })
   }
@@ -977,44 +977,44 @@ export function Background_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>背景</div>
-      <Switch checked={value.outer.background !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.background !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.background !== undefined ?
+      value.style.background !== undefined ?
         <>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.background.backgroundColor} onChange={e => onChange(() => value.outer.background.backgroundColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.background.backgroundColor} onChange={e => onChange(() => value.style.background.backgroundColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.background.backgroundColor} onChange={e => onChange(() => value.outer.background.backgroundColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.background.backgroundColor} onChange={e => onChange(() => value.style.background.backgroundColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='图片' value={value.outer.background.backgroundImage} onChange={e => onChange(() => value.outer.background.backgroundImage = e.target.value)} multiline maxRows={4} />
+            <TextField fullWidth label='图片' value={value.style.background.backgroundImage} onChange={e => onChange(() => value.style.background.backgroundImage = e.target.value)} multiline maxRows={4} />
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField fullWidth label='位置 X' value={value.outer.background.backgroundPosition[0]} onChange={e => onChange(() => value.outer.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
+                <TextField fullWidth label='位置 X' value={value.style.background.backgroundPosition[0]} onChange={e => onChange(() => value.style.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth label='位置 Y' value={value.outer.background.backgroundPosition[1]} onChange={e => onChange(() => value.outer.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
+                <TextField fullWidth label='位置 Y' value={value.style.background.backgroundPosition[1]} onChange={e => onChange(() => value.style.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField fullWidth label='尺寸 X' value={value.outer.background.backgroundSize[0]} onChange={e => onChange(() => value.outer.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
+                <TextField fullWidth label='尺寸 X' value={value.style.background.backgroundSize[0]} onChange={e => onChange(() => value.style.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth label='尺寸 Y' value={value.outer.background.backgroundSize[1]} onChange={e => onChange(() => value.outer.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
+                <TextField fullWidth label='尺寸 Y' value={value.style.background.backgroundSize[1]} onChange={e => onChange(() => value.style.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>重复填充</InputLabel>
-              <Select label='重复填充' value={value.outer.background.backgroundRepeat} onChange={e => onChange(() => value.outer.background.backgroundRepeat = e.target.value)}  >
+              <Select label='重复填充' value={value.style.background.backgroundRepeat} onChange={e => onChange(() => value.style.background.backgroundRepeat = e.target.value)}  >
                 <MenuItem value='no-repeat'>不重复</MenuItem>
                 <MenuItem value='repeat'>重复</MenuItem>
                 <MenuItem value='repeat-x'>仅重复X轴</MenuItem>
@@ -1025,7 +1025,7 @@ export function Background_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>跟随滑动</InputLabel>
-              <Select label='跟随滑动' value={value.outer.background.backgroundAttachment} onChange={e => onChange(() => value.outer.background.backgroundAttachment = e.target.value)}  >
+              <Select label='跟随滑动' value={value.style.background.backgroundAttachment} onChange={e => onChange(() => value.style.background.backgroundAttachment = e.target.value)}  >
                 <MenuItem value='scroll'>滑动</MenuItem>
                 <MenuItem value='fixed'>不滑动</MenuItem>
               </Select>
@@ -1042,9 +1042,9 @@ export function Font_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.font = JSON.parse(JSON.stringify(defaultOuterAll.font))
+        value.style.font = JSON.parse(JSON.stringify(defaultOuterAll.font))
       } else {
-        delete value.outer.font
+        delete value.style.font
       }
     })
   }
@@ -1052,18 +1052,18 @@ export function Font_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>字体</div>
-      <Switch checked={value.outer.font !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.font !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.font !== undefined ?
+      value.style.font !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth type='number' label='尺寸' value={value.outer.font.fontSize} onChange={e => onChange(() => value.outer.font.fontSize = e.target.value)} />
+            <TextField fullWidth type='number' label='尺寸' value={value.style.font.fontSize} onChange={e => onChange(() => value.style.font.fontSize = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>粗细</InputLabel>
-              <Select value={value.outer.font.fontWeight} label='粗细' onChange={e => onChange(() => value.outer.font.fontWeight = e.target.value)}>
+              <Select value={value.style.font.fontWeight} label='粗细' onChange={e => onChange(() => value.style.font.fontWeight = e.target.value)}>
                 <MenuItem value={100}>100</MenuItem>
                 <MenuItem value={200}>200</MenuItem>
                 <MenuItem value={300}>300</MenuItem>
@@ -1081,8 +1081,8 @@ export function Font_C(props) {
             <Autocomplete
               multiple
               options={['"Times New Roman"']}
-              value={value.outer.font.fontFamily.split(',').filter(i => i)}
-              onChange={(e, v) => onChange(() => value.outer.font.fontFamily = v.join(','))}
+              value={value.style.font.fontFamily.split(',').filter(i => i)}
+              onChange={(e, v) => onChange(() => value.style.font.fontFamily = v.join(','))}
               renderInput={(params) => <TextField {...params} label='系列' />}
             />
           </Grid>
@@ -1097,9 +1097,9 @@ export function Text_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.text = JSON.parse(JSON.stringify(defaultOuterAll.text))
+        value.style.text = JSON.parse(JSON.stringify(defaultOuterAll.text))
       } else {
-        delete value.outer.text
+        delete value.style.text
       }
     })
   }
@@ -1107,21 +1107,21 @@ export function Text_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>文本</div>
-      <Switch checked={value.outer.text !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.text !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.text !== undefined ?
+      value.style.text !== undefined ?
         <>
           <Grid item xs={4}>
-            <TextField fullWidth type='number' label='行高' value={value.outer.text.lineHeight} onChange={e => onChange(() => value.outer.text.lineHeight = e.target.value)} />
+            <TextField fullWidth type='number' label='行高' value={value.style.text.lineHeight} onChange={e => onChange(() => value.style.text.lineHeight = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth type='number' label='字符间距' value={value.outer.text.letterSpacing} onChange={e => onChange(() => value.outer.text.letterSpacing = e.target.value)} />
+            <TextField fullWidth type='number' label='字符间距' value={value.style.text.letterSpacing} onChange={e => onChange(() => value.style.text.letterSpacing = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
               <InputLabel>对齐</InputLabel>
-              <Select value={value.outer.text.textAlign} label='对齐' onChange={e => onChange(() => value.outer.text.textAlign = e.target.value)}>
+              <Select value={value.style.text.textAlign} label='对齐' onChange={e => onChange(() => value.style.text.textAlign = e.target.value)}>
                 <MenuItem value='left'>居左</MenuItem>
                 <MenuItem value='right'>居右</MenuItem>
                 <MenuItem value='center'>居中</MenuItem>
@@ -1132,7 +1132,7 @@ export function Text_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>换行</InputLabel>
-              <Select value={value.outer.text.whiteSpace} label='换行' onChange={e => onChange(() => value.outer.text.whiteSpace = e.target.value)}>
+              <Select value={value.style.text.whiteSpace} label='换行' onChange={e => onChange(() => value.style.text.whiteSpace = e.target.value)}>
                 <MenuItem value='normal'>默认</MenuItem>
                 <MenuItem value='nowrap'>不换行</MenuItem>
                 <MenuItem value='pre-wrap'>保留空格换行</MenuItem>
@@ -1140,10 +1140,10 @@ export function Text_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.text.color} onChange={e => onChange(() => value.outer.text.color = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.text.color} onChange={e => onChange(() => value.style.text.color = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.text.color} onChange={e => onChange(() => value.outer.text.color = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.text.color} onChange={e => onChange(() => value.style.text.color = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1156,9 +1156,9 @@ export function TextDecoration_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.textDecoration = JSON.parse(JSON.stringify(defaultOuterAll.textDecoration))
+        value.style.textDecoration = JSON.parse(JSON.stringify(defaultOuterAll.textDecoration))
       } else {
-        delete value.outer.textDecoration
+        delete value.style.textDecoration
       }
     })
   }
@@ -1166,15 +1166,15 @@ export function TextDecoration_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>文本装饰</div>
-      <Switch checked={value.outer.textDecoration !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.textDecoration !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.textDecoration !== undefined ?
+      value.style.textDecoration !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>位置</InputLabel>
-              <Select value={value.outer.textDecoration.textDecorationLine} label='位置' onChange={e => onChange(() => value.outer.textDecoration.textDecorationLine = e.target.value)}>
+              <Select value={value.style.textDecoration.textDecorationLine} label='位置' onChange={e => onChange(() => value.style.textDecoration.textDecorationLine = e.target.value)}>
                 <MenuItem value='none'>默认</MenuItem>
                 <MenuItem value='underline'>下划线</MenuItem>
                 <MenuItem value='overline'>上划线</MenuItem>
@@ -1185,7 +1185,7 @@ export function TextDecoration_C(props) {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select value={value.outer.textDecoration.textDecorationStyle} label='线条类型' onChange={e => onChange(() => value.outer.textDecoration.textDecorationStyle = e.target.value)}>
+              <Select value={value.style.textDecoration.textDecorationStyle} label='线条类型' onChange={e => onChange(() => value.style.textDecoration.textDecorationStyle = e.target.value)}>
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>
@@ -1194,10 +1194,10 @@ export function TextDecoration_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.textDecoration.textDecorationColor} onChange={e => onChange(() => value.outer.textDecoration.textDecorationColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.textDecoration.textDecorationColor} onChange={e => onChange(() => value.style.textDecoration.textDecorationColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.textDecoration.textDecorationColor} onChange={e => onChange(() => value.outer.textDecoration.textDecorationColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.textDecoration.textDecorationColor} onChange={e => onChange(() => value.style.textDecoration.textDecorationColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1210,9 +1210,9 @@ export function TextShadow_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.textShadow = JSON.parse(JSON.stringify(defaultOuterAll.textShadow))
+        value.style.textShadow = JSON.parse(JSON.stringify(defaultOuterAll.textShadow))
       } else {
-        delete value.outer.textShadow
+        delete value.style.textShadow
       }
     })
   }
@@ -1220,25 +1220,25 @@ export function TextShadow_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>文本阴影</div>
-      <Switch checked={value.outer.textShadow !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.textShadow !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.textShadow !== undefined ?
+      value.style.textShadow !== undefined ?
         <>
           <Grid item xs={4}>
-            <TextField fullWidth label='位置 X' value={value.outer.textShadow.textShadowPosition[0]} onChange={e => onChange(() => value.outer.textShadow.textShadowPosition[0] = e.target.value)} type='number' />
+            <TextField fullWidth label='位置 X' value={value.style.textShadow.textShadowPosition[0]} onChange={e => onChange(() => value.style.textShadow.textShadowPosition[0] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='位置 Y' value={value.outer.textShadow.textShadowPosition[1]} onChange={e => onChange(() => value.outer.textShadow.textShadowPosition[1] = e.target.value)} type='number' />
+            <TextField fullWidth label='位置 Y' value={value.style.textShadow.textShadowPosition[1]} onChange={e => onChange(() => value.style.textShadow.textShadowPosition[1] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='尺寸' value={value.outer.textShadow.textShadowSize} onChange={e => onChange(() => value.outer.textShadow.textShadowSize = e.target.value)} type='number' />
+            <TextField fullWidth label='尺寸' value={value.style.textShadow.textShadowSize} onChange={e => onChange(() => value.style.textShadow.textShadowSize = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.textShadow.textShadowColor} onChange={e => onChange(() => value.outer.textShadow.textShadowColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.textShadow.textShadowColor} onChange={e => onChange(() => value.style.textShadow.textShadowColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.textShadow.textShadowColor} onChange={e => onChange(() => value.outer.textShadow.textShadowColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.textShadow.textShadowColor} onChange={e => onChange(() => value.style.textShadow.textShadowColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1251,9 +1251,9 @@ export function TextStroke_C(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.outer.textStroke = JSON.parse(JSON.stringify(defaultOuterAll.textStroke))
+        value.style.textStroke = JSON.parse(JSON.stringify(defaultOuterAll.textStroke))
       } else {
-        delete value.outer.textStroke
+        delete value.style.textStroke
       }
     })
   }
@@ -1261,19 +1261,19 @@ export function TextStroke_C(props) {
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ fontWeight: 'bold' }}>文本描边</div>
-      <Switch checked={value.outer.textStroke !== undefined} onChange={handleChecked} color='secondary' />
+      <Switch checked={value.style.textStroke !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.outer.textStroke !== undefined ?
+      value.style.textStroke !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='宽度' value={value.outer.textStroke.textStrokeWidth} onChange={e => onChange(() => value.outer.textStroke.textStrokeWidth = e.target.value)} type='number' />
+            <TextField fullWidth label='宽度' value={value.style.textStroke.textStrokeWidth} onChange={e => onChange(() => value.style.textStroke.textStrokeWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth label='颜色' value={value.outer.textStroke.textStrokeColor} onChange={e => onChange(() => value.outer.textStroke.textStrokeColor = e.target.value)} />
+            <TextField fullWidth label='颜色' value={value.style.textStroke.textStrokeColor} onChange={e => onChange(() => value.style.textStroke.textStrokeColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField fullWidth label='调色板' value={value.outer.textStroke.textStrokeColor} onChange={e => onChange(() => value.outer.textStroke.textStrokeColor = e.target.value)} type='color' />
+            <TextField fullWidth label='调色板' value={value.style.textStroke.textStrokeColor} onChange={e => onChange(() => value.style.textStroke.textStrokeColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }

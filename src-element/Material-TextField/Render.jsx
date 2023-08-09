@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { TextField } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setValueEmpty) {
       const remove = listen.setValueEmpty(data => {
-        inner.value = ''
+        property.value = ''
         update()
       })
       return () => { remove() }
@@ -25,7 +25,7 @@ function Render(props) {
 
   const onChange = (e) => {
     if (!pure) return
-    inner.value = e.target.value
+    property.value = e.target.value
     update()
     if (dispatch && dispatch.onChange) dispatch.onChange(e.target.value, e)
   }
@@ -39,16 +39,16 @@ function Render(props) {
   return <TextField
     {...compound}
     fullWidth
-    type={inner.type}
-    value={inner.value}
+    type={property.type}
+    value={property.value}
     onChange={onChange}
     onFocus={onFocus}
     onBlur={onBlur}
-    variant={inner.variant}
-    label={inner.label}
-    size={inner.size}
-    color={inner.color}
-    disabled={inner.disabled}
+    variant={property.variant}
+    label={property.label}
+    size={property.size}
+    color={property.color}
+    disabled={property.disabled}
   />
 }
 

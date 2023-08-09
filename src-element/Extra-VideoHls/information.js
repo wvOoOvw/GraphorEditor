@@ -19,10 +19,10 @@ const information = {
     { value: '@onMouseUp', label: '松开' },
     { value: 'onEnded', label: '播放结束' },
   ],
-  outer: {
+  style: {
     $nonuse: ['font', 'text', 'textDecoration', 'textShadow', 'textStroke']
   },
-  inner: {
+  property: {
     src: '',
     poster: '',
     controls: false,

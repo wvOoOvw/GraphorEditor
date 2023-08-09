@@ -2,10 +2,10 @@ function Render(props) {
   const React = window.React
   const { CircularProgress } = window.MaterialUI
 
-  const { compound, inner } = props
+  const { compound, property } = props
 
   return <div {...compound}>
-    <CircularProgress style={{ color: inner.color }} size={Number(inner.size)} thickness={Number(inner.thickness)} />
+    <CircularProgress style={{ color: property.color }} size={Number(property.size)} thickness={Number(property.thickness)} />
   </div>
 }
 

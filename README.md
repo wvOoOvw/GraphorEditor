@@ -258,9 +258,9 @@ https://github.com/github-magneto/app-graph/blob/master/src-package/main/view/Mo
 
 元素配置分为多个部分
 
-1、outer：元素的通用样式
+1、style：元素的通用样式
 
-2、inner：元素的特有属性
+2、property：元素的特有属性
 
 3、children：元素的子元素
 

@@ -20,8 +20,8 @@ const information = {
     { value: 'onFocus', label: '聚焦' },
     { value: 'onBlur', label: '失焦' }
   ],
-  outer: {},
-  inner: {
+  style: {},
+  property: {
     value: '内容',
     placeholder: '',
     type: 'text',

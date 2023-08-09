@@ -1,24 +1,24 @@
 function Render(props) {
   const React = window.React
 
-  const { inner, listen, dispatch } = props
+  const { property, listen, dispatch } = props
 
   React.useEffect(() => {
     if (listen && listen.setRequest) {
       const remove = listen.setRequest(data => {
-        if (inner.mode === 'fetch') fetch_exe(data)
-        if (inner.mode === 'xhr') xhr_exe(data)
+        if (property.mode === 'fetch') fetch_exe(data)
+        if (property.mode === 'xhr') xhr_exe(data)
       })
       return () => { remove() }
     }
   }, [])
 
   const preHandlParams = (data) => {
-    var method = data && data.method ? data.method.toUpperCase() : inner.method.toUpperCase()
+    var method = data && data.method ? data.method.toUpperCase() : property.method.toUpperCase()
 
     var body
-    if (data && data.body && inner.bodyType === 'json') body = JSON.stringify(data.body)
-    if (data && data.body && inner.bodyType === 'formdata') {
+    if (data && data.body && property.bodyType === 'json') body = JSON.stringify(data.body)
+    if (data && data.body && property.bodyType === 'formdata') {
       const formData = new FormData()
       Object.entries(data.body).forEach(i => formData.append(i[0], i[1]))
       body = formData
@@ -26,7 +26,7 @@ function Render(props) {
 
     var headers = data && data.headers ? data.headers : {}
 
-    var url = inner.baseUrl ? inner.baseUrl : ''
+    var url = property.baseUrl ? property.baseUrl : ''
     if (data && data.url) url = url + data.url
 
     if (data && data.query && typeof data.query === 'string') url = url + '?' + data.query

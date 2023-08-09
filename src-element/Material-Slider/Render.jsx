@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Slider } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,22 +16,22 @@ function Render(props) {
 
   const onChange = (e, v) => {
     if (!pure) return
-    inner.value = v
+    property.value = v
     update()
     if (dispatch && dispatch.onChange) dispatch.onChange(v, e)
   }
 
   return <Slider
     {...compound}
-    value={Number(inner.value)}
+    value={Number(property.value)}
     onChange={onChange}
-    min={Number(inner.min)}
-    max={Number(inner.max)}
-    step={Number(inner.step)}
-    size={inner.size}
-    color={inner.color}
-    disabled={inner.disabled}
-    valueLabelDisplay={inner.valueLabelDisplay}
+    min={Number(property.min)}
+    max={Number(property.max)}
+    step={Number(property.step)}
+    size={property.size}
+    color={property.color}
+    disabled={property.disabled}
+    valueLabelDisplay={property.valueLabelDisplay}
   />
 }
 

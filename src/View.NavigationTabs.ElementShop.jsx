@@ -33,22 +33,22 @@ function App() {
       useBeforeRenderHook: false,
       beforeRenderHook: evalBeforeRenderHook
     }
-    if (e.information.outer) {
-      newElement.outer = Object.assign(JSON.parse(JSON.stringify(defaultOuterAdd)), e.information.outer)
-      delete newElement.outer.$use
-      delete newElement.outer.$nonuse
-      if (e.information.outer.$use) {
-        Object.keys(newElement.outer).forEach(i => {
-          if (!e.information.outer.$use.includes(i)) delete newElement.outer[i]
+    if (e.information.style) {
+      newElement.style = Object.assign(JSON.parse(JSON.stringify(defaultOuterAdd)), e.information.style)
+      delete newElement.style.$use
+      delete newElement.style.$nonuse
+      if (e.information.style.$use) {
+        Object.keys(newElement.style).forEach(i => {
+          if (!e.information.style.$use.includes(i)) delete newElement.style[i]
         })
       }
-      if (e.information.outer.$nonuse) {
-        Object.keys(newElement.outer).forEach(i => {
-          if (e.information.outer.$nonuse.includes(i)) delete newElement.outer[i]
+      if (e.information.style.$nonuse) {
+        Object.keys(newElement.style).forEach(i => {
+          if (e.information.style.$nonuse.includes(i)) delete newElement.style[i]
         })
       }
     }
-    if (e.information.inner) newElement.inner = JSON.parse(JSON.stringify(e.information.inner))
+    if (e.information.property) newElement.property = JSON.parse(JSON.stringify(e.information.property))
     if (e.information.listen) newElement.listen = []
     if (e.information.dispatch) newElement.dispatch = []
     if (e.information.children) {
@@ -73,7 +73,23 @@ function App() {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Autocomplete fullWidth sx={{ '& input': { fontSize: '14px' }, '& .MuiInputLabel-root': { fontSize: '14px', lineHeight: '1' }, '& .MuiOutlinedInput-root': { padding: '4px' } }} componentsProps={{ popper: { sx: { '& li': { fontSize: '14px !important' } } } }} value={filterType} onChange={(e, v) => setFilterType(v)} options={Array.from(new Set(list.map(i => i.information.type)))} renderInput={(params) => <TextField {...params} />} />
+      <Autocomplete
+        fullWidth
+        sx={{
+          '& input': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' },
+          '& .MuiInputLabel-root': { fontSize: '14px', lineHeight: '1' },
+          '& .MuiOutlinedInput-root': { padding: '4px' }
+        }}
+        componentsProps={{
+          popper: { sx: { '& .MuiAutocomplete-option': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' } }},
+          paper: { sx: { '& .MuiAutocomplete-noOptions': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace', padding: '12px' } } }
+        }}
+        value={filterType}
+        onChange={(e, v) => setFilterType(v)}
+        options={Array.from(new Set(list.map(i => i.information.type)))}
+        noOptionsText='empty'
+        renderInput={(params) => <TextField {...params} />}
+      />
     </Grid>
 
     <Grid item xs={12}>

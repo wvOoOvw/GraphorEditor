@@ -1,12 +1,12 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, inner, listen, children, pure, update } = props
+  const { compound, property, listen, children, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -21,16 +21,16 @@ function Render(props) {
 
   const render_ = () => {
     if (pure) {
-      if (inner.type === 'none') {
+      if (property.type === 'none') {
         return children && children.main ? children.main() : null
       }
-      if (inner.type === 'equal' && window.location.hash === inner.value) {
+      if (property.type === 'equal' && window.location.hash === property.value) {
         return children && children.main ? children.main() : null
       }
-      if (inner.type === 'start' && window.location.hash.startsWith(inner.value)) {
+      if (property.type === 'start' && window.location.hash.startsWith(property.value)) {
         return children && children.main ? children.main() : null
       }
-      if (inner.type === 'includes' && window.location.hash.includes(inner.value)) {
+      if (property.type === 'includes' && window.location.hash.includes(property.value)) {
         return children && children.main ? children.main() : null
       }
       return null

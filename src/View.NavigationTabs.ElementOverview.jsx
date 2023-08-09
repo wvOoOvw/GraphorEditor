@@ -15,7 +15,7 @@ import { deepSearch, hash, deleteArrayItem } from './utils.common'
 import { graphElementSearch } from './utils.graph.common'
 
 function ItemRender(props) {
-  const { license, only, name, children, outer, parentOnly, drag } = props
+  const { license, only, name, children, style, parentOnly, drag } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -25,8 +25,8 @@ function ItemRender(props) {
 
   const handleChangeVisible = (e) => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)
-    if (!currentGraphContent.outer) return
-    currentGraphContent.outer.visible = e
+    if (!currentGraphContent.style) return
+    currentGraphContent.style.visible = e
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
   const handleEdit = () => {
@@ -100,8 +100,8 @@ function ItemRender(props) {
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
         {
-          outer.visible !== undefined ?
-            outer.visible ?
+          style.visible !== undefined ?
+            style.visible ?
               <IconButton size='small' onClick={() => handleChangeVisible(false)}><VisibilityIcon fontSize='small' /></IconButton>
               :
               <IconButton size='small' onClick={() => handleChangeVisible(true)}><VisibilityOffIcon fontSize='small' /></IconButton>

@@ -15,10 +15,10 @@ const information = {
     { value: 'onOpen', label: '打开' },
     { value: 'onClose', label: '关闭' },
   ],
-  outer: {
+  style: {
     $use: ['render', 'visible']
   },
-  inner: {
+  property: {
     open: false,
     arrow: false,
     placementPosition: 'bottom',

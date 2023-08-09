@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Dialog, DialogTitle, DialogActions, DialogContent } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, children, pure, update } = props
+  const { compound, property, listen, dispatch, children, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setOpenTrue) {
       const remove = listen.setOpenTrue(data => {
-        inner.open = true
+        property.open = true
         update()
       })
       return () => { remove() }
@@ -17,7 +17,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setOpenFalse) {
       const remove = listen.setOpenFalse(data => {
-        inner.open = false
+        property.open = false
         update()
       })
       return () => { remove() }
@@ -25,9 +25,9 @@ function Render(props) {
   }, [])
 
   const onClose = (e) => {
-    inner.open = false
+    property.open = false
     update()
-    if (dispatch && dispatch.onClose) dispatch.onClose(inner.open, e)
+    if (dispatch && dispatch.onClose) dispatch.onClose(property.open, e)
   }
 
   const R = <>
@@ -37,7 +37,7 @@ function Render(props) {
       }
     </DialogTitle>
 
-    <DialogContent dividers={inner.dividers}>
+    <DialogContent dividers={property.dividers}>
       {
         children && children.main ? children.main() : null
       }
@@ -50,7 +50,7 @@ function Render(props) {
     </DialogActions>
   </>
 
-  if (pure) return <Dialog open={inner.open} sx={{ '& .MuiDialog-paper': compound.style }} onClose={onClose}>
+  if (pure) return <Dialog open={property.open} sx={{ '& .MuiDialog-paper': compound.style }} onClose={onClose}>
     {R}
   </Dialog>
 

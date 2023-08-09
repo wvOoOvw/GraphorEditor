@@ -18,10 +18,10 @@ const information = {
     { value: '@onMouseUp', label: '松开' },
     { value: 'onChange', label: '内容变动' },
   ],
-  outer: {
+  style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
-  inner: {
+  property: {
     value: [],
     options: [{ label: '选择框组', value: 'option' }],
     color: 'primary',

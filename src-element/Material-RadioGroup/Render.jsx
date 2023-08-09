@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Radio, FormControl, RadioGroup, FormControlLabel } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, pure, update } = props
+  const { compound, property, listen, dispatch, pure, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setOptions) {
       const remove = listen.setOptions(data => {
-        inner.options = data
+        property.options = data
         update()
       })
       return () => { remove() }
@@ -25,24 +25,24 @@ function Render(props) {
 
   const onChange = (e) => {
     if (!pure) return
-    inner.value = e.target.value
+    property.value = e.target.value
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(inner.value, e)
+    if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
   }
 
   return <RadioGroup
     {...compound}
-    value={inner.value}
+    value={property.value}
     onChange={onChange}
   >
     {
-      inner.options.map((i, index) => {
+      property.options.map((i, index) => {
         return <FormControlLabel
           key={index}
           label={i.label}
           value={i.value}
           control={
-            <Radio size={inner.size} color={inner.color} disabled={inner.disabled} />
+            <Radio size={property.size} color={property.color} disabled={property.disabled} />
           }
         />
       })

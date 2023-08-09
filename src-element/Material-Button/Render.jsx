@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { Button } = window.MaterialUI
 
-  const { compound, inner, listen, update } = props
+  const { compound, property, listen, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValue) {
       const remove = listen.setValue(data => {
-        inner.value = data
+        property.value = data
         update()
       })
       return () => { remove() }
@@ -16,7 +16,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setDisabledOpen) {
       const remove = listen.setDisabledOpen(data => {
-        inner.disabled = true
+        property.disabled = true
         update()
       })
       return () => { remove() }
@@ -25,7 +25,7 @@ function Render(props) {
   React.useEffect(() => {
     if (listen && listen.setDisabledClose) {
       const remove = listen.setDisabledClose(data => {
-        inner.disabled = false
+        property.disabled = false
         update()
       })
       return () => { remove() }
@@ -34,12 +34,12 @@ function Render(props) {
 
   return <Button
     {...compound}
-    disabled={inner.disabled}
-    variant={inner.variant}
-    color={inner.color}
+    disabled={property.disabled}
+    variant={property.variant}
+    color={property.color}
     component='div'
   >
-    {inner.value}
+    {property.value}
   </Button>
 }
 

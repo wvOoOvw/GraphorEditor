@@ -2,12 +2,12 @@ function Render(props) {
   const React = window.React
   const { MenuList, MenuItem } = window.MaterialUI
 
-  const { compound, inner, listen, dispatch, update } = props
+  const { compound, property, listen, dispatch, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setValues) {
       const remove = listen.setValues(data => {
-        inner.list = data
+        property.list = data
         update()
       })
       return () => { remove() }
@@ -20,7 +20,7 @@ function Render(props) {
 
   return <MenuList {...compound}>
     {
-      inner.options.map((i, index) => {
+      property.options.map((i, index) => {
         return <MenuItem key={index} onClick={e => onClick(e, i.value)}>
           {
             i.label

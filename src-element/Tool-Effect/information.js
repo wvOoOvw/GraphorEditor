@@ -8,10 +8,10 @@ const information = {
   dispatch: [
     { value: 'onEffect', label: '执行' }
   ],
-  outer: {
+  style: {
     $use: ['render']
   },
-  inner: {
+  property: {
     immediate: false
   }
 }

@@ -1,7 +1,7 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, inner, dispatch, children } = props
+  const { compound, property, dispatch, children } = props
 
   const dragEvent = {
     onDrag: (e) => {
@@ -27,7 +27,7 @@ function Render(props) {
     },
   }
 
-  return <div {...compound} {...dragEvent} draggable={inner.draggable}>
+  return <div {...compound} {...dragEvent} draggable={property.draggable}>
     {
       children && children.main ? children.main() : null
     }

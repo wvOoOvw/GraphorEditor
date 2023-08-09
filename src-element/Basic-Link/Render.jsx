@@ -1,12 +1,12 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, inner, listen, children, update } = props
+  const { compound, property, listen, children, update } = props
 
   React.useEffect(() => {
     if (listen && listen.setHref) {
       const remove = listen.setHref(data => {
-        inner.href = data
+        property.href = data
         update()
       })
       return () => { remove() }
@@ -15,16 +15,16 @@ function Render(props) {
 
   const onClick = () => {
     if (!compound.onClick) compound.onClick()
-    if (inner.target === '_self') {
-      window.location.href = inner.href
+    if (property.target === '_self') {
+      window.location.href = property.href
     }
-    if (inner.target === '_blank') {
-      window.open(inner.href)
+    if (property.target === '_blank') {
+      window.open(property.href)
     }
   }
 
-  if (inner.useDom) {
-    return <a {...compound} href={inner.href} target={inner.target}>
+  if (property.useDom) {
+    return <a {...compound} href={property.href} target={property.target}>
       {
         children && children.main ? children.main() : null
       }
