@@ -1,6 +1,6 @@
 const information = {
   name: '跳转',
-  type: '基础',
+  type: 'Basic',
   children: [
     { value: 'main', label: '主模块' }
   ],

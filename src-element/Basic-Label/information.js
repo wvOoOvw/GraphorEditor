@@ -1,6 +1,6 @@
 const information = {
   name: '标签',
-  type: '基础',
+  type: 'Basic',
   children: [
     { value: 'main', label: '主模块' },
     { value: 'input', label: '输入模块' },

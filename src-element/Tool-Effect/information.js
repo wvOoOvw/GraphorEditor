@@ -1,6 +1,6 @@
 const information = {
   name: '事件库',
-  type: '工具',
+  type: 'Tool',
   children: false,
   listen: [
     { value: 'setEffect', label: '定义执行函数' }

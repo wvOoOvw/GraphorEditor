@@ -31,6 +31,8 @@ import { downloadFile, baseIp, hash } from './utils.common'
 
 import Imitation, { initState } from './utils.imitation'
 
+const tooltipPopperProps = { sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }
+
 const elementOrigin = (content, list = []) => {
   content.forEach(i => {
     if (!list.includes(i.license)) list.push(i.license)
@@ -243,12 +245,6 @@ function DialogPublish(props) {
         )
     }
 
-    if (option.prerender) {
-      // const prerenderRes = await axios.post('/prerender', { data: html })
-
-      // html = prerenderRes.data
-    }
-
     if (option.static) {
       html = html.replace(/<script.+?<\/script>/g, '')
     }
@@ -396,16 +392,16 @@ function App() {
       </Grid>
     </div>
     <div>
-      <Tooltip PopperProps={{ sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }} title='save'>
+      <Tooltip PopperProps={tooltipPopperProps} title='save'>
         <IconButton style={{ marginLeft: 4 }} onClick={handleSave}><SaveIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={{ sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }} title='clear'>
+      <Tooltip PopperProps={tooltipPopperProps} title='clear'>
         <IconButton style={{ marginLeft: 4 }} onClick={handleClear}><ClearAllIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={{ sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }} title='preview'>
+      <Tooltip PopperProps={tooltipPopperProps} title='preview'>
         <IconButton style={{ marginLeft: 4 }} onClick={() => window.open(location.origin + location.pathname + '#/prod')}><DeveloperModeIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={{ sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }} title='publish'>
+      <Tooltip PopperProps={tooltipPopperProps} title='publish'>
         <IconButton style={{ marginLeft: 4 }} onClick={() => setDialogPublish(true)}><DataSaverOffIcon /></IconButton>
       </Tooltip>
     </div>

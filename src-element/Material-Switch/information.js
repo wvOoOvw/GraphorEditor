@@ -1,6 +1,6 @@
 const information = {
   name: '开关',
-  type: '集成 MATERIAL',
+  type: 'Material UI Component',
   children: false,
   listen: [
     { value: '@setVisibleTrue', label: '显示' },

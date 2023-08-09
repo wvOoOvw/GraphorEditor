@@ -1,6 +1,6 @@
 const information = {
   name: '浮窗菜单',
-  type: '集成 MATERIAL',
+  type: 'Material UI Component',
   children: [
     { value: 'main', label: '主模块' }
   ],

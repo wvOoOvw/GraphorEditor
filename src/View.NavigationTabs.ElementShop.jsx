@@ -69,7 +69,7 @@ function App() {
   }
 
   return <Grid container spacing={2} style={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'monospace' }}>
-    <Grid item xs={12}>添加元素</Grid>
+    <Grid item xs={12}>Element Shop</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>

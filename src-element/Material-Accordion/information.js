@@ -1,6 +1,6 @@
 const information = {
   name: '折叠面板',
-  type: '集成 MATERIAL',
+  type: 'Material UI Component',
   children: [
     { value: 'main', label: '主模块' }
   ],

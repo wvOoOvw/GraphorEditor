@@ -1,6 +1,6 @@
 const information = {
   name: '视频Hls',
-  type: '扩展',
+  type: 'Extra',
   children: false,
   listen: [
     { value: '@setVisibleTrue', label: '显示' },

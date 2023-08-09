@@ -1,6 +1,6 @@
 const information = {
   name: 'SPA微前端容器',
-  type: '容器',
+  type: 'Box',
   children: false,
   listen: [
     { value: '@setVisibleTrue', label: '显示' },

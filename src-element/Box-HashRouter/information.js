@@ -1,6 +1,6 @@
 const information = {
   name: 'Hash路由容器',
-  type: '容器',
+  type: 'Box',
   children: [
     { value: 'main', label: '主模块' }
   ],

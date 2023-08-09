@@ -1,6 +1,6 @@
 const information = {
   name: '悬浮浮窗',
-  type: '集成 MATERIAL',
+  type: 'Material UI Component',
   children: [
     { value: 'main', label: '主模块' },
     { value: 'float', label: '浮窗模块' }

@@ -1,6 +1,6 @@
 const information = {
   name: '音频',
-  type: '基础',
+  type: 'Basic',
   children: false,
   listen: [
     { value: '@setVisibleTrue', label: '显示' },

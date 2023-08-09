@@ -1,6 +1,6 @@
 const information = {
   name: '数据库',
-  type: '工具',
+  type: 'Tool',
   children: false,
   listen: [
     { value: 'setValue', label: '设置数据' },

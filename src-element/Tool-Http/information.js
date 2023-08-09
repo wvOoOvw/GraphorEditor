@@ -1,6 +1,6 @@
 const information = {
   name: '网路请求',
-  type: '工具',
+  type: 'Tool',
   children: false,
   listen: [
     { value: 'setRequest', label: '设置请求' }

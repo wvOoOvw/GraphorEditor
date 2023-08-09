@@ -1,6 +1,6 @@
 const information = {
   name: '自定义图表',
-  type: '图表 ECHARTS',
+  type: 'Echarts',
   children: false,
   listen: [
     { value: '@setVisibleTrue', label: '显示' },

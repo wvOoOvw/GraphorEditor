@@ -13,7 +13,7 @@ import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 
-import NavigationTabsAddElement from './View.NavigationTabs.AddElement'
+import NavigationTabsElementShop from './View.NavigationTabs.ElementShop'
 import NavigationTabsElementConfig from './View.NavigationTabs.ElementConfig'
 import NavigationTabsElementEvent from './View.NavigationTabs.ElementEvent'
 import NavigationTabsElementOverview from './View.NavigationTabs.ElementOverview'
@@ -21,7 +21,10 @@ import NavigationTabsGraphConfig from './View.NavigationTabs.GraphConfig'
 
 import Imitation from './utils.imitation'
 
+const tooltipPopperProps = { sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }
+
 function App() {
+
   const onChange = (e, v) => {
     if (v === '@Close') {
       Imitation.assignState({ navigationTabsElementConfigValue: undefined, navigationTabsValue: undefined })
@@ -38,54 +41,58 @@ function App() {
       value={Imitation.state.navigationTabsValue}
       onChange={onChange}
     >
-      <Tab value='AddElement' icon={<Tooltip arrow title='AddElement' placement='right'><AddIcon/></Tooltip>} />
-      <Tab value='ElementOverview' icon={<Tooltip arrow title='ElementOverview' placement='right'><FormatListBulletedIcon/></Tooltip>} />
-      <Tab value='ElementEvent' icon={<Tooltip arrow title='ElementEvent' placement='right'><EventNoteIcon/></Tooltip>} />
-      <Tab value='ElementConfig' icon={<Tooltip arrow title='ElementConfig' placement='right'><SettingsApplicationsIcon/></Tooltip>} />
-      <Tab value='GraphConfig' icon={<Tooltip arrow title='GraphConfig' placement='right'><SettingsIcon/></Tooltip>} />
-      <Tab value='@Close' icon={<Tooltip arrow title='Hidden' placement='right'><CloseFullscreenIcon/></Tooltip>} />
+      <Tab value='ElementShop' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Shop' placement='right'><AddIcon /></Tooltip>} />
+      <Tab value='ElementOverview' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Overview' placement='right'><FormatListBulletedIcon /></Tooltip>} />
+      <Tab value='ElementEvent' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Event' placement='right'><EventNoteIcon /></Tooltip>} />
+      <Tab value='ElementConfig' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Config' placement='right'><SettingsApplicationsIcon /></Tooltip>} />
+      <Tab value='GraphConfig' icon={<Tooltip PopperProps={tooltipPopperProps} title='Graph Config' placement='right'><SettingsIcon /></Tooltip>} />
+      <Tab value='@Close' icon={<Tooltip PopperProps={tooltipPopperProps} title='Hidden' placement='right'><CloseFullscreenIcon /></Tooltip>} />
     </Tabs>
 
-    {
-      Imitation.state.navigationTabsValue ? <Divider orientation='vertical' /> : null
-    }
-
-    {
-      Imitation.state.navigationTabsValue ?
-        <>
-          {
-            Imitation.state.navigationTabsValue === 'GraphConfig' ?
-              <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto' }}>
-                <NavigationTabsGraphConfig />
-              </div> : null
-          }
-          {
-            Imitation.state.navigationTabsValue === 'AddElement' ?
-              <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto' }}>
-                <NavigationTabsAddElement />
-              </div> : null
-          }
-          {
-            Imitation.state.navigationTabsValue === 'ElementConfig' ?
-              <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto' }} key={Imitation.state.navigationTabsElementConfigValue}>
-                <NavigationTabsElementConfig />
-              </div> : null
-          }
-          {
-            Imitation.state.navigationTabsValue === 'ElementOverview' ?
-              <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto' }}>
-                <NavigationTabsElementOverview />
-              </div> : null
-          }
-          {
-            Imitation.state.navigationTabsValue === 'ElementEvent' ?
-              <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto' }}>
-                <NavigationTabsElementEvent />
-              </div> : null
-          }
-          <Divider orientation='vertical' />
-        </> : null
-    }
+    <div style={{ width: Imitation.state.navigationTabsValue ? 360 + 32 : 0, height: '100%', display: 'flex', transition: '0.5s all', overflow: 'hidden' }}>
+      <Divider orientation='vertical' />
+      {
+        Imitation.state.navigationTabsValue ?
+          <>
+            {
+              Imitation.state.navigationTabsValue === 'GraphConfig' ?
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }}>
+                  <NavigationTabsGraphConfig />
+                </div>
+                : null
+            }
+            {
+              Imitation.state.navigationTabsValue === 'ElementShop' ?
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }}>
+                  <NavigationTabsElementShop />
+                </div>
+                : null
+            }
+            {
+              Imitation.state.navigationTabsValue === 'ElementConfig' ?
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }} key={Imitation.state.navigationTabsElementConfigValue}>
+                  <NavigationTabsElementConfig />
+                </div>
+                : null
+            }
+            {
+              Imitation.state.navigationTabsValue === 'ElementOverview' ?
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }}>
+                  <NavigationTabsElementOverview />
+                </div>
+                : null
+            }
+            {
+              Imitation.state.navigationTabsValue === 'ElementEvent' ?
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }}>
+                  <NavigationTabsElementEvent />
+                </div>
+                : null
+            }
+          </>
+          : null
+      }
+    </div>
 
   </Paper>
 }
