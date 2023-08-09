@@ -4,10 +4,10 @@
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.2.0",
-    "@mui/material": "^5.2.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.3",
     "axios": "^0.25.0",
-    "echarts": "^5.3.2",
+    "echarts": "^5.4.1",
     "hls.js": "^1.1.5",
     "imitation-imm": "^2.3.1",
     "react": "^17.0.2",
@@ -33,8 +33,8 @@
     "webpack-dev-server": "^4.1.1"
   },
   "scripts": {
-    "start": "node src-fs/webpack/run.js --dev",
-    "build": "node src-fs/webpack/run.js --prod",
-    "build-p": "node src-package/publish/webpack.js"
+    "start": "node webpack/run.js --dev",
+    "build": "node webpack/run.js --prod",
+    "package": "node webpack/run.js --package"
   }
 }
