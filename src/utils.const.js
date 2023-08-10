@@ -18,8 +18,8 @@ const defaultEventListener = [
 ]
 
 const defaultEventDispatch = [
-  { value: '@onClick', label: '点击' },
-  { value: '@onDoubleClick', label: '双击' },
+  { value: '@onClick', label: 'click' },
+  { value: '@onDoubleClick', label: 'double click' },
   { value: '@onContextMenu', label: '打开菜单' },
   { value: '@onMouseEnter', label: '鼠标移入' },
   { value: '@onMouseLeave', label: '鼠标移出' },

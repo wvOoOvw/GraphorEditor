@@ -22,6 +22,7 @@ import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
 import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
 import { graphElementSearch } from './utils.graph.common'
+import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 import AccordionS from './View.Component.Accordion'
 import { ListenModal, DispatchModal } from './View.Component.EventModal'
@@ -76,7 +77,7 @@ function BasicConfig(props) {
   </Grid>
 }
 
-function OuterConfig(props) {
+function StyleConfig(props) {
   const { currentGraphContent, parentGraphContent } = props
 
   const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
@@ -181,7 +182,7 @@ function OuterConfig(props) {
   </>
 }
 
-function InnerConfig(props) {
+function PropertyConfig(props) {
   const { currentGraphContent, parentGraphContent } = props
 
   if (!currentGraphContent.property) return null
@@ -193,11 +194,11 @@ function InnerConfig(props) {
   const handleChange = (value) => {
     if (typeof value === 'function') {
       value(currentGraphContent.property)
-      Imitation.assignState({ graphContentUpdate: hash() })
-    } else {
-      currentGraphContent.property = value
-      Imitation.assignState({ graphContentUpdate: hash() })
     }
+    if (typeof value !== 'function') {
+      currentGraphContent.property = value
+    }
+    Imitation.assignState({ graphContentUpdate: hash() })
   }
 
   return <Grid item xs={12}>
@@ -206,6 +207,7 @@ function InnerConfig(props) {
         value={currentGraphContent.property}
         onChange={handleChange}
         component={{ CodeModal }}
+        sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX }}
       />
     </AccordionS>
   </Grid>
@@ -224,7 +226,7 @@ function ChildrenConfig(props) {
   const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'AddElement', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
   }
 
   const handleEdit = (i) => {
@@ -466,7 +468,7 @@ function App() {
 
   const handleDelete = () => {
     deleteArrayItem(parentGraphContent, currentGraphContent)
-    Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'AddElement' })
+    Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'ElementShop' })
   }
 
   const handleCopy = () => {
@@ -484,8 +486,8 @@ function App() {
     <Grid item xs={12}><Divider /></Grid>
 
     <BasicConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <OuterConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <InnerConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
+    <StyleConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
+    <PropertyConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
     <ChildrenConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
     <HookConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
     <ListenConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />

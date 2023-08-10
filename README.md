@@ -252,7 +252,7 @@ https://github.com/github-magneto/app-graph/blob/master/src-package/main/view/Pa
 
 代码行数：
 
-https://github.com/github-magneto/app-graph/blob/master/src-package/main/view/Modal.AddElement.jsx#L25
+https://github.com/github-magneto/app-graph/blob/master/src-package/main/view/Modal.ElementShop.jsx#L25
 
 **搭建器解析 —— 元素配置**
 

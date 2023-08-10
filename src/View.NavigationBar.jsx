@@ -18,6 +18,7 @@ import { ListItemIcon } from '@mui/material'
 import { ListItemText } from '@mui/material'
 import { ListItemButton } from '@mui/material'
 import { Switch } from '@mui/material'
+import { TextField } from '@mui/material'
 
 import SaveIcon from '@mui/icons-material/Save'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
@@ -25,13 +26,10 @@ import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
 import AirplayIcon from '@mui/icons-material/Airplay'
 
-import { GraphElement, GraphExample } from './utils.package'
-
-import { downloadFile, baseIp, hash } from './utils.common'
-
 import Imitation, { initState } from './utils.imitation'
-
-const tooltipPopperProps = { sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }
+import { GraphElement, GraphExample } from './utils.package'
+import { downloadFile, baseIp, hash } from './utils.common'
+import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 const elementOrigin = (content, list = []) => {
   content.forEach(i => {
@@ -159,18 +157,18 @@ const resumeifyString = "function(content, map) { const data = JSON.parse(JSON.s
 function DialogPublish(props) {
   const { onClose, graphRef } = props
 
-  const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false })
+  const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.sourceOrigin })
 
   const handlePublish = async () => {
     const data = graphRef.current.getData()
 
-    var html = await fetch(baseIp + '/graph/publish/html/index.html').then(res => res.text())
+    var html = await fetch(`${sourceOrigin}/html/index.html`).then(res => res.text())
 
-    var render = await fetch(baseIp + '/graph/publish/render/index.js').then(res => res.text())
+    var render = await fetch(`${sourceOrigin}/render/index.js`).then(res => res.text())
 
-    // var element = await fetch(baseIp + '/graph/publish/element-collection/index.js').then(res => res.text())
+    // var element = await fetch(`${sourceOrigin}/element-collection/index.js`).then(res => res.text())
 
-    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(baseIp + `/graph/publish/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
+    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
     html = html
       .replace(
@@ -314,54 +312,48 @@ function DialogPublish(props) {
     downloadFile('index.html', html)
   }
 
-  const switchActions = [
-    { name: 'prerender', value: 'prerender' },
-    { name: 'static', value: 'static' },
-    { name: 'inline style', value: 'inline' },
-    { name: 'zip data', value: 'simple' },
-    { name: 'spilt file', value: 'spilt' },
-    { name: 'one script', value: 'onescript' },
-  ]
-
-  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose}>
+  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
     <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>publish config</DialogTitle>
     <DialogContent dividers>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
+            <div>Prerender</div>
             <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>Static</div>
+            <div><Switch checked={option['static']} onChange={e => setOption(pre => Object.assign(pre, { ['static']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>Inline</div>
+            <div><Switch checked={option['inline']} onChange={e => setOption(pre => Object.assign(pre, { ['inline']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>Simple data</div>
+            <div><Switch checked={option['simple']} onChange={e => setOption(pre => Object.assign(pre, { ['simple']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>Spilt file</div>
+            <div><Switch checked={option['spilt']} onChange={e => setOption(pre => Object.assign(pre, { ['spilt']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>One script</div>
+            <div><Switch checked={option['onescript']} onChange={e => setOption(pre => Object.assign(pre, { ['onescript']: e.target.checked }))}></Switch></div>
           </div>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField {...TextFieldSX} value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign(pre, { ['sourceOrigin']: e.target.value }))} fullWidth label='Source Origin' autoComplete='off' />
         </Grid>
       </Grid>
     </DialogContent>
@@ -392,16 +384,16 @@ function App() {
       </Grid>
     </div>
     <div>
-      <Tooltip PopperProps={tooltipPopperProps} title='save'>
+      <Tooltip {...TooltipSX} title='Save'>
         <IconButton style={{ marginLeft: 4 }} onClick={handleSave}><SaveIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={tooltipPopperProps} title='clear'>
+      <Tooltip {...TooltipSX} title='Clear'>
         <IconButton style={{ marginLeft: 4 }} onClick={handleClear}><ClearAllIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={tooltipPopperProps} title='preview'>
+      <Tooltip {...TooltipSX} title='Preview'>
         <IconButton style={{ marginLeft: 4 }} onClick={() => window.open(location.origin + location.pathname + '#/prod')}><DeveloperModeIcon /></IconButton>
       </Tooltip>
-      <Tooltip PopperProps={tooltipPopperProps} title='publish'>
+      <Tooltip {...TooltipSX} title='Publish'>
         <IconButton style={{ marginLeft: 4 }} onClick={() => setDialogPublish(true)}><DataSaverOffIcon /></IconButton>
       </Tooltip>
     </div>
@@ -413,4 +405,4 @@ function App() {
   </Paper>
 }
 
-export default App
+export default Imitation.withBindRender(App, state => [state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])

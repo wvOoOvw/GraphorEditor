@@ -9,13 +9,13 @@ const information = {
     { value: 'setValueEmpty', label: '清空内容' }
   ],
   dispatch: [
-    { value: '@onClick', label: '点击' },
-    { value: '@onDoubleClick', label: '双击' },
-    { value: '@onMouseEnter', label: '移入' },
-    { value: '@onMouseLeave', label: '移出'},
-    { value: '@onMouseMove', label: '移动' },
-    { value: '@onMouseDown', label: '按下' },
-    { value: '@onMouseUp', label: '松开' },
+    { value: '@onClick', label: 'click' },
+    { value: '@onDoubleClick', label: 'double click' },
+    { value: '@onMouseEnter', label: 'mouse enter' },
+    { value: '@onMouseLeave', label: 'mouse leave'},
+    { value: '@onMouseMove', label: 'mouse move' },
+    { value: '@onMouseDown', label: 'mouse down' },
+    { value: '@onMouseUp', label: 'mouse up' },
     { value: 'onChange', label: '内容变动' },
     { value: 'onFocus', label: '聚焦' },
     { value: 'onBlur', label: '失焦' }

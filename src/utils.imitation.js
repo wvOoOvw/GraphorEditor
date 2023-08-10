@@ -41,7 +41,8 @@ ImitationINS.state = {
     project: {
       renderId: '$render',
       updateId: '$update'
-    }
+    },
+    sourceOrigin: 'https://github-magneto.github.io'
   },
   graphConfigUpdate: undefined,
 
@@ -51,7 +52,7 @@ ImitationINS.state = {
 
 const initState = () => {
   const state = {
-    navigationTabsValue: 'AddElement',
+    navigationTabsValue: 'ElementShop',
     navigationTabsElementValue: undefined,
 
     elementHover: undefined,

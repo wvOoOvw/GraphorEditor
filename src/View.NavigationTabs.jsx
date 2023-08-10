@@ -20,8 +20,7 @@ import NavigationTabsElementOverview from './View.NavigationTabs.ElementOverview
 import NavigationTabsGraphConfig from './View.NavigationTabs.GraphConfig'
 
 import Imitation from './utils.imitation'
-
-const tooltipPopperProps = { sx: { '& .MuiTooltip-tooltip': { background: 'white', color: 'black', fontSize: '12px', fontWeight: 'bold', fontFamily: 'monospace', lineHeight: '1.5', boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } } }
+import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 function App() {
 
@@ -33,7 +32,7 @@ function App() {
     Imitation.assignState({ navigationTabsElementValue: undefined, navigationTabsValue: v })
   }
 
-  return <Paper style={{ height: '100%', position: 'relative', display: 'flex' }}  className='font'>
+  return <Paper style={{ height: '100%', position: 'relative', display: 'flex' }} className='font'>
 
     <Tabs
       orientation='vertical'
@@ -41,12 +40,12 @@ function App() {
       value={Imitation.state.navigationTabsValue}
       onChange={onChange}
     >
-      <Tab value='ElementShop' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Shop' placement='right'><AddIcon /></Tooltip>} />
-      <Tab value='ElementOverview' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Overview' placement='right'><FormatListBulletedIcon /></Tooltip>} />
-      <Tab value='ElementEvent' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Event' placement='right'><EventNoteIcon /></Tooltip>} />
-      <Tab value='ElementConfig' icon={<Tooltip PopperProps={tooltipPopperProps} title='Element Config' placement='right'><SettingsApplicationsIcon /></Tooltip>} />
-      <Tab value='GraphConfig' icon={<Tooltip PopperProps={tooltipPopperProps} title='Graph Config' placement='right'><SettingsIcon /></Tooltip>} />
-      <Tab value='@Close' icon={<Tooltip PopperProps={tooltipPopperProps} title='Hidden' placement='right'><CloseFullscreenIcon /></Tooltip>} />
+      <Tab value='ElementShop' icon={<Tooltip {...TooltipSX} title='Element Shop' placement='right'><AddIcon /></Tooltip>} />
+      <Tab value='ElementOverview' icon={<Tooltip {...TooltipSX} title='Element Overview' placement='right'><FormatListBulletedIcon /></Tooltip>} />
+      <Tab value='ElementEvent' icon={<Tooltip {...TooltipSX} title='Element Event' placement='right'><EventNoteIcon /></Tooltip>} />
+      <Tab value='ElementConfig' icon={<Tooltip {...TooltipSX} title='Element Config' placement='right'><SettingsApplicationsIcon /></Tooltip>} />
+      <Tab value='GraphConfig' icon={<Tooltip {...TooltipSX} title='Graph Config' placement='right'><SettingsIcon /></Tooltip>} />
+      <Tab value='@Close' icon={<Tooltip {...TooltipSX} title='Hidden' placement='right'><CloseFullscreenIcon /></Tooltip>} />
     </Tabs>
 
     <div style={{ width: Imitation.state.navigationTabsValue ? 360 + 32 : 0, height: '100%', display: 'flex', transition: '0.5s all', overflow: 'hidden' }}>
@@ -97,4 +96,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.navigationTabsValue, state.navigationTabsElementValue, state.graphContentUpdate, state.graphConfigUpdate])
+export default Imitation.withBindRender(App, state => [state.navigationTabsValue, state.navigationTabsElementValue, state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])
