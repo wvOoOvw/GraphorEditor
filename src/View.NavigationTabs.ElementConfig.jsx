@@ -224,11 +224,11 @@ function ChildrenConfig(props) {
   const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'AddElement', navigationTabsElementConfigValue: Imitation.state.navigationTabsElementConfigValue + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'AddElement', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
   }
 
   const handleEdit = (i) => {
-    Imitation.assignState({ navigationTabsElementConfigValue: i })
+    Imitation.assignState({ navigationTabsElementValue: i })
   }
 
   return <Grid item xs={12}>
@@ -458,15 +458,15 @@ function DefaultPage() {
 }
 
 function App() {
-  if (!Imitation.state.navigationTabsElementConfigValue) return <DefaultPage />
+  if (!Imitation.state.navigationTabsElementValue) return <DefaultPage />
 
-  const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', Imitation.state.navigationTabsElementConfigValue)
+  const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', Imitation.state.navigationTabsElementValue)
 
   if (!currentGraphContent) return <DefaultPage />
 
   const handleDelete = () => {
     deleteArrayItem(parentGraphContent, currentGraphContent)
-    Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementConfigValue: undefined, navigationTabsValue: 'AddElement' })
+    Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'AddElement' })
   }
 
   const handleCopy = () => {

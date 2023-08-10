@@ -57,18 +57,18 @@ function App() {
       newElement.children = c
     }
 
-    if (Imitation.state.navigationTabsElementConfigValue) {
-      const [only, childrenKey] = Imitation.state.navigationTabsElementConfigValue.split('@')
+    if (Imitation.state.navigationTabsElementValue) {
+      const [only, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
       const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)
       currentGraphContent.children[childrenKey].push(newElement)
     }
-    if (!Imitation.state.navigationTabsElementConfigValue) {
+    if (!Imitation.state.navigationTabsElementValue) {
       Imitation.state.graphContent.push(newElement)
     }
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  return <Grid container spacing={2} style={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'monospace' }}>
+  return <Grid container spacing={2}>
     <Grid item xs={12}>Element Shop</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
@@ -76,7 +76,7 @@ function App() {
       <Autocomplete
         fullWidth
         sx={{
-          '& input': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' },
+          '& input': { fontSize: '14px' },
           '& .MuiInputLabel-root': { fontSize: '14px', lineHeight: '1' },
           '& .MuiOutlinedInput-root': { padding: '4px' }
         }}

@@ -30,7 +30,7 @@ function ItemRender(props) {
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
   const handleEdit = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementConfigValue: only })
+    Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementValue: only })
   }
   const handleDelete = () => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)

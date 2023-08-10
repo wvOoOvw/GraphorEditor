@@ -3,6 +3,12 @@ body {
   margin: 0;
 }
 
+.font * {
+  font-size: 14px;
+  font-weight: bold !important;
+  font-family: monospace !important;
+}
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;

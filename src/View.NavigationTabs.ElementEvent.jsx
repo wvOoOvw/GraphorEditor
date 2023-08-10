@@ -41,11 +41,11 @@ function ItemRender(props) {
   const [hover, setHover] = React.useState(false)
   const handleMouseover = () => {
     setHover(true)
-    Imitation.assignState({ navigationTabsElementConfigValue: only })
+    Imitation.assignState({ navigationTabsElementValue: only })
   }
   const handleMouseout = () => {
     setHover(false)
-    Imitation.assignState({ navigationTabsElementConfigValue: undefined })
+    Imitation.assignState({ navigationTabsElementValue: undefined })
   }
   const hoverStyle = hover ? { boxShadow: '0 0 8px #e0efff', backgroundColor: '#e0efff' } : {}
 

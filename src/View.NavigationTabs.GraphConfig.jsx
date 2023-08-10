@@ -131,7 +131,7 @@ function Project(props) {
 }
 
 function WriteJson(props) {
-  const [navigationTabsElementConfigValue, setnavigationTabsElementConfigValue] = React.useState()
+  const [navigationTabsElementValue, setnavigationTabsElementConfigValue] = React.useState()
   const [modalConfig, setModalConfig] = React.useState()
 
   const handleChangeContent = e => {
@@ -156,7 +156,7 @@ function WriteJson(props) {
     </AccordionS>
 
     {
-      navigationTabsElementConfigValue ?
+      navigationTabsElementValue ?
         <CodeModal
           onClose={() => setnavigationTabsElementConfigValue()}
           value={JSON.stringify(Imitation.state.graphContent, true, 2)}
@@ -194,7 +194,7 @@ function App() {
     const v = prompt('导入内容')
     try {
       const data = JSON.parse(v)
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: '导入成功', navigationTabsElementConfigValue: undefined })
+      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: '导入成功', navigationTabsElementValue: undefined })
     } catch { }
   }
 
@@ -203,7 +203,7 @@ function App() {
     try {
       const data = deepCopyElement(JSON.parse(v))
       Imitation.state.graphContent.push(data)
-      Imitation.assignState({ graphContentUpdate: hash(), message: '导入成功', navigationTabsElementConfigValue: undefined })
+      Imitation.assignState({ graphContentUpdate: hash(), message: '导入成功', navigationTabsElementValue: undefined })
     } catch { }
   }
 

@@ -15,7 +15,7 @@ function App() {
     s.current = setTimeout(() => { Imitation.assignState({ message: '' }); s.current = null }, 2000)
   }, [Imitation.state.message])
 
-  return <Snackbar open={Imitation.state.message ? true : false} message={Imitation.state.message} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} sx={{ '& .MuiSnackbarContent-message': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' } }} />
+  return <Snackbar open={Imitation.state.message ? true : false} message={Imitation.state.message} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} className='font'/>
 }
 
 export default Imitation.withBindRender(App, state => [state.message])

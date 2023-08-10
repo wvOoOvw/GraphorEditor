@@ -27,13 +27,13 @@ function App() {
 
   const onChange = (e, v) => {
     if (v === '@Close') {
-      Imitation.assignState({ navigationTabsElementConfigValue: undefined, navigationTabsValue: undefined })
+      Imitation.assignState({ navigationTabsElementValue: undefined, navigationTabsValue: undefined })
       return
     }
-    Imitation.assignState({ navigationTabsElementConfigValue: undefined, navigationTabsValue: v })
+    Imitation.assignState({ navigationTabsElementValue: undefined, navigationTabsValue: v })
   }
 
-  return <Paper style={{ height: '100%', position: 'relative', display: 'flex' }}>
+  return <Paper style={{ height: '100%', position: 'relative', display: 'flex' }}  className='font'>
 
     <Tabs
       orientation='vertical'
@@ -70,7 +70,7 @@ function App() {
             }
             {
               Imitation.state.navigationTabsValue === 'ElementConfig' ?
-                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }} key={Imitation.state.navigationTabsElementConfigValue}>
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }} key={Imitation.state.navigationTabsElementValue}>
                   <NavigationTabsElementConfig />
                 </div>
                 : null
@@ -97,4 +97,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.navigationTabsValue, state.navigationTabsElementConfigValue, state.graphContentUpdate, state.graphConfigUpdate])
+export default Imitation.withBindRender(App, state => [state.navigationTabsValue, state.navigationTabsElementValue, state.graphContentUpdate, state.graphConfigUpdate])

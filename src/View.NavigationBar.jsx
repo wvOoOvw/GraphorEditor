@@ -377,7 +377,7 @@ function App() {
 
   const handleSave = () => {
     localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }))
-    Imitation.assignState({ message: 'save success' })
+    Imitation.assignState({ message: 'Save Success' })
   }
 
   const handleClear = () => {
@@ -385,10 +385,10 @@ function App() {
     Imitation.assignState({ graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
   }
 
-  return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }}>
+  return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
-        <Button color='inherit' style={{ fontWeight: 'bold', fontFamily: 'monospace', }}>Graphor</Button>
+        <Button color='inherit'>Graphor</Button>
       </Grid>
     </div>
     <div>

@@ -55,7 +55,7 @@ function Hover() {
   React.useEffect(() => {
     handle()
     setTimeout(() => handle(), 500)
-  }, [Imitation.state.navigationTabsElementConfigValue, Imitation.state.elementHover, Imitation.state.graphContentUpdate])
+  }, [Imitation.state.navigationTabsElementValue, Imitation.state.elementHover, Imitation.state.graphContentUpdate])
 
   const style = (i) => {
     const size = 28
@@ -70,7 +70,7 @@ function Hover() {
     }
     return r
   }
- 
+
   return hoverPosition.map((i, index) => i ? <div style={style(i)} className='element-hover' key={index}><KeyboardArrowUpIcon style={{ width: '100%', height: '100%', color: index === 1 ? 'rgb(25, 118, 210)' : 'black' }} /> </div> : null)
 }
 
@@ -81,7 +81,7 @@ function ElementRender(props) {
 
   if (!Render) {
     console.warn(license)
-    Imitation.assignState({ message: '存在异常元素' })
+    Imitation.assignState({ message: 'Element Error' })
     return null
   }
 
@@ -105,7 +105,7 @@ function ElementRender(props) {
     e.stopPropagation()
   }
   const onClick = e => {
-    Imitation.assignState({ navigationTabsElementConfigValue: only, navigationTabsValue: 'ElementConfig' })
+    Imitation.assignState({ navigationTabsElementValue: only, navigationTabsValue: 'ElementConfig' })
     e.stopPropagation()
     e.preventDefault()
   }
@@ -132,7 +132,7 @@ function ElementRender(props) {
     compound['data-hover'] = 'hover'
   }
 
-  if (Imitation.state.navigationTabsElementConfigValue === only) {
+  if (Imitation.state.navigationTabsElementValue === only) {
     compound['data-hover'] = 'active'
   }
 
@@ -183,7 +183,8 @@ function App() {
       alignItems: 'center',
       overflow: 'hidden',
       flexGrow: 1,
-      cursor: mouseDown ? 'grabbing' : 'grab'
+      cursor: mouseDown ? 'grabbing' : 'grab',
+      background: 'rgba(235,235,235)'
     }}
     onMouseDown={eventDown}
     onMouseMove={eventMove}
@@ -223,4 +224,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementConfigValue, state.elementHover])
+export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementValue, state.elementHover])
