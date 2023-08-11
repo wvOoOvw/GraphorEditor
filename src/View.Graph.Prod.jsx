@@ -1,6 +1,6 @@
 import { graphEvent } from './utils.graph.event'
 import { graphElementSearch } from './utils.graph.common'
-import { graphOuterStyle } from './utils.graph.style'
+import { caculateStyle } from './utils.graph.style'
 
 function ElementRender(props) {
   const React = window.React
@@ -83,7 +83,7 @@ function ElementRender(props) {
   }, [children, flow])
 
   const compound = {
-    style: { ...graphOuterStyle(style), boxSizing: 'border-box' }
+    style: { ...caculateStyle(style), boxSizing: 'border-box' }
   }
 
   if (dispatch_exe['@onClick']) compound.onClick = e => dispatch_exe['@onClick'](undefined, e)

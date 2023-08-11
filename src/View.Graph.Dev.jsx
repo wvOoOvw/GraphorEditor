@@ -6,7 +6,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
-import { graphOuterStyle } from './utils.graph.style'
+import { caculateStyle } from './utils.graph.style'
 import { graphElementSearch } from './utils.graph.common'
 
 const nodeOffset = node => {
@@ -120,7 +120,7 @@ function ElementRender(props) {
   })
 
   const compound = {
-    style: { ...graphOuterStyle(style), cursor: 'pointer', transition: '0.5s all', boxSizing: 'border-box' },
+    style: { ...caculateStyle(style), cursor: 'pointer', transition: '0.5s all', boxSizing: 'border-box' },
     onClick,
     onMouseDown,
     onMouseUp,

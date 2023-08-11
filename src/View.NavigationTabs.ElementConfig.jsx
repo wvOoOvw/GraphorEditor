@@ -14,6 +14,9 @@ import { List } from '@mui/material'
 import { ListItemButton } from '@mui/material'
 import { ListItemIcon } from '@mui/material'
 import { ListItemText } from '@mui/material'
+import { Accordion } from '@mui/material'
+import { AccordionSummary } from '@mui/material'
+import { AccordionDetails } from '@mui/material'
 
 import CodeIcon from '@mui/icons-material/Code'
 import CodeOffIcon from '@mui/icons-material/CodeOff'
@@ -42,38 +45,41 @@ function BasicConfig(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={true} title='Basic Information'>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
+    <Accordion defaultExpanded={true}>
+      <AccordionSummary>Basic Information</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.id} />
+          </Grid>
+          {
+            currentGraphContent.description ?
+              <Grid item xs={12}>
+                <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphContent.description} multiline />
+              </Grid> : null
+          }
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphContent.name} onChange={e => handleChange(e.target.value)} />
+          </Grid>
+          {
+            license.dependencies && license.dependencies.length ?
+              <Grid item xs={12}>
+                <Grid container spacing={2} alignItems='center'>
+                  <Grid item>Dependencies</Grid>
+                  {
+                    license.dependencies.map((i, index) => {
+                      return <Grid item><Chip key={index} label={i} color='primary' /></Grid>
+                    })
+                  }
+                </Grid>
+              </Grid> : null
+          }
         </Grid>
-        <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.id} />
-        </Grid>
-        {
-          currentGraphContent.description ?
-            <Grid item xs={12}>
-              <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphContent.description} multiline />
-            </Grid> : null
-        }
-        <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphContent.name} onChange={e => handleChange(e.target.value)} />
-        </Grid>
-        {
-          license.dependencies && license.dependencies.length ?
-            <Grid item xs={12}>
-              <Grid container spacing={2} alignItems='center'>
-                <Grid item>Dependencies</Grid>
-                {
-                  license.dependencies.map((i, index) => {
-                    return <Grid item><Chip key={index} label={i} color='primary' /></Grid>
-                  })
-                }
-              </Grid>
-            </Grid> : null
-        }
-      </Grid>
-    </AccordionS>
+      </AccordionDetails>
+    </Accordion>
   </Grid>
 }
 
@@ -105,13 +111,9 @@ function StyleConfig(props) {
     return status ? children : null
   }
 
-  const basic = [
+  const position = [
     use(['render'], <ElementConfigComponent.Render_C value={currentGraphContent} onChange={handleChange} />),
     use(['visible'], <ElementConfigComponent.Visible_C value={currentGraphContent} onChange={handleChange} />),
-    use(['position', 'inset', 'margin'], <ElementConfigComponent.ToolButton value={currentGraphContent} onChange={handleChange} />),
-  ]
-
-  const position = [
     use(['width', 'height'], <ElementConfigComponent.Size_C value={currentGraphContent} onChange={handleChange} />),
     use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit_C value={currentGraphContent} onChange={handleChange} />),
     use(['padding'], <ElementConfigComponent.Padding_C value={currentGraphContent} onChange={handleChange} />),
@@ -144,39 +146,33 @@ function StyleConfig(props) {
 
   return <>
     {
-      basic.filter(i => i).length ?
-        <Grid item xs={12}>
-          <AccordionS defaultExpanded={false} title='通用配置 基础'>
-            <Grid container spacing={2}>
-              {
-                basic
-              }
-            </Grid>
-          </AccordionS>
-        </Grid> : null
-    }
-    {
       position.filter(i => i).length ?
         <Grid item xs={12}>
-          <AccordionS defaultExpanded={false} title='通用配置 位置'>
-            <Grid container spacing={2}>
-              {
-                position
-              }
-            </Grid>
-          </AccordionS>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary>Position Config</AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2}>
+                {
+                  position
+                }
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         </Grid> : null
     }
     {
       style.filter(i => i).length ?
         <Grid item xs={12}>
-          <AccordionS defaultExpanded={false} title='通用配置 样式'>
-            <Grid container spacing={2}>
-              {
-                style
-              }
-            </Grid>
-          </AccordionS>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary>Style Config</AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2}>
+                {
+                  style
+                }
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         </Grid> : null
     }
   </>
@@ -202,14 +198,17 @@ function PropertyConfig(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='元素属性配置'>
-      <Edit
-        value={currentGraphContent.property}
-        onChange={handleChange}
-        component={{ AceDialog }}
-        sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX }}
-      />
-    </AccordionS>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Property Config</AccordionSummary>
+      <AccordionDetails>
+        <Edit
+          value={currentGraphContent.property}
+          onChange={handleChange}
+          component={{ AceDialog }}
+          sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX }}
+        />
+      </AccordionDetails>
+    </Accordion>
   </Grid>
 }
 
@@ -234,38 +233,40 @@ function ChildrenConfig(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='子元素配置'>
-      <FormControl fullWidth>
-        <InputLabel>选择模块</InputLabel>
-        <Select label='选择模块' value={current} onChange={e => setCurrent(e.target.value)}>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Children Config</AccordionSummary>
+      <AccordionDetails>
+        <FormControl fullWidth>
+          <InputLabel>Model</InputLabel>
+          <Select label='Model' value={current} onChange={e => setCurrent(e.target.value)}>
+            {
+              options.map(i => {
+                return <MenuItem value={i.value}>{i.label}</MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
+        <List>
           {
-            options.map(i => {
-              return <MenuItem value={i.value}>{i.label}</MenuItem>
+            currentGraphContent.children[current].map(i => {
+              return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} style={{ height: 48 }}>
+                <ListItemText>
+                  {
+                    i.name
+                  }
+                </ListItemText>
+                <ListItemText style={{ color: 'gray' }}>
+                  {
+                    i.id
+                  }
+                </ListItemText>
+              </ListItemButton>
             })
           }
-        </Select>
-      </FormControl>
-
-      <List>
-        {
-          currentGraphContent.children[current].map(i => {
-            return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} style={{ height: 48 }}>
-              <ListItemText>
-                {
-                  i.name
-                }
-              </ListItemText>
-              <ListItemText style={{ color: 'gray' }}>
-                {
-                  i.id
-                }
-              </ListItemText>
-            </ListItemButton>
-          })
-        }
-      </List>
-      <Button variant='outlined' fullWidth onClick={handleAdd}>添加</Button>
-    </AccordionS>
+        </List>
+        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+      </AccordionDetails>
+    </Accordion>
   </Grid>
 }
 
@@ -286,25 +287,27 @@ function HookConfig(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={defaultExpanded} title='生命事件配置'>
-      <Grid container spacing={2}>
-        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button variant='outlined' onClick={() => setModal('beforeRenderHook')}>渲染前触发</Button>
-          <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Hook Event Config</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Button variant='outlined' onClick={() => setModal('beforeRenderHook')}>Before Render</Button>
+            <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+          </Grid>
         </Grid>
-      </Grid>
-
-      {
-        modal === 'beforeRenderHook' ?
-          <AceDialog
-            onClose={() => setModal(undefined)}
-            value={currentGraphContent.hook.beforeRenderHook}
-            onChange={e => handleChange(e)}
-            initValue={evalBeforeRenderHook}
-            mode='javascript'
-          /> : null
-      }
-    </AccordionS>
+      </AccordionDetails>
+    </Accordion>
+    {
+      modal === 'beforeRenderHook' ?
+        <AceDialog
+          onClose={() => setModal(undefined)}
+          value={currentGraphContent.hook.beforeRenderHook}
+          onChange={e => handleChange(e)}
+          initValue={evalBeforeRenderHook}
+          mode='javascript'
+        /> : null
+    }
   </Grid>
 }
 
@@ -339,32 +342,35 @@ function ListenConfig(props) {
   if (!keyOptions && keyOptions.length === 0) return null
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={defaultExpanded} title='监听事件配置'>
-      <List>
-        {
-          currentGraphContent.listen.map((i, index) => {
-            return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
-              <ListItemIcon>
-                {
-                  i.useEval ? <CodeIcon /> : <CodeOffIcon />
-                }
-              </ListItemIcon>
-              <ListItemText>
-                {
-                  i.name
-                }
-              </ListItemText>
-              <ListItemText style={{ color: 'gray' }}>
-                {
-                  !i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
-                }
-              </ListItemText>
-            </ListItemButton>
-          })
-        }
-      </List>
-      <Button variant='outlined' fullWidth onClick={handleAdd}>添加</Button>
-    </AccordionS>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Listen Event Config</AccordionSummary>
+      <AccordionDetails>
+        <List>
+          {
+            currentGraphContent.listen.map((i, index) => {
+              return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
+                <ListItemIcon>
+                  {
+                    i.useEval ? <CodeIcon /> : <CodeOffIcon />
+                  }
+                </ListItemIcon>
+                <ListItemText>
+                  {
+                    i.name
+                  }
+                </ListItemText>
+                <ListItemText style={{ color: 'gray' }}>
+                  {
+                    !i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
+                  }
+                </ListItemText>
+              </ListItemButton>
+            })
+          }
+        </List>
+        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+      </AccordionDetails>
+    </Accordion>
     {
       modal ?
         <ListenModal
@@ -412,32 +418,35 @@ function DispatchConfig(props) {
   if (!keyOptions || keyOptions.length === 0) return null
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={defaultExpanded} title='触发事件配置'>
-      <List>
-        {
-          currentGraphContent.dispatch.map((i, index) => {
-            return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
-              <ListItemIcon>
-                {
-                  i.useEval ? <CodeIcon /> : <CodeOffIcon />
-                }
-              </ListItemIcon>
-              <ListItemText>
-                {
-                  i.name
-                }
-              </ListItemText>
-              <ListItemText style={{ color: 'gray' }}>
-                {
-                  keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
-                }
-              </ListItemText>
-            </ListItemButton>
-          })
-        }
-      </List>
-      <Button variant='outlined' fullWidth onClick={handleAdd}>添加</Button>
-    </AccordionS>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Dispatch Event Config</AccordionSummary>
+      <AccordionDetails>
+        <List>
+          {
+            currentGraphContent.dispatch.map((i, index) => {
+              return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
+                <ListItemIcon>
+                  {
+                    i.useEval ? <CodeIcon /> : <CodeOffIcon />
+                  }
+                </ListItemIcon>
+                <ListItemText>
+                  {
+                    i.name
+                  }
+                </ListItemText>
+                <ListItemText style={{ color: 'gray' }}>
+                  {
+                    keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
+                  }
+                </ListItemText>
+              </ListItemButton>
+            })
+          }
+        </List>
+        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+      </AccordionDetails>
+    </Accordion>
     {
       modal ?
         <DispatchModal
@@ -454,7 +463,7 @@ function DispatchConfig(props) {
 
 function DefaultPage() {
   return <Grid container spacing={2}>
-    <Grid item xs={12}>元素配置</Grid>
+    <Grid item xs={12}>lement Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
   </Grid>
 }
@@ -482,7 +491,7 @@ function App() {
   }
 
   return <Grid container spacing={2}>
-    <Grid item xs={12}>元素配置</Grid>
+    <Grid item xs={12}>Element Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <BasicConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
@@ -495,13 +504,13 @@ function App() {
 
     <Grid item xs={12}><Divider /></Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleCopy}>复制</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleCopy}>Copy Element</Button>
     </Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleDownload}>导出</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleDownload}>Export Element</Button>
     </Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleDelete}>删除</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleDelete}>Delete Element</Button>
     </Grid>
   </Grid>
 }

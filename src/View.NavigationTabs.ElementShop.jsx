@@ -14,7 +14,7 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 
 import Imitation from './utils.imitation'
 import { deepSearch, hash } from './utils.common'
-import { defaultOuterAdd } from './utils.graph.style'
+import { defaultStyleAdd } from './utils.graph.style'
 import { evalBeforeRenderHook } from './utils.const'
 import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
 
@@ -35,7 +35,7 @@ function App() {
       beforeRenderHook: evalBeforeRenderHook
     }
     if (e.information.style) {
-      newElement.style = Object.assign(JSON.parse(JSON.stringify(defaultOuterAdd)), e.information.style)
+      newElement.style = Object.assign(JSON.parse(JSON.stringify(defaultStyleAdd)), e.information.style)
       delete newElement.style.$use
       delete newElement.style.$nonuse
       if (e.information.style.$use) {

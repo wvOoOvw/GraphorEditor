@@ -3,11 +3,11 @@ const translateNaN = r => isNaN(r) ? r : r + 'px'
 const fix = (style) => {
   if (style.boxSizing) delete style.boxSizing
   if (style.font) {
-    if (style.font.fontFamily === undefined || Array.isArray(style.font.fontFamily)) style.font.fontFamily = defaultOuterAll.font.fontFamily
+    if (style.font.fontFamily === undefined || Array.isArray(style.font.fontFamily)) style.font.fontFamily = defaultStyleAll.font.fontFamily
   }
 }
 
-const graphOuterStyle = (style) => {
+const caculateStyle = (style) => {
   if (!style) return
 
   // fix(style)
@@ -58,24 +58,21 @@ const graphOuterStyle = (style) => {
   }
 
   if (style.flex) {
-    Object.assign(style_, {
-      flexDirection: style.flex.flexDirection,
-      flexWrap: style.flex.flexWrap,
-      justifyContent: style.flex.justifyContent,
-      alignItems: style.flex.alignItems,
-      alignContent: style.flex.alignContent,
-      flexGrow: style.flex.flexGrow,
-      flexShrink: style.flex.flexShrink,
-      flexBasis: style.flex.flexBasis,
-    })
+    style_.flexDirection = style.flex.flexDirection
+    style_.flexWrap = style.flex.flexWrap
+    style_.justifyContent = style.flex.justifyContent
+    style_.alignItems = style.flex.alignItems
+    style_.alignContent = style.flex.alignContent
+    style_.flexGrow = style.flex.flexGrow
+    style_.flexShrink = style.flex.flexShrink
+    style_.flexBasis = style.flex.flexBasis
   }
 
   if (style.transform !== undefined) {
-    Object.assign(style_, {
-      perspective: style.transform.perspective,
-      transformStyle: style.transform.transformStyle,
-      transformOrigin: style.transform.transformOrigin.map(i => translateNaN(i)).join(' '),
-      transform: `
+    style_.perspective = style.transform.perspective
+    style_.transformStyle = style.transform.transformStyle
+    style_.transformOrigin = style.transform.transformOrigin.map(i => translateNaN(i)).join(' ')
+    style_.transform = `
         translateX(${translateNaN(style.transform.transformTranslate[0])})
         translateY(${translateNaN(style.transform.transformTranslate[1])})
         translateZ(${translateNaN(style.transform.transformTranslate[2])})
@@ -86,19 +83,14 @@ const graphOuterStyle = (style) => {
         scaleY(${style.transform.transformScale[1]})
         scaleZ(${style.transform.transformScale[2]})
       `
-    })
   }
 
   if (style.transition !== undefined) {
-    Object.assign(style_, {
-      transition: `${style.transition.transitionTime}s all`
-    })
+    style_.transition = `${style.transition.transitionTime}s all`
   }
 
   if (style.filter !== undefined) {
-    Object.assign(style_, {
-      filter: `blur(${style.filter.filterBlur}px) brightness(${style.filter.filterBrightness}%) opacity(${style.filter.filterOpacity}%)`
-    })
+    style_.filter = `blur(${style.filter.filterBlur}px) brightness(${style.filter.filterBrightness}%) opacity(${style.filter.filterOpacity}%)`
   }
 
   if (style.border !== undefined) {
@@ -196,7 +188,7 @@ const graphOuterStyle = (style) => {
   return style_
 }
 
-const defaultOuterAll = {
+const defaultStyleAll = {
   render: true,
   visible: true,
 
@@ -311,9 +303,9 @@ const defaultOuterAll = {
   }
 }
 
-const defaultOuterAdd = {
+const defaultStyleAdd = {
   render: true,
   visible: true,
 }
 
-export { graphOuterStyle, defaultOuterAll, defaultOuterAdd }
+export { caculateStyle, defaultStyleAll, defaultStyleAdd }
