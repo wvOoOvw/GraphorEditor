@@ -71,7 +71,7 @@ const deleteArrayItem = (target, item) => {
 }
 
 const deepCopyElementHelp = (t) => {
-  t.only = hash()
+  t.id = hash()
   if (t.children) Object.values(t.children).forEach(i => {
     i.forEach(i => deepCopyElementHelp(i))
   })

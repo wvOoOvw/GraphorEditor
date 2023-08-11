@@ -26,7 +26,7 @@ function App() {
   const handleAdd = e => {
     const hash_ = hash()
     const newElement = {
-      only: hash_,
+      id: hash_,
       license: e.license.key,
       name: e.information.name
     }
@@ -59,8 +59,8 @@ function App() {
     }
 
     if (Imitation.state.navigationTabsElementValue) {
-      const [only, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
-      const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)
+      const [id, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
+      const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
       currentGraphContent.children[childrenKey].push(newElement)
     }
     if (!Imitation.state.navigationTabsElementValue) {

@@ -5,7 +5,7 @@ import { graphOuterStyle } from './utils.graph.style'
 function ElementRender(props) {
   const React = window.React
   const { graphElement } = window
-  const { flow, license, only, property, style, children, listen, dispatch, hook } = props
+  const { flow, license, id, property, style, children, listen, dispatch, hook } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
 
@@ -77,7 +77,7 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.only} flow={prop ? prop : flow} {...i} />)
+      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} flow={prop ? prop : flow} {...i} />)
     })
     return r
   }, [children, flow])
@@ -106,7 +106,7 @@ function ElementRender(props) {
     children={children_exe}
     pure={true}
     update={update}
-    only={only}
+    id={id}
   />
 
   if (style.render === false) return null
@@ -124,7 +124,7 @@ function App() {
     window[graphConfig.project.updateId] = () => setUpdate(pre => pre + 1)
   }
 
-  return graphContent.map(i => <ElementRender key={i.only} {...i} />)
+  return graphContent.map(i => <ElementRender key={i.id} {...i} />)
 }
 
 export default App

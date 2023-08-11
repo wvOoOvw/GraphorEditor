@@ -30,7 +30,7 @@ function EventModal(props) {
 }
 
 function ItemRender(props) {
-  const { license, only, name, children, listen, dispatch, parentOnly, hook } = props
+  const { license, id, name, children, listen, dispatch, parentOnly, hook } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -41,7 +41,7 @@ function ItemRender(props) {
   const [hover, setHover] = React.useState(false)
   const handleMouseover = () => {
     setHover(true)
-    Imitation.assignState({ navigationTabsElementValue: only })
+    Imitation.assignState({ navigationTabsElementValue: id })
   }
   const handleMouseout = () => {
     setHover(false)
@@ -107,7 +107,7 @@ function ItemRender(props) {
             </div>
           </div>
           {
-            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.only} {...i} parentOnly={[...parentOnly, only]} />) : null
+            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.id} {...i} parentOnly={[...parentOnly, id]} />) : null
           }
         </React.Fragment>
       }) : null
@@ -125,7 +125,7 @@ function App() {
 
     <Grid item xs={12}>
       {
-        Imitation.state.graphContent.map(i => <ItemRender key={i.only} {...i} parentOnly={[]} />)
+        Imitation.state.graphContent.map(i => <ItemRender key={i.id} {...i} parentOnly={[]} />)
       }
     </Grid>
   </Grid>

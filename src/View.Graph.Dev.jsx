@@ -75,7 +75,7 @@ function Hover() {
 }
 
 function ElementRender(props) {
-  const { license, only, property, style, children } = props
+  const { license, id, property, style, children } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -97,7 +97,7 @@ function ElementRender(props) {
     e.preventDefault()
   }
   const onMouseOver = e => {
-    Imitation.assignState({ elementHover: only })
+    Imitation.assignState({ elementHover: id })
     e.stopPropagation()
   }
   const onMouseOut = e => {
@@ -105,7 +105,7 @@ function ElementRender(props) {
     e.stopPropagation()
   }
   const onClick = e => {
-    Imitation.assignState({ navigationTabsElementValue: only, navigationTabsValue: 'ElementConfig' })
+    Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
     e.stopPropagation()
     e.preventDefault()
   }
@@ -114,7 +114,7 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = () => i[1].map(i => <ElementRender key={i.only} {...i} />)
+      r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} {...i} />)
     })
     return r
   })
@@ -128,11 +128,11 @@ function ElementRender(props) {
     onMouseOut,
   }
 
-  if (Imitation.state.elementHover === only) {
+  if (Imitation.state.elementHover === id) {
     compound['data-hover'] = 'hover'
   }
 
-  if (Imitation.state.navigationTabsElementValue === only) {
+  if (Imitation.state.navigationTabsElementValue === id) {
     compound['data-hover'] = 'active'
   }
 
@@ -143,7 +143,7 @@ function ElementRender(props) {
     children={children_exe}
     pure={false}
     update={update}
-    only={only}
+    id={id}
   />
 
   if (style.render === false) return null
@@ -217,7 +217,7 @@ function App() {
       <Hover />
       <div>
         {
-          Imitation.state.graphContent.map(i => <ElementRender key={i.only} {...i} />)
+          Imitation.state.graphContent.map(i => <ElementRender key={i.id} {...i} />)
         }
       </div>
     </Paper>

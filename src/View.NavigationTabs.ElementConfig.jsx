@@ -48,7 +48,7 @@ function BasicConfig(props) {
           <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
         </Grid>
         <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.only} />
+          <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.id} />
         </Grid>
         {
           currentGraphContent.description ?
@@ -249,7 +249,7 @@ function ChildrenConfig(props) {
       <List>
         {
           currentGraphContent.children[current].map(i => {
-            return <ListItemButton key={i.only} onClick={() => handleEdit(i.only)} style={{ height: 48 }}>
+            return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} style={{ height: 48 }}>
               <ListItemText>
                 {
                   i.name
@@ -257,7 +257,7 @@ function ChildrenConfig(props) {
               </ListItemText>
               <ListItemText style={{ color: 'gray' }}>
                 {
-                  i.only
+                  i.id
                 }
               </ListItemText>
             </ListItemButton>
@@ -373,7 +373,7 @@ function ListenConfig(props) {
           value={modal.data}
           onChange={(v) => handleChange(modal.index, v)}
           onDelete={() => handleDelete(modal.index)}
-          elementonly={currentGraphContent.only}
+          elementonly={currentGraphContent.id}
         /> : null
     }
   </Grid>
@@ -462,7 +462,7 @@ function DefaultPage() {
 function App() {
   if (!Imitation.state.navigationTabsElementValue) return <DefaultPage />
 
-  const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', Imitation.state.navigationTabsElementValue)
+  const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
 
   if (!currentGraphContent) return <DefaultPage />
 

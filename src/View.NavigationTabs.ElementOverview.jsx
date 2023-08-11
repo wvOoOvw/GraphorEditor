@@ -15,7 +15,7 @@ import { deepSearch, hash, deleteArrayItem } from './utils.common'
 import { graphElementSearch } from './utils.graph.common'
 
 function ItemRender(props) {
-  const { license, only, name, children, style, parentOnly, drag } = props
+  const { license, id, name, children, style, parentOnly, drag } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -24,31 +24,31 @@ function ItemRender(props) {
   const childrenLabel = (value) => information.children.find(i => i.value === value)?.label
 
   const handleChangeVisible = (e) => {
-    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)
+    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
     if (!currentGraphContent.style) return
     currentGraphContent.style.visible = e
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
   const handleEdit = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementValue: only })
+    Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementValue: id })
   }
   const handleDelete = () => {
-    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', only)
+    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
 
   const handleMouseover = () => {
-    Imitation.assignState({ elementHover: only })
+    Imitation.assignState({ elementHover: id })
   }
   const handleMouseout = () => {
     Imitation.assignState({ elementHover: undefined })
   }
-  const hoverStyle = Imitation.state.elementHover === only ? { boxShadow: '0 0 8px #e0efff', backgroundColor: '#e0efff' } : {}
+  const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: '0 0 8px #e0efff', backgroundColor: '#e0efff' } : {}
 
-  const handleDragStart = () => drag.setDragStart(only)
+  const handleDragStart = () => drag.setDragStart(id)
   const handleDragEnter = (move) => {
-    if (!parentOnly.includes(drag.dragStart) && only !== drag.dragStart) {
+    if (!parentOnly.includes(drag.dragStart) && id !== drag.dragStart) {
       drag.setDragMove(move)
     } else {
       drag.setDragMove(undefined)
@@ -57,15 +57,15 @@ function ItemRender(props) {
   const handleDragEnd = () => {
     if (drag.dragStart && drag.dragMove && drag.dragStart !== drag.dragMove) {
       if (drag.dragMove.includes('@')) {
-        const [only, childrenKey] = drag.dragMove.split('@')
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', drag.dragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'only', only)
+        const [id, childrenKey] = drag.dragMove.split('@')
+        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', drag.dragStart)
+        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', id)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         currentGraphContent_.children[childrenKey].push(currentGraphContent)
 
       } else {
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'only', drag.dragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'only', drag.dragMove)
+        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', drag.dragStart)
+        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', drag.dragMove)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         const index = parentGraphContent_.indexOf(currentGraphContent_)
         parentGraphContent_.splice(index + 1, 0, currentGraphContent)
@@ -89,13 +89,13 @@ function ItemRender(props) {
 
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 8, ...hoverStyle, ...dragStyle(only) }}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 8, ...hoverStyle, ...dragStyle(id) }}
       onMouseOver={handleMouseover}
       onMouseOut={handleMouseout}
       draggable
       onDragStart={() => handleDragStart()}
       onDragEnd={() => handleDragEnd()}
-      onDragEnter={() => handleDragEnter(only)}
+      onDragEnter={() => handleDragEnter(id)}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
@@ -115,8 +115,8 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 16, ...dragStyle(only + '@' + i[0]) }}
-            onDragEnter={() => handleDragEnter(only + '@' + i[0])}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 16, ...dragStyle(id + '@' + i[0]) }}
+            onDragEnter={() => handleDragEnter(id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
               {
@@ -132,7 +132,7 @@ function ItemRender(props) {
             </div>
           </div>
           {
-            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.only} {...i} parentOnly={[...parentOnly, only]} drag={drag} />) : null
+            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.id} {...i} parentOnly={[...parentOnly, id]} drag={drag} />) : null
           }
         </React.Fragment>
       }) : null
@@ -159,7 +159,7 @@ function App() {
 
     <Grid item xs={12}>
       {
-        Imitation.state.graphContent.map(i => <ItemRender key={i.only} {...i} parentOnly={[]} drag={drag} />)
+        Imitation.state.graphContent.map(i => <ItemRender key={i.id} {...i} parentOnly={[]} drag={drag} />)
       }
     </Grid>
   </Grid>
