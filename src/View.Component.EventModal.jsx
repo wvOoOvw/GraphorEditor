@@ -11,7 +11,7 @@ import { Dialog } from '@mui/material'
 import { DialogActions } from '@mui/material'
 import { DialogContent } from '@mui/material'
 
-import { CodeModal } from './View.Component.Code'
+import { AceDialog } from './View.Component.Ace'
 
 import AccordionS from './View.Component.Accordion'
 
@@ -21,11 +21,11 @@ function ListenModal(props) {
   const { keyOptions, value, onChange, onDelete, onClose } = props
 
   const [data, setData] = React.useState(value)
-  const [codeModal, setCodeModal] = React.useState(false)
+  const [AceDialog, setAceDialog] = React.useState(false)
 
   const handleClickEval = () => {
     if (data.useEval) {
-      setCodeModal(true)
+      setAceDialog(true)
     } else {
       setData(Object.assign({}, data, { useEval: true }))
     }
@@ -73,11 +73,11 @@ function ListenModal(props) {
     </DialogActions>
 
     {
-      codeModal ?
-        <CodeModal
+      AceDialog ?
+        <AceDialog
           value={data.event}
-          onChange={e => { setData(Object.assign({}, data, { event: e })); setCodeModal(false) }}
-          onClose={() => setCodeModal(false)} initValue={evalEventListenDefault}
+          onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}
+          onClose={() => setAceDialog(false)} initValue={evalEventListenDefault}
           mode='javascript'
         /> : null
     }
@@ -88,11 +88,11 @@ function DispatchModal(props) {
   const { keyOptions, value, onChange, onDelete, onClose, listenNameOptions } = props
 
   const [data, setData] = React.useState(value)
-  const [codeModal, setCodeModal] = React.useState(false)
+  const [AceDialog, setAceDialog] = React.useState(false)
 
   const handleClickEval = () => {
     if (data.useEval) {
-      setCodeModal(true)
+      setAceDialog(true)
     } else {
       setData(Object.assign({}, data, { useEval: true }))
     }
@@ -160,11 +160,11 @@ function DispatchModal(props) {
     </DialogActions>
 
     {
-      codeModal ?
-        <CodeModal
+      AceDialog ?
+        <AceDialog
           value={data.event}
-          onChange={e => { setData(Object.assign({}, data, { event: e })); setCodeModal(false) }}
-          onClose={() => setCodeModal(false)} initValue={evalEventDispatchDefault}
+          onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}
+          onClose={() => setAceDialog(false)} initValue={evalEventDispatchDefault}
           mode='javascript'
         /> : null
     }

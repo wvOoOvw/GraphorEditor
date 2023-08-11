@@ -22,11 +22,11 @@ import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
 import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
 import { graphElementSearch } from './utils.graph.common'
-import { TooltipSX, TextFieldSX } from './utils.mui.sx'
+import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
 
 import AccordionS from './View.Component.Accordion'
 import { ListenModal, DispatchModal } from './View.Component.EventModal'
-import { CodeModal } from './View.Component.Code'
+import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
 function BasicConfig(props) {
@@ -42,28 +42,28 @@ function BasicConfig(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={true} title='元素信息'>
+    <AccordionS defaultExpanded={true} title='Basic Information'>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField fullWidth label='元素名字' disabled value={information.name} />
+          <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
         </Grid>
         <Grid item xs={12}>
-          <TextField fullWidth label='编号' disabled value={currentGraphContent.only} />
+          <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.only} />
         </Grid>
         {
           currentGraphContent.description ?
             <Grid item xs={12}>
-              <TextField fullWidth label='描述' value={currentGraphContent.description} multiline />
+              <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphContent.description} multiline />
             </Grid> : null
         }
         <Grid item xs={12}>
-          <TextField fullWidth label='自定义名字' value={currentGraphContent.name} onChange={e => handleChange(e.target.value)} />
+          <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphContent.name} onChange={e => handleChange(e.target.value)} />
         </Grid>
         {
           license.dependencies && license.dependencies.length ?
             <Grid item xs={12}>
               <Grid container spacing={2} alignItems='center'>
-                <Grid item style={{ fontWeight: 'bold' }}>依赖</Grid>
+                <Grid item>Dependencies</Grid>
                 {
                   license.dependencies.map((i, index) => {
                     return <Grid item><Chip key={index} label={i} color='primary' /></Grid>
@@ -206,7 +206,7 @@ function PropertyConfig(props) {
       <Edit
         value={currentGraphContent.property}
         onChange={handleChange}
-        component={{ CodeModal }}
+        component={{ AceDialog }}
         sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX }}
       />
     </AccordionS>
@@ -296,7 +296,7 @@ function HookConfig(props) {
 
       {
         modal === 'beforeRenderHook' ?
-          <CodeModal
+          <AceDialog
             onClose={() => setModal(undefined)}
             value={currentGraphContent.hook.beforeRenderHook}
             onChange={e => handleChange(e)}
@@ -454,7 +454,7 @@ function DispatchConfig(props) {
 
 function DefaultPage() {
   return <Grid container spacing={2}>
-    <Grid item xs={12} style={{ fontWeight: 'bold' }}>元素配置</Grid>
+    <Grid item xs={12}>元素配置</Grid>
     <Grid item xs={12}><Divider /></Grid>
   </Grid>
 }
@@ -482,7 +482,7 @@ function App() {
   }
 
   return <Grid container spacing={2}>
-    <Grid item xs={12} style={{ fontWeight: 'bold' }}>元素配置</Grid>
+    <Grid item xs={12}>元素配置</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <BasicConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />

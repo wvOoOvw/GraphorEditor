@@ -157,7 +157,7 @@ const resumeifyString = "function(content, map) { const data = JSON.parse(JSON.s
 function DialogPublish(props) {
   const { onClose, graphRef } = props
 
-  const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.sourceOrigin })
+  const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
 
   const handlePublish = async () => {
     const data = graphRef.current.getData()
@@ -353,7 +353,7 @@ function DialogPublish(props) {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <TextField {...TextFieldSX} value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign(pre, { ['sourceOrigin']: e.target.value }))} fullWidth label='Source Origin' autoComplete='off' />
+          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign(pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
       </Grid>
     </DialogContent>

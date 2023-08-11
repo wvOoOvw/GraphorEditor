@@ -40,9 +40,9 @@ ImitationINS.state = {
     },
     project: {
       renderId: '$render',
-      updateId: '$update'
+      updateId: '$update',
+      sourceOrigin: 'https://github-magneto.github.io'
     },
-    sourceOrigin: 'https://github-magneto.github.io'
   },
   graphConfigUpdate: undefined,
 

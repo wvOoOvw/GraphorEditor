@@ -153,8 +153,8 @@ function App() {
     Imitation.assignState({ elementHover: undefined })
   }
 
-  return <Grid container spacing={2} className='font'>
-    <Grid item xs={12} style={{ fontWeight: 'bold' }}>Element Overview</Grid>
+  return <Grid container spacing={2}>
+    <Grid item xs={12}>Element Overview</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>

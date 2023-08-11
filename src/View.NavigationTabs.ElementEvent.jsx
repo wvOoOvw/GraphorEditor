@@ -120,7 +120,7 @@ function ItemRender(props) {
 
 function App() {
   return <Grid container spacing={2}>
-    <Grid item xs={12} style={{ fontWeight: 'bold' }}>元素事件</Grid>
+    <Grid item xs={12}>元素事件</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>

@@ -6,54 +6,108 @@ import { Divider } from '@mui/material'
 import { Button } from '@mui/material'
 import { TextField } from '@mui/material'
 import { IconButton } from '@mui/material'
+import { Accordion } from '@mui/material'
+import { AccordionSummary } from '@mui/material'
+import { AccordionDetails } from '@mui/material'
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 
 import Imitation from './utils.imitation'
 import { hash, copy, deepCopyElement } from './utils.common'
+import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 import AccordionS from './View.Component.Accordion'
-import { CodeModal } from './View.Component.Code'
+import { AceDialog } from './View.Component.Ace'
 
 function Screen(props) {
   const { handleChange } = props
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={true} title='开发场景配置'>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TextField fullWidth value={Imitation.state.graphConfig.screen.width} label='宽度' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.width = e.target.value)} type='number' />
+    <Accordion defaultExpanded={true}>
+      <AccordionSummary>Canvas Config</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screen.width} label='Width' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.width = e.target.value)} type='number' />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screen.height} label='Height' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.height = e.target.value)} type='number' />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 375; Imitation.state.graphConfig.screen.height = 667; })}>Phone Size</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 1200; Imitation.state.graphConfig.screen.height = 720; })}>PC Size</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <div>Scale</div>
+            <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>Reset Position</Button>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <TextField fullWidth value={Imitation.state.graphConfig.screen.height} label='高度' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.height = e.target.value)} type='number' />
+      </AccordionDetails>
+    </Accordion>
+  </Grid>
+}
+
+function Document(props) {
+  const { handleChange } = props
+
+  return <Grid item xs={12}>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Document Config</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.document.title} label='Title' onChange={e => handleChange(() => Imitation.state.graphConfig.document.title = e.target.value)} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.document.icon} label='Icon' onChange={e => handleChange(() => Imitation.state.graphConfig.document.icon = e.target.value)} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.document.viewport} label='Viewport' onChange={e => handleChange(() => Imitation.state.graphConfig.document.viewport = e.target.value)} />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Button variant='outlined' fullWidth onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 375; Imitation.state.graphConfig.screen.height = 667; })}>标准手机尺寸</Button>
+      </AccordionDetails>
+    </Accordion>
+  </Grid>
+}
+
+function Project(props) {
+  const { handleChange } = props
+
+  return <Grid item xs={12}>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Project Config</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.project.renderId} label='Render ID' onChange={e => handleChange(() => Imitation.state.graphConfig.project.renderId = e.target.value)} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.project.updateId} label='Update State ID' onChange={e => handleChange(() => Imitation.state.graphConfig.project.updateId = e.target.value)} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.project.sourceOrigin} label='Source Origin' onChange={e => handleChange(() => Imitation.state.graphConfig.project.sourceOrigin = e.target.value)} />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Button variant='outlined' fullWidth onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 1200; Imitation.state.graphConfig.screen.height = 720; })}>标准电脑尺寸</Button>
-        </Grid>
-        <Grid item xs={12}>
-          <div>缩放</div>
-          <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant='outlined' fullWidth onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>位置复原</Button>
-        </Grid>
-      </Grid>
-    </AccordionS>
+      </AccordionDetails>
+    </Accordion>
   </Grid>
 }
 
 function DependenciesMap(props) {
   const { handleChange } = props
 
-  const handleDelete = key => {
+  const [name, setName] = React.useState('')
+
+  const handleDelete = (key) => {
     handleChange(() => { delete Imitation.state.graphConfig.dependenciesMap[key] })
   }
 
-  const [name, setName] = React.useState('')
   const handleAdd = () => {
     if (name && !Imitation.state.graphConfig.dependenciesMap[name]) {
       handleChange(() => { Imitation.state.graphConfig.dependenciesMap[name] = '' })
@@ -62,71 +116,37 @@ function DependenciesMap(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='依赖映射'>
-      <Grid container spacing={2}>
-        {
-          Object.entries(Imitation.state.graphConfig.dependenciesMap).map((i) => {
-            return <Grid item xs={12} key={i[0]}>
-              <Grid container spacing={1} alignItems='center'>
-                <Grid item flex={1}>
-                  <TextField fullWidth value={i[1]} label={i[0]} onChange={e => handleChange(() => Imitation.state.graphConfig.dependenciesMap[i[0]] = e.target.value)} />
-                </Grid>
-                <Grid item>
-                  <IconButton onClick={() => handleDelete(i[0])}><DeleteOutlineIcon /></IconButton>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Dependencies Map</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          {
+            Object.entries(Imitation.state.graphConfig.dependenciesMap).map((i) => {
+              return <Grid item xs={12} key={i[0]}>
+                <Grid container spacing={1} alignItems='center'>
+                  <Grid item flex={1}>
+                    <TextField {...TextFieldSX} fullWidth autoComplete='off' value={i[1]} label={i[0]} onChange={e => handleChange(() => Imitation.state.graphConfig.dependenciesMap[i[0]] = e.target.value)} />
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={() => handleDelete(i[0])}><DeleteOutlineIcon /></IconButton>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          })
-        }
-        <Grid item xs={12}>
-          <Grid container spacing={1} alignItems='center'>
-            <Grid item flex={1}>
-              <TextField fullWidth value={name} label='新增' onChange={e => setName(e.target.value)} />
-            </Grid>
-            <Grid item>
-              <IconButton onClick={handleAdd}><AddOutlinedIcon /></IconButton>
+            })
+          }
+          <Grid item xs={12}>
+            <Grid container spacing={1} alignItems='center'>
+              <Grid item flex={1}>
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' value={name} label='Add' onChange={e => setName(e.target.value)} />
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleAdd}><AddOutlinedIcon /></IconButton>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </AccordionS>
-  </Grid >
-}
-
-function Document(props) {
-  const { handleChange } = props
-
-  return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='文档配置'>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField fullWidth value={Imitation.state.graphConfig.document.title} label='标题' onChange={e => handleChange(() => Imitation.state.graphConfig.document.title = e.target.value)} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField fullWidth value={Imitation.state.graphConfig.document.icon} label='图标' onChange={e => handleChange(() => Imitation.state.graphConfig.document.icon = e.target.value)} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField fullWidth value={Imitation.state.graphConfig.document.viewport} label='viewport' onChange={e => handleChange(() => Imitation.state.graphConfig.document.viewport = e.target.value)} />
-        </Grid>
-      </Grid>
-    </AccordionS>
-  </Grid>
-}
-
-function Project(props) {
-  const { handleChange } = props
-
-  return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='项目配置'>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField fullWidth value={Imitation.state.graphConfig.project.renderId} label='渲染绑定Id' onChange={e => handleChange(() => Imitation.state.graphConfig.project.renderId = e.target.value)} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField fullWidth value={Imitation.state.graphConfig.project.updateId} label='渲染更新Id' onChange={e => handleChange(() => Imitation.state.graphConfig.project.updateId = e.target.value)} />
-        </Grid>
-      </Grid>
-    </AccordionS>
+      </AccordionDetails>
+    </Accordion>
   </Grid>
 }
 
@@ -144,20 +164,23 @@ function WriteJson(props) {
   }
 
   return <Grid item xs={12}>
-    <AccordionS defaultExpanded={false} title='编辑JSON'>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Button variant='outlined' fullWidth onClick={e => setnavigationTabsElementConfigValue(true)}>配置Content</Button>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>Edit JSON</AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setnavigationTabsElementConfigValue(true)}>Edit Content JSON</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setModalConfig(true)}>Edit Config JSON</Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Button variant='outlined' fullWidth onClick={e => setModalConfig(true)}>查看Config</Button>
-        </Grid>
-      </Grid>
-    </AccordionS>
+      </AccordionDetails>
+    </Accordion>
 
     {
       navigationTabsElementValue ?
-        <CodeModal
+        <AceDialog
           onClose={() => setnavigationTabsElementConfigValue()}
           value={JSON.stringify(Imitation.state.graphContent, true, 2)}
           onChange={handleChangeContent}
@@ -166,7 +189,7 @@ function WriteJson(props) {
     }
     {
       modalConfig ?
-        <CodeModal
+        <AceDialog
           onClose={() => setModalConfig()}
           value={JSON.stringify(Imitation.state.graphConfig, true, 2)}
           onChange={handleChangConfig}
@@ -187,28 +210,28 @@ function App() {
       graphContent: Imitation.state.graphContent,
       graphConfig: Imitation.state.graphConfig
     }
-    copy(JSON.stringify(data), () => { Imitation.assignState({ message: '复制到剪切板' }) })
+    copy(JSON.stringify(data), () => { Imitation.assignState({ message: 'Copy Success' }) })
   }
 
   const handleImport = () => {
-    const v = prompt('导入内容')
+    const v = prompt('Import Data')
     try {
       const data = JSON.parse(v)
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: '导入成功', navigationTabsElementValue: undefined })
+      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
     } catch { }
   }
 
   const handleImportElement = () => {
-    const v = prompt('导入内容')
+    const v = prompt('Import Element')
     try {
       const data = deepCopyElement(JSON.parse(v))
       Imitation.state.graphContent.push(data)
-      Imitation.assignState({ graphContentUpdate: hash(), message: '导入成功', navigationTabsElementValue: undefined })
+      Imitation.assignState({ graphContentUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
     } catch { }
   }
 
   return <Grid container spacing={2}>
-    <Grid item xs={12} style={{ fontWeight: 'bold' }}>控制器配置</Grid>
+    <Grid item xs={12}>Graph Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
     <Screen handleChange={handleChange} />
@@ -219,13 +242,13 @@ function App() {
 
     <Grid item xs={12}><Divider /></Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleExport}>导出</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleExport}>Export Data</Button>
     </Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleImport}>导入</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleImport}>Import Data</Button>
     </Grid>
     <Grid item xs={12}>
-      <Button variant='outlined' color='primary' fullWidth onClick={handleImportElement}>导入元素</Button>
+      <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleImportElement}>Import Element</Button>
     </Grid>
   </Grid>
 }

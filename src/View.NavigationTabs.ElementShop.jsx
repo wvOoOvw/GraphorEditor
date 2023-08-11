@@ -16,6 +16,7 @@ import Imitation from './utils.imitation'
 import { deepSearch, hash } from './utils.common'
 import { defaultOuterAdd } from './utils.graph.style'
 import { evalBeforeRenderHook } from './utils.const'
+import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
 
 function App() {
   const [list, setList] = React.useState(Imitation.state.graphElement)
@@ -74,21 +75,13 @@ function App() {
 
     <Grid item xs={12}>
       <Autocomplete
+        {...AutocompleteSX}
         fullWidth
-        sx={{
-          '& input': { fontSize: '14px' },
-          '& .MuiInputLabel-root': { fontSize: '14px', lineHeight: '1' },
-          '& .MuiOutlinedInput-root': { padding: '4px' }
-        }}
-        componentsProps={{
-          popper: { sx: { '& .MuiAutocomplete-option': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' } }},
-          paper: { sx: { '& .MuiAutocomplete-noOptions': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace', padding: '12px' } } }
-        }}
         value={filterType}
         onChange={(e, v) => setFilterType(v)}
         options={Array.from(new Set(list.map(i => i.information.type)))}
         noOptionsText='empty'
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField {...params} autoComplete='off' />}
       />
     </Grid>
 
