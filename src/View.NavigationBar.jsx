@@ -162,13 +162,13 @@ function DialogPublish(props) {
   const handlePublish = async () => {
     const data = graphRef.current.getData()
 
-    var html = await fetch(`${sourceOrigin}/html/index.html`).then(res => res.text())
+    var html = await fetch(`${option.sourceOrigin}/html/index.html`).then(res => res.text())
 
-    var render = await fetch(`${sourceOrigin}/render/index.js`).then(res => res.text())
+    var render = await fetch(`${option.sourceOrigin}/render/index.js`).then(res => res.text())
 
-    // var element = await fetch(`${sourceOrigin}/element-collection/index.js`).then(res => res.text())
+    // var element = await fetch(`${option.sourceOrigin}/element-collection/index.js`).then(res => res.text())
 
-    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
+    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
     html = html
       .replace(
@@ -311,6 +311,8 @@ function DialogPublish(props) {
 
     downloadFile('index.html', html)
   }
+
+  console.log(option, Imitation.state.graphConfig)
 
   return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
     <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>publish config</DialogTitle>

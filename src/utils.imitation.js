@@ -83,7 +83,8 @@ const initState = () => {
       },
       project: {
         renderId: '$render',
-        updateId: '$update'
+        updateId: '$update',
+        sourceOrigin: 'https://github-magneto.github.io'
       }
     },
     graphConfigUpdate: undefined,
