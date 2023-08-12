@@ -47,9 +47,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>主题颜色</InputLabel>
-        <Select value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
           {
             ['standard', 'primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -59,9 +59,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>尺寸</InputLabel>
-        <Select value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='large'>大</MenuItem>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>
@@ -69,9 +69,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>排列方向</InputLabel>
-        <Select value={value.orientation} label='排列方向' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.orientation} label='排列方向' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
           <MenuItem value='horizontal'>横向</MenuItem>
           <MenuItem value='vertical'>纵向</MenuItem>
         </Select>

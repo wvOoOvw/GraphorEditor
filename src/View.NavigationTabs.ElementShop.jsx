@@ -7,8 +7,7 @@ import { Paper } from '@mui/material'
 import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
-import { Autocomplete } from '@mui/material'
-import { TextField } from '@mui/material'
+import { InputLabel } from '@mui/material'
 
 import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 
@@ -16,12 +15,12 @@ import Imitation from './utils.imitation'
 import { deepSearch, hash } from './utils.common'
 import { defaultStyleAdd } from './utils.graph.style'
 import { evalBeforeRenderHook } from './utils.const'
-import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
+import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 function App() {
   const [list, setList] = React.useState(Imitation.state.graphElement)
 
-  const [filterType, setFilterType] = React.useState(Imitation.state.graphElement.length > 0 ? Imitation.state.graphElement[0].information.type : undefined)
+  const [filter, setFilter] = React.useState(Imitation.state.graphElement.length > 0 ? Imitation.state.graphElement[0].information.type : undefined)
 
   const handleAdd = e => {
     const hash_ = hash()
@@ -74,22 +73,23 @@ function App() {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Autocomplete
-        {...AutocompleteSX}
-        fullWidth
-        noOptionsText='empty'
-        value={filterType}
-        onChange={(e, v) => setFilterType(v ? v : filterType)}
-        options={Array.from(new Set(list.map(i => i.information.type)))}
-        renderInput={(params) => <TextField {...params} autoComplete='off' />}
-      />
+      <FormControl fullWidth {...SelectSX}>
+        <InputLabel>Filter</InputLabel>
+        <Select {...SelectSX} value={filter} label='Filter' onChange={e => setFilter(e.target.value)} >
+          {
+            list.map(i => i.information.type).reduce((t, i) => t.includes(i) ? t : [...t, i], []).map(i => {
+              return <MenuItem key={i} value={i}>{i}</MenuItem>
+            })
+          }
+        </Select>
+      </FormControl>
     </Grid>
 
     <Grid item xs={12}>
       <Grid container spacing={2}>
         {
           list
-            .filter(i => !filterType || i.information.type === filterType)
+            .filter(i => !filter || i.information.type === filter)
             .map(i => {
               return <Grid item xs={6} key={i.information.licenseKey}>
                 <Paper>

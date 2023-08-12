@@ -26,7 +26,7 @@ import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
 import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
 import { graphElementSearch } from './utils.graph.common'
-import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
+import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 import { ListenModal, DispatchModal } from './View.Component.EventModal'
 import { AceDialog } from './View.Component.Ace'
@@ -187,7 +187,7 @@ function PropertyConfig(props) {
           value={currentGraphContent.property}
           onChange={handleChange}
           component={{ AceDialog }}
-          sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX }}
+          sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX, SelectSX: SelectSX }}
         />
       </AccordionDetails>
     </Accordion>
@@ -204,29 +204,30 @@ function ChildrenConfig(props) {
   if (!information) return null
 
   const [options, setOptions] = React.useState(information.children)
-  const [current, setCurrent] = React.useState(information.children[0])
+  const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current.value })
+    Imitation.assignState({ modalVisible: 'AddElement', modalContent: Imitation.state.modalContent + '@' + current })
   }
 
   const handleEdit = (i) => {
-    Imitation.assignState({ navigationTabsElementValue: i })
+    Imitation.assignState({ modalContent: i })
   }
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Children Config</AccordionSummary>
       <AccordionDetails>
-        <Autocomplete
-          {...AutocompleteSX}
-          fullWidth
-          noOptionsText='empty'
-          value={current.label}
-          onChange={(e, v) => setCurrent(v ? v : current)}
-          options={options}
-          renderInput={(params) => <TextField {...params} autoComplete='off' />}
-        />
+        <FormControl {...SelectSX} fullWidth>
+          <InputLabel>Model</InputLabel>
+          <Select {...SelectSX} label='Model' value={current} onChange={e => setCurrent(e.target.value)}>
+            {
+              options.map(i => {
+                return <MenuItem value={i.value}>{i.label}</MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
         <List>
           {
             currentGraphContent.children[current.value].map(i => {

@@ -24,9 +24,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value.split(',') }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>主题颜色</InputLabel>
-        <Select value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
           {
             ['primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -36,9 +36,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>尺寸</InputLabel>
-        <Select value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='large'>大</MenuItem>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>

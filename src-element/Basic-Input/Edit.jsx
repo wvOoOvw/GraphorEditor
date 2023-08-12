@@ -29,9 +29,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='提示' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>类型</InputLabel>
-        <Select value={value.type} label='类型' onChange={handleSetType}>
+        <Select {...sx.SelectSX} value={value.type} label='类型' onChange={handleSetType}>
           <MenuItem value='text'>文本</MenuItem>
           <MenuItem value='textarea'>文本域</MenuItem>
           <MenuItem value='password'>密码</MenuItem>

@@ -12,7 +12,7 @@ import { Button } from '@mui/material'
 import { Autocomplete } from '@mui/material'
 
 import { defaultStyleAll } from './utils.graph.style'
-import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
+import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 export function Render_C(props) {
   const { value, onChange } = props
@@ -193,22 +193,22 @@ export function Position_C(props) {
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>定位</div>
+      <div>Position</div>
       <Switch checked={value.style.position !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
       value.style.position !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Position</InputLabel>
+              <Select {...SelectSX} label='Position' value={value.style.position} onChange={e => onChange(() => value.style.position = e.target.value)}  >
+                <MenuItem value='static'>static</MenuItem>
+                <MenuItem value='relative'>relative</MenuItem>
+                <MenuItem value='absolute'>absolute</MenuItem>
+                <MenuItem value='fixed'>fixed</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </> : null
     }
@@ -230,7 +230,7 @@ export function Inset_C(props) {
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>位置</div>
+      <div>Inset</div>
       <Switch checked={value.style.inset !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
@@ -239,16 +239,16 @@ export function Inset_C(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='上' value={value.style.inset[0]} onChange={e => onChange(() => value.style.inset[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='Top' value={value.style.inset[0]} onChange={e => onChange(() => value.style.inset[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='右' value={value.style.inset[1]} onChange={e => onChange(() => value.style.inset[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='Right' value={value.style.inset[1]} onChange={e => onChange(() => value.style.inset[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='下' value={value.style.inset[2]} onChange={e => onChange(() => value.style.inset[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='Bottom' value={value.style.inset[2]} onChange={e => onChange(() => value.style.inset[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='左' value={value.style.inset[3]} onChange={e => onChange(() => value.style.inset[3] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='Left' value={value.style.inset[3]} onChange={e => onChange(() => value.style.inset[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -279,15 +279,16 @@ export function Display_C(props) {
       value.style.display !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.display}
-              onChange={(e, v) => onChange(() => value.style.display = v ? v : value.style.display)}
-              options={['block', 'inline', 'inline-block', 'flex', 'inline-flex']}
-              renderInput={(params) => <TextField {...params} label='Display' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Display</InputLabel>
+              <Select {...SelectSX} label='Display' value={value.style.display} onChange={e => onChange(() => value.style.display = e.target.value)}  >
+                <MenuItem value='inline'>inline</MenuItem>
+                <MenuItem value='block'>block</MenuItem>
+                <MenuItem value='inline-block'>inline-block</MenuItem>
+                <MenuItem value='flex'>flex</MenuItem>
+                <MenuItem value='inline-flex'>inline-flex</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </> : null
     }
@@ -309,14 +310,14 @@ export function ZIndex_C(props) {
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>层级</div>
+      <div>Z-Index</div>
       <Switch checked={value.style.zIndex !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
       value.style.zIndex !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='层级' value={value.style.zIndex} onChange={e => onChange(() => value.style.zIndex = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth label='Z-Index' value={value.style.zIndex} onChange={e => onChange(() => value.style.zIndex = e.target.value)} type='number' />
           </Grid>
         </> : null
     }
@@ -345,15 +346,15 @@ export function Cursor_C(props) {
       value.style.cursor !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.cursor}
-              onChange={(e, v) => onChange(() => value.style.cursor = v ? v : value.style.cursor)}
-              options={['default', 'pointer', 'move', 'text']}
-              renderInput={(params) => <TextField {...params} label='Cursor' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Cursor</InputLabel>
+              <Select {...SelectSX} label='Cursor' value={value.style.cursor} onChange={e => onChange(() => value.style.cursor = e.target.value)}  >
+                <MenuItem value='default'>default</MenuItem>
+                <MenuItem value='pointer'>pointer</MenuItem>
+                <MenuItem value='move'>move</MenuItem>
+                <MenuItem value='text'>text</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </> : null
     }
@@ -382,15 +383,14 @@ export function Overflow_C(props) {
       value.style.overflow !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.overflow}
-              onChange={(e, v) => onChange(() => value.style.overflow = v ? v : value.style.overflow)}
-              options={['visible', 'hidden', 'auto']}
-              renderInput={(params) => <TextField {...params} label='Overflow' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Overflow</InputLabel>
+              <Select {...SelectSX} label='Overflow' value={value.style.overflow} onChange={e => onChange(() => value.style.overflow = e.target.value)}  >
+                <MenuItem value='visible'>visible</MenuItem>
+                <MenuItem value='hidden'>hidden</MenuItem>
+                <MenuItem value='auto'>auto</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </> : null
     }
@@ -419,15 +419,15 @@ export function VerticalAlign_C(props) {
       value.style.verticalAlign !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.verticalAlign}
-              onChange={(e, v) => onChange(() => value.style.verticalAlign = v ? v : value.style.position)}
-              options={['baseline', 'top', 'middle', 'bottom']}
-              renderInput={(params) => <TextField {...params} label='Vertical Align' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Vertical Align</InputLabel>
+              <Select {...SelectSX} label='Vertical Align' value={value.style.verticalAlign} onChange={e => onChange(() => value.style.verticalAlign = e.target.value)}  >
+                <MenuItem value='baseline'>baseline</MenuItem>
+                <MenuItem value='top'>top</MenuItem>
+                <MenuItem value='middle'>middle</MenuItem>
+                <MenuItem value='bottom'>bottom</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </> : null
     }
@@ -535,58 +535,49 @@ export function Flex_C(props) {
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Flex</div>
+      <div>弹性</div>
       <Switch checked={value.style.flex !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
       value.style.flex !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.flexDirection}
-              onChange={(e, v) => onChange(() => value.style.flexDirection = v ? v : value.style.flexDirection)}
-              options={['row', 'row-reverse', 'column', 'column-reverse']}
-              renderInput={(params) => <TextField {...params} label='Flex Direction' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>方向</InputLabel>
+              <Select {...SelectSX} label='方向' value={value.style.flex.flexDirection} onChange={e => onChange(() => value.style.flex.flexDirection = e.target.value)}  >
+                <MenuItem value='row'>水平</MenuItem>
+                <MenuItem value='row-reverse'>水平（逆向）</MenuItem>
+                <MenuItem value='column'>垂直</MenuItem>
+                <MenuItem value='column-reverse	'>垂直（逆向）</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.flexWrap}
-              onChange={(e, v) => onChange(() => value.style.flexWrap = v ? v : value.style.flexWrap)}
-              options={['nowrap', 'wrap', 'wrap-reverse']}
-              renderInput={(params) => <TextField {...params} label='Flex Wrap' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>换行</InputLabel>
+              <Select {...SelectSX} label='换行' value={value.style.flex.flexWrap} onChange={e => onChange(() => value.style.flex.flexWrap = e.target.value)}  >
+                <MenuItem value='nowrap'>不换行</MenuItem>
+                <MenuItem value='wrap'>换行</MenuItem>
+                <MenuItem value='wrap-reverse'>换行（逆向）</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.justifyContent}
-              onChange={(e, v) => onChange(() => value.style.justifyContent = v ? v : value.style.justifyContent)}
-              options={['flex-start', 'flex-start', 'center', 'space-between', 'space-around']}
-              renderInput={(params) => <TextField {...params} label='Justify Content' autoComplete='off' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>水平布局</InputLabel>
+              <Select {...SelectSX} label='水平布局' value={value.style.flex.justifyContent} onChange={e => onChange(() => value.style.flex.justifyContent = e.target.value)}  >
+                <MenuItem value='flex-start'>起始</MenuItem>
+                <MenuItem value='flex-end'>末尾</MenuItem>
+                <MenuItem value='center'>中心</MenuItem>
+                <MenuItem value='space-between'>均匀（两侧置空）</MenuItem>
+                <MenuItem value='space-around'>均匀（两侧留空）</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>垂直布局</InputLabel>
-              <Select label='垂直布局' value={value.style.flex.alignItems} onChange={e => onChange(() => value.style.flex.alignItems = e.target.value)}  >
+              <Select {...SelectSX} label='垂直布局' value={value.style.flex.alignItems} onChange={e => onChange(() => value.style.flex.alignItems = e.target.value)}  >
                 <MenuItem value='stretch'>占据全部</MenuItem>
                 <MenuItem value='flex-start'>起始</MenuItem>
                 <MenuItem value='flex-end'>末尾</MenuItem>
@@ -596,18 +587,9 @@ export function Flex_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>轴布局</InputLabel>
-              <Select label='轴布局' value={value.style.flex.alignContent} onChange={e => onChange(() => value.style.flex.alignContent = e.target.value)}  >
+              <Select {...SelectSX} label='轴布局' value={value.style.flex.alignContent} onChange={e => onChange(() => value.style.flex.alignContent = e.target.value)}  >
                 <MenuItem value='stretch'>占据全部</MenuItem>
                 <MenuItem value='flex-start'>起始</MenuItem>
                 <MenuItem value='flex-end'>末尾</MenuItem>
@@ -653,18 +635,9 @@ export function Transform_C(props) {
       value.style.transform !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>呈现形式</InputLabel>
-              <Select label='呈现形式' value={value.style.transform.transformStyle} onChange={e => onChange(() => value.style.transform.transformStyle = e.target.value)}  >
+              <Select {...SelectSX} label='呈现形式' value={value.style.transform.transformStyle} onChange={e => onChange(() => value.style.transform.transformStyle = e.target.value)}  >
                 <MenuItem value='flat'>平面</MenuItem>
                 <MenuItem value='preserve-3d'>立体</MenuItem>
               </Select>
@@ -829,18 +802,9 @@ export function Border_C(props) {
             <TextField {...TextFieldSX} fullWidth label='调色板' value={value.style.border.borderColor} onChange={e => onChange(() => value.style.border.borderColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select label='线条类型' value={value.style.border.borderStyle} onChange={e => onChange(() => value.style.border.borderStyle = e.target.value)}>
+              <Select {...SelectSX} label='线条类型' value={value.style.border.borderStyle} onChange={e => onChange(() => value.style.border.borderStyle = e.target.value)}>
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>
@@ -849,18 +813,9 @@ export function Border_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>位置</InputLabel>
-              <Select label='位置' value={value.style.border.borderPosition} onChange={e => onChange(() => value.style.border.borderPosition = e.target.value)} multiple>
+              <Select {...SelectSX} label='位置' value={value.style.border.borderPosition} onChange={e => onChange(() => value.style.border.borderPosition = e.target.value)} multiple>
                 <MenuItem value='top'>上</MenuItem>
                 <MenuItem value='bottom'>下</MenuItem>
                 <MenuItem value='left'>左</MenuItem>
@@ -992,18 +947,9 @@ export function Outline_C(props) {
             <TextField {...TextFieldSX} fullWidth label='调色板' value={value.style.outline.outlineColor} onChange={e => onChange(() => value.style.outline.outlineColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select label='线条类型' value={value.style.outline.outlineStyle} onChange={e => onChange(() => value.style.outline.outlineStyle = e.target.value)}  >
+              <Select {...SelectSX} label='线条类型' value={value.style.outline.outlineStyle} onChange={e => onChange(() => value.style.outline.outlineStyle = e.target.value)}  >
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>
@@ -1044,41 +990,32 @@ export function Background_C(props) {
             <TextField {...TextFieldSX} fullWidth label='调色板' value={value.style.background.backgroundColor} onChange={e => onChange(() => value.style.background.backgroundColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='图片' value={value.style.background.backgroundImage} onChange={e => onChange(() => value.style.background.backgroundImage = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth label='图片' value={value.style.background.backgroundImage} onChange={e => onChange(() => value.style.background.backgroundImage = e.target.value)} multiline maxRows={4} />
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='位置 X' value={value.style.background.backgroundPosition[0]} onChange={e => onChange(() => value.style.background.backgroundPosition[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='位置 X' value={value.style.background.backgroundPosition[0]} onChange={e => onChange(() => value.style.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='位置 Y' value={value.style.background.backgroundPosition[1]} onChange={e => onChange(() => value.style.background.backgroundPosition[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='位置 Y' value={value.style.background.backgroundPosition[1]} onChange={e => onChange(() => value.style.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='尺寸 X' value={value.style.background.backgroundSize[0]} onChange={e => onChange(() => value.style.background.backgroundSize[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='尺寸 X' value={value.style.background.backgroundSize[0]} onChange={e => onChange(() => value.style.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='尺寸 Y' value={value.style.background.backgroundSize[1]} onChange={e => onChange(() => value.style.background.backgroundSize[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth label='尺寸 Y' value={value.style.background.backgroundSize[1]} onChange={e => onChange(() => value.style.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>重复填充</InputLabel>
-              <Select label='重复填充' value={value.style.background.backgroundRepeat} onChange={e => onChange(() => value.style.background.backgroundRepeat = e.target.value)}  >
+              <Select {...SelectSX} label='重复填充' value={value.style.background.backgroundRepeat} onChange={e => onChange(() => value.style.background.backgroundRepeat = e.target.value)}  >
                 <MenuItem value='no-repeat'>不重复</MenuItem>
                 <MenuItem value='repeat'>重复</MenuItem>
                 <MenuItem value='repeat-x'>仅重复X轴</MenuItem>
@@ -1087,18 +1024,9 @@ export function Background_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>跟随滑动</InputLabel>
-              <Select label='跟随滑动' value={value.style.background.backgroundAttachment} onChange={e => onChange(() => value.style.background.backgroundAttachment = e.target.value)}  >
+              <Select {...SelectSX} label='跟随滑动' value={value.style.background.backgroundAttachment} onChange={e => onChange(() => value.style.background.backgroundAttachment = e.target.value)}  >
                 <MenuItem value='scroll'>滑动</MenuItem>
                 <MenuItem value='fixed'>不滑动</MenuItem>
               </Select>
@@ -1134,22 +1062,26 @@ export function Font_C(props) {
             <TextField {...TextFieldSX} fullWidth type='number' label='尺寸' value={value.style.font.fontSize} onChange={e => onChange(() => value.style.font.fontSize = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              options={[100, 200, 300, 400, 500, 600, 700, 800, 900]}
-              value={value.style.font.fontWeight}
-              onChange={(e, v) => onChange(() => value.style.font.fontWeight = v)}
-              renderInput={(params) => <TextField {...params} label='Font Weight' />}
-            />
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>粗细</InputLabel>
+              <Select {...SelectSX} value={value.style.font.fontWeight} label='粗细' onChange={e => onChange(() => value.style.font.fontWeight = e.target.value)}>
+                <MenuItem value={100}>100</MenuItem>
+                <MenuItem value={200}>200</MenuItem>
+                <MenuItem value={300}>300</MenuItem>
+                <MenuItem value={400}>400</MenuItem>
+                <MenuItem value={500}>500</MenuItem>
+                <MenuItem value={600}>600</MenuItem>
+                <MenuItem value={700}>700</MenuItem>
+                <MenuItem value={800}>800</MenuItem>
+                <MenuItem value={900}>900</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
+
           <Grid item xs={12}>
             <Autocomplete
               {...AutocompleteSX}
-              fullWidth
               multiple
-              noOptionsText='empty'
               options={['"Times New Roman"']}
               value={value.style.font.fontFamily.split(',').filter(i => i)}
               onChange={(e, v) => onChange(() => value.style.font.fontFamily = v.join(','))}
@@ -1189,18 +1121,9 @@ export function Text_C(props) {
             <TextField {...TextFieldSX} fullWidth type='number' label='字符间距' value={value.style.text.letterSpacing} onChange={e => onChange(() => value.style.text.letterSpacing = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>对齐</InputLabel>
-              <Select value={value.style.text.textAlign} label='对齐' onChange={e => onChange(() => value.style.text.textAlign = e.target.value)}>
+              <Select {...SelectSX} value={value.style.text.textAlign} label='对齐' onChange={e => onChange(() => value.style.text.textAlign = e.target.value)}>
                 <MenuItem value='left'>居左</MenuItem>
                 <MenuItem value='right'>居右</MenuItem>
                 <MenuItem value='center'>居中</MenuItem>
@@ -1209,18 +1132,9 @@ export function Text_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>换行</InputLabel>
-              <Select value={value.style.text.whiteSpace} label='换行' onChange={e => onChange(() => value.style.text.whiteSpace = e.target.value)}>
+              <Select {...SelectSX} value={value.style.text.whiteSpace} label='换行' onChange={e => onChange(() => value.style.text.whiteSpace = e.target.value)}>
                 <MenuItem value='normal'>默认</MenuItem>
                 <MenuItem value='nowrap'>不换行</MenuItem>
                 <MenuItem value='pre-wrap'>保留空格换行</MenuItem>
@@ -1260,18 +1174,9 @@ export function TextDecoration_C(props) {
       value.style.textDecoration !== undefined ?
         <>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>位置</InputLabel>
-              <Select value={value.style.textDecoration.textDecorationLine} label='位置' onChange={e => onChange(() => value.style.textDecoration.textDecorationLine = e.target.value)}>
+              <Select {...SelectSX} value={value.style.textDecoration.textDecorationLine} label='位置' onChange={e => onChange(() => value.style.textDecoration.textDecorationLine = e.target.value)}>
                 <MenuItem value='none'>默认</MenuItem>
                 <MenuItem value='underline'>下划线</MenuItem>
                 <MenuItem value='overline'>上划线</MenuItem>
@@ -1280,18 +1185,9 @@ export function TextDecoration_C(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              fullWidth
-              noOptionsText='empty'
-              value={value.style.position}
-              onChange={(e, v) => onChange(() => value.style.position = v ? v : value.style.position)}
-              options={['static', 'relative', 'absolute', 'fixed']}
-              renderInput={(params) => <TextField {...params} label='Position' autoComplete='off' />}
-            />
-            <FormControl fullWidth>
+            <FormControl {...SelectSX} fullWidth>
               <InputLabel>线条类型</InputLabel>
-              <Select value={value.style.textDecoration.textDecorationStyle} label='线条类型' onChange={e => onChange(() => value.style.textDecoration.textDecorationStyle = e.target.value)}>
+              <Select {...SelectSX} value={value.style.textDecoration.textDecorationStyle} label='线条类型' onChange={e => onChange(() => value.style.textDecoration.textDecorationStyle = e.target.value)}>
                 <MenuItem value='solid'>实线</MenuItem>
                 <MenuItem value='double'>双线</MenuItem>
                 <MenuItem value='dashed'>虚线</MenuItem>

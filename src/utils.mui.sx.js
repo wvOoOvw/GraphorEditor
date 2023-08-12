@@ -9,9 +9,9 @@ const TooltipSX = {
 
 const TextFieldSX = {
   sx: {
-    '& input': { fontSize: 14, padding: '12px' },
-    '& label': { fontSize: 12, lineHeight: 1, padding: 0, background: 'white' },
-    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', background: 'white' },
+    '& input, & .MuiInputBase-multiline': { fontSize: '14px', padding: '12px' },
+    '& label': { fontSize: '12px', lineHeight: 1, padding: 0, background: 'white' },
+    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', paddingTop: 0, background: 'white' },
     '& fieldset': { top: 0 },
     '& fieldset legend': { display: 'none' }
   }
@@ -21,8 +21,8 @@ const AutocompleteSX = {
   sx: {
     '& input': { fontSize: '14px' },
     '& .MuiOutlinedInput-root': { padding: '4.5px', paddingLeft: '8px' },
-    '& label': { fontSize: 12, lineHeight: 1, padding: 0, background: 'white' },
-    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', background: 'white' },
+    '& label': { fontSize: '12px', lineHeight: 1, padding: 0, background: 'white' },
+    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', paddingTop: 0, background: 'white' },
     '& fieldset': { top: 0 },
     '& fieldset legend': { display: 'none' }
   },
@@ -40,4 +40,19 @@ const AutocompleteSX = {
   }
 }
 
-export { TooltipSX, TextFieldSX, AutocompleteSX }
+const SelectSX = {
+  sx: {
+    '& .MuiSelect-select': { fontSize: '14px', padding: '10.5px 12px' },
+    '& label': { fontSize: '12px', lineHeight: 1, padding: 0, background: 'white' },
+    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', paddingTop: 0, background: 'white' },
+    '& fieldset': { top: 0 },
+    '& fieldset legend': { display: 'none' }
+  },
+  MenuProps: {
+    sx: {
+      '& .MuiMenuItem-root': { fontSize: '14px', fontWeight: 'bold', fontFamily: 'monospace' }
+    }
+  }
+}
+
+export { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX }

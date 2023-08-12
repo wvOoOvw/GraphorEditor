@@ -24,9 +24,9 @@ function Edit(props) {
       <Switch checked={value.clickClose} onChange={e => onChange(Object.assign({}, value, { clickClose: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>唤起方式</InputLabel>
-        <Select value={value.openType} label='唤起方式' onChange={e => onChange(Object.assign({}, value, { openType: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.openType} label='唤起方式' onChange={e => onChange(Object.assign({}, value, { openType: e.target.value }))}>
           <MenuItem value='click'>点击</MenuItem>
           <MenuItem value='mouseover'>悬浮</MenuItem>
         </Select>

@@ -24,9 +24,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>文字主题颜色</InputLabel>
-        <Select value={value.textColor} label='文字主题颜色' onChange={e => onChange(Object.assign({}, value, { textColor: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.textColor} label='文字主题颜色' onChange={e => onChange(Object.assign({}, value, { textColor: e.target.value }))}>
           {
             ['primary', 'inherit', 'secondary'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -36,9 +36,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>背景主题颜色</InputLabel>
-        <Select value={value.indicatorColor} label='背景主题颜色' onChange={e => onChange(Object.assign({}, value, { indicatorColor: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.indicatorColor} label='背景主题颜色' onChange={e => onChange(Object.assign({}, value, { indicatorColor: e.target.value }))}>
           {
             ['primary', 'secondary'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -49,18 +49,18 @@ function Edit(props) {
     </Grid>
 
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>方向</InputLabel>
-        <Select value={value.orientation} label='方向' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.orientation} label='方向' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
           <MenuItem value='horizontal'>横向</MenuItem>
           <MenuItem value='vertical'>纵向</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>类型</InputLabel>
-        <Select value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
           <MenuItem value='standard'>默认</MenuItem>
           <MenuItem value='fullWidth'>填充宽度</MenuItem>
           <MenuItem value='scrollable'>滑动</MenuItem>
@@ -68,9 +68,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>滑动按钮</InputLabel>
-        <Select value={value.scrollButtons} label='滑动按钮' onChange={e => onChange(Object.assign({}, value, { scrollButtons: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.scrollButtons} label='滑动按钮' onChange={e => onChange(Object.assign({}, value, { scrollButtons: e.target.value }))}>
           <MenuItem value='auto'>自动</MenuItem>
           <MenuItem value={true}>打开</MenuItem>
           <MenuItem value={false}>关闭</MenuItem>

@@ -21,9 +21,9 @@ function Edit(props) {
       <Switch checked={value.arrow} onChange={e => onChange(v => v.arrow = e.target.checked)} />
     </Grid>
     <Grid item xs={6}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>浮窗位置</InputLabel>
-        <Select value={value.placementPosition} label='浮窗位置' onChange={e => onChange((v) => v.placementPosition = e.target.value)}>
+        <Select {...sx.SelectSX} value={value.placementPosition} label='浮窗位置' onChange={e => onChange((v) => v.placementPosition = e.target.value)}>
           <MenuItem value='bottom'>下</MenuItem>
           <MenuItem value='left'>左</MenuItem>
           <MenuItem value='right'>右</MenuItem>
@@ -32,9 +32,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={6}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>浮窗排列位置</InputLabel>
-        <Select value={value.placementAlign} label='浮窗排列位置' onChange={e => onChange((v) => v.placementAlign = e.target.value)}>
+        <Select {...sx.SelectSX} value={value.placementAlign} label='浮窗排列位置' onChange={e => onChange((v) => v.placementAlign = e.target.value)}>
           <MenuItem value='center'>居中</MenuItem>
           <MenuItem value='start'>居左</MenuItem>
           <MenuItem value='end'>居右</MenuItem>

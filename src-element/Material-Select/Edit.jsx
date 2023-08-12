@@ -46,9 +46,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>类型</InputLabel>
-        <Select value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
           <MenuItem value='outlined'>边线</MenuItem>
           <MenuItem value='filled'>填充</MenuItem>
           <MenuItem value='standard'>默认</MenuItem>
@@ -56,9 +56,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>尺寸</InputLabel>
-        <Select value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>
         </Select>

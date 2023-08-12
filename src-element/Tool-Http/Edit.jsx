@@ -12,18 +12,18 @@ function Edit(props) {
 
   return <Grid container spacing={2}>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>请求模式</InputLabel>
-        <Select value={value.mode} label='请求模式' onChange={e => onChange(Object.assign({}, value, { mode: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.mode} label='请求模式' onChange={e => onChange(Object.assign({}, value, { mode: e.target.value }))}>
           <MenuItem value='fetch'>Fetch</MenuItem>
           <MenuItem value='xhr'>Xhr</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>请求方式</InputLabel>
-        <Select value={value.method} label='请求方式' onChange={e => onChange(Object.assign({}, value, { method: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.method} label='请求方式' onChange={e => onChange(Object.assign({}, value, { method: e.target.value }))}>
           <MenuItem value='get'>Get</MenuItem>
           <MenuItem value='post'>Post</MenuItem>
           <MenuItem value='delete'>Delete</MenuItem>
@@ -32,9 +32,9 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>请求体格式</InputLabel>
-        <Select value={value.bodyType} label='请求体格式' onChange={e => onChange(Object.assign({}, value, { bodyType: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.bodyType} label='请求体格式' onChange={e => onChange(Object.assign({}, value, { bodyType: e.target.value }))}>
           <MenuItem value='json'>Json</MenuItem>
           <MenuItem value='formdata'>Formdata</MenuItem>
         </Select>

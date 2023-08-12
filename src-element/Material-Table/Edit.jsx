@@ -34,9 +34,9 @@ function Edit(props) {
       <Switch checked={value.componentPaper} onChange={e => onChange(Object.assign({}, value, { componentPaper: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>尺寸</InputLabel>
-        <Select value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           {
             ['medium', 'small'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -66,9 +66,9 @@ function Edit(props) {
             <TextField {...sx.TextFieldSX} fullWidth label='页码' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth>
+            <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>分页位置</InputLabel>
-              <Select value={value.paginationJustifyContent} label='分页位置' onChange={e => onChange(Object.assign({}, value, { paginationJustifyContent: e.target.value }))}  >
+              <Select {...sx.SelectSX} value={value.paginationJustifyContent} label='分页位置' onChange={e => onChange(Object.assign({}, value, { paginationJustifyContent: e.target.value }))}  >
                 <MenuItem value='center'>居中</MenuItem>
                 <MenuItem value='flex-start'>左</MenuItem>
                 <MenuItem value='flex-end'>右</MenuItem>
@@ -88,9 +88,9 @@ function Edit(props) {
       value.useAction ?
         <>
           <Grid item xs={12}>
-            <FormControl fullWidth>
+            <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>按钮类型</InputLabel>
-              <Select value={value.actionVariant} label='按钮类型' onChange={e => onChange(Object.assign({}, value, { actionVariant: e.target.value }))}>
+              <Select {...sx.SelectSX} value={value.actionVariant} label='按钮类型' onChange={e => onChange(Object.assign({}, value, { actionVariant: e.target.value }))}>
                 <MenuItem value='text'>文字</MenuItem>
                 <MenuItem value='outlined'>边线</MenuItem>
                 <MenuItem value='contained'>填充</MenuItem>
@@ -98,9 +98,9 @@ function Edit(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth>
+            <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>按钮主题颜色</InputLabel>
-              <Select value={value.actionColor} label='按钮主题颜色' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
+              <Select {...sx.SelectSX} value={value.actionColor} label='按钮主题颜色' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
                 {
                   ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
                     return <MenuItem key={i} value={i}>{i}</MenuItem>

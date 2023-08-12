@@ -20,9 +20,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='跳转地址' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>打开类型</InputLabel>
-        <Select value={value.target} label='打开类型' onChange={e => onChange(Object.assign({}, value, { target: e.target.value }))}  >
+        <Select {...sx.SelectSX} value={value.target} label='打开类型' onChange={e => onChange(Object.assign({}, value, { target: e.target.value }))}  >
           <MenuItem value='_self'>当前页面打开</MenuItem>
           <MenuItem value='_blank'>新窗口打开</MenuItem>
         </Select>

@@ -32,7 +32,7 @@ function Render(props) {
 
   const Render = <FormControl {...compound} size={property.size}>
     <InputLabel>{property.label}</InputLabel>
-    <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
+    <Select {...sx.SelectSX} multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {
           return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>

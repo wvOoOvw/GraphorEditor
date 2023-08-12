@@ -20,9 +20,9 @@ function Edit(props) {
       <Switch checked={value.disablePadding} onChange={e => onChange(Object.assign({}, value, { disablePadding: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>水平对齐方式</InputLabel>
-        <Select value={value.textAlign} label='对齐方式' onChange={e => onChange(Object.assign({}, value, { textAlign: e.target.value }))}  >
+        <Select {...sx.SelectSX} value={value.textAlign} label='对齐方式' onChange={e => onChange(Object.assign({}, value, { textAlign: e.target.value }))}  >
           <MenuItem value='center'>居中</MenuItem>
           <MenuItem value='left'>左</MenuItem>
           <MenuItem value='right'>右</MenuItem>

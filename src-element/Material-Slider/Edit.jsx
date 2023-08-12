@@ -29,9 +29,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth type='number' label='间距' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>主题颜色</InputLabel>
-        <Select value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
           {
             ['primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -41,18 +41,18 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>尺寸</InputLabel>
-        <Select value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>浮标</InputLabel>
-        <Select value={value.valueLabelDisplay} label='浮标' onChange={e => onChange(Object.assign({}, value, { valueLabelDisplay: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.valueLabelDisplay} label='浮标' onChange={e => onChange(Object.assign({}, value, { valueLabelDisplay: e.target.value }))}>
           <MenuItem value='auto'>使用时打开</MenuItem>
           <MenuItem value='on'>打开</MenuItem>
           <MenuItem value='off'>关闭</MenuItem>

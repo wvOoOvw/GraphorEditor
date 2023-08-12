@@ -21,9 +21,9 @@ function Edit(props) {
         <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
       </Grid>
       <Grid item xs={12}>
-        <FormControl fullWidth>
+        <FormControl {...sx.SelectSX} fullWidth>
           <InputLabel>类型</InputLabel>
-          <Select value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+          <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
             <MenuItem value='text'>文字</MenuItem>
             <MenuItem value='outlined'>边线</MenuItem>
             <MenuItem value='contained'>填充</MenuItem>
@@ -31,9 +31,9 @@ function Edit(props) {
         </FormControl>
       </Grid>
       <Grid item xs={12}>
-        <FormControl fullWidth>
+        <FormControl {...sx.SelectSX} fullWidth>
           <InputLabel>主题颜色</InputLabel>
-          <Select value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
             {
               ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
                 return <MenuItem key={i} value={i}>{i}</MenuItem>

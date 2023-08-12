@@ -15,9 +15,9 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12}>
-      <FormControl fullWidth>
+      <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>渲染标签</InputLabel>
-        <Select value={value.dom} label='渲染标签' onChange={e => onChange(Object.assign({}, value, { dom: e.target.value }))}>
+        <Select {...sx.SelectSX} value={value.dom} label='渲染标签' onChange={e => onChange(Object.assign({}, value, { dom: e.target.value }))}>
           <MenuItem value='div'>Div</MenuItem>
           <MenuItem value='span'>Span</MenuItem>
           <MenuItem value='button'>Button</MenuItem>
