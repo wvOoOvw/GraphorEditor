@@ -60,10 +60,10 @@ function Edit(props) {
             <Switch checked={value.paginationComponent} onChange={e => onChange(Object.assign({}, value, { paginationComponent: e.target.checked }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='单页计数' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='单页计数' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='页码' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='页码' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
@@ -110,10 +110,10 @@ function Edit(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='标题文案' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='标题文案' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='按钮文案' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='按钮文案' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
           </Grid>
         </> : null
     }

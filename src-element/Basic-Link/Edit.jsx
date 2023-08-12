@@ -17,7 +17,7 @@ function Edit(props) {
       <Switch checked={value.useDom} onChange={(e) => onChange(Object.assign({}, value, { useDom: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='跳转地址' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='跳转地址' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>

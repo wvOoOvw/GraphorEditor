@@ -13,7 +13,7 @@ function Edit(props) {
 
   return <Grid container spacing={2}>
     <Grid item xs={12}>
-      <TextField fullWidth label='识别路由' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='识别路由' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>

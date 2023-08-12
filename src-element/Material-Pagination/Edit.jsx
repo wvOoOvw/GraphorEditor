@@ -13,10 +13,10 @@ function Edit(props) {
 
   return <Grid container spacing={2}>
     <Grid item xs={6}>
-      <TextField fullWidth type='number' label='默认页数' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='默认页数' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
     </Grid>
     <Grid item xs={6}>
-      <TextField fullWidth type='number' label='默认页码' value={value.page} onChange={e => onChange(Object.assign({}, value, { page: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='默认页码' value={value.page} onChange={e => onChange(Object.assign({}, value, { page: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>

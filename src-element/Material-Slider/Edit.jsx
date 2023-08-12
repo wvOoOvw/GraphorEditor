@@ -17,16 +17,16 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth type='number' label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField fullWidth type='number' label='最小值' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='最小值' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField fullWidth type='number' label='最大值' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='最大值' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField fullWidth type='number' label='间距' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='间距' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>

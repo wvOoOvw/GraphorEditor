@@ -54,7 +54,7 @@ function Edit(props) {
       value.useWindow ?
         <>
           <Grid item xs={12}>
-            <TextField fullWidth label='字段名称' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
+            <TextField {...sx.TextFieldSX} fullWidth label='字段名称' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
           </Grid>
         </> : null
     }

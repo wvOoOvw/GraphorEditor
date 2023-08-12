@@ -42,10 +42,10 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='延迟显示浮窗' value={value.enterDelay} onChange={e => onChange((value) => value.enterDelay = e.target.value)} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth label='延迟显示浮窗' value={value.enterDelay} onChange={e => onChange((value) => value.enterDelay = e.target.value)} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='延迟隐藏浮窗' value={value.leaveDelay} onChange={e => onChange((value) => value.leaveDelay = e.target.value)} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth label='延迟隐藏浮窗' value={value.leaveDelay} onChange={e => onChange((value) => value.leaveDelay = e.target.value)} type='number' />
     </Grid>
   </Grid>
 }

@@ -96,11 +96,11 @@ function ElementRender(props) {
     e.stopPropagation()
     e.preventDefault()
   }
-  const onMouseEnter = e => {
+  const onMouseOver = e => {
     Imitation.assignState({ elementHover: id })
     e.stopPropagation()
   }
-  const onMouseLeave = e => {
+  const onMouseOut = e => {
     Imitation.assignState({ elementHover: undefined })
     e.stopPropagation()
   }
@@ -124,8 +124,8 @@ function ElementRender(props) {
     onClick,
     onMouseDown,
     onMouseUp,
-    onMouseEnter,
-    onMouseLeave,
+    onMouseOver,
+    onMouseOut,
   }
 
   if (Imitation.state.elementHover === id) {

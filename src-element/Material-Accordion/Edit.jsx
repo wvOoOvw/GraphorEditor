@@ -25,13 +25,13 @@ function Edit(props) {
       <Switch checked={value.divider} onChange={e => onChange(Object.assign({}, value, { divider: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='标题' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='标题' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='标题高度' value={value.summaryHeight} onChange={e => onChange(Object.assign({}, value, { summaryHeight: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='标题高度' value={value.summaryHeight} onChange={e => onChange(Object.assign({}, value, { summaryHeight: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='内容高度' value={value.detailsHeight} onChange={e => onChange(Object.assign({}, value, { detailsHeight: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='内容高度' value={value.detailsHeight} onChange={e => onChange(Object.assign({}, value, { detailsHeight: e.target.value }))} />
     </Grid>
   </Grid>
 }

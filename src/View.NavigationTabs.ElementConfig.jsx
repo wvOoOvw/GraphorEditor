@@ -223,7 +223,7 @@ function ChildrenConfig(props) {
           fullWidth
           noOptionsText='empty'
           value={current.label}
-          onChange={(e, v) => v !== null ? setCurrent(v) : undefined}
+          onChange={(e, v) => setCurrent(v ? v : current)}
           options={options}
           renderInput={(params) => <TextField {...params} autoComplete='off' />}
         />

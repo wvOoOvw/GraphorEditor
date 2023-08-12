@@ -40,10 +40,10 @@ function Edit(props) {
       <Switch checked={value.multiple} onChange={e => changemultiple(e)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='标题' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='标题' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>

@@ -23,10 +23,10 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12}>
-      <TextField fullWidth label='提示' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='提示' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl fullWidth>
@@ -58,7 +58,7 @@ function Edit(props) {
             <Switch checked={value.fileMultiple} onChange={e => onChange(Object.assign({}, value, { fileMultiple: e.target.checked }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label='上传限制' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='上传限制' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
           </Grid>
         </> : null
     }
