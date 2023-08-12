@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Paper } from '@mui/material'
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
@@ -120,7 +120,7 @@ function ElementRender(props) {
   })
 
   const compound = {
-    style: { ...caculateStyle(style), cursor: 'pointer', transition: '0.5s all', boxSizing: 'border-box' },
+    style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' },
     onClick,
     onMouseDown,
     onMouseUp,
