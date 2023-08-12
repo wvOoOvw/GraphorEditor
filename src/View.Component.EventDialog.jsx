@@ -10,10 +10,11 @@ import { Select } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { DialogActions } from '@mui/material'
 import { DialogContent } from '@mui/material'
+import { Accordion } from '@mui/material'
+import { AccordionSummary } from '@mui/material'
+import { AccordionDetails } from '@mui/material'
 
 import { AceDialog } from './View.Component.Ace'
-
-import AccordionS from './View.Component.Accordion'
 
 import { evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
 
@@ -21,7 +22,7 @@ function ListenModal(props) {
   const { keyOptions, value, onChange, onDelete, onClose } = props
 
   const [data, setData] = React.useState(value)
-  const [AceDialog, setAceDialog] = React.useState(false)
+  const [aceDialog, setAceDialog] = React.useState(false)
 
   const handleClickEval = () => {
     if (data.useEval) {
@@ -40,29 +41,32 @@ function ListenModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <AccordionS defaultExpanded={true} title='执行函数'>
-            <Grid container spacing={1} justifyContent='space-between'>
-              <Grid item>
-                <Button variant={data.useEval ? 'contained' : 'text'} color='secondary' onClick={handleClickEval}>
-                  自定义函数
-                </Button>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary>执行函数</AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={1} justifyContent='space-between'>
+                <Grid item>
+                  <Button variant={data.useEval ? 'contained' : 'text'} color='secondary' onClick={handleClickEval}>
+                    自定义函数
+                  </Button>
+                </Grid>
+                {
+                  keyOptions.map((i, index) => {
+                    return <Grid item>
+                      <Button key={index} variant={!data.useEval && data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value, useEval: false }))}>
+                        {
+                          i.label
+                        }
+                      </Button>
+                    </Grid>
+                  })
+                }
+                {
+                  new Array(5).fill().map(i => <Grid item />)
+                }
               </Grid>
-              {
-                keyOptions.map((i, index) => {
-                  return <Grid item>
-                    <Button key={index} variant={!data.useEval && data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value, useEval: false }))}>
-                      {
-                        i.label
-                      }
-                    </Button>
-                  </Grid>
-                })
-              }
-              {
-                new Array(5).fill().map(i => <Grid item />)
-              }
-            </Grid>
-          </AccordionS>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
 
       </Grid>
@@ -73,7 +77,7 @@ function ListenModal(props) {
     </DialogActions>
 
     {
-      AceDialog ?
+      aceDialog ?
         <AceDialog
           value={data.event}
           onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}
@@ -88,7 +92,7 @@ function DispatchModal(props) {
   const { keyOptions, value, onChange, onDelete, onClose, listenNameOptions } = props
 
   const [data, setData] = React.useState(value)
-  const [AceDialog, setAceDialog] = React.useState(false)
+  const [aceDialog, setAceDialog] = React.useState(false)
 
   const handleClickEval = () => {
     if (data.useEval) {
@@ -116,41 +120,47 @@ function DispatchModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <AccordionS defaultExpanded={true} title='执行函数'>
-            <Grid container spacing={1}>
-              <Grid item>
-                <Button variant={data.useEval ? 'contained' : 'text'} onClick={handleClickEval}>
-                  自定义函数
-                </Button>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary>执行函数</AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Button variant={data.useEval ? 'contained' : 'text'} onClick={handleClickEval}>
+                    自定义函数
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant={!data.useEval ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { useEval: false }))}>
+                    默认执行
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button variant={!data.useEval ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { useEval: false }))}>
-                  默认执行
-                </Button>
-              </Grid>
-            </Grid>
-          </AccordionS>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
 
         <Grid item xs={12}>
-          <AccordionS defaultExpanded={true} title='触发时机'>
-            <Grid container spacing={1} justifyContent='space-between'>
-              {
-                keyOptions.map((i, index) => {
-                  return <Grid item>
-                    <Button key={index} variant={data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value }))}>
-                      {
-                        i.label
-                      }
-                    </Button>
-                  </Grid>
-                })
-              }
-              {
-                new Array(5).fill().map(i => <Grid item />)
-              }
-            </Grid>
-          </AccordionS>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary>触发时机</AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={1} justifyContent='space-between'>
+                {
+                  keyOptions.map((i, index) => {
+                    return <Grid item>
+                      <Button key={index} variant={data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value }))}>
+                        {
+                          i.label
+                        }
+                      </Button>
+                    </Grid>
+                  })
+                }
+                {
+                  new Array(5).fill().map(i => <Grid item />)
+                }
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
       </Grid>
     </DialogContent>
@@ -160,7 +170,7 @@ function DispatchModal(props) {
     </DialogActions>
 
     {
-      AceDialog ?
+      aceDialog ?
         <AceDialog
           value={data.event}
           onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}

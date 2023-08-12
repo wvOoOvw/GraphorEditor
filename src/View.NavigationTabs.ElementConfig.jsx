@@ -17,7 +17,6 @@ import { ListItemText } from '@mui/material'
 import { Accordion } from '@mui/material'
 import { AccordionSummary } from '@mui/material'
 import { AccordionDetails } from '@mui/material'
-import { Autocomplete } from '@mui/material'
 
 import CodeIcon from '@mui/icons-material/Code'
 import CodeOffIcon from '@mui/icons-material/CodeOff'
@@ -28,7 +27,7 @@ import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault 
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-import { ListenModal, DispatchModal } from './View.Component.EventModal'
+import { ListenModal, DispatchModal } from './View.Component.EventDialog'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
@@ -230,8 +229,8 @@ function ChildrenConfig(props) {
         </FormControl>
         <List>
           {
-            currentGraphContent.children[current.value].map(i => {
-              return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} style={{ height: 48 }}>
+            currentGraphContent.children[current].map(i => {
+              return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} sx={{ '& *': { fontSize: '14px !important' } }}>
                 <ListItemText>
                   {
                     i.name
@@ -361,7 +360,6 @@ function ListenConfig(props) {
           value={modal.data}
           onChange={(v) => handleChange(modal.index, v)}
           onDelete={() => handleDelete(modal.index)}
-          elementonly={currentGraphContent.id}
         /> : null
     }
   </Grid>

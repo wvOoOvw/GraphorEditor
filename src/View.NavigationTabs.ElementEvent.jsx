@@ -17,10 +17,10 @@ import { graphElementSearch } from './utils.graph.common'
 
 import { ListenConfig, DispatchConfig, HookConfig } from './View.NavigationTabs.ElementConfig'
 
-function EventModal(props) {
+function EventDialog(props) {
   const { content, onClose } = props
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 520, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 520, maxWidth: 'none' } }} className='font'>
     <DialogContent>
       <HookConfig currentGraphContent={content} defaultExpanded={true} />
       <ListenConfig currentGraphContent={content} defaultExpanded={true} />
@@ -37,7 +37,7 @@ function ItemRender(props) {
   if (!information) return null
 
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
-  const [eventModal, setEventModal] = React.useState(false)
+  const [eventDialog, setEventDialog] = React.useState(false)
 
   const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
 
@@ -74,17 +74,17 @@ function ItemRender(props) {
         {
           listen ?
             <Badge badgeContent={listen.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventModal(props)}><HeadsetIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventDialog(props)}><HeadsetIcon fontSize='small' /></IconButton>
             </Badge> : null
         }
         {
           dispatch ?
             <Badge badgeContent={dispatch.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventModal(props)}><AlarmIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventDialog(props)}><AlarmIcon fontSize='small' /></IconButton>
             </Badge> : null
         }
         <Badge badgeContent={hookNumber()} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-          <IconButton size='small' onClick={() => setEventModal(props)}><BookmarkBorderIcon fontSize='small' /></IconButton>
+          <IconButton size='small' onClick={() => setEventDialog(props)}><BookmarkBorderIcon fontSize='small' /></IconButton>
         </Badge>
       </div>
     </div >
@@ -114,7 +114,7 @@ function ItemRender(props) {
       }) : null
     }
     {
-      eventModal ? <EventModal content={eventModal} onClose={() => setEventModal(undefined)} /> : null
+      eventDialog ? <EventDialog content={eventDialog} onClose={() => setEventDialog(undefined)} /> : null
     }
   </>
 }
