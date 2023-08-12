@@ -17,6 +17,7 @@ import { ListItemText } from '@mui/material'
 import { Accordion } from '@mui/material'
 import { AccordionSummary } from '@mui/material'
 import { AccordionDetails } from '@mui/material'
+import { Autocomplete } from '@mui/material'
 
 import CodeIcon from '@mui/icons-material/Code'
 import CodeOffIcon from '@mui/icons-material/CodeOff'
@@ -27,7 +28,6 @@ import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault 
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX } from './utils.mui.sx'
 
-import AccordionS from './View.Component.Accordion'
 import { ListenModal, DispatchModal } from './View.Component.EventModal'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
@@ -100,18 +100,18 @@ function StyleConfig(props) {
     name.forEach(i => {
       if (information.style.$use) {
         const r = information.style.$use.find(i_ => i_ === i)
-        if (!r) status = false
+        if (r === undefined) status = false
       }
       if (information.style.$nonuse) {
         const r = information.style.$nonuse.find(i_ => i_ === i)
-        if (r) status = false
+        if (r !== undefined) status = false
       }
     })
 
     return status ? children : null
   }
 
-  const position = [
+  const style = [
     use(['render'], <ElementConfigComponent.Render_C value={currentGraphContent} onChange={handleChange} />),
     use(['visible'], <ElementConfigComponent.Visible_C value={currentGraphContent} onChange={handleChange} />),
     use(['width', 'height'], <ElementConfigComponent.Size_C value={currentGraphContent} onChange={handleChange} />),
@@ -126,9 +126,6 @@ function StyleConfig(props) {
     use(['flex'], <ElementConfigComponent.Flex_C value={currentGraphContent} onChange={handleChange} />),
     use(['transform'], <ElementConfigComponent.Transform_C value={currentGraphContent} onChange={handleChange} />),
     use(['overflow'], <ElementConfigComponent.Overflow_C value={currentGraphContent} onChange={handleChange} />),
-  ]
-
-  const style = [
     use(['transition'], <ElementConfigComponent.Transition_C value={currentGraphContent} onChange={handleChange} />),
     use(['filter'], <ElementConfigComponent.Filter_C value={currentGraphContent} onChange={handleChange} />),
     use(['border'], <ElementConfigComponent.Border_C value={currentGraphContent} onChange={handleChange} />),
@@ -146,27 +143,12 @@ function StyleConfig(props) {
 
   return <>
     {
-      position.filter(i => i).length ?
-        <Grid item xs={12}>
-          <Accordion defaultExpanded={false}>
-            <AccordionSummary>Position Config</AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={2}>
-                {
-                  position
-                }
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        </Grid> : null
-    }
-    {
       style.filter(i => i).length ?
         <Grid item xs={12}>
           <Accordion defaultExpanded={false}>
             <AccordionSummary>Style Config</AccordionSummary>
             <AccordionDetails>
-              <Grid container spacing={2}>
+              <Grid container spacing={1}>
                 {
                   style
                 }
@@ -222,10 +204,10 @@ function ChildrenConfig(props) {
   if (!information) return null
 
   const [options, setOptions] = React.useState(information.children)
-  const [current, setCurrent] = React.useState(information.children[0].value)
+  const [current, setCurrent] = React.useState(information.children[0])
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current.value })
   }
 
   const handleEdit = (i) => {
@@ -236,19 +218,18 @@ function ChildrenConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Children Config</AccordionSummary>
       <AccordionDetails>
-        <FormControl fullWidth>
-          <InputLabel>Model</InputLabel>
-          <Select label='Model' value={current} onChange={e => setCurrent(e.target.value)}>
-            {
-              options.map(i => {
-                return <MenuItem value={i.value}>{i.label}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
+        <Autocomplete
+          {...AutocompleteSX}
+          fullWidth
+          noOptionsText='empty'
+          value={current.label}
+          onChange={(e, v) => v !== null ? setCurrent(v) : undefined}
+          options={options}
+          renderInput={(params) => <TextField {...params} autoComplete='off' />}
+        />
         <List>
           {
-            currentGraphContent.children[current].map(i => {
+            currentGraphContent.children[current.value].map(i => {
               return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} style={{ height: 48 }}>
                 <ListItemText>
                   {
@@ -288,7 +269,7 @@ function HookConfig(props) {
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
-      <AccordionSummary>Hook Event Config</AccordionSummary>
+      <AccordionSummary>Event Config / Hook</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -343,7 +324,7 @@ function ListenConfig(props) {
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
-      <AccordionSummary>Listen Event Config</AccordionSummary>
+      <AccordionSummary>Event Config / Listen</AccordionSummary>
       <AccordionDetails>
         <List>
           {
@@ -419,7 +400,7 @@ function DispatchConfig(props) {
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
-      <AccordionSummary>Dispatch Event Config</AccordionSummary>
+      <AccordionSummary>Event Config / Dispatch</AccordionSummary>
       <AccordionDetails>
         <List>
           {
@@ -461,19 +442,12 @@ function DispatchConfig(props) {
   </Grid>
 }
 
-function DefaultPage() {
-  return <Grid container spacing={2}>
-    <Grid item xs={12}>lement Config</Grid>
-    <Grid item xs={12}><Divider /></Grid>
-  </Grid>
-}
-
 function App() {
-  if (!Imitation.state.navigationTabsElementValue) return <DefaultPage />
+  if (!Imitation.state.navigationTabsElementValue) return null
 
   const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
 
-  if (!currentGraphContent) return <DefaultPage />
+  if (!currentGraphContent) return null
 
   const handleDelete = () => {
     deleteArrayItem(parentGraphContent, currentGraphContent)
@@ -487,7 +461,7 @@ function App() {
   }
 
   const handleDownload = () => {
-    copy(JSON.stringify(currentGraphContent), () => { Imitation.assignState({ message: '复制到剪切板' }) })
+    copy(JSON.stringify(currentGraphContent), () => { Imitation.assignState({ message: 'Copy Success' }) })
   }
 
   return <Grid container spacing={2}>

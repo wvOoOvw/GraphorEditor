@@ -11,8 +11,7 @@ const TextFieldSX = {
   sx: {
     '& input': { fontSize: 14, padding: '12px' },
     '& label': { fontSize: 12, lineHeight: 1, padding: 0, background: 'white' },
-    '& label': { fontSize: 12, lineHeight: 1 },
-    '& label.MuiFormLabel-filled, & label.Mui-focused': { padding: '4px', background: 'white' },
+    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', background: 'white' },
     '& fieldset': { top: 0 },
     '& fieldset legend': { display: 'none' }
   }
@@ -21,8 +20,11 @@ const TextFieldSX = {
 const AutocompleteSX = {
   sx: {
     '& input': { fontSize: '14px' },
-    '& .MuiInputLabel-root': { fontSize: '14px', lineHeight: '1' },
-    '& .MuiOutlinedInput-root': { padding: '4px' }
+    '& .MuiOutlinedInput-root': { padding: '4.5px', paddingLeft: '8px' },
+    '& label': { fontSize: 12, lineHeight: 1, padding: 0, background: 'white' },
+    '& label.MuiFormLabel-filled, & label.Mui-focused, & .MuiInputLabel-shrink': { padding: '4px', background: 'white' },
+    '& fieldset': { top: 0 },
+    '& fieldset legend': { display: 'none' }
   },
   componentsProps: {
     popper: {

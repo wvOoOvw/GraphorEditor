@@ -990,25 +990,25 @@ export function Background_C(props) {
             <TextField {...TextFieldSX} fullWidth label='调色板' value={value.style.background.backgroundColor} onChange={e => onChange(() => value.style.background.backgroundColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='图片' value={value.style.background.backgroundImage} onChange={e => onChange(() => value.style.background.backgroundImage = e.target.value)} multiline maxRows={4} />
+            <TextField {...TextFieldSX} fullWidth label='图片' value={value.style.background.backgroundImage} onChange={e => onChange(() => value.style.background.backgroundImage = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='位置 X' value={value.style.background.backgroundPosition[0]} onChange={e => onChange(() => value.style.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth label='位置 X' value={value.style.background.backgroundPosition[0]} onChange={e => onChange(() => value.style.background.backgroundPosition[0] = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='位置 Y' value={value.style.background.backgroundPosition[1]} onChange={e => onChange(() => value.style.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth label='位置 Y' value={value.style.background.backgroundPosition[1]} onChange={e => onChange(() => value.style.background.backgroundPosition[1] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='尺寸 X' value={value.style.background.backgroundSize[0]} onChange={e => onChange(() => value.style.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth label='尺寸 X' value={value.style.background.backgroundSize[0]} onChange={e => onChange(() => value.style.background.backgroundSize[0] = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='尺寸 Y' value={value.style.background.backgroundSize[1]} onChange={e => onChange(() => value.style.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth label='尺寸 Y' value={value.style.background.backgroundSize[1]} onChange={e => onChange(() => value.style.background.backgroundSize[1] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -1062,26 +1062,22 @@ export function Font_C(props) {
             <TextField {...TextFieldSX} fullWidth type='number' label='尺寸' value={value.style.font.fontSize} onChange={e => onChange(() => value.style.font.fontSize = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>粗细</InputLabel>
-              <Select value={value.style.font.fontWeight} label='粗细' onChange={e => onChange(() => value.style.font.fontWeight = e.target.value)}>
-                <MenuItem value={100}>100</MenuItem>
-                <MenuItem value={200}>200</MenuItem>
-                <MenuItem value={300}>300</MenuItem>
-                <MenuItem value={400}>400</MenuItem>
-                <MenuItem value={500}>500</MenuItem>
-                <MenuItem value={600}>600</MenuItem>
-                <MenuItem value={700}>700</MenuItem>
-                <MenuItem value={800}>800</MenuItem>
-                <MenuItem value={900}>900</MenuItem>
-              </Select>
-            </FormControl>
+            <Autocomplete
+              {...AutocompleteSX}
+              fullWidth
+              noOptionsText='empty'
+              options={[100, 200, 300, 400, 500, 600, 700, 800, 900]}
+              value={value.style.font.fontWeight}
+              onChange={(e, v) => onChange(() => value.style.font.fontWeight = v)}
+              renderInput={(params) => <TextField {...params} label='Font Weight' />}
+            />
           </Grid>
-
           <Grid item xs={12}>
             <Autocomplete
               {...AutocompleteSX}
+              fullWidth
               multiple
+              noOptionsText='empty'
               options={['"Times New Roman"']}
               value={value.style.font.fontFamily.split(',').filter(i => i)}
               onChange={(e, v) => onChange(() => value.style.font.fontFamily = v.join(','))}

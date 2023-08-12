@@ -9,19 +9,34 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import AddIcon from '@mui/icons-material/Add'
 
 import Imitation from './utils.imitation'
 import { deepSearch, hash, deleteArrayItem } from './utils.common'
 import { graphElementSearch } from './utils.graph.common'
 
 function ItemRender(props) {
-  const { license, id, name, children, style, parentOnly, drag } = props
+  const { license, id, name, children, style, parentId, drag } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
-  const childrenLabel = (value) => information.children.find(i => i.value === value)?.label
+  const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
+  const [eventModal, setEventModal] = React.useState(false)
+
+  const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+
+  const dragStyle = (move) => {
+    return drag.dragMove !== drag.dragStart && drag.dragMove === move ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+  }
+
+  const childrenLabel = (value) => {
+    return information.children.find(i => i.value === value)?.label
+  }
 
   const handleChangeVisible = (e) => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
@@ -29,31 +44,41 @@ function ItemRender(props) {
     currentGraphContent.style.visible = e
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
+
   const handleEdit = () => {
     Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementValue: id })
   }
+
   const handleDelete = () => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
 
-  const handleMouseover = () => {
+  const handleAdd = (current) => {
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: id + '@' + current })
+  }
+
+  const handleMouseEnter = () => {
     Imitation.assignState({ elementHover: id })
   }
-  const handleMouseout = () => {
+
+  const handleMouseLeave = () => {
     Imitation.assignState({ elementHover: undefined })
   }
-  const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: '0 0 8px #e0efff', backgroundColor: '#e0efff' } : {}
 
-  const handleDragStart = () => drag.setDragStart(id)
+  const handleDragStart = () => {
+    drag.setDragStart(id)
+  }
+
   const handleDragEnter = (move) => {
-    if (!parentOnly.includes(drag.dragStart) && id !== drag.dragStart) {
+    if (!parentId.includes(drag.dragStart) && id !== drag.dragStart) {
       drag.setDragMove(move)
     } else {
       drag.setDragMove(undefined)
     }
   }
+
   const handleDragEnd = () => {
     if (drag.dragStart && drag.dragMove && drag.dragStart !== drag.dragMove) {
       if (drag.dragMove.includes('@')) {
@@ -76,23 +101,16 @@ function ItemRender(props) {
     drag.setDragMove(undefined)
   }
 
-  const dragStyle = (move) => {
-    return drag.dragMove !== drag.dragStart && drag.dragMove === move ? { boxShadow: '0 0 8px #e6bdff', backgroundColor: '#e6bdff' } : {}
-  }
-
-  const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
   const handleChildrenExpand = (item) => {
     setChildrenVisible(pre => pre.includes(item[0]) ? pre.filter(i => i !== item[0]) : [...pre, item[0]])
   }
 
-  const [eventModal, setEventModal] = React.useState(false)
-
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 8, ...hoverStyle, ...dragStyle(id) }}
-      onMouseOver={handleMouseover}
-      onMouseOut={handleMouseout}
       draggable
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle, ...dragStyle(id) }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onDragStart={() => handleDragStart()}
       onDragEnd={() => handleDragEnd()}
       onDragEnter={() => handleDragEnter(id)}
@@ -115,7 +133,7 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentOnly.length * 8 + 16, ...dragStyle(id + '@' + i[0]) }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...dragStyle(id + '@' + i[0]) }}
             onDragEnter={() => handleDragEnter(id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
@@ -124,15 +142,21 @@ function ItemRender(props) {
               }
             </div>
             <div style={{ whiteSpace: 'nowrap' }}>
+              <IconButton size='small' onClick={() => handleAdd(i[0])}><AddCircleRoundedIcon fontSize='small' /></IconButton>
               {
-                i[1] && i[1].length ?
-                  <IconButton color={childrenVisible.includes(i[0]) ? 'primary' : 'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon /></IconButton>
+                i[1] && i[1].length && childrenVisible.includes(i[0]) ?
+                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  : null
+              }
+              {
+                i[1] && i[1].length && !childrenVisible.includes(i[0]) ?
+                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
                   : null
               }
             </div>
           </div>
           {
-            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.id} {...i} parentOnly={[...parentOnly, id]} drag={drag} />) : null
+            childrenVisible.includes(i[0]) ? i[1].map(i => <ItemRender key={i.id} {...i} parentId={[...parentId, id]} drag={drag} />) : null
           }
         </React.Fragment>
       }) : null
@@ -148,6 +172,7 @@ function App() {
   const [dragMove, setDragMove] = React.useState()
 
   const drag = { dragStart, dragMove, setDragMove }
+
   drag.setDragStart = (v) => {
     setDragStart(v)
     Imitation.assignState({ elementHover: undefined })
@@ -159,7 +184,7 @@ function App() {
 
     <Grid item xs={12}>
       {
-        Imitation.state.graphContent.map(i => <ItemRender key={i.id} {...i} parentOnly={[]} drag={drag} />)
+        Imitation.state.graphContent.map(i => <ItemRender key={i.id} {...i} parentId={[]} drag={drag} />)
       }
     </Grid>
   </Grid>

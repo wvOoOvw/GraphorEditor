@@ -96,11 +96,11 @@ function ElementRender(props) {
     e.stopPropagation()
     e.preventDefault()
   }
-  const onMouseOver = e => {
+  const onMouseEnter = e => {
     Imitation.assignState({ elementHover: id })
     e.stopPropagation()
   }
-  const onMouseOut = e => {
+  const onMouseLeave = e => {
     Imitation.assignState({ elementHover: undefined })
     e.stopPropagation()
   }
@@ -124,8 +124,8 @@ function ElementRender(props) {
     onClick,
     onMouseDown,
     onMouseUp,
-    onMouseOver,
-    onMouseOut,
+    onMouseEnter,
+    onMouseLeave,
   }
 
   if (Imitation.state.elementHover === id) {
@@ -206,7 +206,6 @@ function App() {
         `,
         position: 'absolute',
         overflow: 'auto',
-        // boxShadow: '0 0 16px rgba(0, 0, 0, 0.5)',
         transitionDuration: '0.5s',
         transitionProperty: 'width,height',
         cursor: 'default'

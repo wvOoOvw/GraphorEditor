@@ -150,16 +150,16 @@ function DependenciesMap(props) {
 }
 
 function WriteJson(props) {
-  const [navigationTabsElementValue, setnavigationTabsElementConfigValue] = React.useState()
-  const [modalConfig, setModalConfig] = React.useState()
+  const [graphContentAceDialog, setGraphContentAceDialog] = React.useState()
+  const [graphConfigAceDialog, setGraphConfigAceDialog] = React.useState()
 
   const handleChangeContent = e => {
     Imitation.assignState({ graphContent: JSON.parse(e), graphContentUpdate: hash() })
-    setnavigationTabsElementConfigValue()
+    setGraphContentAceDialog()
   }
   const handleChangConfig = e => {
     Imitation.assignState({ graphConfig: JSON.parse(e), graphConfigUpdate: hash() })
-    setModalConfig()
+    setGraphConfigAceDialog()
   }
 
   return <Grid item xs={12}>
@@ -168,28 +168,28 @@ function WriteJson(props) {
       <AccordionDetails>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setnavigationTabsElementConfigValue(true)}>Edit Content JSON</Button>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setGraphContentAceDialog(true)}>Edit Content JSON</Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setModalConfig(true)}>Edit Config JSON</Button>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setGraphConfigAceDialog(true)}>Edit Config JSON</Button>
           </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>
 
     {
-      navigationTabsElementValue ?
+      graphContentAceDialog ?
         <AceDialog
-          onClose={() => setnavigationTabsElementConfigValue()}
+          onClose={() => setGraphContentAceDialog()}
           value={JSON.stringify(Imitation.state.graphContent, true, 2)}
           onChange={handleChangeContent}
           mode='json'
         /> : null
     }
     {
-      modalConfig ?
+      graphConfigAceDialog ?
         <AceDialog
-          onClose={() => setModalConfig()}
+          onClose={() => setGraphConfigAceDialog()}
           value={JSON.stringify(Imitation.state.graphConfig, true, 2)}
           onChange={handleChangConfig}
           mode='json'

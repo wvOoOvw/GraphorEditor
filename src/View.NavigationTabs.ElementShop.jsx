@@ -77,10 +77,10 @@ function App() {
       <Autocomplete
         {...AutocompleteSX}
         fullWidth
-        value={filterType}
-        onChange={(e, v) => setFilterType(v)}
-        options={Array.from(new Set(list.map(i => i.information.type)))}
         noOptionsText='empty'
+        value={filterType}
+        onChange={(e, v) => { console.log(v); setFilterType(v) }}
+        options={Array.from(new Set(list.map(i => i.information.type)))}
         renderInput={(params) => <TextField {...params} autoComplete='off' />}
       />
     </Grid>
