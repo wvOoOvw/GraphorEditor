@@ -5,7 +5,7 @@ import { Grid } from '@mui/material'
 import { Switch } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange } = props
+  const { value, onChange, component, sx } = props
 
   return <Grid container spacing={2}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

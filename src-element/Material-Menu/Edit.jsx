@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 import { Button } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component } = props
+  const { value, onChange, component, sx } = props
 
   const [modalOptions, setModalOptions] = React.useState(false)
 

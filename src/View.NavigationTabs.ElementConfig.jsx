@@ -187,7 +187,7 @@ function PropertyConfig(props) {
           value={currentGraphContent.property}
           onChange={handleChange}
           component={{ AceDialog }}
-          sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX }}
+          sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX }}
         />
       </AccordionDetails>
     </Accordion>

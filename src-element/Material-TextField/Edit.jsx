@@ -9,7 +9,7 @@ import { Select } from '@mui/material'
 import { Switch } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange } = props
+  const { value, onChange, component, sx } = props
 
   const handleSetType = e => {
     if (e.type === 'file') onChange((value) => value.value = '')

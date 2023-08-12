@@ -141,7 +141,7 @@ function ElementRender(props) {
     property={property}
     style={style}
     children={children_exe}
-    pure={false}
+    env={'dev'}
     update={update}
     id={id}
   />

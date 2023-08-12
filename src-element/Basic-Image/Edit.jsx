@@ -4,7 +4,7 @@ import { TextField } from '@mui/material'
 import { Grid } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange } = props
+  const { value, onChange, component, sx } = props
 
   return <Grid container spacing={2}>
     <Grid item xs={12}>

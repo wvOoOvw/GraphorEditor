@@ -104,7 +104,7 @@ function ElementRender(props) {
     listen={listen_exe}
     dispatch={dispatch_exe}
     children={children_exe}
-    pure={true}
+    env={'prod'}
     update={update}
     id={id}
   />
