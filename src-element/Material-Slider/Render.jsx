@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Slider } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -18,7 +18,7 @@ function Render(props) {
     if (!pure) return
     property.value = v
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(v, e)
+    if (trigger && trigger.onChange) trigger.onChange(v, e)
   }
 
   return <Slider

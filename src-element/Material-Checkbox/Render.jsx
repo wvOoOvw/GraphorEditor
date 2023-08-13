@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Checkbox } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setCheckedOpen) {
-      const remove = listen.setCheckedOpen(data => {
+    if (monitor && monitor.setCheckedOpen) {
+      const remove = monitor.setCheckedOpen(data => {
         property.checked = true
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setCheckedClose) {
-      const remove = listen.setCheckedClose(data => {
+    if (monitor && monitor.setCheckedClose) {
+      const remove = monitor.setCheckedClose(data => {
         property.checked = false
         update()
       })
@@ -27,7 +27,7 @@ function Render(props) {
     if (!pure) return
     property.checked = e.target.checked
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(property.checked, e)
+    if (trigger && trigger.onChange) trigger.onChange(property.checked, e)
   }
 
   return <Checkbox {...compound} checked={property.checked} onChange={onChange} size={property.size} color={property.color} disabled={property.disabled} />

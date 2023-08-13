@@ -16,9 +16,9 @@ import { AccordionDetails } from '@mui/material'
 
 import { AceDialog } from './View.Component.Ace'
 
-import { evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
+import { evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
 
-function ListenDialog(props) {
+function MonitorDialog(props) {
   const { keyOptions, value, onChange, onDelete, onClose } = props
 
   const [data, setData] = React.useState(value)
@@ -81,15 +81,15 @@ function ListenDialog(props) {
         <AceDialog
           value={data.event}
           onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}
-          onClose={() => setAceDialog(false)} initValue={evalEventListenDefault}
+          onClose={() => setAceDialog(false)} initValue={evalEventMonitorDefault}
           mode='javascript'
         /> : null
     }
   </Dialog>
 }
 
-function DispatchDialog(props) {
-  const { keyOptions, value, onChange, onDelete, onClose, listenNameOptions } = props
+function TriggerDialog(props) {
+  const { keyOptions, value, onChange, onDelete, onClose, monitorNameOptions } = props
 
   const [data, setData] = React.useState(value)
   const [aceDialog, setAceDialog] = React.useState(false)
@@ -111,7 +111,7 @@ function DispatchDialog(props) {
             <InputLabel>关联监听名称</InputLabel>
             <Select label='关联监听名称' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))}>
               {
-                listenNameOptions.map(i => {
+                monitorNameOptions.map(i => {
                   return <MenuItem key={i} value={i}>{i}</MenuItem>
                 })
               }
@@ -174,11 +174,11 @@ function DispatchDialog(props) {
         <AceDialog
           value={data.event}
           onChange={e => { setData(Object.assign({}, data, { event: e })); setAceDialog(false) }}
-          onClose={() => setAceDialog(false)} initValue={evalEventDispatchDefault}
+          onClose={() => setAceDialog(false)} initValue={evalEventTriggerDefault}
           mode='javascript'
         /> : null
     }
   </Dialog>
 }
 
-export { ListenDialog, DispatchDialog }
+export { MonitorDialog, TriggerDialog }

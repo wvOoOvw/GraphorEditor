@@ -2,14 +2,14 @@ const information = {
   name: 'Audio',
   type: 'Basic',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: 'Show' },
     { value: '@setVisibleFalse', label: 'Hidden' },
     { value: 'setUrl', label: 'Set Url' },
     { value: 'setPlay', label: 'Play' },
     { value: 'setPause', label: 'Pause' },
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

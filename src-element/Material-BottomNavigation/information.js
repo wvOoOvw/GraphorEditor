@@ -2,13 +2,13 @@ const information = {
   name: '底部导航栏',
   type: 'Material UI Component',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setValue', label: '设置选中内容' },
     { value: 'setOptions', label: '设置选项' }
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

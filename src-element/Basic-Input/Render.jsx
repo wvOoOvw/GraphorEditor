@@ -1,11 +1,11 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, property, listen, dispatch, update } = props
+  const { compound, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -13,8 +13,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setValueEmpty) {
-      const remove = listen.setValueEmpty(data => {
+    if (monitor && monitor.setValueEmpty) {
+      const remove = monitor.setValueEmpty(data => {
         property.value = ''
         update()
       })
@@ -25,13 +25,13 @@ function Render(props) {
   const onChange = (e) => {
     property.value = e.target.value
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
+    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
   const onFocus = (e) => {
-    if (dispatch && dispatch.onFocus) dispatch.onFocus(property.value, e)
+    if (trigger && trigger.onFocus) trigger.onFocus(property.value, e)
   }
   const onBlur = (e) => {
-    if (dispatch && dispatch.onBlur) dispatch.onBlur(property.value, e)
+    if (trigger && trigger.onBlur) trigger.onBlur(property.value, e)
   }
 
 

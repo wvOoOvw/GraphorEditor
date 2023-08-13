@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Dialog, DialogTitle, DialogActions, DialogContent } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, children, pure, update } = props
+  const { compound, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setOpenTrue) {
-      const remove = listen.setOpenTrue(data => {
+    if (monitor && monitor.setOpenTrue) {
+      const remove = monitor.setOpenTrue(data => {
         property.open = true
         update()
       })
@@ -15,8 +15,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (listen && listen.setOpenFalse) {
-      const remove = listen.setOpenFalse(data => {
+    if (monitor && monitor.setOpenFalse) {
+      const remove = monitor.setOpenFalse(data => {
         property.open = false
         update()
       })
@@ -27,7 +27,7 @@ function Render(props) {
   const onClose = (e) => {
     property.open = false
     update()
-    if (dispatch && dispatch.onClose) dispatch.onClose(property.open, e)
+    if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
   const R = <>

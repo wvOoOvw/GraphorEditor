@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Checkbox, FormControl, FormGroup, FormControlLabel } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setOptions) {
-      const remove = listen.setOptions(data => {
+    if (monitor && monitor.setOptions) {
+      const remove = monitor.setOptions(data => {
         property.options = data
         update()
       })
@@ -28,11 +28,11 @@ function Render(props) {
     if (property.value.includes(value)) {
       property.value = property.value.filter(i => i !== value)
       update()
-      if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
+      if (trigger && trigger.onChange) trigger.onChange(property.value, e)
     } else {
       property.value.push(value)
       update()
-      if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
+      if (trigger && trigger.onChange) trigger.onChange(property.value, e)
     }
   }
 

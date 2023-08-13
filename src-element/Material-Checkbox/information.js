@@ -2,13 +2,13 @@ const information = {
   name: '选择框',
   type: 'Material UI Component',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setCheckedOpen', label: '设置为选中' },
     { value: 'setCheckedClose', label: '设置为未选中' },
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

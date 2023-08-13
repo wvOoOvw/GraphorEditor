@@ -85,8 +85,8 @@ const deepCopyElement = (target) => {
 
 const getEventName = (content) => {
   return content.reduce((t, i) => {
-    if (i.listen) {
-      i.listen.forEach(i => {
+    if (i.monitor) {
+      i.monitor.forEach(i => {
         if (i.name && !t.includes(i.name)) t.push(i.name)
       })
     }

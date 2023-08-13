@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { ToggleButtonGroup, ToggleButton } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setOptions) {
-      const remove = listen.setOptions(data => {
+    if (monitor && monitor.setOptions) {
+      const remove = monitor.setOptions(data => {
         property.options = data
         update()
       })
@@ -27,7 +27,7 @@ function Render(props) {
     if (!pure) return
     property.value = v
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(property.value, e)
+    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
   const style = {

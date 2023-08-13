@@ -1,29 +1,29 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, property, dispatch, children } = props
+  const { compound, property, trigger, children } = props
 
   const dragEvent = {
     onDrag: (e) => {
-      if (dispatch && dispatch.onDrag) dispatch.onDrag(undefined, e)
+      if (trigger && trigger.onDrag) trigger.onDrag(undefined, e)
     },
     onDragStart: (e) => {
-      if (dispatch && dispatch.onDragStart) dispatch.onDragStart(undefined, e)
+      if (trigger && trigger.onDragStart) trigger.onDragStart(undefined, e)
     },
     onDragLeave: (e) => {
-      if (dispatch && dispatch.onDragLeave) dispatch.onDragLeave(undefined, e)
+      if (trigger && trigger.onDragLeave) trigger.onDragLeave(undefined, e)
     },
     onDragOver: (e) => {
-      if (dispatch && dispatch.onDragOver) dispatch.onDragOver(undefined, e)
+      if (trigger && trigger.onDragOver) trigger.onDragOver(undefined, e)
     },
     onDragEnter: (e) => {
-      if (dispatch && dispatch.onDragEnter) dispatch.onDragEnter(undefined, e)
+      if (trigger && trigger.onDragEnter) trigger.onDragEnter(undefined, e)
     },
     onDragEnd: (e) => {
-      if (dispatch && dispatch.onDragEnd) dispatch.onDragEnd(undefined, e)
+      if (trigger && trigger.onDragEnd) trigger.onDragEnd(undefined, e)
     },
     onDrop: (e) => {
-      if (dispatch && dispatch.onDrop) dispatch.onDrop(undefined, e)
+      if (trigger && trigger.onDrop) trigger.onDrop(undefined, e)
     },
   }
 

@@ -2,14 +2,14 @@ const information = {
   name: '按钮',
   type: 'Material UI Component',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setValue', label: '设置点击内容' },
     { value: 'setDisabledOpen', label: '打开禁用' },
     { value: 'setDisabledClose', label: '关闭禁用' }
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

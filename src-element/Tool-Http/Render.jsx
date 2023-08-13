@@ -1,11 +1,11 @@
 function Render(props) {
   const React = window.React
 
-  const { property, listen, dispatch } = props
+  const { property, monitor, trigger } = props
 
   React.useEffect(() => {
-    if (listen && listen.setRequest) {
-      const remove = listen.setRequest(data => {
+    if (monitor && monitor.setRequest) {
+      const remove = monitor.setRequest(data => {
         if (property.mode === 'fetch') fetch_exe(data)
         if (property.mode === 'xhr') xhr_exe(data)
       })
@@ -44,16 +44,16 @@ function Render(props) {
 
     fetch(url, param)
       .then(res => {
-        if (dispatch && dispatch.onResponse) {
+        if (trigger && trigger.onResponse) {
           try {
-            res.json().then(res => dispatch.onResponse(res))
+            res.json().then(res => trigger.onResponse(res))
           } catch {
-            dispatch.onResponse(res)
+            trigger.onResponse(res)
           }
         }
       })
       .catch(err => {
-        if (dispatch && dispatch.onError) dispatch.onError(err)
+        if (trigger && trigger.onError) trigger.onError(err)
       })
   }
 
@@ -64,9 +64,9 @@ function Render(props) {
     xhrINS.onreadystatechange = () => {
       if (xhrINS.readyState === 4) {
         if (xhrINS.status == 200) {
-          dispatch.onResponse(JSON.parse(xhrINS.responseText))
+          trigger.onResponse(JSON.parse(xhrINS.responseText))
         } else {
-          dispatch.onError(JSON.parse(xhrINS.responseText))
+          trigger.onError(JSON.parse(xhrINS.responseText))
         }
       }
     }

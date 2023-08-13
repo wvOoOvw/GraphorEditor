@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { List, ListItem, ListItemButton, ListItemText } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, update } = props
+  const { compound, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -15,7 +15,7 @@ function Render(props) {
   }, [])
 
   const onClick = (e, value) => {
-    if (dispatch && dispatch.onClick) dispatch.onClick(value, e)
+    if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
   return <List {...compound}>

@@ -1,29 +1,29 @@
 function Render(props) {
   const React = window.React
 
-  const { property, listen, dispatch, pure } = props
+  const { property, monitor, trigger, pure } = props
 
   const bindWindow = () => {
     if (property.useWindow && property.windowName) window[property.windowName] = property.value
   }
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
+        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
       })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (listen && listen.assignValue) {
-      const remove = listen.assignValue(data => {
+    if (monitor && monitor.assignValue) {
+      const remove = monitor.assignValue(data => {
         Object.assign(property.value, data)
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
+        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
       })
       return () => { remove() }
     }
@@ -35,7 +35,7 @@ function Render(props) {
     if (property.immediate) {
       Promise.resolve().then(() => {
         bindWindow()
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(property.value)
+        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
       })
     }
   }, [])

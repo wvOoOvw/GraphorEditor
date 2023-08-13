@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { MenuList, MenuItem } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, update } = props
+  const { compound, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValues) {
-      const remove = listen.setValues(data => {
+    if (monitor && monitor.setValues) {
+      const remove = monitor.setValues(data => {
         property.list = data
         update()
       })
@@ -15,7 +15,7 @@ function Render(props) {
   }, [])
 
   const onClick = (e, value) => {
-    if (dispatch && dispatch.onClick) dispatch.onClick(value, e)
+    if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
   return <MenuList {...compound}>

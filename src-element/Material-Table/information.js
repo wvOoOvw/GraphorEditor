@@ -2,7 +2,7 @@ const information = {
   name: '表格',
   type: 'Material UI Component',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setBody', label: '设置表格内容' },
@@ -11,7 +11,7 @@ const information = {
     { value: 'setPaginationPage', label: '设置当前页码' },
     { value: 'setSelectClear', label: '清空选择框' },
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

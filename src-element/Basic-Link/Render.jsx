@@ -1,11 +1,11 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, property, listen, children, update } = props
+  const { compound, property, monitor, children, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setHref) {
-      const remove = listen.setHref(data => {
+    if (monitor && monitor.setHref) {
+      const remove = monitor.setHref(data => {
         property.href = data
         update()
       })

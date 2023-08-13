@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Button } = window.MaterialUI
 
-  const { compound, property, listen, update } = props
+  const { compound, property, monitor, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setDisabledOpen) {
-      const remove = listen.setDisabledOpen(data => {
+    if (monitor && monitor.setDisabledOpen) {
+      const remove = monitor.setDisabledOpen(data => {
         property.disabled = true
         update()
       })
@@ -23,8 +23,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setDisabledClose) {
-      const remove = listen.setDisabledClose(data => {
+    if (monitor && monitor.setDisabledClose) {
+      const remove = monitor.setDisabledClose(data => {
         property.disabled = false
         update()
       })

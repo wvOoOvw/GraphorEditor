@@ -27,11 +27,11 @@ import AddIcon from '@mui/icons-material/Add'
 
 import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
-import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
+import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-import { ListenDialog, DispatchDialog } from './View.Component.EventDialog'
+import { MonitorDialog, TriggerDialog } from './View.Component.EventDialog'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
@@ -302,12 +302,12 @@ function HookConfig(props) {
   </Grid>
 }
 
-function ListenConfig(props) {
+function MonitorConfig(props) {
   const { currentGraphContent, parentGraphContent, defaultExpanded } = props
 
   const [modal, setModal] = React.useState()
 
-  if (!currentGraphContent.listen) return null
+  if (!currentGraphContent.monitor) return null
 
   const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -315,30 +315,30 @@ function ListenConfig(props) {
 
   const handleChange = (index, value) => {
     setModal(undefined)
-    currentGraphContent.listen[index] = value
+    currentGraphContent.monitor[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleAdd = () => {
-    currentGraphContent.listen.push({ name: hash(), event: evalEventListenDefault, key: '', useEval: false })
+    currentGraphContent.monitor.push({ name: hash(), event: evalEventMonitorDefault, key: '', useEval: false })
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleDelete = (index) => {
     setModal(undefined)
-    currentGraphContent.listen.splice(index, 1)
+    currentGraphContent.monitor.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const keyOptions = information.listen
+  const keyOptions = information.monitor
 
   if (!keyOptions && keyOptions.length === 0) return null
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
-      <AccordionSummary>Event Config / Listen</AccordionSummary>
+      <AccordionSummary>Event Config / Monitor</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
           {
-            currentGraphContent.listen.map((i, index) => {
+            currentGraphContent.monitor.map((i, index) => {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -371,7 +371,7 @@ function ListenConfig(props) {
     </Accordion>
     {
       modal ?
-        <ListenDialog
+        <MonitorDialog
           onClose={() => setModal(undefined)}
           keyOptions={keyOptions}
           value={modal.data}
@@ -382,12 +382,12 @@ function ListenConfig(props) {
   </Grid>
 }
 
-function DispatchConfig(props) {
+function TriggerConfig(props) {
   const { currentGraphContent, parentGraphContent, defaultExpanded } = props
 
   const [modal, setModal] = React.useState()
 
-  if (!currentGraphContent.dispatch) return null
+  if (!currentGraphContent.trigger) return null
 
   const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -395,32 +395,32 @@ function DispatchConfig(props) {
 
   const handleChange = (index, value) => {
     setModal(undefined)
-    currentGraphContent.dispatch[index] = value
+    currentGraphContent.trigger[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleAdd = () => {
-    currentGraphContent.dispatch.push({ name: '', event: evalEventDispatchDefault, key: '', useEval: false })
+    currentGraphContent.trigger.push({ name: '', event: evalEventTriggerDefault, key: '', useEval: false })
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleDelete = (index) => {
     setModal(undefined)
-    currentGraphContent.dispatch.splice(index, 1)
+    currentGraphContent.trigger.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const keyOptions = information.dispatch
+  const keyOptions = information.trigger
 
-  const listenNameOptions = getEventName(Imitation.state.graphContent)
+  const monitorNameOptions = getEventName(Imitation.state.graphContent)
 
   if (!keyOptions || keyOptions.length === 0) return null
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
-      <AccordionSummary>Event Config / Dispatch</AccordionSummary>
+      <AccordionSummary>Event Config / Trigger</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
           {
-            currentGraphContent.dispatch.map((i, index) => {
+            currentGraphContent.trigger.map((i, index) => {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -453,13 +453,13 @@ function DispatchConfig(props) {
     </Accordion>
     {
       modal ?
-        <DispatchDialog
+        <TriggerDialog
           onClose={() => setModal(undefined)}
           keyOptions={keyOptions}
           value={modal.data}
           onChange={(v) => handleChange(modal.index, v)}
           onDelete={() => handleDelete(modal.index)}
-          listenNameOptions={listenNameOptions}
+          monitorNameOptions={monitorNameOptions}
         /> : null
     }
   </Grid>
@@ -496,8 +496,8 @@ function App() {
     <PropertyConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
     <ChildrenConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
     <HookConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <ListenConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <DispatchConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
+    <MonitorConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
+    <TriggerConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
 
     <Grid item xs={12}><Divider /></Grid>
     <Grid item xs={12}>
@@ -514,4 +514,4 @@ function App() {
 
 export default App
 
-export { HookConfig, ListenConfig, DispatchConfig }
+export { HookConfig, MonitorConfig, TriggerConfig }

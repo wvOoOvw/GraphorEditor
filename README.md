@@ -266,9 +266,9 @@ https://github.com/github-magneto/app-graph/blob/master/src-package/main/view/Mo
 
 4、hook：元素的周期事件 （这节咱不讲解，放在后面事件系统讲解）
 
-5、listen：元素的监听事件 （这节咱不讲解，放在后面事件系统讲解）
+5、monitor：元素的监听事件 （这节咱不讲解，放在后面事件系统讲解）
 
-6、dispatch：元素的触发事件 （这节咱不讲解，放在后面事件系统讲解）
+6、trigger：元素的触发事件 （这节咱不讲解，放在后面事件系统讲解）
 
 outer是所有元素都具有的，其中主要包含了元素的通用样式属性
 

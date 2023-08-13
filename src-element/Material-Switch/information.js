@@ -2,13 +2,13 @@ const information = {
   name: '开关',
   type: 'Material UI Component',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setCheckedOpen', label: '设置为打开' },
     { value: 'setCheckedClose', label: '设置为关闭' },
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

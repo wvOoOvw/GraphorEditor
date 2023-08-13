@@ -2,10 +2,10 @@ const information = {
   name: '事件库',
   type: 'Tool',
   children: false,
-  listen: [
+  monitor: [
     { value: 'setEffect', label: '定义执行函数' }
   ],
-  dispatch: [
+  trigger: [
     { value: 'onEffect', label: '执行' }
   ],
   style: {

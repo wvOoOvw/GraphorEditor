@@ -2,7 +2,7 @@ function Render(props) {
   const React = window.React
   const echarts = window.echarts
 
-  const { compound, property, listen, update } = props
+  const { compound, property, monitor, update } = props
 
   const ref = React.useRef()
   const chartRef = React.useRef()

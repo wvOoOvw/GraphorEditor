@@ -1,19 +1,19 @@
 const graphEvent = {
-  eventListener: [],
-  addEventListener: (props) => {
+  eventMonitor: [],
+  addEventMonitor: (props) => {
     const { name, event, env } = props
 
     const item = { name, event, env }
-    graphEvent.eventListener.push(item)
+    graphEvent.eventMonitor.push(item)
     return () => {
-      graphEvent.eventListener = graphEvent.eventListener.filter(i => i !== item)
+      graphEvent.eventMonitor = graphEvent.eventMonitor.filter(i => i !== item)
     }
   },
-  dispatchEvent: (props) => {
+  triggerEvent: (props) => {
     const { name, event, env, data } = props
 
     const resolve = (data) => {
-      graphEvent.eventListener.forEach(i => {
+      graphEvent.eventMonitor.forEach(i => {
         if (i.name === name) {
           if (typeof i.event === 'function') i.event(data, i.env)
           if (typeof i.event === 'string') {

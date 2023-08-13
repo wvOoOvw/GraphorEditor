@@ -1,13 +1,13 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, property, listen, pure, update } = props
+  const { compound, property, monitor, pure, update } = props
 
   const ref = React.useRef()
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })

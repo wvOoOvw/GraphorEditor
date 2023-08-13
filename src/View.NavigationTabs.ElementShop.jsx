@@ -50,8 +50,8 @@ function App() {
       }
     }
     if (e.information.property) newElement.property = JSON.parse(JSON.stringify(e.information.property))
-    if (e.information.listen) newElement.listen = []
-    if (e.information.dispatch) newElement.dispatch = []
+    if (e.information.monitor) newElement.monitor = []
+    if (e.information.trigger) newElement.trigger = []
     if (e.information.children) {
       const c = {}
       e.information.children.forEach(i => c[i.value] = [])

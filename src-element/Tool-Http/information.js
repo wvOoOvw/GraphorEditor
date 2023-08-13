@@ -2,10 +2,10 @@ const information = {
   name: '网路请求',
   type: 'Tool',
   children: false,
-  listen: [
+  monitor: [
     { value: 'setRequest', label: '设置请求' }
   ],
-  dispatch: [
+  trigger: [
     { value: 'onResponse', label: '请求成功' },
     { value: 'onError', label: '请求失败' }
   ],

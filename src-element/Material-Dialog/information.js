@@ -6,13 +6,13 @@ const information = {
     { value: 'title', label: '标题模块' },
     { value: 'action', label: '操作栏模块' }
   ],
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: '@setOpenTure', label: '打开' },
     { value: '@setOpenFalse', label: '关闭' },
   ],
-  dispatch: [
+  trigger: [
     { value: 'onClose', label: '关闭' },
   ],
   style: {

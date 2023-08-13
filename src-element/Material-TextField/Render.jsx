@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { TextField } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setValue) {
-      const remove = listen.setValue(data => {
+    if (monitor && monitor.setValue) {
+      const remove = monitor.setValue(data => {
         property.value = data
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setValueEmpty) {
-      const remove = listen.setValueEmpty(data => {
+    if (monitor && monitor.setValueEmpty) {
+      const remove = monitor.setValueEmpty(data => {
         property.value = ''
         update()
       })
@@ -27,13 +27,13 @@ function Render(props) {
     if (!pure) return
     property.value = e.target.value
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(e.target.value, e)
+    if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
   }
   const onFocus = (e) => {
-    if (dispatch && dispatch.onFocus) dispatch.onFocus(e.target.value, e)
+    if (trigger && trigger.onFocus) trigger.onFocus(e.target.value, e)
   }
   const onBlur = (e) => {
-    if (dispatch && dispatch.onBlur) dispatch.onBlur(e.target.value, e)
+    if (trigger && trigger.onBlur) trigger.onBlur(e.target.value, e)
   }
 
   return <TextField

@@ -1,9 +1,9 @@
-const evalEventListenDefault = `function(data, env) {
+const evalEventMonitorDefault = `function(data, env) {
   const { property, style, flow, update } = env
 }`
 
-const evalEventDispatchDefault = `function(data, env, resolve) {
-  const { property, style, flow, update, dispatch, event } = env
+const evalEventTriggerDefault = `function(data, env, resolve) {
+  const { property, style, flow, update, trigger, event } = env
 
   resolve(data)
 }`
@@ -12,12 +12,12 @@ const evalBeforeRenderHook = `function(env) {
   const { property, style, flow } = env
 }`
 
-const defaultEventListener = [
+const defaultEventMonitor = [
   { value: '@setVisibleTrue', label: '显示' },
   { value: '@setVisibleFalse', label: '隐藏' },
 ]
 
-const defaultEventDispatch = [
+const defaultEventTrigger = [
   { value: '@onClick', label: 'click' },
   { value: '@onDoubleClick', label: 'double click' },
   { value: '@onContextMenu', label: '打开菜单' },
@@ -28,4 +28,4 @@ const defaultEventDispatch = [
   { value: '@onMouseUp', label: '鼠标松开' },
 ]
 
-export { evalEventListenDefault, evalEventDispatchDefault, evalBeforeRenderHook, defaultEventListener, defaultEventDispatch }
+export { evalEventMonitorDefault, evalEventTriggerDefault, evalBeforeRenderHook, defaultEventMonitor, defaultEventTrigger }

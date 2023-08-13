@@ -1,12 +1,12 @@
 function Render(props) {
   const React = window.React
 
-  const { property, listen, dispatch, pure } = props
+  const { property, monitor, trigger, pure } = props
 
   React.useEffect(() => {
-    if (listen && listen.setEffect) {
-      const remove = listen.setEffect(data => {
-        if (dispatch && dispatch.onEffect) dispatch.onEffect(data)
+    if (monitor && monitor.setEffect) {
+      const remove = monitor.setEffect(data => {
+        if (trigger && trigger.onEffect) trigger.onEffect(data)
       })
       return () => { remove() }
     }
@@ -17,7 +17,7 @@ function Render(props) {
   React.useEffect(() => {
     if (property.immediate) {
       Promise.resolve().then(() => {
-        if (dispatch && dispatch.onEffect) dispatch.onEffect()
+        if (trigger && trigger.onEffect) trigger.onEffect()
       })
     }
   }, [])

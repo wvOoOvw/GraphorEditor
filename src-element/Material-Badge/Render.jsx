@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Badge } = window.MaterialUI
 
-  const { compound, property, listen, children, update } = props
+  const { compound, property, monitor, children, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setContent) {
-      const remove = listen.setContent(data => {
+    if (monitor && monitor.setContent) {
+      const remove = monitor.setContent(data => {
         property.content = data
         update()
       })

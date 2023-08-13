@@ -15,7 +15,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import Imitation from './utils.imitation'
 import { graphElementSearch } from './utils.graph.common'
 
-import { ListenConfig, DispatchConfig, HookConfig } from './View.NavigationTabs.ElementConfig'
+import { MonitorConfig, TriggerConfig, HookConfig } from './View.NavigationTabs.ElementConfig'
 
 function EventDialog(props) {
   const { content, onClose } = props
@@ -23,14 +23,14 @@ function EventDialog(props) {
   return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 520, maxWidth: 'none' } }} className='font'>
     <DialogContent>
       <HookConfig currentGraphContent={content} defaultExpanded={true} />
-      <ListenConfig currentGraphContent={content} defaultExpanded={true} />
-      <DispatchConfig currentGraphContent={content} defaultExpanded={true} />
+      <MonitorConfig currentGraphContent={content} defaultExpanded={true} />
+      <TriggerConfig currentGraphContent={content} defaultExpanded={true} />
     </DialogContent>
   </Dialog>
 }
 
 function ItemRender(props) {
-  const { license, id, name, children, listen, dispatch, parentId, hook } = props
+  const { license, id, name, children, monitor, trigger, parentId, hook } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -72,14 +72,14 @@ function ItemRender(props) {
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
         {
-          listen ?
-            <Badge badgeContent={listen.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
+          monitor ?
+            <Badge badgeContent={monitor.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
               <IconButton size='small' onClick={() => setEventDialog(props)}><HeadsetIcon fontSize='small' /></IconButton>
             </Badge> : null
         }
         {
-          dispatch ?
-            <Badge badgeContent={dispatch.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
+          trigger ?
+            <Badge badgeContent={trigger.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
               <IconButton size='small' onClick={() => setEventDialog(props)}><AlarmIcon fontSize='small' /></IconButton>
             </Badge> : null
         }

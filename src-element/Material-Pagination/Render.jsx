@@ -2,11 +2,11 @@ function Render(props) {
   const React = window.React
   const { Pagination } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setPage) {
-      const remove = listen.setPage(data => {
+    if (monitor && monitor.setPage) {
+      const remove = monitor.setPage(data => {
         property.page = data
         update()
       })
@@ -14,8 +14,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setCount) {
-      const remove = listen.setCount(data => {
+    if (monitor && monitor.setCount) {
+      const remove = monitor.setCount(data => {
         property.count = data
         update()
       })
@@ -27,7 +27,7 @@ function Render(props) {
     if (!pure) return
     property.page = v
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(property.page, e)
+    if (trigger && trigger.onChange) trigger.onChange(property.page, e)
   }
 
   return <Pagination

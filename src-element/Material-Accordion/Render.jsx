@@ -9,11 +9,11 @@ function Render(props) {
   const React = window.React
   const { Accordion, AccordionSummary, AccordionDetails, Divider } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, children, pure, update } = props
+  const { compound, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setExpandedOpen) {
-      const remove = listen.setExpandedOpen(data => {
+    if (monitor && monitor.setExpandedOpen) {
+      const remove = monitor.setExpandedOpen(data => {
         property.expanded = true
         update()
       })
@@ -21,8 +21,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setExpandedClose) {
-      const remove = listen.setExpandedClose(data => {
+    if (monitor && monitor.setExpandedClose) {
+      const remove = monitor.setExpandedClose(data => {
         property.expanded = false
         update()
       })
@@ -34,7 +34,7 @@ function Render(props) {
     if (!pure) return
     property.expanded = !property.expanded
     update()
-    if (dispatch && dispatch.onChange) dispatch.onChange(property.expanded, e)
+    if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
   }
 
   return <Accordion {...compound} expanded={property.expanded} onChange={onChange} disabled={property.disabled}>

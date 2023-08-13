@@ -6,11 +6,11 @@ function Render(props) {
   const React = window.React
   const { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } = window.MaterialUI
 
-  const { compound, property, listen, dispatch, pure, update } = props
+  const { compound, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setBody) {
-      const remove = listen.setBody(data => {
+    if (monitor && monitor.setBody) {
+      const remove = monitor.setBody(data => {
         property.body = data
         update()
       })
@@ -18,8 +18,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setHead) {
-      const remove = listen.setHead(data => {
+    if (monitor && monitor.setHead) {
+      const remove = monitor.setHead(data => {
         property.head = data
         update()
       })
@@ -27,8 +27,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setPaginationSize) {
-      const remove = listen.setPaginationSize(data => {
+    if (monitor && monitor.setPaginationSize) {
+      const remove = monitor.setPaginationSize(data => {
         property.paginationSize = data
         update()
       })
@@ -36,8 +36,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setPaginationPage) {
-      const remove = listen.setPaginationPage(data => {
+    if (monitor && monitor.setPaginationPage) {
+      const remove = monitor.setPaginationPage(data => {
         property.paginationPage = data
         update()
       })
@@ -45,8 +45,8 @@ function Render(props) {
     }
   }, [])
   React.useEffect(() => {
-    if (listen && listen.setSelectClear) {
-      const remove = listen.setSelectClear(data => {
+    if (monitor && monitor.setSelectClear) {
+      const remove = monitor.setSelectClear(data => {
         property.selectChecked = []
         update()
       })
@@ -55,14 +55,14 @@ function Render(props) {
   }, [])
 
   const onClick = (e, v) => {
-    if (dispatch && dispatch.onClick) dispatch.onClick(v, e)
+    if (trigger && trigger.onClick) trigger.onClick(v, e)
   }
 
   const onSelect = (e, item) => {
     if (!pure) return
     property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
-    if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
+    if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
   }
 
   const selectMultipleChecked = () => {
@@ -86,11 +86,11 @@ function Render(props) {
     if (body.filter(i => property.selectChecked.includes(i)).length === body.length) {
       property.selectChecked = []
       update()
-      if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
+      if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
     } else {
       property.selectChecked = body
       update()
-      if (dispatch && dispatch.onSelect) dispatch.onSelect(property.selectChecked, e)
+      if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
     }
   }
 
@@ -99,7 +99,7 @@ function Render(props) {
     property.selectChecked = []
     property.paginationPage = value
     update()
-    if (dispatch && dispatch.onPaginationChange) dispatch.onPaginationChange(property.paginationPage, e)
+    if (trigger && trigger.onPaginationChange) trigger.onPaginationChange(property.paginationPage, e)
   }
 
   return <Box {...compound} component={property.componentPaper ? Paper : null}>

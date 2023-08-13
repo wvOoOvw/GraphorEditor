@@ -2,11 +2,11 @@ const information = {
   name: '数据库',
   type: 'Tool',
   children: false,
-  listen: [
+  monitor: [
     { value: 'setValue', label: '设置数据' },
     { value: 'assignValue', label: '合并数据' },
   ],
-  dispatch: [
+  trigger: [
     { value: 'onEffect', label: '执行' }
   ],
   style: {

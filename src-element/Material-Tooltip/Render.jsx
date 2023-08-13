@@ -12,11 +12,11 @@ function Render(props) {
     },
   });
 
-  const { compound, property, listen, dispatch, children, pure, update } = props
+  const { compound, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
-    if (listen && listen.setOpenTrue) {
-      const remove = listen.setOpenTrue(data => {
+    if (monitor && monitor.setOpenTrue) {
+      const remove = monitor.setOpenTrue(data => {
         property.open = true
         update()
       })
@@ -25,8 +25,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (listen && listen.setOpenFalse) {
-      const remove = listen.setOpenFalse(data => {
+    if (monitor && monitor.setOpenFalse) {
+      const remove = monitor.setOpenFalse(data => {
         property.open = false
         update()
       })
@@ -37,13 +37,13 @@ function Render(props) {
   const onOpen = (e) => {
     property.open = true
     update()
-    if (dispatch && dispatch.onOpen) dispatch.onOpen(property.open, e)
+    if (trigger && trigger.onOpen) trigger.onOpen(property.open, e)
   }
 
   const onClose = (e) => {
     property.open = false
     update()
-    if (dispatch && dispatch.onClose) dispatch.onClose(property.open, e)
+    if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
   const R = children && children.main ? children.main() : null

@@ -2,14 +2,14 @@ const information = {
   name: '视频Hls',
   type: 'Extra',
   children: false,
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: 'setUrl', label: '设置视频地址' },
     { value: 'setPlay', label: '播放' },
     { value: 'setPause', label: '暂停' },
   ],
-  dispatch: [
+  trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },

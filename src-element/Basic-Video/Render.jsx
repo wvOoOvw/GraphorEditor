@@ -1,13 +1,13 @@
 function Render(props) {
   const React = window.React
 
-  const { compound, property, listen, update } = props
+  const { compound, property, monitor, update } = props
 
   const ref = React.useRef()
 
   React.useEffect(() => {
-    if (listen && listen.setSrc) {
-      const remove = listen.setSrc(data => {
+    if (monitor && monitor.setSrc) {
+      const remove = monitor.setSrc(data => {
         property.src = data
         update()
       })
@@ -16,8 +16,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (listen && listen.setPlay) {
-      const remove = listen.setPlay(data => {
+    if (monitor && monitor.setPlay) {
+      const remove = monitor.setPlay(data => {
         ref.current.play()
         update()
       })
@@ -26,8 +26,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (listen && listen.setPause) {
-      const remove = listen.setPause(data => {
+    if (monitor && monitor.setPause) {
+      const remove = monitor.setPause(data => {
         ref.current.pause()
         update()
       })
@@ -36,7 +36,7 @@ function Render(props) {
   }, [])
 
   const onEnded = e => {
-    if (dispatch && dispatch.onEnded) dispatch.onEnded(undefined, e)
+    if (trigger && trigger.onEnded) trigger.onEnded(undefined, e)
   }
 
   return <video

@@ -5,13 +5,13 @@ const information = {
     { value: 'main', label: '主模块' },
     { value: 'float', label: '浮窗模块' }
   ],
-  listen: [
+  monitor: [
     { value: '@setVisibleTrue', label: '显示' },
     { value: '@setVisibleFalse', label: '隐藏' },
     { value: '@setOpenTure', label: '打开' },
     { value: '@setOpenFalse', label: '关闭' },
   ],
-  dispatch: [
+  trigger: [
     { value: 'onOpen', label: '打开' },
     { value: 'onClose', label: '关闭' },
   ],
