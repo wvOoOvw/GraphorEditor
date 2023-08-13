@@ -99,7 +99,7 @@ function App() {
                       {i.information.name}
                     </div>
                     <div>
-                      <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon /></IconButton>
+                      <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon style={{ fontSize: 22 }}/></IconButton>
                     </div>
                   </Paper>
                 </Tooltip>

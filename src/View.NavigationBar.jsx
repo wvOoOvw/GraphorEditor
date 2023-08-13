@@ -382,7 +382,7 @@ function App() {
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
-        <Button color='inherit'>Graphor</Button>
+        <Button style={{ textTransform: 'none' }} color='inherit'>GRAPHOR</Button>
       </Grid>
     </div>
     <div>

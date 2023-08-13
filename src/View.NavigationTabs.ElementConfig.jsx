@@ -276,12 +276,14 @@ function HookConfig(props) {
       <AccordionSummary>Event Config / Hook</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>Before Render</div>
-            <div>
-              <IconButton onClick={() => setAceDialog('beforeRenderHook')}><CodeIcon /></IconButton>
-              <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
-            </div>
+          <Grid item xs={12}>
+            <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+              <div>Before Render</div>
+              <div>
+                <IconButton onClick={() => setAceDialog('beforeRenderHook')}><CodeIcon style={{ fontSize: 22 }} /></IconButton>
+                <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+              </div>
+            </Paper>
           </Grid>
         </Grid>
       </AccordionDetails>
@@ -337,15 +339,27 @@ function ListenConfig(props) {
         <Grid container spacing={1}>
           {
             currentGraphContent.listen.map((i, index) => {
-              return <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={index}>
-                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  <span>{i.name}</span>
-                  <span> - </span>
-                  <span>{!i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : 'Code'}</span>
-                </div>
-                <div>
-                  <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon /></IconButton>
-                </div>
+              return <Grid item xs={12} key={index}>
+                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span>{i.name}</span>
+                    <span> - </span>
+                    <span>
+                      {
+                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) === undefined ? 'Empty' : null
+                      }
+                      {
+                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) !== undefined ? keyOptions.find(i_ => i_.value === i.key).label : null
+                      }
+                      {
+                        i.useEval ? 'Custom' : null
+                      }
+                    </span>
+                  </div>
+                  <div>
+                    <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                  </div>
+                </Paper>
               </Grid>
             })
           }
@@ -406,16 +420,28 @@ function DispatchConfig(props) {
       <AccordionDetails>
         <Grid container spacing={1}>
           {
-            currentGraphContent.listen.map((i, index) => {
-              return <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={index}>
-                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  <span>{i.name}</span>
-                  <span> - </span>
-                  <span>{!i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : 'Code'}</span>
-                </div>
-                <div>
-                  <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon /></IconButton>
-                </div>
+            currentGraphContent.dispatch.map((i, index) => {
+              return <Grid item xs={12} key={index}>
+                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span>{i.name}</span>
+                    <span> - </span>
+                    <span>
+                      {
+                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) === undefined ? 'Empty' : null
+                      }
+                      {
+                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) !== undefined ? keyOptions.find(i_ => i_.value === i.key).label : null
+                      }
+                      {
+                        i.useEval ? 'Custom' : null
+                      }
+                    </span>
+                  </div>
+                  <div>
+                    <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                  </div>
+                </Paper>
               </Grid>
             })
           }
