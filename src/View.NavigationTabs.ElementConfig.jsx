@@ -424,7 +424,7 @@ function TriggerConfig(props) {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{i.name}</span>
+                    <span>{i.name ? i.name : 'Empty'}</span>
                     <span> - </span>
                     <span>
                       {

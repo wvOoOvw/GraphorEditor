@@ -17,6 +17,7 @@ import { AccordionDetails } from '@mui/material'
 import { AceDialog } from './View.Component.Ace'
 
 import { evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
+import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 function MonitorDialog(props) {
   const { keyOptions, value, onChange, onDelete, onClose } = props
@@ -37,17 +38,17 @@ function MonitorDialog(props) {
       <Grid container spacing={2} style={{ padding: 12 }}>
 
         <Grid item xs={12}>
-          <TextField fullWidth value={data.name} label='名称' onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
+          <TextField fullWidth value={data.name} label='Custom Name' onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
         </Grid>
 
         <Grid item xs={12}>
           <Accordion defaultExpanded={false}>
-            <AccordionSummary>执行函数</AccordionSummary>
+            <AccordionSummary>Execute Function</AccordionSummary>
             <AccordionDetails>
-              <Grid container spacing={1} justifyContent='space-between'>
+              <Grid container spacing={1}>
                 <Grid item>
                   <Button style={{ textTransform: 'none' }} variant={data.useEval ? 'contained' : 'text'} color='secondary' onClick={handleClickEval}>
-                    自定义函数
+                    Custom Function
                   </Button>
                 </Grid>
                 {
@@ -61,9 +62,6 @@ function MonitorDialog(props) {
                     </Grid>
                   })
                 }
-                {
-                  new Array(5).fill().map(i => <Grid item />)
-                }
               </Grid>
             </AccordionDetails>
           </Accordion>
@@ -72,8 +70,8 @@ function MonitorDialog(props) {
       </Grid>
     </DialogContent>
     <DialogActions>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
-      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>保存</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>Save</Button>
     </DialogActions>
 
     {
@@ -107,9 +105,9 @@ function TriggerDialog(props) {
       <Grid container spacing={2} style={{ padding: 12 }}>
 
         <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel>关联监听名称</InputLabel>
-            <Select label='关联监听名称' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))}>
+          <FormControl {...SelectSX} fullWidth>
+            <InputLabel>Link Monitor</InputLabel>
+            <Select {...SelectSX} label='Link Monitor' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))}>
               {
                 monitorNameOptions.map(i => {
                   return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -121,17 +119,17 @@ function TriggerDialog(props) {
 
         <Grid item xs={12}>
           <Accordion defaultExpanded={false}>
-            <AccordionSummary>执行函数</AccordionSummary>
+            <AccordionSummary>Execute Function</AccordionSummary>
             <AccordionDetails>
               <Grid container spacing={1}>
                 <Grid item>
                   <Button style={{ textTransform: 'none' }} variant={data.useEval ? 'contained' : 'text'} onClick={handleClickEval}>
-                    自定义函数
+                    Custom Function
                   </Button>
                 </Grid>
                 <Grid item>
                   <Button style={{ textTransform: 'none' }} variant={!data.useEval ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { useEval: false }))}>
-                    默认执行
+                    Default
                   </Button>
                 </Grid>
               </Grid>
@@ -141,9 +139,9 @@ function TriggerDialog(props) {
 
         <Grid item xs={12}>
           <Accordion defaultExpanded={false}>
-            <AccordionSummary>触发时机</AccordionSummary>
+            <AccordionSummary>Trigger Time</AccordionSummary>
             <AccordionDetails>
-              <Grid container spacing={1} justifyContent='space-between'>
+              <Grid container spacing={1}>
                 {
                   keyOptions.map((i, index) => {
                     return <Grid item>
@@ -155,9 +153,6 @@ function TriggerDialog(props) {
                     </Grid>
                   })
                 }
-                {
-                  new Array(5).fill().map(i => <Grid item />)
-                }
               </Grid>
             </AccordionDetails>
           </Accordion>
@@ -165,8 +160,8 @@ function TriggerDialog(props) {
       </Grid>
     </DialogContent>
     <DialogActions>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
-      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>保存</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>Save</Button>
     </DialogActions>
 
     {
