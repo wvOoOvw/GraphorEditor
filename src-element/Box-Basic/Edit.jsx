@@ -16,7 +16,7 @@ function Edit(props) {
     }
   }
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <Button fullWidth variant='outlined' onClick={() => setFlowModal(true)}>设置数据</Button>
     </Grid>

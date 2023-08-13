@@ -11,7 +11,7 @@ import { Select } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
   </Grid>
 }
 

@@ -10,7 +10,7 @@ function Edit(props) {
 
   const [modalOptions, setModalOptions] = React.useState(false)
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>

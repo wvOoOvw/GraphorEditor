@@ -18,7 +18,7 @@ import { AceDialog } from './View.Component.Ace'
 
 import { evalEventListenDefault, evalEventDispatchDefault } from './utils.const'
 
-function ListenModal(props) {
+function ListenDialog(props) {
   const { keyOptions, value, onChange, onDelete, onClose } = props
 
   const [data, setData] = React.useState(value)
@@ -32,7 +32,7 @@ function ListenModal(props) {
     }
   }
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 480, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 720, maxWidth: 'none' } }} className='font'>
     <DialogContent>
       <Grid container spacing={2} style={{ padding: 12 }}>
 
@@ -46,14 +46,14 @@ function ListenModal(props) {
             <AccordionDetails>
               <Grid container spacing={1} justifyContent='space-between'>
                 <Grid item>
-                  <Button variant={data.useEval ? 'contained' : 'text'} color='secondary' onClick={handleClickEval}>
+                  <Button style={{ textTransform: 'none' }} variant={data.useEval ? 'contained' : 'text'} color='secondary' onClick={handleClickEval}>
                     自定义函数
                   </Button>
                 </Grid>
                 {
                   keyOptions.map((i, index) => {
                     return <Grid item>
-                      <Button key={index} variant={!data.useEval && data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value, useEval: false }))}>
+                      <Button style={{ textTransform: 'none' }} key={index} variant={!data.useEval && data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value, useEval: false }))}>
                         {
                           i.label
                         }
@@ -72,8 +72,8 @@ function ListenModal(props) {
       </Grid>
     </DialogContent>
     <DialogActions>
-      <Button variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
-      <Button variant='contained' onClick={() => onChange(data)}>保存</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>保存</Button>
     </DialogActions>
 
     {
@@ -88,7 +88,7 @@ function ListenModal(props) {
   </Dialog>
 }
 
-function DispatchModal(props) {
+function DispatchDialog(props) {
   const { keyOptions, value, onChange, onDelete, onClose, listenNameOptions } = props
 
   const [data, setData] = React.useState(value)
@@ -102,7 +102,7 @@ function DispatchModal(props) {
     }
   }
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 480, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 720, maxWidth: 'none' } }} className='font'>
     <DialogContent>
       <Grid container spacing={2} style={{ padding: 12 }}>
 
@@ -125,12 +125,12 @@ function DispatchModal(props) {
             <AccordionDetails>
               <Grid container spacing={1}>
                 <Grid item>
-                  <Button variant={data.useEval ? 'contained' : 'text'} onClick={handleClickEval}>
+                  <Button style={{ textTransform: 'none' }} variant={data.useEval ? 'contained' : 'text'} onClick={handleClickEval}>
                     自定义函数
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant={!data.useEval ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { useEval: false }))}>
+                  <Button style={{ textTransform: 'none' }} variant={!data.useEval ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { useEval: false }))}>
                     默认执行
                   </Button>
                 </Grid>
@@ -147,7 +147,7 @@ function DispatchModal(props) {
                 {
                   keyOptions.map((i, index) => {
                     return <Grid item>
-                      <Button key={index} variant={data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value }))}>
+                      <Button style={{ textTransform: 'none' }} key={index} variant={data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value }))}>
                         {
                           i.label
                         }
@@ -165,8 +165,8 @@ function DispatchModal(props) {
       </Grid>
     </DialogContent>
     <DialogActions>
-      <Button variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
-      <Button variant='contained' onClick={() => onChange(data)}>保存</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>删除</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>保存</Button>
     </DialogActions>
 
     {
@@ -181,4 +181,4 @@ function DispatchModal(props) {
   </Dialog>
 }
 
-export { ListenModal, DispatchModal }
+export { ListenDialog, DispatchDialog }

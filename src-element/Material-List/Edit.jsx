@@ -14,7 +14,7 @@ function Edit(props) {
 
   const [modalValue, setModalValue] = React.useState(false)
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>清除间距</div>
       <Switch checked={value.disablePadding} onChange={e => onChange(Object.assign({}, value, { disablePadding: e.target.checked }))} />

@@ -8,7 +8,7 @@ function Edit(props) {
 
   const [modalOptions, setModalOptions] = React.useState(false)
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <Button fullWidth variant='outlined' onClick={() => setModalOptions(true)}>配置选项数据</Button>
     </Grid>

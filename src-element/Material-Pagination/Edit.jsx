@@ -11,7 +11,7 @@ import { Switch } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={6}>
       <TextField {...sx.TextFieldSX} fullWidth type='number' label='默认页数' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
     </Grid>

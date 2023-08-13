@@ -11,7 +11,7 @@ import { Select } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>使用标签跳转</div>
       <Switch checked={value.useDom} onChange={(e) => onChange(Object.assign({}, value, { useDom: e.target.checked }))} />

@@ -11,7 +11,7 @@ import { Select } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='加载地址' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
     </Grid>

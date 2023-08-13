@@ -10,7 +10,7 @@ import { Select } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>请求模式</InputLabel>

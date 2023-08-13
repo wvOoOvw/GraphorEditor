@@ -8,6 +8,7 @@ import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 import { InputLabel } from '@mui/material'
+import { Tooltip } from '@mui/material'
 
 import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 
@@ -91,18 +92,17 @@ function App() {
           list
             .filter(i => !filter || i.information.type === filter)
             .map(i => {
-              return <Grid item xs={6} key={i.information.licenseKey}>
-                <Paper>
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 40, padding: '0 8px', fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {i.information.name}
-                  </div>
-                  <div style={{ width: 80, height: 80, margin: 'auto', position: 'relative', overflow: 'hidden' }}>
-                    <i.View />
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', height: 40, padding: '0 8px' }}>
-                    <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon /></IconButton>
-                  </div>
-                </Paper>
+              return <Grid item xs={12} key={i.information.licenseKey}>
+                <Tooltip {...TooltipSX} placement='right' title={i.View() ? <div style={{ padding: 8, width: 100, height: 100 }}><i.View /></div> : undefined}>
+                  <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+                    <div>
+                      {i.information.name}
+                    </div>
+                    <div>
+                      <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon /></IconButton>
+                    </div>
+                  </Paper>
+                </Tooltip>
               </Grid>
             })
         }

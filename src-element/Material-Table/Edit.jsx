@@ -24,7 +24,7 @@ function Edit(props) {
   const [modalHead, setModalHead] = React.useState(false)
   const [modalBody, setModalBody] = React.useState(false)
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>表头固定</div>
       <Switch checked={value.stickyHeader} onChange={e => onChange(Object.assign({}, value, { stickyHeader: e.target.checked }))} />

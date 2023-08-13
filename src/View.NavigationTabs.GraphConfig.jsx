@@ -26,7 +26,7 @@ function Screen(props) {
     <Accordion defaultExpanded={true}>
       <AccordionSummary>Canvas Config</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={6}>
             <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screen.width} label='Width' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.width = e.target.value)} type='number' />
           </Grid>
@@ -40,11 +40,11 @@ function Screen(props) {
             <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 1200; Imitation.state.graphConfig.screen.height = 720; })}>PC Size</Button>
           </Grid>
           <Grid item xs={12}>
-            <div>Scale</div>
-            <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>Reset Position</Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>Reset Position</Button>
+            <div>Scale</div>
+            <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
           </Grid>
         </Grid>
       </AccordionDetails>
@@ -59,7 +59,7 @@ function Document(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Document Config</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.document.title} label='Title' onChange={e => handleChange(() => Imitation.state.graphConfig.document.title = e.target.value)} />
           </Grid>
@@ -82,7 +82,7 @@ function Project(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Project Config</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.project.renderId} label='Render ID' onChange={e => handleChange(() => Imitation.state.graphConfig.project.renderId = e.target.value)} />
           </Grid>
@@ -118,7 +118,7 @@ function DependenciesMap(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Dependencies Map</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           {
             Object.entries(Imitation.state.graphConfig.dependenciesMap).map((i) => {
               return <Grid item xs={12} key={i[0]}>
@@ -166,7 +166,7 @@ function WriteJson(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Edit JSON</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => setGraphContentAceDialog(true)}>Edit Content JSON</Button>
           </Grid>

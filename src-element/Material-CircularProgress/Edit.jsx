@@ -6,7 +6,7 @@ import { Grid } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='尺寸' value={value.size} onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))} type='number' />
     </Grid>

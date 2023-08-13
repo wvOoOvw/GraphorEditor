@@ -17,9 +17,13 @@ import { ListItemText } from '@mui/material'
 import { Accordion } from '@mui/material'
 import { AccordionSummary } from '@mui/material'
 import { AccordionDetails } from '@mui/material'
+import { IconButton } from '@mui/material'
+import { Paper } from '@mui/material'
 
 import CodeIcon from '@mui/icons-material/Code'
 import CodeOffIcon from '@mui/icons-material/CodeOff'
+import EditIcon from '@mui/icons-material/Edit'
+import AddIcon from '@mui/icons-material/Add'
 
 import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
@@ -27,7 +31,7 @@ import { evalBeforeRenderHook, evalEventListenDefault, evalEventDispatchDefault 
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-import { ListenModal, DispatchModal } from './View.Component.EventDialog'
+import { ListenDialog, DispatchDialog } from './View.Component.EventDialog'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
@@ -47,7 +51,7 @@ function BasicConfig(props) {
     <Accordion defaultExpanded={true}>
       <AccordionSummary>Basic Information</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
           </Grid>
@@ -66,7 +70,7 @@ function BasicConfig(props) {
           {
             license.dependencies && license.dependencies.length ?
               <Grid item xs={12}>
-                <Grid container spacing={2} alignItems='center'>
+                <Grid container spacing={1} alignItems='center'>
                   <Grid item>Dependencies</Grid>
                   {
                     license.dependencies.map((i, index) => {
@@ -254,12 +258,12 @@ function ChildrenConfig(props) {
 function HookConfig(props) {
   const { currentGraphContent, parentGraphContent, defaultExpanded } = props
 
-  const [modal, setModal] = React.useState()
+  const [aceDialog, setAceDialog] = React.useState()
 
   const handleChange = (value) => {
-    currentGraphContent.hook[modal] = value
+    currentGraphContent.hook[aceDialog] = value
     Imitation.assignState({ graphContentUpdate: hash() })
-    setModal(undefined)
+    setAceDialog(undefined)
   }
 
   const handleChangeCallback = (callback) => {
@@ -271,18 +275,22 @@ function HookConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Hook</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Button variant='outlined' onClick={() => setModal('beforeRenderHook')}>Before Render</Button>
-            <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+            <div>Before Render</div>
+            <div>
+              <IconButton onClick={() => setAceDialog('beforeRenderHook')}><CodeIcon /></IconButton>
+              <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+            </div>
           </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>
+
     {
-      modal === 'beforeRenderHook' ?
+      aceDialog === 'beforeRenderHook' ?
         <AceDialog
-          onClose={() => setModal(undefined)}
+          onClose={() => setAceDialog(undefined)}
           value={currentGraphContent.hook.beforeRenderHook}
           onChange={e => handleChange(e)}
           initValue={evalBeforeRenderHook}
@@ -326,35 +334,30 @@ function ListenConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Listen</AccordionSummary>
       <AccordionDetails>
-        <List>
+        <Grid container spacing={1}>
           {
             currentGraphContent.listen.map((i, index) => {
-              return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
-                <ListItemIcon>
-                  {
-                    i.useEval ? <CodeIcon /> : <CodeOffIcon />
-                  }
-                </ListItemIcon>
-                <ListItemText>
-                  {
-                    i.name
-                  }
-                </ListItemText>
-                <ListItemText style={{ color: 'gray' }}>
-                  {
-                    !i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
-                  }
-                </ListItemText>
-              </ListItemButton>
+              return <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={index}>
+                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span>{i.name}</span>
+                  <span> - </span>
+                  <span>{!i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : 'Code'}</span>
+                </div>
+                <div>
+                  <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon /></IconButton>
+                </div>
+              </Grid>
             })
           }
-        </List>
-        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
+          </Grid>
+        </Grid>
       </AccordionDetails>
     </Accordion>
     {
       modal ?
-        <ListenModal
+        <ListenDialog
           onClose={() => setModal(undefined)}
           keyOptions={keyOptions}
           value={modal.data}
@@ -401,35 +404,30 @@ function DispatchConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Dispatch</AccordionSummary>
       <AccordionDetails>
-        <List>
+        <Grid container spacing={1}>
           {
-            currentGraphContent.dispatch.map((i, index) => {
-              return <ListItemButton key={index} onClick={e => setModal({ index: index, data: i })} style={{ height: 48 }}>
-                <ListItemIcon>
-                  {
-                    i.useEval ? <CodeIcon /> : <CodeOffIcon />
-                  }
-                </ListItemIcon>
-                <ListItemText>
-                  {
-                    i.name
-                  }
-                </ListItemText>
-                <ListItemText style={{ color: 'gray' }}>
-                  {
-                    keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : null
-                  }
-                </ListItemText>
-              </ListItemButton>
+            currentGraphContent.listen.map((i, index) => {
+              return <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={index}>
+                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span>{i.name}</span>
+                  <span> - </span>
+                  <span>{!i.useEval && keyOptions.find(i_ => i_.value === i.key) ? keyOptions.find(i_ => i_.value === i.key).label : 'Code'}</span>
+                </div>
+                <div>
+                  <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon /></IconButton>
+                </div>
+              </Grid>
             })
           }
-        </List>
-        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
+          </Grid>
+        </Grid>
       </AccordionDetails>
     </Accordion>
     {
       modal ?
-        <DispatchModal
+        <DispatchDialog
           onClose={() => setModal(undefined)}
           keyOptions={keyOptions}
           value={modal.data}

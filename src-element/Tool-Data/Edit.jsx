@@ -11,7 +11,7 @@ function Edit(props) {
 
   const [flowModal, setFlowModal] = React.useState()
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
 
     <Grid item xs={12}>
       <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setFlowModal(true)}>设置数据</Button>

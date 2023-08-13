@@ -19,7 +19,7 @@ function Edit(props) {
   const [modalHead, setModalHead] = React.useState(false)
   const [modalBody, setModalBody] = React.useState(false)
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>图例</div>
       <Switch checked={value.option.legend.show} onChange={e => onChange(v => v.option.legend.show = e.target.checked)} />
