@@ -75,7 +75,7 @@ function Hover() {
 }
 
 function ElementRender(props) {
-  const { license, id, property, style, children } = props
+  const { license, id, use, property, style, children } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -119,34 +119,31 @@ function ElementRender(props) {
     return r
   })
 
-  const compound = {
-    style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' },
-    onClick,
-    onMouseDown,
-    onMouseUp,
-    onMouseOver,
-    onMouseOut,
+  const event = { onClick, onMouseDown, onMouseUp, onMouseOver, onMouseOut }
+
+  const style_exe = {
+    style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' }
   }
 
   if (Imitation.state.elementHover === id) {
-    compound['data-hover'] = 'hover'
+    style_exe['data-hover'] = 'hover'
   }
 
   if (Imitation.state.navigationTabsElementValue === id) {
-    compound['data-hover'] = 'active'
+    style_exe['data-hover'] = 'active'
   }
 
   const Render_exe = <Render
-    compound={compound}
+    event={event}
+    style={style_exe}
     property={property}
-    style={style}
     children={children_exe}
     env={'dev'}
     update={update}
     id={id}
   />
 
-  if (style.use === false) return null
+  if (use === false) return null
 
   return Render_exe
 }

@@ -5,11 +5,12 @@ function Icon() {
   </div>
 }
 
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Accordion, AccordionSummary, AccordionDetails, Divider } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setExpandedOpen) {
@@ -37,7 +38,7 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
   }
 
-  return <Accordion {...compound} expanded={property.expanded} onChange={onChange} disabled={property.disabled}>
+  return <Accordion {...event} {...style} expanded={property.expanded} onChange={onChange} disabled={property.disabled}>
 
     <AccordionSummary style={{ minHeight: 'auto', height: isNaN(property.summaryHeight) ? property.summaryHeight : property.summaryHeight + 'px', transition: '0.5s all' }} expandIcon={property.expandIcon ? <Icon /> : undefined}>
       {

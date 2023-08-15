@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Radio } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setCheckedOpen) {
@@ -31,7 +32,7 @@ function Render(props) {
   }
 
   return <Radio
-    {...compound}
+    {...event}
     checked={property.checked}
     onChange={onChange}
     size={property.size}

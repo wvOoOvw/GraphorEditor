@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Checkbox, FormControl, FormGroup, FormControlLabel } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -36,7 +37,7 @@ function Render(props) {
     }
   }
 
-  return <FormGroup {...compound}>
+  return <FormGroup {...event}>
     {
       property.options.map((i, index) => {
         return <FormControlLabel

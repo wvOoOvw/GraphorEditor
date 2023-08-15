@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Badge } = window.MaterialUI
 
-  const { compound, property, monitor, children, update } = props
+  const { event, property, monitor, children, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setContent) {
@@ -14,7 +15,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Badge {...compound} badgeContent={Number(property.content)} max={99999} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin}>
+  return <Badge {...event} {...style} badgeContent={Number(property.content)} max={99999} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin}>
     {
       children && children.main ? children.main() : null
     }

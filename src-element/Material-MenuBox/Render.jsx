@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Menu, MenuItem } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
@@ -33,7 +34,7 @@ function Render(props) {
 
   return <>
     <div
-      {...compound}
+      {...event}
       ref={el => ref.current = el}
       onClick={property.openType === 'click' ? onOpen : undefined}
       onMouseOver={property.openType === 'mouseover' ? onOpen : undefined}

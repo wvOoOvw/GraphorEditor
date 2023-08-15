@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, update } = props
+function Render(props) {
+
+  const { event, style, property, monitor, update } = props
 
   const ref = React.useRef()
 
@@ -40,7 +41,7 @@ function Render(props) {
   }
 
   return <video
-    {...compound}
+    {...event}
     ref={el => ref.current = el}
     src={property.src}
     poster={property.poster}

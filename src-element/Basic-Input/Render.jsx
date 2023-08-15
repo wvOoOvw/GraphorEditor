@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, trigger, update } = props
+function Render(props) {
+
+  const { event, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -36,10 +37,10 @@ function Render(props) {
 
 
   if (property.type === 'textarea') {
-    compound.style.resize = 'none'
+    event.style.resize = 'none'
 
     return <textarea
-      {...compound}
+      {...event}
       value={property.value}
       onChange={onChange}
       onFocus={onFocus}
@@ -51,7 +52,7 @@ function Render(props) {
 
   if (property.type === 'file') {
     return <input
-      {...compound}
+      {...event}
       value={property.value}
       onChange={onChange}
       onFocus={onFocus}
@@ -65,7 +66,7 @@ function Render(props) {
   }
 
   return <input
-    {...compound}
+    {...event}
     value={property.value}
     onChange={onChange}
     onFocus={onFocus}

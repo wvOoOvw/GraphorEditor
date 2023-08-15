@@ -3,7 +3,7 @@ const translateNaN = r => isNaN(r) ? r : r + 'px'
 const fix = (style) => {
   if (style.boxSizing) delete style.boxSizing
   if (style.font) {
-    if (style.font.fontFamily === undefined || Array.isArray(style.font.fontFamily)) style.font.fontFamily = defaultStyleAll.font.fontFamily
+    if (style.font.fontFamily === undefined || Array.isArray(style.font.fontFamily)) style.font.fontFamily = defaultStyle.font.fontFamily
   }
 }
 
@@ -14,14 +14,15 @@ const caculateStyle = (style) => {
 
   const style_ = {}
 
+  style_.className = style.className
+
+  if (style.visible !== undefined) style_.visible = style.visible
   if (style.display !== undefined) style_.display = style.display
   if (style.overflow !== undefined) style_.overflow = style.overflow
   if (style.verticalAlign !== undefined) style_.verticalAlign = style.verticalAlign
   if (style.position !== undefined) style_.position = style.position
   if (style.zIndex !== undefined) style_.zIndex = style.zIndex
   if (style.cursor !== undefined) style_.cursor = style.cursor
-
-  if (style.visible !== undefined) style_.display = style.visible ? style_.display : 'none'
 
   if (style.width !== undefined) style_.width = translateNaN(style.width)
   if (style.height !== undefined) style_.height = translateNaN(style.height)
@@ -188,9 +189,8 @@ const caculateStyle = (style) => {
   return style_
 }
 
-const defaultStyleAll = {
-  use: true,
-  visible: true,
+const defaultStyle = {
+  visible: 'visible',
 
   display: 'block',
   overflow: 'visible',
@@ -303,9 +303,4 @@ const defaultStyleAll = {
   }
 }
 
-const defaultStyleAdd = {
-  use: true,
-  visible: true,
-}
-
-export { caculateStyle, defaultStyleAll, defaultStyleAdd }
+export { caculateStyle, defaultStyle }

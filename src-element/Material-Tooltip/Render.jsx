@@ -1,5 +1,6 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Tooltip } = window.MaterialUI
   const { styled } = window.MaterialUI
 
@@ -12,7 +13,7 @@ function Render(props) {
     },
   });
 
-  const { compound, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setOpenTrue) {

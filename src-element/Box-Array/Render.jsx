@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, children, pure, update } = props
+function Render(props) {
+
+  const { event, property, monitor, children, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +14,7 @@ function Render(props) {
     }
   }, [])
 
-  return <div {...compound}>
+  return <div {...event}>
     {
       pure && property.value.map((i) => children && children.main ? children.main(i) : null)
     }

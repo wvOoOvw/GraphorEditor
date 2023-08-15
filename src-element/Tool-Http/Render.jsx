@@ -1,5 +1,6 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
 
   const { property, monitor, trigger } = props
 

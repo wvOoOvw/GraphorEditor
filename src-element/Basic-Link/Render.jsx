@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, children, update } = props
+function Render(props) {
+
+  const { event, property, monitor, children, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setHref) {
@@ -14,7 +15,7 @@ function Render(props) {
   }, [])
 
   const onClick = () => {
-    if (!compound.onClick) compound.onClick()
+    if (!event.onClick) event.onClick()
     if (property.target === '_self') {
       window.location.href = property.href
     }
@@ -24,13 +25,13 @@ function Render(props) {
   }
 
   if (property.useDom) {
-    return <a {...compound} href={property.href} target={property.target}>
+    return <a {...event} {...style} href={property.href} target={property.target}>
       {
         children && children.main ? children.main() : null
       }
     </a>
   } else {
-    return <div {...compound} onClick={onClick}>
+    return <div {...event} {...style} onClick={onClick}>
       {
         children && children.main ? children.main() : null
       }

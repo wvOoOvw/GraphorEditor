@@ -11,10 +11,10 @@ import { Slider } from '@mui/material'
 import { Button } from '@mui/material'
 import { Autocomplete } from '@mui/material'
 
-import { defaultStyleAll } from './utils.graph.style'
+import { defaultStyle } from './utils.graph.style'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-export function Render_C(props) {
+export function Render(props) {
   const { value, onChange } = props
 
   return <>
@@ -25,14 +25,74 @@ export function Render_C(props) {
   </>
 }
 
-export function Visible_C(props) {
+export function ClassName(props) {
   const { value, onChange } = props
+
+  const handleChecked = e => {
+    onChange(() => {
+      if (e.target.checked) {
+        value.style.className = JSON.parse(JSON.stringify(defaultStyle.className))
+      } else {
+        delete value.style.className
+      }
+    })
+  }
+
+  return <>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Class Name</div>
+      <Switch checked={value.style.className !== undefined} onChange={handleChecked} color='secondary' />
+    </Grid>
+    {
+      value.style.className !== undefined ?
+        <>
+          <Grid item xs={12}>
+            <Autocomplete
+              {...AutocompleteSX}
+              multiple
+              options={[]}
+              value={value.style.className}
+              onChange={(e, v) => onChange(() => value.style.className = v)}
+              renderInput={(params) => <TextField {...params} label='Class Name' />}
+            />
+          </Grid>
+        </> : null
+    }
+  </>
+}
+
+export function Visible(props) {
+  const { value, onChange } = props
+
+  const handleChecked = e => {
+    onChange(() => {
+      if (e.target.checked) {
+        value.style.visible = JSON.parse(JSON.stringify(defaultStyle.visible))
+      } else {
+        delete value.style.visible
+      }
+    })
+  }
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Visible</div>
-      <Switch checked={value.style.visible} onChange={e => onChange(() => value.style.visible = e.target.checked)} />
+      <Switch checked={value.style.visible !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
+    {
+      value.style.visible !== undefined ?
+        <>
+          <Grid item xs={12}>
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Visible</InputLabel>
+              <Select {...SelectSX} label='Visible' value={value.style.visible} onChange={e => onChange(() => value.style.visible = e.target.value)}  >
+                <MenuItem value='visible'>Visible</MenuItem>
+                <MenuItem value='hidden'>Hidden</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </> : null
+    }
   </>
 }
 
@@ -42,13 +102,13 @@ export function ToolButton(props) {
   const handleHorizontalCenter = () => {
     onChange(() => {
       if (value.style.margin === undefined) {
-        value.style.margin = JSON.parse(JSON.stringify(defaultStyleAll.margin))
+        value.style.margin = JSON.parse(JSON.stringify(defaultStyle.margin))
       }
       if (value.style.position === undefined) {
-        value.style.position = JSON.parse(JSON.stringify(defaultStyleAll.position))
+        value.style.position = JSON.parse(JSON.stringify(defaultStyle.position))
       }
       if (value.style.inset === undefined) {
-        value.style.inset = JSON.parse(JSON.stringify(defaultStyleAll.inset))
+        value.style.inset = JSON.parse(JSON.stringify(defaultStyle.inset))
       }
 
       value.style.position = 'absolute'
@@ -61,13 +121,13 @@ export function ToolButton(props) {
   const handleVerticalCenter = () => {
     onChange(() => {
       if (value.style.margin === undefined) {
-        value.style.margin = JSON.parse(JSON.stringify(defaultStyleAll.margin))
+        value.style.margin = JSON.parse(JSON.stringify(defaultStyle.margin))
       }
       if (value.style.position === undefined) {
-        value.style.position = JSON.parse(JSON.stringify(defaultStyleAll.position))
+        value.style.position = JSON.parse(JSON.stringify(defaultStyle.position))
       }
       if (value.style.inset === undefined) {
-        value.style.inset = JSON.parse(JSON.stringify(defaultStyleAll.inset))
+        value.style.inset = JSON.parse(JSON.stringify(defaultStyle.inset))
       }
 
       value.style.position = 'absolute'
@@ -92,14 +152,14 @@ export function ToolButton(props) {
   </>
 }
 
-export function Size_C(props) {
+export function Size(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.width = JSON.parse(JSON.stringify(defaultStyleAll.width))
-        value.style.height = JSON.parse(JSON.stringify(defaultStyleAll.height))
+        value.style.width = JSON.parse(JSON.stringify(defaultStyle.width))
+        value.style.height = JSON.parse(JSON.stringify(defaultStyle.height))
       } else {
         delete value.style.width
         delete value.style.height
@@ -126,16 +186,16 @@ export function Size_C(props) {
   </>
 }
 
-export function SizeLimit_C(props) {
+export function SizeLimit(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.minWidth = JSON.parse(JSON.stringify(defaultStyleAll.minWidth))
-        value.style.minHeight = JSON.parse(JSON.stringify(defaultStyleAll.minHeight))
-        value.style.maxWidth = JSON.parse(JSON.stringify(defaultStyleAll.maxWidth))
-        value.style.maxHeight = JSON.parse(JSON.stringify(defaultStyleAll.maxHeight))
+        value.style.minWidth = JSON.parse(JSON.stringify(defaultStyle.minWidth))
+        value.style.minHeight = JSON.parse(JSON.stringify(defaultStyle.minHeight))
+        value.style.maxWidth = JSON.parse(JSON.stringify(defaultStyle.maxWidth))
+        value.style.maxHeight = JSON.parse(JSON.stringify(defaultStyle.maxHeight))
       } else {
         delete value.style.minWidth
         delete value.style.minHeight
@@ -178,13 +238,13 @@ export function SizeLimit_C(props) {
   </>
 }
 
-export function Position_C(props) {
+export function Position(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.position = JSON.parse(JSON.stringify(defaultStyleAll.position))
+        value.style.position = JSON.parse(JSON.stringify(defaultStyle.position))
       } else {
         delete value.style.position
       }
@@ -215,13 +275,13 @@ export function Position_C(props) {
   </>
 }
 
-export function Inset_C(props) {
+export function Inset(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.inset = JSON.parse(JSON.stringify(defaultStyleAll.inset))
+        value.style.inset = JSON.parse(JSON.stringify(defaultStyle.inset))
       } else {
         delete value.style.inset
       }
@@ -257,13 +317,13 @@ export function Inset_C(props) {
   </>
 }
 
-export function Display_C(props) {
+export function Display(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.display = JSON.parse(JSON.stringify(defaultStyleAll.display))
+        value.style.display = JSON.parse(JSON.stringify(defaultStyle.display))
       } else {
         delete value.style.display
       }
@@ -295,13 +355,13 @@ export function Display_C(props) {
   </>
 }
 
-export function ZIndex_C(props) {
+export function ZIndex(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.zIndex = JSON.parse(JSON.stringify(defaultStyleAll.zIndex))
+        value.style.zIndex = JSON.parse(JSON.stringify(defaultStyle.zIndex))
       } else {
         delete value.style.zIndex
       }
@@ -324,13 +384,13 @@ export function ZIndex_C(props) {
   </>
 }
 
-export function Cursor_C(props) {
+export function Cursor(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.cursor = JSON.parse(JSON.stringify(defaultStyleAll.cursor))
+        value.style.cursor = JSON.parse(JSON.stringify(defaultStyle.cursor))
       } else {
         delete value.style.cursor
       }
@@ -361,13 +421,13 @@ export function Cursor_C(props) {
   </>
 }
 
-export function Overflow_C(props) {
+export function Overflow(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.overflow = JSON.parse(JSON.stringify(defaultStyleAll.overflow))
+        value.style.overflow = JSON.parse(JSON.stringify(defaultStyle.overflow))
       } else {
         delete value.style.overflow
       }
@@ -397,13 +457,13 @@ export function Overflow_C(props) {
   </>
 }
 
-export function VerticalAlign_C(props) {
+export function VerticalAlign(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.verticalAlign = JSON.parse(JSON.stringify(defaultStyleAll.verticalAlign))
+        value.style.verticalAlign = JSON.parse(JSON.stringify(defaultStyle.verticalAlign))
       } else {
         delete value.style.verticalAlign
       }
@@ -434,14 +494,13 @@ export function VerticalAlign_C(props) {
   </>
 }
 
-
-export function Padding_C(props) {
+export function Padding(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.padding = JSON.parse(JSON.stringify(defaultStyleAll.padding))
+        value.style.padding = JSON.parse(JSON.stringify(defaultStyle.padding))
       } else {
         delete value.style.padding
       }
@@ -477,13 +536,13 @@ export function Padding_C(props) {
   </>
 }
 
-export function Margin_C(props) {
+export function Margin(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.margin = JSON.parse(JSON.stringify(defaultStyleAll.margin))
+        value.style.margin = JSON.parse(JSON.stringify(defaultStyle.margin))
       } else {
         delete value.style.margin
       }
@@ -519,14 +578,13 @@ export function Margin_C(props) {
   </>
 }
 
-
-export function Flex_C(props) {
+export function Flex(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.flex = JSON.parse(JSON.stringify(defaultStyleAll.flex))
+        value.style.flex = JSON.parse(JSON.stringify(defaultStyle.flex))
       } else {
         delete value.style.flex
       }
@@ -613,13 +671,13 @@ export function Flex_C(props) {
   </>
 }
 
-export function Transform_C(props) {
+export function Transform(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.transform = JSON.parse(JSON.stringify(defaultStyleAll.transform))
+        value.style.transform = JSON.parse(JSON.stringify(defaultStyle.transform))
       } else {
         delete value.style.transform
       }
@@ -703,13 +761,13 @@ export function Transform_C(props) {
   </>
 }
 
-export function Transition_C(props) {
+export function Transition(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.transition = JSON.parse(JSON.stringify(defaultStyleAll.transition))
+        value.style.transition = JSON.parse(JSON.stringify(defaultStyle.transition))
       } else {
         delete value.style.transition
       }
@@ -733,13 +791,13 @@ export function Transition_C(props) {
   </>
 }
 
-export function Filter_C(props) {
+export function Filter(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.filter = JSON.parse(JSON.stringify(defaultStyleAll.filter))
+        value.style.filter = JSON.parse(JSON.stringify(defaultStyle.filter))
       } else {
         delete value.style.filter
       }
@@ -771,13 +829,13 @@ export function Filter_C(props) {
   </>
 }
 
-export function Border_C(props) {
+export function Border(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.border = JSON.parse(JSON.stringify(defaultStyleAll.border))
+        value.style.border = JSON.parse(JSON.stringify(defaultStyle.border))
       } else {
         delete value.style.border
       }
@@ -828,13 +886,13 @@ export function Border_C(props) {
   </>
 }
 
-export function BorderRadius_C(props) {
+export function BorderRadius(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.borderRadius = JSON.parse(JSON.stringify(defaultStyleAll.borderRadius))
+        value.style.borderRadius = JSON.parse(JSON.stringify(defaultStyle.borderRadius))
       } else {
         delete value.style.borderRadius
       }
@@ -870,13 +928,13 @@ export function BorderRadius_C(props) {
   </>
 }
 
-export function BoxShadow_C(props) {
+export function BoxShadow(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.boxShadow = JSON.parse(JSON.stringify(defaultStyleAll.boxShadow))
+        value.style.boxShadow = JSON.parse(JSON.stringify(defaultStyle.boxShadow))
       } else {
         delete value.style.boxShadow
       }
@@ -916,13 +974,13 @@ export function BoxShadow_C(props) {
   </>
 }
 
-export function Outline_C(props) {
+export function Outline(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.outline = JSON.parse(JSON.stringify(defaultStyleAll.outline))
+        value.style.outline = JSON.parse(JSON.stringify(defaultStyle.outline))
       } else {
         delete value.style.outline
       }
@@ -962,13 +1020,13 @@ export function Outline_C(props) {
   </>
 }
 
-export function Background_C(props) {
+export function Background(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.background = JSON.parse(JSON.stringify(defaultStyleAll.background))
+        value.style.background = JSON.parse(JSON.stringify(defaultStyle.background))
       } else {
         delete value.style.background
       }
@@ -1037,13 +1095,13 @@ export function Background_C(props) {
   </>
 }
 
-export function Font_C(props) {
+export function Font(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.font = JSON.parse(JSON.stringify(defaultStyleAll.font))
+        value.style.font = JSON.parse(JSON.stringify(defaultStyle.font))
       } else {
         delete value.style.font
       }
@@ -1093,13 +1151,13 @@ export function Font_C(props) {
   </>
 }
 
-export function Text_C(props) {
+export function Text(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.text = JSON.parse(JSON.stringify(defaultStyleAll.text))
+        value.style.text = JSON.parse(JSON.stringify(defaultStyle.text))
       } else {
         delete value.style.text
       }
@@ -1152,13 +1210,13 @@ export function Text_C(props) {
   </>
 }
 
-export function TextDecoration_C(props) {
+export function TextDecoration(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.textDecoration = JSON.parse(JSON.stringify(defaultStyleAll.textDecoration))
+        value.style.textDecoration = JSON.parse(JSON.stringify(defaultStyle.textDecoration))
       } else {
         delete value.style.textDecoration
       }
@@ -1206,13 +1264,13 @@ export function TextDecoration_C(props) {
   </>
 }
 
-export function TextShadow_C(props) {
+export function TextShadow(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.textShadow = JSON.parse(JSON.stringify(defaultStyleAll.textShadow))
+        value.style.textShadow = JSON.parse(JSON.stringify(defaultStyle.textShadow))
       } else {
         delete value.style.textShadow
       }
@@ -1247,13 +1305,13 @@ export function TextShadow_C(props) {
   </>
 }
 
-export function TextStroke_C(props) {
+export function TextStroke(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.textStroke = JSON.parse(JSON.stringify(defaultStyleAll.textStroke))
+        value.style.textStroke = JSON.parse(JSON.stringify(defaultStyle.textStroke))
       } else {
         delete value.style.textStroke
       }

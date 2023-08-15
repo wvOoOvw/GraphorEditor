@@ -1,9 +1,10 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
 
-  const { compound, children, pure } = props
+  const { event, children, pure } = props
 
-  return <label {...compound}>
+  return <label {...event}>
     <div style={{ display: 'none' }}>
       {
         pure && children && children.main ? children.input() : null

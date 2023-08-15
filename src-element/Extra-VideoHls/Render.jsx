@@ -1,9 +1,10 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
 
   const Hls = window.Hls
 
-  const { compound, property, monitor, update } = props
+  const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -58,7 +59,7 @@ function Render(props) {
   }
 
   return <video
-    {...compound}
+    {...event}
     ref={el => ref.current = el}
     src={property.src}
     poster={property.poster}

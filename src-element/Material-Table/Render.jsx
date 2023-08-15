@@ -2,11 +2,12 @@ const paginationFilter = (index, paginationSize, paginationPage) => {
   return (index >= paginationSize * (paginationPage - 1)) && (index < paginationSize * paginationPage)
 }
 
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setBody) {
@@ -102,7 +103,7 @@ function Render(props) {
     if (trigger && trigger.onPaginationChange) trigger.onPaginationChange(property.paginationPage, e)
   }
 
-  return <Box {...compound} component={property.componentPaper ? Paper : null}>
+  return <Box {...event} {...style} component={property.componentPaper ? Paper : null}>
     <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
       <Table size={property.size} stickyHeader={property.stickyHeader}>
         <TableHead>

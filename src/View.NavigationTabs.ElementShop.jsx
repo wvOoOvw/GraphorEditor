@@ -14,7 +14,6 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 
 import Imitation from './utils.imitation'
 import { deepSearch, hash } from './utils.common'
-import { defaultStyleAdd } from './utils.graph.style'
 import { evalBeforeRenderHook } from './utils.const'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
@@ -28,14 +27,15 @@ function App() {
     const newElement = {
       id: hash_,
       license: e.license.key,
-      name: e.information.name
+      name: e.information.name,
+      use: true
     }
     newElement.hook = {
       useBeforeRenderHook: false,
       beforeRenderHook: evalBeforeRenderHook
     }
     if (e.information.style) {
-      newElement.style = Object.assign(JSON.parse(JSON.stringify(defaultStyleAdd)), e.information.style)
+      newElement.style = Object.assign({}, e.information.style)
       delete newElement.style.$use
       delete newElement.style.$nonuse
       if (e.information.style.$use) {
@@ -99,7 +99,7 @@ function App() {
                       {i.information.name}
                     </div>
                     <div>
-                      <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon style={{ fontSize: 22 }}/></IconButton>
+                      <IconButton onClick={() => handleAdd(i)}><AddBusinessIcon style={{ fontSize: 20 }} /></IconButton>
                     </div>
                   </Paper>
                 </Tooltip>

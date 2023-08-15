@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, update } = props
+function Render(props) {
+
+  const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +14,7 @@ function Render(props) {
     }
   }, [])
 
-  return React.createElement(property.dom, { ...compound, children: property.value })
+  return React.createElement(property.dom, { ...event, children: property.value })
 }
 
 export default Render

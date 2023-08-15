@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Checkbox } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setCheckedOpen) {
@@ -30,7 +31,7 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.checked, e)
   }
 
-  return <Checkbox {...compound} checked={property.checked} onChange={onChange} size={property.size} color={property.color} disabled={property.disabled} />
+  return <Checkbox {...event} {...style} checked={property.checked} onChange={onChange} size={property.size} color={property.color} disabled={property.disabled} />
 }
 
 export default Render

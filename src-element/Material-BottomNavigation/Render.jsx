@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { BottomNavigation, BottomNavigationAction } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -30,7 +31,7 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
   return <BottomNavigation
-    {...compound}
+    {...event}
     value={property.value}
     onChange={onChange}
     showLabels

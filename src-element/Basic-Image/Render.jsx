@@ -1,7 +1,8 @@
-function Render(props) {
-  const React = window.React
+import React from 'react'
 
-  const { compound, property, monitor, update } = props
+function Render(props) {
+
+  const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -13,7 +14,7 @@ function Render(props) {
     }
   }, [])
 
-  return <img {...compound} src={property.src} alt={property.alt} />
+  return <img {...event} {...style} src={property.src} alt={property.alt} />
 }
 
 export default Render

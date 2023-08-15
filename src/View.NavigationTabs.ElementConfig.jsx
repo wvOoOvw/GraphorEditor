@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import { InputLabel } from '@mui/material'
 import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
@@ -24,6 +24,9 @@ import CodeIcon from '@mui/icons-material/Code'
 import CodeOffIcon from '@mui/icons-material/CodeOff'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
+import DownloadIcon from '@mui/icons-material/Download'
+import UploadIcon from '@mui/icons-material/Upload'
+import SettingsIcon from '@mui/icons-material/Settings'
 
 import Imitation from './utils.imitation'
 import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
@@ -36,14 +39,14 @@ import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
 function BasicConfig(props) {
-  const { currentGraphContent, parentGraphContent } = props
+  const { currentGraphElement, parentGraphElement } = props
 
-  const { information, license } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information, license } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information || !license) return null
 
   const handleChange = (value) => {
-    currentGraphContent.name = value
+    currentGraphElement.name = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -52,20 +55,24 @@ function BasicConfig(props) {
       <AccordionSummary>Basic Information</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
+        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>Use</div>
+            <Switch checked={currentGraphElement.use} onChange={e => { currentGraphElement.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }); }} />
+          </Grid>
           <Grid item xs={12}>
             <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphContent.id} />
+            <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphElement.id} />
           </Grid>
           {
-            currentGraphContent.description ?
+            currentGraphElement.description ?
               <Grid item xs={12}>
-                <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphContent.description} multiline />
+                <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphElement.description} multiline />
               </Grid> : null
           }
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphContent.name} onChange={e => handleChange(e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphElement.name} onChange={e => handleChange(e.target.value)} />
           </Grid>
           {
             license.dependencies && license.dependencies.length ?
@@ -80,11 +87,6 @@ function BasicConfig(props) {
                 </Grid>
               </Grid> : null
           }
-
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>Use</div>
-            <Switch checked={currentGraphContent.style.use} onChange={e => { currentGraphContent.style.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }); }} />
-          </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>
@@ -92,11 +94,11 @@ function BasicConfig(props) {
 }
 
 function StyleConfig(props) {
-  const { currentGraphContent, parentGraphContent } = props
+  const { currentGraphElement, parentGraphElement } = props
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
-  if (!currentGraphContent.style || !information) return null
+  if (!currentGraphElement.style || !information) return null
 
   const handleChange = (callback) => {
     callback()
@@ -119,69 +121,102 @@ function StyleConfig(props) {
     return status ? children : null
   }
 
+  const handleExport = () => {
+    copy(JSON.stringify(currentGraphElement.style), () => { Imitation.assignState({ message: 'Copy Success' }) })
+  }
+
+  const handleImport = () => {
+    const v = prompt('Import Style')
+    try {
+      const data = JSON.parse(v)
+      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
+    } catch { }
+  }
+
+
   const style = [
-    use(['visible'], <ElementConfigComponent.Visible_C value={currentGraphContent} onChange={handleChange} />),
-    use(['width', 'height'], <ElementConfigComponent.Size_C value={currentGraphContent} onChange={handleChange} />),
-    use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit_C value={currentGraphContent} onChange={handleChange} />),
-    use(['padding'], <ElementConfigComponent.Padding_C value={currentGraphContent} onChange={handleChange} />),
-    use(['margin'], <ElementConfigComponent.Margin_C value={currentGraphContent} onChange={handleChange} />),
-    use(['display'], <ElementConfigComponent.Display_C value={currentGraphContent} onChange={handleChange} />),
-    use(['position'], <ElementConfigComponent.Position_C value={currentGraphContent} onChange={handleChange} />),
-    use(['inset'], <ElementConfigComponent.Inset_C value={currentGraphContent} onChange={handleChange} />),
-    use(['zIndex'], <ElementConfigComponent.ZIndex_C value={currentGraphContent} onChange={handleChange} />),
-    use(['verticalAlign'], <ElementConfigComponent.VerticalAlign_C value={currentGraphContent} onChange={handleChange} />),
-    use(['flex'], <ElementConfigComponent.Flex_C value={currentGraphContent} onChange={handleChange} />),
-    use(['transform'], <ElementConfigComponent.Transform_C value={currentGraphContent} onChange={handleChange} />),
-    use(['overflow'], <ElementConfigComponent.Overflow_C value={currentGraphContent} onChange={handleChange} />),
-    use(['transition'], <ElementConfigComponent.Transition_C value={currentGraphContent} onChange={handleChange} />),
-    use(['filter'], <ElementConfigComponent.Filter_C value={currentGraphContent} onChange={handleChange} />),
-    use(['border'], <ElementConfigComponent.Border_C value={currentGraphContent} onChange={handleChange} />),
-    use(['borderRadius'], <ElementConfigComponent.BorderRadius_C value={currentGraphContent} onChange={handleChange} />),
-    use(['boxShadow'], <ElementConfigComponent.BoxShadow_C value={currentGraphContent} onChange={handleChange} />),
-    use(['outline'], <ElementConfigComponent.Outline_C value={currentGraphContent} onChange={handleChange} />),
-    use(['background'], <ElementConfigComponent.Background_C value={currentGraphContent} onChange={handleChange} />),
-    use(['font'], <ElementConfigComponent.Font_C value={currentGraphContent} onChange={handleChange} />),
-    use(['text'], <ElementConfigComponent.Text_C value={currentGraphContent} onChange={handleChange} />),
-    use(['textDecoration'], <ElementConfigComponent.TextDecoration_C value={currentGraphContent} onChange={handleChange} />),
-    use(['textShadow'], <ElementConfigComponent.TextShadow_C value={currentGraphContent} onChange={handleChange} />),
-    use(['textStroke'], <ElementConfigComponent.TextStroke_C value={currentGraphContent} onChange={handleChange} />),
-    use(['cursor'], <ElementConfigComponent.Cursor_C value={currentGraphContent} onChange={handleChange} />),
+    use(['visible'], <ElementConfigComponent.Visible value={currentGraphElement} onChange={handleChange} />),
+    use(['width', 'height'], <ElementConfigComponent.Size value={currentGraphElement} onChange={handleChange} />),
+    use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit value={currentGraphElement} onChange={handleChange} />),
+    use(['padding'], <ElementConfigComponent.Padding value={currentGraphElement} onChange={handleChange} />),
+    use(['margin'], <ElementConfigComponent.Margin value={currentGraphElement} onChange={handleChange} />),
+    use(['display'], <ElementConfigComponent.Display value={currentGraphElement} onChange={handleChange} />),
+    use(['position'], <ElementConfigComponent.Position value={currentGraphElement} onChange={handleChange} />),
+    use(['inset'], <ElementConfigComponent.Inset value={currentGraphElement} onChange={handleChange} />),
+    use(['zIndex'], <ElementConfigComponent.ZIndex value={currentGraphElement} onChange={handleChange} />),
+    use(['verticalAlign'], <ElementConfigComponent.VerticalAlign value={currentGraphElement} onChange={handleChange} />),
+    use(['flex'], <ElementConfigComponent.Flex value={currentGraphElement} onChange={handleChange} />),
+    use(['transform'], <ElementConfigComponent.Transform value={currentGraphElement} onChange={handleChange} />),
+    use(['overflow'], <ElementConfigComponent.Overflow value={currentGraphElement} onChange={handleChange} />),
+    use(['transition'], <ElementConfigComponent.Transition value={currentGraphElement} onChange={handleChange} />),
+    use(['filter'], <ElementConfigComponent.Filter value={currentGraphElement} onChange={handleChange} />),
+    use(['border'], <ElementConfigComponent.Border value={currentGraphElement} onChange={handleChange} />),
+    use(['borderRadius'], <ElementConfigComponent.BorderRadius value={currentGraphElement} onChange={handleChange} />),
+    use(['boxShadow'], <ElementConfigComponent.BoxShadow value={currentGraphElement} onChange={handleChange} />),
+    use(['outline'], <ElementConfigComponent.Outline value={currentGraphElement} onChange={handleChange} />),
+    use(['background'], <ElementConfigComponent.Background value={currentGraphElement} onChange={handleChange} />),
+    use(['font'], <ElementConfigComponent.Font value={currentGraphElement} onChange={handleChange} />),
+    use(['text'], <ElementConfigComponent.Text value={currentGraphElement} onChange={handleChange} />),
+    use(['textDecoration'], <ElementConfigComponent.TextDecoration value={currentGraphElement} onChange={handleChange} />),
+    use(['textShadow'], <ElementConfigComponent.TextShadow value={currentGraphElement} onChange={handleChange} />),
+    use(['textStroke'], <ElementConfigComponent.TextStroke value={currentGraphElement} onChange={handleChange} />),
+    use(['cursor'], <ElementConfigComponent.Cursor value={currentGraphElement} onChange={handleChange} />),
   ]
 
   return <>
     {
       style.filter(i => i).length ?
-        <Grid item xs={12}>
-          <Accordion defaultExpanded={false}>
-            <AccordionSummary>Style Config</AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={1}>
-                {
-                  style
-                }
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        </Grid> : null
+        <>
+          <Grid item xs={12}>
+            <Accordion defaultExpanded={false}>
+              <AccordionSummary>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                  <div>Style Config</div>
+                  <div>
+                    <Tooltip
+                      {...TooltipSX}
+                      title={
+                        <>
+                          <IconButton><UploadIcon fontSize='small' /></IconButton>
+                          <IconButton><DownloadIcon fontSize='small' /></IconButton>
+                        </>
+                      }
+                    >
+                      <SettingsIcon style={{ fontSize: 20 }} />
+                    </Tooltip>
+                  </div>
+                </div>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container spacing={1}>
+                  {
+                    style
+                  }
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
+        </>
+        : null
     }
   </>
 }
 
 function PropertyConfig(props) {
-  const { currentGraphContent, parentGraphContent } = props
+  const { currentGraphElement, parentGraphElement } = props
 
-  if (!currentGraphContent.property) return null
+  if (!currentGraphElement.property) return null
 
-  const { Edit } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { Edit } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!Edit) return null
 
   const handleChange = (value) => {
     if (typeof value === 'function') {
-      value(currentGraphContent.property)
+      value(currentGraphElement.property)
     }
     if (typeof value !== 'function') {
-      currentGraphContent.property = value
+      currentGraphElement.property = value
     }
     Imitation.assignState({ graphContentUpdate: hash() })
   }
@@ -191,7 +226,7 @@ function PropertyConfig(props) {
       <AccordionSummary>Property Config</AccordionSummary>
       <AccordionDetails>
         <Edit
-          value={currentGraphContent.property}
+          value={currentGraphElement.property}
           onChange={handleChange}
           component={{ AceDialog }}
           sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX, SelectSX: SelectSX }}
@@ -202,11 +237,11 @@ function PropertyConfig(props) {
 }
 
 function ChildrenConfig(props) {
-  const { currentGraphContent, parentGraphContent } = props
+  const { currentGraphElement, parentGraphElement } = props
 
-  if (!currentGraphContent.children) return null
+  if (!currentGraphElement.children) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
@@ -237,7 +272,7 @@ function ChildrenConfig(props) {
         </FormControl>
         <List>
           {
-            currentGraphContent.children[current].map(i => {
+            currentGraphElement.children[current].map(i => {
               return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} sx={{ '& *': { fontSize: '14px !important' } }}>
                 <ListItemText>
                   {
@@ -260,12 +295,12 @@ function ChildrenConfig(props) {
 }
 
 function HookConfig(props) {
-  const { currentGraphContent, parentGraphContent, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   const [aceDialog, setAceDialog] = React.useState()
 
   const handleChange = (value) => {
-    currentGraphContent.hook[aceDialog] = value
+    currentGraphElement.hook[aceDialog] = value
     Imitation.assignState({ graphContentUpdate: hash() })
     setAceDialog(undefined)
   }
@@ -285,7 +320,7 @@ function HookConfig(props) {
               <div>Before Render</div>
               <div>
                 <IconButton onClick={() => setAceDialog('beforeRenderHook')}><CodeIcon style={{ fontSize: 22 }} /></IconButton>
-                <Switch checked={currentGraphContent.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphContent.hook.useBeforeRenderHook = e.target.checked)} />
+                <Switch checked={currentGraphElement.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphElement.hook.useBeforeRenderHook = e.target.checked)} />
               </div>
             </Paper>
           </Grid>
@@ -297,7 +332,7 @@ function HookConfig(props) {
       aceDialog === 'beforeRenderHook' ?
         <AceDialog
           onClose={() => setAceDialog(undefined)}
-          value={currentGraphContent.hook.beforeRenderHook}
+          value={currentGraphElement.hook.beforeRenderHook}
           onChange={e => handleChange(e)}
           initValue={evalBeforeRenderHook}
           mode='javascript'
@@ -307,28 +342,28 @@ function HookConfig(props) {
 }
 
 function MonitorConfig(props) {
-  const { currentGraphContent, parentGraphContent, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   const [modal, setModal] = React.useState()
 
-  if (!currentGraphContent.monitor) return null
+  if (!currentGraphElement.monitor) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
   const handleChange = (index, value) => {
     setModal(undefined)
-    currentGraphContent.monitor[index] = value
+    currentGraphElement.monitor[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleAdd = () => {
-    currentGraphContent.monitor.push({ name: hash(), event: evalEventMonitorDefault, key: '', useEval: false })
+    currentGraphElement.monitor.push({ name: hash(), event: evalEventMonitorDefault, key: '', useEval: false })
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleDelete = (index) => {
     setModal(undefined)
-    currentGraphContent.monitor.splice(index, 1)
+    currentGraphElement.monitor.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -342,7 +377,7 @@ function MonitorConfig(props) {
       <AccordionDetails>
         <Grid container spacing={1}>
           {
-            currentGraphContent.monitor.map((i, index) => {
+            currentGraphElement.monitor.map((i, index) => {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -387,28 +422,28 @@ function MonitorConfig(props) {
 }
 
 function TriggerConfig(props) {
-  const { currentGraphContent, parentGraphContent, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   const [modal, setModal] = React.useState()
 
-  if (!currentGraphContent.trigger) return null
+  if (!currentGraphElement.trigger) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphContent.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
   const handleChange = (index, value) => {
     setModal(undefined)
-    currentGraphContent.trigger[index] = value
+    currentGraphElement.trigger[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleAdd = () => {
-    currentGraphContent.trigger.push({ name: '', event: evalEventTriggerDefault, key: '', useEval: false })
+    currentGraphElement.trigger.push({ name: '', event: evalEventTriggerDefault, key: '', useEval: false })
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleDelete = (index) => {
     setModal(undefined)
-    currentGraphContent.trigger.splice(index, 1)
+    currentGraphElement.trigger.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -424,7 +459,7 @@ function TriggerConfig(props) {
       <AccordionDetails>
         <Grid container spacing={1}>
           {
-            currentGraphContent.trigger.map((i, index) => {
+            currentGraphElement.trigger.map((i, index) => {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -472,36 +507,36 @@ function TriggerConfig(props) {
 function App() {
   if (!Imitation.state.navigationTabsElementValue) return null
 
-  const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
+  const [currentGraphElement, parentGraphElement] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
 
-  if (!currentGraphContent) return null
+  if (!currentGraphElement) return null
 
   const handleDelete = () => {
-    deleteArrayItem(parentGraphContent, currentGraphContent)
+    deleteArrayItem(parentGraphElement, currentGraphElement)
     Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'ElementShop' })
   }
 
   const handleCopy = () => {
-    const newElement = deepCopyElement(currentGraphContent)
-    parentGraphContent.push(newElement)
+    const newElement = deepCopyElement(currentGraphElement)
+    parentGraphElement.push(newElement)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
   const handleDownload = () => {
-    copy(JSON.stringify(currentGraphContent), () => { Imitation.assignState({ message: 'Copy Success' }) })
+    copy(JSON.stringify(currentGraphElement), () => { Imitation.assignState({ message: 'Copy Success' }) })
   }
 
   return <Grid container spacing={2}>
     <Grid item xs={12}>Element Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
-    <BasicConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <StyleConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <PropertyConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <ChildrenConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <HookConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <MonitorConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
-    <TriggerConfig currentGraphContent={currentGraphContent} parentGraphContent={parentGraphContent} />
+    <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <StyleConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <PropertyConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <ChildrenConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <HookConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <MonitorConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <TriggerConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
 
     <Grid item xs={12}><Divider /></Grid>
     <Grid item xs={12}>

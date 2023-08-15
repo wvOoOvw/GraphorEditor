@@ -5,7 +5,7 @@ import { caculateStyle } from './utils.graph.style'
 function ElementRender(props) {
   const React = window.React
   const { graphElement } = window
-  const { flow, license, id, property, style, children, monitor, trigger, hook } = props
+  const { flow, license, id, use, property, style, children, monitor, trigger, hook } = props
 
   const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
 
@@ -82,24 +82,26 @@ function ElementRender(props) {
     return r
   }, [children, flow])
 
-  const compound = {
+  const event = {}
+
+  if (trigger_exe['@onClick']) event.onClick = e => trigger_exe['@onClick'](undefined, e)
+  if (trigger_exe['@onDoubleClick']) event.onDoubleClick = e => trigger_exe['@onDoubleClick'](undefined, e)
+  if (trigger_exe['@onMouseEnter']) event.onMouseEnter = e => trigger_exe['@onMouseEnter'](undefined, e)
+  if (trigger_exe['@onMouseLeave']) event.onMouseLeave = e => trigger_exe['@onMouseLeave'](undefined, e)
+  if (trigger_exe['@onMouseMove']) event.onMouseMove = e => trigger_exe['@onMouseMove'](undefined, e)
+  if (trigger_exe['@onMouseDown']) event.onMouseDown = e => trigger_exe['@onMouseDown'](undefined, e)
+  if (trigger_exe['@onMouseUp']) event.onMouseUp = e => trigger_exe['@onMouseUp'](undefined, e)
+  if (trigger_exe['@onTouchMove']) event.onTouchMove = e => trigger_exe['@onTouchMove'](undefined, e)
+  if (trigger_exe['@onTouchStart']) event.onTouchStart = e => trigger_exe['@onTouchStart'](undefined, e)
+  if (trigger_exe['@onTouchEnd']) event.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
+
+  const style_exe = {
     style: { ...caculateStyle(style), boxSizing: 'border-box' }
   }
 
-  if (trigger_exe['@onClick']) compound.onClick = e => trigger_exe['@onClick'](undefined, e)
-  if (trigger_exe['@onDoubleClick']) compound.onDoubleClick = e => trigger_exe['@onDoubleClick'](undefined, e)
-  if (trigger_exe['@onMouseEnter']) compound.onMouseEnter = e => trigger_exe['@onMouseEnter'](undefined, e)
-  if (trigger_exe['@onMouseLeave']) compound.onMouseLeave = e => trigger_exe['@onMouseLeave'](undefined, e)
-  if (trigger_exe['@onMouseMove']) compound.onMouseMove = e => trigger_exe['@onMouseMove'](undefined, e)
-  if (trigger_exe['@onMouseDown']) compound.onMouseDown = e => trigger_exe['@onMouseDown'](undefined, e)
-  if (trigger_exe['@onMouseUp']) compound.onMouseUp = e => trigger_exe['@onMouseUp'](undefined, e)
-  if (trigger_exe['@onTouchMove']) compound.onTouchMove = e => trigger_exe['@onTouchMove'](undefined, e)
-  if (trigger_exe['@onTouchStart']) compound.onTouchStart = e => trigger_exe['@onTouchStart'](undefined, e)
-  if (trigger_exe['@onTouchEnd']) compound.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
-
   const Render_exe = <Render
-    compound={compound}
-    style={style}
+    event={event}
+    style={style_exe}
     property={property}
     monitor={monitor_exe}
     trigger={trigger_exe}
@@ -109,7 +111,7 @@ function ElementRender(props) {
     id={id}
   />
 
-  if (style.use === false) return null
+  if (use === false) return null
 
   return Render_exe
 }

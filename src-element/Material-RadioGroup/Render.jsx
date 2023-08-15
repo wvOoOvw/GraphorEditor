@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Radio, FormControl, RadioGroup, FormControlLabel } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -31,7 +32,7 @@ function Render(props) {
   }
 
   return <RadioGroup
-    {...compound}
+    {...event}
     value={property.value}
     onChange={onChange}
   >

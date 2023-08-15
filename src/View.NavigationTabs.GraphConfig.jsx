@@ -24,7 +24,7 @@ function Screen(props) {
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={true}>
-      <AccordionSummary>Canvas Config</AccordionSummary>
+      <AccordionSummary>Screen Config</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
           <Grid item xs={6}>

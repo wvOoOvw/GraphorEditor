@@ -312,8 +312,6 @@ function DialogPublish(props) {
     downloadFile('index.html', html)
   }
 
-  console.log(option, Imitation.state.graphConfig)
-
   return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
     <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>publish config</DialogTitle>
     <DialogContent dividers>
@@ -376,7 +374,7 @@ function App() {
 
   const handleClear = () => {
     initState()
-    Imitation.assignState({ graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
+    Imitation.assignState({ essage: 'Clear Success', graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
   }
 
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>

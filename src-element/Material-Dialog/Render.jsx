@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Dialog, DialogTitle, DialogActions, DialogContent } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setOpenTrue) {
@@ -50,11 +51,11 @@ function Render(props) {
     </DialogActions>
   </>
 
-  if (pure) return <Dialog open={property.open} sx={{ '& .MuiDialog-paper': compound.style }} onClose={onClose}>
+  if (pure) return <Dialog open={property.open} sx={{ '& .MuiDialog-paper': event.style }} onClose={onClose}>
     {R}
   </Dialog>
 
-  if (!pure) return <div {...compound}>
+  if (!pure) return <div {...event}>
     {R}
   </div>
 }

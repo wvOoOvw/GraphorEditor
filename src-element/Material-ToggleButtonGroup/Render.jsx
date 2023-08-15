@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { ToggleButtonGroup, ToggleButton } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -38,7 +39,7 @@ function Render(props) {
     alignItems: 'center'
   }
 
-  return <ToggleButtonGroup {...compound} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
+  return <ToggleButtonGroup {...event} {...style} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
     {
       property.options.map((i, index) => {
         return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>

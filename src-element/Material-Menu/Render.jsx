@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { MenuList, MenuItem } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, update } = props
+  const { event, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
@@ -18,7 +19,7 @@ function Render(props) {
     if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
-  return <MenuList {...compound}>
+  return <MenuList {...event}>
     {
       property.options.map((i, index) => {
         return <MenuItem key={index} onClick={e => onClick(e, i.value)}>

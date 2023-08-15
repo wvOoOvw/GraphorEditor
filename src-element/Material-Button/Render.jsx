@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Button } = window.MaterialUI
 
-  const { compound, property, monitor, update } = props
+  const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -33,7 +34,7 @@ function Render(props) {
   }, [])
 
   return <Button
-    {...compound}
+    {...event}
     disabled={property.disabled}
     variant={property.variant}
     color={property.color}

@@ -1,8 +1,9 @@
+import React from 'react'
+
 function Render(props) {
-  const React = window.React
   const { Autocomplete, TextField } = window.MaterialUI
 
-  const { compound, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, pure, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -43,7 +44,7 @@ function Render(props) {
   }
 
   const Render = <Autocomplete
-    {...compound}
+    {...event}
     multiple={property.multiple}
     size={property.size}
     options={property.options}
@@ -59,9 +60,9 @@ function Render(props) {
     const ref = React.useRef()
     React.useEffect(() => {
       if (ref.current) {
-        ref.current.addEventListener('mousedown', e => { compound.onMouseDown(e) }, true)
-        ref.current.addEventListener('mouseup', e => { compound.onMouseUp(e) }, true)
-        ref.current.addEventListener('click', e => { compound.onClick(e) }, true)
+        ref.current.addEventListener('mousedown', e => { event.onMouseDown(e) }, true)
+        ref.current.addEventListener('mouseup', e => { event.onMouseUp(e) }, true)
+        ref.current.addEventListener('click', e => { event.onClick(e) }, true)
       }
     }, [])
     return <div ref={el => ref.current = el}>{Render}</div>
