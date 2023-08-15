@@ -30,6 +30,15 @@ const webpackConfig = {
         use: ['file-loader']
       },
     ]
+  },
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-router': 'ReactRouter',
+    'react-router-dom': 'ReactRouterDOM',
+    'react-ace': 'ReactAce',
+    '@mui/material': 'MaterialUI',
+    'hls.js': 'Hls'
   }
 }
 
@@ -55,24 +64,15 @@ const element = async () => {
         libraryTarget: 'umd',
         filename: `${name}.js`,
         path: path.join(__dirname, '../build-package/element')
-      },
-      externals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        'react-router': 'ReactRouter',
-        'react-router-dom': 'ReactRouterDOM',
-        'react-ace': 'ReactAce',
-        '@mui/material': 'MaterialUI',
-        'hls': 'Hls'
       }
     })
   }
 
-  const dir = fs.readdirSync(path.join(__dirname, `../src-element/core`))
+  const dir = fs.readdirSync(path.join(__dirname, `../src-element`)).filter(i => i !== '.DS_Store' && i !== 'index.js')
 
   const output = (name) => `
-    import Render from '../src-element/core/${name}/Render.jsx'; 
-    import license from '../src-element/core/${name}/license.js'; 
+    import Render from '../src-element/${name}/Render.jsx'; 
+    import license from '../src-element/${name}/license.js'; 
 
     const item = { Render, license }; 
     
@@ -84,11 +84,7 @@ const element = async () => {
 
     fs.writeFileSync(path.join(__dirname, './index.js'), output(item))
 
-    await new Promise((resolve) => {
-      webpack(webpackConfig_(item), (err) => {
-        resolve()
-      })
-    })
+    await new Promise((resolve) => webpack(webpackConfig_(item), resolve))
   }
 
   fs.unlinkSync(path.join(__dirname, `./index.js`))
@@ -103,19 +99,10 @@ const elements = async () => {
       libraryExport: 'default',
       filename: 'index.js',
       path: path.join(__dirname, '../build-package/element')
-    },
-    externals: {
-      'react': 'React',
-      'react-dom': 'ReactDOM',
-      'react-router': 'ReactRouter',
-      'react-router-dom': 'ReactRouterDOM',
-      'react-ace': 'ReactAce',
-      '@mui/material': 'MaterialUI',
-      'hls': 'Hls'
     }
   })
 
-  const dir = fs.readdirSync(path.join(__dirname, `../src-element/core`))
+  const dir = fs.readdirSync(path.join(__dirname, `../src-element`)).filter(i => i !== '.DS_Store' && i !== 'index.js')
 
   const output = `
     const list = [];
@@ -127,12 +114,7 @@ const elements = async () => {
 
   fs.writeFileSync(path.join(__dirname, './index.js'), output)
 
-  await new Promise((resolve) => {
-    webpack(webpackConfig_, (err) => {
-      if (err) throw err
-      resolve()
-    })
-  })
+  await new Promise((resolve) => webpack(webpackConfig_, resolve))
 
   fs.unlinkSync(path.join(__dirname, `./index.js`))
 }
@@ -147,7 +129,7 @@ const render = async () => {
   })
 
   const output = `
-    import GraphPure from '../src/view/View.Graph.Prod'
+    import GraphPure from '../src/View.Graph.Prod'
 
     const loadDependencies = (dependencies, callback) => {
       var count = Object.entries(dependencies).length
@@ -187,12 +169,7 @@ const render = async () => {
 
   fs.writeFileSync(path.join(__dirname, './index.js'), output)
 
-  await new Promise((resolve) => {
-    webpack(webpackConfig_, (err) => {
-      if (err) throw err
-      resolve()
-    })
-  })
+  await new Promise((resolve) => webpack(webpackConfig_, resolve))
 
   fs.unlinkSync(path.join(__dirname, `./index.js`))
 }
@@ -211,10 +188,10 @@ const run = async () => {
   fs.mkdirSync(path.join(__dirname, '../build-package/render'))
   fs.mkdirSync(path.join(__dirname, '../build-package/html'))
 
-  // await element()
+  await element()
   await elements()
-  // await render()
-  // await html()
+  await render()
+  await html()
 }
 
 module.exports = run

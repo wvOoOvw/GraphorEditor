@@ -14,14 +14,5 @@ module.exports = Object.assign({}, common, {
       template: path.resolve(__dirname, './webpack.prod.html')
     }),
     new webpack.DefinePlugin({ process: { env: JSON.stringify('prod') } }),
-  ],
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-router': 'ReactRouter',
-    'react-router-dom': 'ReactRouterDOM',
-    'react-ace': 'ReactAce',
-    '@mui/material': 'MaterialUI',
-    'hls': 'Hls'
-  }
+  ]
 })
