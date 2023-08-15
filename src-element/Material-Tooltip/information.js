@@ -1,5 +1,5 @@
 const information = {
-  name: '悬浮浮窗',
+  name: 'Tooltip',
   type: 'Material UI Component',
   children: [
     { value: 'main', label: '主模块' },
@@ -8,12 +8,12 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: '@setOpenTure', label: '打开' },
-    { value: '@setOpenFalse', label: '关闭' },
+    { value: '@setOpenTure', label: 'Open Tooltip' },
+    { value: '@setOpenFalse', label: 'Close Tootip' },
   ],
   trigger: [
-    { value: 'onOpen', label: '打开' },
-    { value: 'onClose', label: '关闭' },
+    { value: 'onOpen', label: 'Open' },
+    { value: 'onClose', label: 'Close' },
   ],
   style: {
     $use: ['use', 'visible']

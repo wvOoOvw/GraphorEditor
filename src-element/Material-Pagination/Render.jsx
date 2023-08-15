@@ -1,8 +1,7 @@
 import React from 'react'
+import { Pagination } from '@mui/material'
 
 function Render(props) {
-  const { Pagination } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

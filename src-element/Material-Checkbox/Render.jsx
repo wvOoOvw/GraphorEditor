@@ -1,8 +1,7 @@
 import React from 'react'
+import { Checkbox } from '@mui/material'
 
 function Render(props) {
-  const { Checkbox } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

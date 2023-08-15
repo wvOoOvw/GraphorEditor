@@ -1,8 +1,7 @@
 import React from 'react'
+import { Slider } from '@mui/material'
 
 function Render(props) {
-  const { Slider } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

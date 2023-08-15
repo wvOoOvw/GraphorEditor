@@ -1,7 +1,7 @@
 import React from 'react'
+import { TextField } from '@mui/material'
 
 function Render(props) {
-  const { TextField } = window.MaterialUI
 
   const { event, property, monitor, trigger, env, update } = props
 

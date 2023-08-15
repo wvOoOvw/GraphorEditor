@@ -1,8 +1,7 @@
 import React from 'react'
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
 function Render(props) {
-  const { InputLabel, MenuItem, FormControl, Select } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

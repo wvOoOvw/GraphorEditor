@@ -1,8 +1,7 @@
 import React from 'react'
+import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 
 function Render(props) {
-  const { ToggleButtonGroup, ToggleButton } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

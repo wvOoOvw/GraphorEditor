@@ -1,8 +1,7 @@
 import React from 'react'
+import { List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 
 function Render(props) {
-  const { List, ListItem, ListItemButton, ListItemText } = window.MaterialUI
-
   const { event, style, property, monitor, trigger, update } = props
 
   React.useEffect(() => {

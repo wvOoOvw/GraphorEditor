@@ -1,12 +1,11 @@
+import React from 'react'
+import { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } from '@mui/material'
+
 const paginationFilter = (index, paginationSize, paginationPage) => {
   return (index >= paginationSize * (paginationPage - 1)) && (index < paginationSize * paginationPage)
 }
 
-import React from 'react'
-
 function Render(props) {
-  const { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

@@ -1,8 +1,7 @@
 import React from 'react'
+import { Tabs, Tab } from '@mui/material'
 
 function Render(props) {
-  const { Tabs, Tab } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

@@ -1,9 +1,5 @@
 import React from 'react'
-
-import { Accordion } from '@mui/material'
-import { AccordionSummary } from '@mui/material'
-import { AccordionDetails } from '@mui/material'
-import { Divider } from '@mui/material'
+import { Accordion, AccordionSummary, AccordionDetails, Divider } from '@mui/material'
 
 function Icon() {
   return <div style={{ width: 24, height: '100%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

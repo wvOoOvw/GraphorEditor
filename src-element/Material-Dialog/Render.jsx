@@ -1,8 +1,7 @@
 import React from 'react'
+import { Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
 
 function Render(props) {
-  const { Dialog, DialogTitle, DialogActions, DialogContent } = window.MaterialUI
-
   const { event, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {

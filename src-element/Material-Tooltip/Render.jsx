@@ -1,18 +1,7 @@
 import React from 'react'
+import { Tooltip } from '@mui/material'
 
 function Render(props) {
-  const { Tooltip } = window.MaterialUI
-  const { styled } = window.MaterialUI
-
-  const TooltipS = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))({
-    '& .MuiTooltip-tooltip': {
-      backgroundColor: 'white',
-      padding: 0
-    },
-  });
-
   const { event, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
@@ -47,24 +36,25 @@ function Render(props) {
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
-  const R = children && children.main ? children.main() : null
+  const Render = children && children.main ? children.main() : null
 
-  if (env === 'prod') return <TooltipS
-    open={property.open}
-    enenterDelay={property.enterDelay}
-    leaveDelay={property.leaveDelay}
-    title={children && children.float ? children.float() : null}
-    placement={property.placementPosition + (property.placementAlign === 'center' ? '' : '-' + property.placementAlign)}
-    arrow={property.arrow}
-    onOpen={onOpen}
-    onClose={onClose}
-  >
-    <span>
-      {R}
-    </span>
-  </TooltipS>
+  if (env === 'prod') {
+    return <Tooltip
+      PopperProps={{ '& .MuiTooltip-tooltip': { backgroundColor: 'white', padding: 0 } }}
+      open={property.open}
+      enenterDelay={property.enterDelay}
+      leaveDelay={property.leaveDelay}
+      title={children && children.float ? children.float() : null}
+      placement={property.placementPosition + (property.placementAlign === 'center' ? '' : '-' + property.placementAlign)}
+      arrow={property.arrow}
+      onOpen={onOpen}
+      onClose={onClose}
+    >
+      {Render}
+    </Tooltip>
+  }
 
-  if (env === 'dev') return R
+  if (env === 'dev') return Render
 }
 
 export default Render

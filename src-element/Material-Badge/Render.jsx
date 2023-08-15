@@ -1,8 +1,7 @@
 import React from 'react'
+import { Badge } from '@mui/material'
 
 function Render(props) {
-  const { Badge } = window.MaterialUI
-
   const { event, property, monitor, children, update } = props
 
   React.useEffect(() => {

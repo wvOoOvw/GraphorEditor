@@ -1,8 +1,7 @@
 import React from 'react'
+import { Checkbox, FormControl, FormGroup, FormControlLabel } from '@mui/material'
 
 function Render(props) {
-  const { Checkbox, FormControl, FormGroup, FormControlLabel } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

@@ -1,8 +1,7 @@
 import React from 'react'
+import { Switch } from '@mui/material'
 
 function Render(props) {
-  const { Switch } = window.MaterialUI
-
   const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {

@@ -68,11 +68,11 @@ const element = async () => {
     })
   }
 
-  const dir = fs.readdirSync(path.join(__dirname, `../src-package/element/core`))
+  const dir = fs.readdirSync(path.join(__dirname, `../src-element/core`))
 
   const output = (name) => `
-    import Render from '../src-package/element/core/${name}/Render.jsx'; 
-    import license from '../src-package/element/core/${name}/license.js'; 
+    import Render from '../src-element/core/${name}/Render.jsx'; 
+    import license from '../src-element/core/${name}/license.js'; 
 
     const item = { Render, license }; 
     
@@ -103,15 +103,24 @@ const elements = async () => {
       libraryExport: 'default',
       filename: 'index.js',
       path: path.join(__dirname, '../build-package/element')
+    },
+    externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-router': 'ReactRouter',
+      'react-router-dom': 'ReactRouterDOM',
+      'react-ace': 'ReactAce',
+      '@mui/material': 'MaterialUI',
+      'hls': 'Hls'
     }
   })
 
-  const dir = fs.readdirSync(path.join(__dirname, `../src-package/element/core`))
+  const dir = fs.readdirSync(path.join(__dirname, `../src-element/core`))
 
   const output = `
     const list = [];
 
-    ${dir.map(i => { const name = i.replace('-', ''); return `import ${name}Render from '../src-package/element/core/${i}/Render.jsx'; import ${name}license from '../src-package/element/core/${i}/license.js'; list.push({ Render: ${name}Render, license: ${name}license}); ` }).join('')}
+    ${dir.map(i => { const name = i.replace('-', ''); return `import ${name}Render from '../src-element/${i}/Render.jsx'; import ${name}license from '../src-element/${i}/license.js'; list.push({ Render: ${name}Render, license: ${name}license}); ` }).join('')}
 
     export default list;
   `
@@ -202,10 +211,10 @@ const run = async () => {
   fs.mkdirSync(path.join(__dirname, '../build-package/render'))
   fs.mkdirSync(path.join(__dirname, '../build-package/html'))
 
-  await element()
+  // await element()
   await elements()
-  await render()
-  await html()
+  // await render()
+  // await html()
 }
 
 module.exports = run

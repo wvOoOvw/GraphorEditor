@@ -1,8 +1,7 @@
 import React from 'react'
+import { MenuList, MenuItem } from '@mui/material'
 
 function Render(props) {
-  const { MenuList, MenuItem } = window.MaterialUI
-
   const { event, style, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
