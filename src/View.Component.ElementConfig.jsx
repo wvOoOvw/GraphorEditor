@@ -19,8 +19,8 @@ export function Render_C(props) {
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Render</div>
-      <Switch checked={value.style.render} onChange={e => onChange(() => value.style.render = e.target.checked)} />
+      <div>Use</div>
+      <Switch checked={value.style.use} onChange={e => onChange(() => value.style.use = e.target.checked)} />
     </Grid>
   </>
 }

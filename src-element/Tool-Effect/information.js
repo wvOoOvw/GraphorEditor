@@ -9,7 +9,7 @@ const information = {
     { value: 'onEffect', label: '执行' }
   ],
   style: {
-    $use: ['render']
+    $use: ['use']
   },
   property: {
     immediate: false

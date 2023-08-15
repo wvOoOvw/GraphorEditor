@@ -16,7 +16,7 @@ const information = {
     { value: 'onClose', label: '关闭' },
   ],
   style: {
-    $use: ['width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'zIndex', 'render', 'visible']
+    $use: ['width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'zIndex', 'use', 'visible']
   },
   property: {
     open: true,

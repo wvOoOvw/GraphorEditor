@@ -80,6 +80,11 @@ function BasicConfig(props) {
                 </Grid>
               </Grid> : null
           }
+
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>Use</div>
+            <Switch checked={currentGraphContent.style.use} onChange={e => { currentGraphContent.style.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }); }} />
+          </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>
@@ -115,7 +120,6 @@ function StyleConfig(props) {
   }
 
   const style = [
-    use(['render'], <ElementConfigComponent.Render_C value={currentGraphContent} onChange={handleChange} />),
     use(['visible'], <ElementConfigComponent.Visible_C value={currentGraphContent} onChange={handleChange} />),
     use(['width', 'height'], <ElementConfigComponent.Size_C value={currentGraphContent} onChange={handleChange} />),
     use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit_C value={currentGraphContent} onChange={handleChange} />),

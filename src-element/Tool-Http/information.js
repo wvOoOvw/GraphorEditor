@@ -10,7 +10,7 @@ const information = {
     { value: 'onError', label: '请求失败' }
   ],
   style: {
-    $use: ['render']
+    $use: ['use']
   },
   property: {
     mode: 'fetch',

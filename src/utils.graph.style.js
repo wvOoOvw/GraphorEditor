@@ -189,7 +189,7 @@ const caculateStyle = (style) => {
 }
 
 const defaultStyleAll = {
-  render: true,
+  use: true,
   visible: true,
 
   display: 'block',
@@ -304,7 +304,7 @@ const defaultStyleAll = {
 }
 
 const defaultStyleAdd = {
-  render: true,
+  use: true,
   visible: true,
 }
 

@@ -146,7 +146,7 @@ function ElementRender(props) {
     id={id}
   />
 
-  if (style.render === false) return null
+  if (style.use === false) return null
 
   return Render_exe
 }
