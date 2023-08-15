@@ -3,9 +3,9 @@ const information = {
   type: 'Basic',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
-    { value: 'setSrc', label: '设置图片地址' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
+    { value: 'setSrc', label: 'Set Src' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

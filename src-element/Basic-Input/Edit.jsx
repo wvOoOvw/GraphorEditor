@@ -19,33 +19,33 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>禁用</div>
+      <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='提示' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Placeholder' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.type} label='类型' onChange={handleSetType}>
-          <MenuItem value='text'>文本</MenuItem>
-          <MenuItem value='textarea'>文本域</MenuItem>
-          <MenuItem value='password'>密码</MenuItem>
-          <MenuItem value='number'>数字</MenuItem>
-          <MenuItem value='file'>文件</MenuItem>
-          <MenuItem value='url'>链接</MenuItem>
-          <MenuItem value='email'>邮箱</MenuItem>
-          <MenuItem value='time'>时间</MenuItem>
-          <MenuItem value='date'>日期</MenuItem>
-          <MenuItem value='datetime'>日期时间</MenuItem>
-          <MenuItem value='datetime-local'>本地时期时间</MenuItem>
-          <MenuItem value='week'>周</MenuItem>
-          <MenuItem value='month'>月</MenuItem>
-          <MenuItem value='color'>颜色</MenuItem>
+        <InputLabel>Type</InputLabel>
+        <Select {...sx.SelectSX} value={value.type} label='Type' onChange={handleSetType}>
+          <MenuItem value='text'>Text</MenuItem>
+          <MenuItem value='textarea'>Textarea</MenuItem>
+          <MenuItem value='password'>Password</MenuItem>
+          <MenuItem value='number'>Number</MenuItem>
+          <MenuItem value='file'>File</MenuItem>
+          <MenuItem value='url'>Url</MenuItem>
+          <MenuItem value='email'>Email</MenuItem>
+          <MenuItem value='time'>Time</MenuItem>
+          <MenuItem value='date'>Date</MenuItem>
+          <MenuItem value='datetime'>Datetime</MenuItem>
+          <MenuItem value='datetime-local'>Datetime-local</MenuItem>
+          <MenuItem value='week'>Week</MenuItem>
+          <MenuItem value='month'>Month</MenuItem>
+          <MenuItem value='color'>Color</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -54,11 +54,11 @@ function Edit(props) {
       value.type === 'file' ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>多选</span>
+            <span>File Multiple</span>
             <Switch checked={value.fileMultiple} onChange={e => onChange(Object.assign({}, value, { fileMultiple: e.target.checked }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='上传限制' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='File Accept' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
           </Grid>
         </> : null
     }

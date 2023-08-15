@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { Checkbox, FormControl, FormGroup, FormControlLabel } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -25,7 +25,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e, value) => {
-    if (!pure) return
+    if (env === 'dev') return
     if (property.value.includes(value)) {
       property.value = property.value.filter(i => i !== value)
       update()

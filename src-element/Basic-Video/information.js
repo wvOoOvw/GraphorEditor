@@ -3,8 +3,8 @@ const information = {
   type: 'Basic',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setUrl', label: '设置视频地址' },
     { value: 'setPlay', label: '播放' },
     { value: 'setPause', label: '暂停' },

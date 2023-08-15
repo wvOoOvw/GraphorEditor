@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { Autocomplete, TextField } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -25,7 +25,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (!pure) return
+    if (env === 'dev') return
     if (v) {
       property.value = Array.isArray(v) ? v.map(i => i.value) : v.value
     } else {
@@ -45,6 +45,7 @@ function Render(props) {
 
   const Render = <Autocomplete
     {...event}
+    {...style}
     multiple={property.multiple}
     size={property.size}
     options={property.options}
@@ -54,7 +55,7 @@ function Render(props) {
     renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
   />
 
-  if (pure) {
+  if (env === 'prod') {
     return Render
   } else {
     const ref = React.useRef()

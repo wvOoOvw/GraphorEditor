@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { MenuList, MenuItem } = window.MaterialUI
 
-  const { event, property, monitor, trigger, update } = props
+  const { event, style, property, monitor, trigger, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {

@@ -7,8 +7,8 @@ const information = {
     { value: 'action', label: '操作栏模块' }
   ],
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: '@setOpenTure', label: '打开' },
     { value: '@setOpenFalse', label: '关闭' },
   ],

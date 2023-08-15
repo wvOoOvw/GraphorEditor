@@ -9,18 +9,18 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='src' value={value.src} onChange={e => onChange(Object.assign({}, value, { src: e.target.value }))} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Src' value={value.src} onChange={e => onChange(Object.assign({}, value, { src: e.target.value }))} multiline maxRows={4} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>controls</div>
+      <div>Controls</div>
       <Switch checked={value.controls} onChange={(e) => onChange(Object.assign({}, value, { controls: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>autoplay</div>
+      <div>Autoplay</div>
       <Switch checked={value.autoplay} onChange={(e) => onChange(Object.assign({}, value, { autoplay: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>loop</div>
+      <div>Loop</div>
       <Switch checked={value.loop} onChange={(e) => onChange(Object.assign({}, value, { loop: e.target.checked }))} />
     </Grid>
   </Grid>

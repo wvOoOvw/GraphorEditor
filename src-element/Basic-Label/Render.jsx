@@ -1,13 +1,12 @@
 import React from 'react'
 
 function Render(props) {
-
-  const { event, children, pure } = props
+  const { event, children, env } = props
 
   return <label {...event}>
     <div style={{ display: 'none' }}>
       {
-        pure && children && children.main ? children.input() : null
+        env && children && children.main ? children.input() : null
       }
     </div>
     {

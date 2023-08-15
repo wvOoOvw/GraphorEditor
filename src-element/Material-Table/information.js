@@ -3,8 +3,8 @@ const information = {
   type: 'Material UI Component',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setBody', label: '设置表格内容' },
     { value: 'setHead', label: '设置表格栏' },
     { value: 'setPaginationSize', label: '设置单页数量' },

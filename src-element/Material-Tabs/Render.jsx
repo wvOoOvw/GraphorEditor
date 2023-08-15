@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { Tabs, Tab } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -25,7 +25,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.value = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
@@ -33,6 +33,7 @@ function Render(props) {
 
   return <Tabs
     {...event}
+    {...style}
     value={property.value}
     onChange={onChange}
     textColor={property.textColor}

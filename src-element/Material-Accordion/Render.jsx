@@ -10,7 +10,7 @@ import React from 'react'
 function Render(props) {
   const { Accordion, AccordionSummary, AccordionDetails, Divider } = window.MaterialUI
 
-  const { event, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setExpandedOpen) {
@@ -32,7 +32,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.expanded = !property.expanded
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)

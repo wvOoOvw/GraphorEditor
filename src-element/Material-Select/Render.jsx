@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { InputLabel, MenuItem, FormControl, Select } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -25,7 +25,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.value = e.target.value
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
@@ -42,7 +42,7 @@ function Render(props) {
     </Select>
   </FormControl>
 
-  if (pure) {
+  if (env === 'prod') {
     return Render
   } else {
     const ref = React.useRef()

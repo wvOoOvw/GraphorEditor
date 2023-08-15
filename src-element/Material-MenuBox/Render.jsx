@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { Menu, MenuItem } = window.MaterialUI
 
-  const { event, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
@@ -35,6 +35,7 @@ function Render(props) {
   return <>
     <div
       {...event}
+    {...style}
       ref={el => ref.current = el}
       onClick={property.openType === 'click' ? onOpen : undefined}
       onMouseOver={property.openType === 'mouseover' ? onOpen : undefined}
@@ -43,7 +44,7 @@ function Render(props) {
         children && children.main ? children.main() : null
       }
     </div>
-    <Menu open={pure && property.open} onClose={onClose} anchorEl={ref.current}>
+    <Menu open={env && property.open} onClose={onClose} anchorEl={ref.current}>
       {
         property.options.map((i, index) => {
           return <MenuItem key={index} onClick={e => onClick(e, i.value)}>

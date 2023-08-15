@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Render(props) {
-
   const { event, property, trigger, children } = props
 
   const dragEvent = {

@@ -1,8 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-
-  const { event, property, monitor, pure, update } = props
+  const { event, property, monitor, env, update } = props
 
   const ref = React.useRef()
 
@@ -17,7 +16,7 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (!pure || !property.value) return
+    if (!env || !property.value) return
     const script = document.createElement('script')
     script.src = property.value
     document.getElementsByTagName('head')[0].appendChild(script)

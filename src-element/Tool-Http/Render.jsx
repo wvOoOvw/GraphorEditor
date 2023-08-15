@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Render(props) {
-
   const { property, monitor, trigger } = props
 
   React.useEffect(() => {

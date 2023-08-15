@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Render(props) {
-
   const { event, style, property, monitor, update } = props
 
   const ref = React.useRef()
@@ -42,6 +41,7 @@ function Render(props) {
 
   return <video
     {...event}
+    {...style}
     ref={el => ref.current = el}
     src={property.src}
     poster={property.poster}

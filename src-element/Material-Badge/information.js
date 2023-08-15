@@ -5,8 +5,8 @@ const information = {
     { value: 'main', label: '主模块' }
   ],
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setContent', label: '设置内容' },
   ],
   trigger: [

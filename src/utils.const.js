@@ -13,8 +13,8 @@ const evalBeforeRenderHook = `function(env) {
 }`
 
 const defaultEventMonitor = [
-  { value: '@setVisibleTrue', label: '显示' },
-  { value: '@setVisibleFalse', label: '隐藏' },
+  { value: '@setUseTrue', label: '显示' },
+  { value: '@setUseFalse', label: '隐藏' },
 ]
 
 const defaultEventTrigger = [

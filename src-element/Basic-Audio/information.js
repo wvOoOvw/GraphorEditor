@@ -3,8 +3,8 @@ const information = {
   type: 'Basic',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: 'Show' },
-    { value: '@setVisibleFalse', label: 'Hidden' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setUrl', label: 'Set Url' },
     { value: 'setPlay', label: 'Play' },
     { value: 'setPause', label: 'Pause' },

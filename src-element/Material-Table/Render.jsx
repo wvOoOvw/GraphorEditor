@@ -7,7 +7,7 @@ import React from 'react'
 function Render(props) {
   const { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Button, Checkbox, Pagination, Paper, Box } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setBody) {
@@ -60,7 +60,7 @@ function Render(props) {
   }
 
   const onSelect = (e, item) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
     if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
@@ -76,7 +76,7 @@ function Render(props) {
   }
 
   const onSelectMultiple = (e) => {
-    if (!pure) return
+    if (env === 'dev') return
 
     if (property.usePagination) {
       var body = property.body.filter((i, index) => paginationFilter(index, property.paginationSize, property.paginationPage))
@@ -96,7 +96,7 @@ function Render(props) {
   }
 
   const onPaginationChange = (e, value) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.selectChecked = []
     property.paginationPage = value
     update()

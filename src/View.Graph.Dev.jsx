@@ -75,7 +75,7 @@ function Hover() {
 }
 
 function ElementRender(props) {
-  const { license, id, use, property, style, children } = props
+  const { license, id, use, property, style, children } = props.element
 
   const { Render } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -114,7 +114,7 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} {...i} />)
+      r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} element={i} />)
     })
     return r
   })
@@ -213,7 +213,7 @@ function App() {
       <Hover />
       <div>
         {
-          Imitation.state.graphContent.map(i => <ElementRender key={i.id} {...i} />)
+          Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} />)
         }
       </div>
     </Paper>

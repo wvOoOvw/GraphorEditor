@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const { TextField } = window.MaterialUI
 
-  const { event, property, monitor, trigger, pure, update } = props
+  const { event, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -25,7 +25,7 @@ function Render(props) {
   }, [])
 
   const onChange = (e) => {
-    if (!pure) return
+    if (env === 'dev') return
     property.value = e.target.value
     update()
     if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
@@ -39,6 +39,7 @@ function Render(props) {
 
   return <TextField
     {...event}
+    {...style}
     fullWidth
     type={property.type}
     value={property.value}

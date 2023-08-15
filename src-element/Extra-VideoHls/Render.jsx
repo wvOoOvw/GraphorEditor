@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Render(props) {
-
   const Hls = window.Hls
 
   const { event, style, property, monitor, update } = props
@@ -60,6 +59,7 @@ function Render(props) {
 
   return <video
     {...event}
+    {...style}
     ref={el => ref.current = el}
     src={property.src}
     poster={property.poster}

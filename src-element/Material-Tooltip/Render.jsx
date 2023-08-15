@@ -13,7 +13,7 @@ function Render(props) {
     },
   });
 
-  const { event, property, monitor, trigger, children, pure, update } = props
+  const { event, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setOpenTrue) {
@@ -49,7 +49,7 @@ function Render(props) {
 
   const R = children && children.main ? children.main() : null
 
-  if (pure) return <TooltipS
+  if (env === 'prod') return <TooltipS
     open={property.open}
     enenterDelay={property.enterDelay}
     leaveDelay={property.leaveDelay}
@@ -64,7 +64,7 @@ function Render(props) {
     </span>
   </TooltipS>
 
-  if (!pure) return R
+  if (env === 'dev') return R
 }
 
 export default Render

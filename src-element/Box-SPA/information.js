@@ -3,8 +3,8 @@ const information = {
   type: 'Box',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setValue', label: '设置数据' },
   ],
   trigger: [

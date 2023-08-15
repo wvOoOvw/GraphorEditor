@@ -3,8 +3,8 @@ const information = {
   type: 'Material UI Component',
   children: false,
   monitor: [
-    { value: '@setVisibleTrue', label: '显示' },
-    { value: '@setVisibleFalse', label: '隐藏' },
+    { value: '@setUseTrue', label: 'Use Element' },
+    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setValue', label: '设置内容' },
     { value: 'setOptions', label: '设置选项' },
   ],

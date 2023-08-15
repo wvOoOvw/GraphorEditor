@@ -1,8 +1,7 @@
 import React from 'react'
+import { Button } from '@mui/material'
 
 function Render(props) {
-  const { Button } = window.MaterialUI
-
   const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {
@@ -35,6 +34,7 @@ function Render(props) {
 
   return <Button
     {...event}
+    {...style}
     disabled={property.disabled}
     variant={property.variant}
     color={property.color}

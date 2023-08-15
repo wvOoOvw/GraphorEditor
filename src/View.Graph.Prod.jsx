@@ -1,11 +1,13 @@
+import React from 'react'
+
 import { graphEvent } from './utils.graph.event'
 import { graphElementSearch } from './utils.graph.common'
 import { caculateStyle } from './utils.graph.style'
 
 function ElementRender(props) {
-  const React = window.React
   const { graphElement } = window
-  const { flow, license, id, use, property, style, children, monitor, trigger, hook } = props
+
+  const { flow, license, id, use, property, style, children, monitor, trigger, hook } = props.element
 
   const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
 
@@ -53,11 +55,11 @@ function ElementRender(props) {
       ...monitor.filter(i => i.useEval).map(i => {
         return graphEvent.addEventMonitor({ name: i.name, event: i.event, env })
       }),
-      ...monitor.filter(i => i.key === '@setVisibleTrue').map(i => {
-        return graphEvent.addEventMonitor({ name: i.name, event: v => { style.hidden = false; update() } })
+      ...monitor.filter(i => i.key === '@setUseTrue').map(i => {
+        return graphEvent.addEventMonitor({ name: i.name, event: v => { props.element.use = false; update() } })
       }),
-      ...monitor.filter(i => i.key === '@setVisibleFalse').map(i => {
-        return graphEvent.addEventMonitor({ name: i.name, event: v => { style.hidden = true; update() } })
+      ...monitor.filter(i => i.key === '@setUseFalse').map(i => {
+        return graphEvent.addEventMonitor({ name: i.name, event: v => { props.element.use = true; update() } })
       }),
     ]
     return () => remove.forEach(i => i())
@@ -77,7 +79,7 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} flow={prop ? prop : flow} {...i} />)
+      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} flow={prop ? prop : flow} element={i} />)
     })
     return r
   }, [children, flow])
@@ -126,7 +128,7 @@ function App() {
     window[graphConfig.project.updateId] = () => setUpdate(pre => pre + 1)
   }
 
-  return graphContent.map(i => <ElementRender key={i.id} {...i} />)
+  return graphContent.map(i => <ElementRender key={i.id} element={i} />)
 }
 
 export default App
