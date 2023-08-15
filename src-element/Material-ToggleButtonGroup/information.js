@@ -5,8 +5,8 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置选中内容' },
-    { value: 'setOptions', label: '设置选项' },
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'setOptions', label: 'Set Options' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

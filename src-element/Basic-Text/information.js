@@ -1,11 +1,11 @@
 const information = {
-  name: '文本',
+  name: 'Text',
   type: 'Basic',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置内容' },
+    { value: 'setValue', label: 'Set Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -18,7 +18,7 @@ const information = {
   ],
   style: {},
   property: {
-    value: '内容',
+    value: 'Text',
     dom: 'div'
   }
 }

@@ -1,13 +1,13 @@
 const information = {
-  name: '基础容器',
+  name: 'Box',
   type: 'Box',
   children: [
-    { value: 'main', label: '主模块' }
+    { value: 'main', label: 'Main' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置数据' },
+    { value: 'setValue', label: 'Set Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

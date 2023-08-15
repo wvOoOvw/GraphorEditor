@@ -1,9 +1,9 @@
 const information = {
-  name: '标签',
+  name: 'Label',
   type: 'Basic',
   children: [
-    { value: 'main', label: '主模块' },
-    { value: 'input', label: '输入模块' },
+    { value: 'main', label: 'Main' },
+    { value: 'input', label: 'Input' },
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },

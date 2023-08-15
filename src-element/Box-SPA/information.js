@@ -1,11 +1,11 @@
 const information = {
-  name: 'SPA微前端容器',
+  name: 'Box-Spa',
   type: 'Box',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置数据' },
+    { value: 'setSrc', label: 'Set Src' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -18,7 +18,7 @@ const information = {
   ],
   style: {},
   property: {
-    value: '',
+    src: '',
     id: 'graph-root'
   }
 }

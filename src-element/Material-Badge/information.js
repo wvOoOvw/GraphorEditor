@@ -1,5 +1,5 @@
 const information = {
-  name: '徽章',
+  name: 'Badge',
   type: 'Material UI Component',
   children: [
     { value: 'main', label: '主模块' }
@@ -7,7 +7,7 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setContent', label: '设置内容' },
+    { value: 'setContent', label: 'Set Content' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

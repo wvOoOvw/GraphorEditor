@@ -1,5 +1,5 @@
 const information = {
-  name: '图片',
+  name: 'Image',
   type: 'Basic',
   children: false,
   monitor: [

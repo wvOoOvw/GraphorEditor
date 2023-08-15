@@ -5,7 +5,7 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置内容' }
+    { value: 'setValue', label: 'Set Value' }
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -15,7 +15,7 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: '内容变动' },
+    { value: 'onChange', label: 'Value Change' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']

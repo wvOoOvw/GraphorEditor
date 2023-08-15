@@ -5,8 +5,8 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置选中内容' },
-    { value: 'setOptions', label: '设置选项' },
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'setOptions', label: 'Set Options' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -16,14 +16,14 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: '内容变动' },
+    { value: 'onChange', label: 'Value Change' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
     value: [],
-    options: [{ label: '选择框组', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
     color: 'primary',
     size: 'medium',
     disabled: false,

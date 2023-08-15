@@ -1,13 +1,13 @@
 const information = {
-  name: '跳转',
+  name: 'Link',
   type: 'Basic',
   children: [
-    { value: 'main', label: '主模块' }
+    { value: 'main', label: 'Main' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setHref', label: '设置跳转地址' },
+    { value: 'setHref', label: 'Set Href' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

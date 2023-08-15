@@ -6,24 +6,24 @@ import { Button } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [flowModal, setFlowModal] = React.useState()
+  const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setFlowModal(true)}>设置数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Value</Button>
     </Grid>
     {
-      flowModal ?
-        <component.CodeModal
+      aceDialog ?
+        <component.AceDialog
           value={value.value}
           onChange={v => {
             onChange((value) => value.value = v)
-            setFlowModal(false)
+            setAceDialog(false)
           }}
-          onClose={() => setFlowModal(false)}
+          onClose={() => setAceDialog(false)}
           mode='html'
-          initValue={''}
-        /> : null
+        />
+        : null
     }
   </Grid >
 }

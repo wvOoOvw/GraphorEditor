@@ -6,39 +6,32 @@ import { Button } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [flowModal, setFlowModal] = React.useState()
-
-  const getValue = (v) => {
-    try {
-      return JSON.stringify(v, null, 2)
-    } catch {
-      return v
-    }
-  }
+  const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setFlowModal(true)}>设置数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Value</Button>
     </Grid>
     {
-      flowModal ?
-        <component.CodeModal
-          value={getValue(value.value)}
+      aceDialog ?
+        <component.AceDialog
+          value={JSON.stringify(value.value, null, 2)}
           onChange={v => {
             try {
               const v_ = JSON.parse(v)
+              if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.value = v_)
-              setFlowModal(false)
+              setAceDialog(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
-          onClose={() => setFlowModal(false)}
+          onClose={() => setAceDialog(false)}
           mode='json'
-          initValue={'null'}
-        /> : null
+        />
+        : null
     }
-  </Grid >
+  </Grid>
 }
 
 export default Edit

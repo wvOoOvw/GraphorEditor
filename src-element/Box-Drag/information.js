@@ -1,8 +1,8 @@
 const information = {
-  name: '拖动容器',
+  name: 'Box-Drag',
   type: 'Box',
   children: [
-    { value: 'main', label: '主模块' }
+    { value: 'main', label: 'Main' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
@@ -16,13 +16,13 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onDrag', label: '拖动时' },
-    { value: 'onDragStart', label: '拖动开始' },
-    { value: 'onDragLeave', label: '拖动结束' },
-    { value: 'onDragOver', label: '拖动物悬浮' },
-    { value: 'onDragEnter', label: '拖动物移入' },
-    { value: 'onDragEnd', label: '拖动物移出' },
-    { value: 'onDrop', label: '拖动物放置' },
+    { value: 'onDrag', label: 'Drag Move' },
+    { value: 'onDragStart', label: 'Drag Start' },
+    { value: 'onDragEnd', label: 'Drag End' },
+    { value: 'onDragEnter', label: 'Drag Enter' },
+    { value: 'onDragLeave', label: 'Drag Leave' },
+    { value: 'onDragOver', label: 'Drag Over' },
+    { value: 'onDrop', label: 'Drop' },
   ],
   style: {},
   property: {

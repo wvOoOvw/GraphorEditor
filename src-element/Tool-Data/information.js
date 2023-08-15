@@ -3,11 +3,11 @@ const information = {
   type: 'Tool',
   children: false,
   monitor: [
-    { value: 'setValue', label: '设置数据' },
-    { value: 'assignValue', label: '合并数据' },
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'assignValue', label: 'Assign Value' },
   ],
   trigger: [
-    { value: 'onEffect', label: '执行' }
+    { value: 'onEffect', label: 'Effect' }
   ],
   style: {
     $use: ['use']

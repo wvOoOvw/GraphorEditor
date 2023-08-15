@@ -1,11 +1,11 @@
 const information = {
-  name: 'SVG图形',
+  name: 'SVG',
   type: 'Basic',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置内容' },
+    { value: 'setValue', label: 'Set Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

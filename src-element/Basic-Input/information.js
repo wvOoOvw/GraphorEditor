@@ -1,12 +1,12 @@
 const information = {
-  name: '输入框',
+  name: 'Input',
   type: 'Basic',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置内容' },
-    { value: 'setValueEmpty', label: '清空内容' }
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'setValueEmpty', label: 'Clear Value' }
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -16,13 +16,13 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: '内容变动' },
-    { value: 'onFocus', label: '聚焦' },
-    { value: 'onBlur', label: '失焦' }
+    { value: 'onChange', label: 'Value Change' },
+    { value: 'onFocus', label: 'Focus' },
+    { value: 'onBlur', label: 'Blur' }
   ],
   style: {},
   property: {
-    value: '内容',
+    value: 'Input',
     placeholder: '',
     type: 'text',
     disabled: false,

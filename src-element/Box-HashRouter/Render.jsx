@@ -21,9 +21,6 @@ function Render(props) {
 
   const render_ = () => {
     if (env === 'prod') {
-      if (property.type === 'none') {
-        return children && children.main ? children.main() : null
-      }
       if (property.type === 'equal' && window.location.hash === property.value) {
         return children && children.main ? children.main() : null
       }

@@ -145,7 +145,7 @@ function Edit(props) {
 
     {
       modalHead ?
-        <component.CodeModal
+        <component.AceDialog
           value={JSON.stringify(value.head, null, 2)}
           onChange={v => {
             try {
@@ -165,7 +165,7 @@ function Edit(props) {
 
     {
       modalBody ?
-        <component.CodeModal
+        <component.AceDialog
           value={JSON.stringify(value.body, null, 2)}
           onChange={v => {
             try {

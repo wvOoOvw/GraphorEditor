@@ -21,7 +21,7 @@ function Edit(props) {
 
     {
       modalOptions ?
-        <component.CodeModal
+        <component.AceDialog
           value={JSON.stringify(value.options, null, 2)}
           onChange={v => {
             try {

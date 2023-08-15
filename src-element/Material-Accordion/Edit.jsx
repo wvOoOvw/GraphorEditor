@@ -9,29 +9,23 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>禁用</div>
+      <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>默认展开</div>
+      <div>Expanded</div>
       <Switch checked={value.expanded} onChange={e => onChange(Object.assign({}, value, { expanded: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>显示图标</div>
+      <div>ExpandIcon</div>
       <Switch checked={value.expandIcon} onChange={e => onChange(Object.assign({}, value, { expandIcon: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>显示分割线</div>
+      <div>Divider</div>
       <Switch checked={value.divider} onChange={e => onChange(Object.assign({}, value, { divider: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='标题' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
-    </Grid>
-    <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='标题高度' value={value.summaryHeight} onChange={e => onChange(Object.assign({}, value, { summaryHeight: e.target.value }))} />
-    </Grid>
-    <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='内容高度' value={value.detailsHeight} onChange={e => onChange(Object.assign({}, value, { detailsHeight: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Title' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
     </Grid>
   </Grid>
 }

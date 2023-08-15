@@ -6,9 +6,9 @@ function Render(props) {
   const ref = React.useRef()
 
   React.useEffect(() => {
-    if (monitor && monitor.setValue) {
+    if (monitor && monitor.setSrc) {
       const remove = monitor.setValue(data => {
-        property.value = data
+        property.src = data
         update()
       })
       return () => { remove() }
@@ -16,11 +16,11 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (!env || !property.value) return
+    if (!env || !property.src) return
     const script = document.createElement('script')
-    script.src = property.value
+    script.src = property.src
     document.getElementsByTagName('head')[0].appendChild(script)
-  }, [property.value])
+  }, [property.src])
 
   return <div {...event} {...style} id={property.id} ref={el => ref.current = el}></div>
 }

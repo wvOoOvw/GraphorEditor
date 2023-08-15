@@ -13,16 +13,16 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>使用标签跳转</div>
+      <div>Use Dom Link</div>
       <Switch checked={value.useDom} onChange={(e) => onChange(Object.assign({}, value, { useDom: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='跳转地址' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Href' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>打开类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.target} label='打开类型' onChange={e => onChange(Object.assign({}, value, { target: e.target.value }))}  >
+        <InputLabel>Target</InputLabel>
+        <Select {...sx.SelectSX} value={value.target} label='Target' onChange={e => onChange(Object.assign({}, value, { target: e.target.value }))}  >
           <MenuItem value='_self'>当前页面打开</MenuItem>
           <MenuItem value='_blank'>新窗口打开</MenuItem>
         </Select>

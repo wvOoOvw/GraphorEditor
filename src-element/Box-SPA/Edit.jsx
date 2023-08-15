@@ -13,10 +13,10 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='加载地址' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Src' value={value.src} onChange={e => onChange((value) => value.src = e.target.value)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='id' value={value.id} onChange={e => onChange((value) => value.id = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Render Id' value={value.id} onChange={e => onChange((value) => value.id = e.target.value)} />
     </Grid>
   </Grid >
 }

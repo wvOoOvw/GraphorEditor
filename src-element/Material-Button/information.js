@@ -5,9 +5,9 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setValue', label: '设置点击内容' },
-    { value: 'setDisabledOpen', label: '打开禁用' },
-    { value: 'setDisabledClose', label: '关闭禁用' }
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'setDisabledOpen', label: 'Use Disabled' },
+    { value: 'setDisabledClose', label: 'Unuse Disabled' }
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -22,7 +22,7 @@ const information = {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
-    value: '按钮',
+    value: 'Button',
     variant: 'contained',
     color: 'primary',
     disabled: false

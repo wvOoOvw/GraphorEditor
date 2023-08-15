@@ -9,27 +9,27 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [flowModal, setFlowModal] = React.useState()
+  const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
 
     <Grid item xs={12}>
-      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setFlowModal(true)}>设置数据</Button>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>设置数据</Button>
     </Grid>
     {
-      flowModal ?
-        <component.CodeModal
+      aceDialog ?
+        <component.AceDialog
           value={JSON.stringify(value.value, null, 2)}
           onChange={v => {
             try {
               const v_ = JSON.parse(v)
               onChange((value) => value.value = v_)
-              setFlowModal(false)
+              setAceDialog(false)
             } catch {
               alert('格式错误')
             }
           }}
-          onClose={() => setFlowModal(false)}
+          onClose={() => setAceDialog(false)}
           mode='json'
           initValue={'{}'}
         /> : null

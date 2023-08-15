@@ -5,11 +5,11 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setBody', label: '设置表格内容' },
-    { value: 'setHead', label: '设置表格栏' },
-    { value: 'setPaginationSize', label: '设置单页数量' },
-    { value: 'setPaginationPage', label: '设置当前页码' },
-    { value: 'setSelectClear', label: '清空选择框' },
+    { value: 'setBody', label: 'Set Body' },
+    { value: 'setHead', label: 'Set Head' },
+    { value: 'setPaginationSize', label: 'Set Pagination Size' },
+    { value: 'setPaginationPage', label: 'Set Pagination Page' },
+    { value: 'setSelectClear', label: 'Clear Select' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -19,9 +19,9 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onClick', label: '表格项点击' },
-    { value: 'onSelect', label: '选择框变动' },
-    { value: 'onPaginationChange', label: '分页栏变动' }
+    { value: 'onClick', label: 'Click Row Item' },
+    { value: 'onSelect', label: 'Select Change' },
+    { value: 'onPaginationChange', label: 'Pagination Change' }
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
@@ -30,8 +30,8 @@ const information = {
     size: 'medium',
     stickyHeader: false,
     componentPaper: true,
-    head: [{ label: '表格头', value: 'head' }],
-    body: [{ head: '表格数据' }],
+    head: [{ label: 'Name', value: 'name' }],
+    body: [{ head: 'Jack' }],
     usePagination: false,
     paginationComponent: true,
     paginationSize: 10,
@@ -40,8 +40,8 @@ const information = {
     useAction: true,
     actionVariant: 'contained',
     actionColor: 'primary',
-    actionTitle: '操作',
-    actionText: '查看',
+    actionTitle: 'Action',
+    actionText: 'Check',
     useSelect: true,
     selectMultiple: true,
     selectChecked: []

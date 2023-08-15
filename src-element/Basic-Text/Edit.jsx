@@ -12,12 +12,12 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} multiline maxRows={4} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>渲染标签</InputLabel>
-        <Select {...sx.SelectSX} value={value.dom} label='渲染标签' onChange={e => onChange(Object.assign({}, value, { dom: e.target.value }))}>
+        <InputLabel>Dom Type</InputLabel>
+        <Select {...sx.SelectSX} value={value.dom} label='Dom Type' onChange={e => onChange(Object.assign({}, value, { dom: e.target.value }))}>
           <MenuItem value='div'>Div</MenuItem>
           <MenuItem value='span'>Span</MenuItem>
           <MenuItem value='button'>Button</MenuItem>

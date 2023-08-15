@@ -18,7 +18,7 @@ function Edit(props) {
         <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
       </Grid>
       <Grid item xs={12}>
-        <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} multiline maxRows={4} />
+        <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
       </Grid>
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>

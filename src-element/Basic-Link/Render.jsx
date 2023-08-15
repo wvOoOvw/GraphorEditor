@@ -23,13 +23,15 @@ function Render(props) {
     }
   }
 
-  if (property.useDom) {
+  if (property.useDom === true) {
     return <a {...event} {...style} href={property.href} target={property.target}>
       {
         children && children.main ? children.main() : null
       }
     </a>
-  } else {
+  }
+  
+  if (property.useDom === false) {
     return <div {...event} {...style} onClick={onClick}>
       {
         children && children.main ? children.main() : null

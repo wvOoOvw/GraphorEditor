@@ -1,14 +1,14 @@
 const information = {
-  name: '折叠面板',
+  name: 'Accordion',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: '主模块' }
+    { value: 'main', label: 'Main' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setExpandedOpen', label: '打开面板' },
-    { value: 'setExpandedClose', label: '关闭面板' },
+    { value: 'setExpandedOpen', label: 'Open Accordion' },
+    { value: 'setExpandedClose', label: 'Close Accordion' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -18,15 +18,13 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: '内容变动' },
+    { value: 'onChange', label: 'Value Change' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
-    title: '折叠面板',
-    summaryHeight: 64,
-    detailsHeight: 236,
+    title: 'Accordion',
     expanded: true,
     expandIcon: true,
     divider: true,

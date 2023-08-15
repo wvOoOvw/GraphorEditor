@@ -1,5 +1,5 @@
 const information = {
-  name: '页面引用',
+  name: 'Iframe',
   type: 'Basic',
   children: false,
   monitor: [
