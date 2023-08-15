@@ -9,21 +9,21 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='视频地址' value={value.src} onChange={e => onChange(Object.assign({}, value, { src: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Src' value={value.src} onChange={e => onChange(Object.assign({}, value, { src: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='封面地址' value={value.poster} onChange={e => onChange(Object.assign({}, value, { poster: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='poster' value={value.poster} onChange={e => onChange(Object.assign({}, value, { poster: e.target.value }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>显示操作面板</div>
+      <div>Controls</div>
       <Switch checked={value.controls} onChange={(e) => onChange(Object.assign({}, value, { controls: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>自动播放</div>
+      <div>Autoplay</div>
       <Switch checked={value.autoplay} onChange={(e) => onChange(Object.assign({}, value, { autoplay: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>循环播放</div>
+      <div>Loop</div>
       <Switch checked={value.loop} onChange={(e) => onChange(Object.assign({}, value, { loop: e.target.checked }))} />
     </Grid>
   </Grid>

@@ -1,13 +1,13 @@
 const information = {
-  name: '视频Hls',
+  name: 'Video Hls',
   type: 'Extra',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setUrl', label: '设置视频地址' },
-    { value: 'setPlay', label: '播放' },
-    { value: 'setPause', label: '暂停' },
+    { value: 'setUrl', label: 'Set Url' },
+    { value: 'setPlay', label: 'Play' },
+    { value: 'setPause', label: 'Pause' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -17,7 +17,7 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onEnded', label: '播放结束' },
+    { value: 'onEnded', label: 'Play Ended' },
   ],
   style: {
     $nonuse: ['font', 'text', 'textDecoration', 'textShadow', 'textStroke']

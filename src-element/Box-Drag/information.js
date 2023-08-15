@@ -1,5 +1,5 @@
 const information = {
-  name: 'Box-Drag',
+  name: 'Box Drag',
   type: 'Box',
   children: [
     { value: 'main', label: 'Main' }

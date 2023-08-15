@@ -1,5 +1,5 @@
 const information = {
-  name: 'Box-HashRouter',
+  name: 'Box HashRouter',
   type: 'Box',
   children: [
     { value: 'main', label: 'Main' }

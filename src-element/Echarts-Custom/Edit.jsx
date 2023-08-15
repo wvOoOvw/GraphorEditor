@@ -58,12 +58,11 @@ function Edit(props) {
               onChange((value) => value.head = v_)
               setModalHead(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
           onClose={() => setModalHead(false)}
           mode='json'
-          initValue={'[]'}
         /> : null
     }
 
@@ -78,12 +77,11 @@ function Edit(props) {
               onChange((value) => value.body = v_)
               setModalBody(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
           onClose={() => setModalBody(false)}
           mode='json'
-          initValue={'[]'}
         /> : null
     }
   </Grid >

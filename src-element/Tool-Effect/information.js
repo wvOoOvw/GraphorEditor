@@ -1,12 +1,12 @@
 const information = {
-  name: '事件库',
+  name: 'Tool Effect',
   type: 'Tool',
   children: false,
   monitor: [
-    { value: 'setEffect', label: '定义执行函数' }
+    { value: 'setEffect', label: 'Set Effect Event' }
   ],
   trigger: [
-    { value: 'onEffect', label: '执行' }
+    { value: 'onEffect', label: 'Effect Event' }
   ],
   style: {
     $use: ['use']

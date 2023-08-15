@@ -56,6 +56,15 @@ const element = async () => {
         filename: `${name}.js`,
         path: path.join(__dirname, '../build-package/element')
       },
+      externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        'react-router': 'ReactRouter',
+        'react-router-dom': 'ReactRouterDOM',
+        'react-ace': 'ReactAce',
+        '@mui/material': 'MaterialUI',
+        'hls': 'Hls'
+      }
     })
   }
 

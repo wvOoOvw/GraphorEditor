@@ -47,12 +47,11 @@ function Edit(props) {
               onChange((value) => value.value = v_)
               setModalValue(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
           onClose={() => setModalValue(false)}
           mode='json'
-          initValue={'[]'}
         /> : null
     }
   </Grid >

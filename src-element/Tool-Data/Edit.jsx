@@ -14,7 +14,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
 
     <Grid item xs={12}>
-      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>设置数据</Button>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Value</Button>
     </Grid>
     {
       aceDialog ?
@@ -26,19 +26,20 @@ function Edit(props) {
               onChange((value) => value.value = v_)
               setAceDialog(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
           onClose={() => setAceDialog(false)}
           mode='json'
           initValue={'{}'}
-        /> : null
+        /> 
+        : null
     }
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>立即执行</div>
+      <div>Immediate Effect</div>
       <Switch checked={value.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
     </Grid>
 
@@ -46,7 +47,7 @@ function Edit(props) {
 
     <Grid item xs={12}>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>window绑定数据</div>
+        <div>Use Window Property</div>
         <Switch checked={value.useWindow} onChange={e => onChange((value) => value.useWindow = e.target.checked)} />
       </Grid>
     </Grid>
@@ -54,7 +55,7 @@ function Edit(props) {
       value.useWindow ?
         <>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='字段名称' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
+            <TextField {...sx.TextFieldSX} fullWidth label='Window Property Name' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
           </Grid>
         </> : null
     }

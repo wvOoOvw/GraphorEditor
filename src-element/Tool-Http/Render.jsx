@@ -4,8 +4,8 @@ function Render(props) {
   const { property, monitor, trigger } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setRequest) {
-      const remove = monitor.setRequest(data => {
+    if (monitor && monitor.request) {
+      const remove = monitor.request(data => {
         if (property.mode === 'fetch') fetch_exe(data)
         if (property.mode === 'xhr') xhr_exe(data)
       })

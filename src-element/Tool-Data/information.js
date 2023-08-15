@@ -1,5 +1,5 @@
 const information = {
-  name: '数据库',
+  name: 'Tool Data',
   type: 'Tool',
   children: false,
   monitor: [

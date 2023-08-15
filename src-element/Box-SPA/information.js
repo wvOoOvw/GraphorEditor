@@ -1,5 +1,5 @@
 const information = {
-  name: 'Box-Spa',
+  name: 'Box Spa',
   type: 'Box',
   children: false,
   monitor: [

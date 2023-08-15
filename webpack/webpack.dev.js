@@ -19,6 +19,6 @@ module.exports = Object.assign({}, common, {
     'react-router-dom': 'ReactRouterDOM',
     'react-ace': 'ReactAce',
     '@mui/material': 'MaterialUI',
-    'axios': 'axios'
+    'hls': 'Hls'
   }
 })

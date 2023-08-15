@@ -13,7 +13,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>立即执行</div>
+      <div>Ivmmediate Effect</div>
       <Switch checked={value.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
     </Grid>
   </Grid>

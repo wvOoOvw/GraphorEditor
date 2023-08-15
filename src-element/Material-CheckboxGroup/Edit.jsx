@@ -63,12 +63,11 @@ function Edit(props) {
               onChange((value) => value.options = v_)
               setModalOptions(false)
             } catch {
-              alert('格式错误')
+              alert('Format Error')
             }
           }}
           onClose={() => setModalOptions(false)}
           mode='json'
-          initValue={'[]'}
         /> : null
     }
   </Grid>

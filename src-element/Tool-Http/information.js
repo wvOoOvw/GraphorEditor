@@ -3,11 +3,11 @@ const information = {
   type: 'Tool',
   children: false,
   monitor: [
-    { value: 'setRequest', label: '设置请求' }
+    { value: 'request', label: 'Request' }
   ],
   trigger: [
-    { value: 'onResponse', label: '请求成功' },
-    { value: 'onError', label: '请求失败' }
+    { value: 'onResponse', label: 'Request Response' },
+    { value: 'onError', label: 'Request Error' }
   ],
   style: {
     $use: ['use']

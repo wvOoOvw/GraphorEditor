@@ -1,8 +1,7 @@
 import React from 'react'
+import Hls from 'hls.js'
 
 function Render(props) {
-  const Hls = window.Hls
-
   const { event, style, property, monitor, update } = props
 
   React.useEffect(() => {

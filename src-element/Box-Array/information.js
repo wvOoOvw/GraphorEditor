@@ -1,5 +1,5 @@
 const information = {
-  name: 'Box-Array',
+  name: 'Box Array',
   type: 'Box',
   children: [
     { value: 'main', label: 'Main' }
