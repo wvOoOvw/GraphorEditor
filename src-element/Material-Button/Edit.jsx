@@ -34,11 +34,13 @@ function Edit(props) {
         <FormControl {...sx.SelectSX} fullWidth>
           <InputLabel>Color</InputLabel>
           <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
-            {
-              ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-                return <MenuItem key={i} value={i}>{i}</MenuItem>
-              })
-            }
+            <MenuItem value='primary'>Primary</MenuItem>
+            <MenuItem value='inherit'>Inherit</MenuItem>
+            <MenuItem value='secondary'>Secondary</MenuItem>
+            <MenuItem value='success'>Success</MenuItem>
+            <MenuItem value='error'>Error</MenuItem>
+            <MenuItem value='info'>Info</MenuItem>
+            <MenuItem value='warning'>Warning</MenuItem>
           </Select>
         </FormControl>
       </Grid>

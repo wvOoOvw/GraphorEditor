@@ -2,8 +2,8 @@ const information = {
   name: 'Tooltip',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: '主模块' },
-    { value: 'float', label: '浮窗模块' }
+    { value: 'main', label: 'Main' },
+    { value: 'float', label: 'Float' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },

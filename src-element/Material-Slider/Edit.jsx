@@ -17,16 +17,16 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='最小值' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Min' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='最大值' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='间距' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Step' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
@@ -45,18 +45,18 @@ function Edit(props) {
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
         <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          <MenuItem value='medium'>中</MenuItem>
-          <MenuItem value='small'>小</MenuItem>
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>浮标</InputLabel>
-        <Select {...sx.SelectSX} value={value.valueLabelDisplay} label='浮标' onChange={e => onChange(Object.assign({}, value, { valueLabelDisplay: e.target.value }))}>
-          <MenuItem value='auto'>使用时打开</MenuItem>
-          <MenuItem value='on'>打开</MenuItem>
-          <MenuItem value='off'>关闭</MenuItem>
+        <InputLabel>Value Label Display</InputLabel>
+        <Select {...sx.SelectSX} value={value.valueLabelDisplay} label='Value Label Display' onChange={e => onChange(Object.assign({}, value, { valueLabelDisplay: e.target.value }))}>
+          <MenuItem value='auto'>Auto</MenuItem>
+          <MenuItem value='on'>On</MenuItem>
+          <MenuItem value='off'>Off</MenuItem>
         </Select>
       </FormControl>
     </Grid>

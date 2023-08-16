@@ -1,12 +1,12 @@
 const information = {
-  name: '开关',
+  name: 'Switch',
   type: 'Material UI Component',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setCheckedOpen', label: '设置为打开' },
-    { value: 'setCheckedClose', label: '设置为关闭' },
+    { value: 'setCheckedOpen', label: 'Check Value' },
+    { value: 'setCheckedClose', label: 'Uncheck Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

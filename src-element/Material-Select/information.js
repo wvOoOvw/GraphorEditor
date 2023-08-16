@@ -1,5 +1,5 @@
 const information = {
-  name: '选择框',
+  name: 'Select',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -23,8 +23,8 @@ const information = {
   },
   property: {
     value: '',
-    options: [{ label: '选择框', value: 'option' }],
-    label: '输入',
+    options: [{ label: 'Option', value: 'option' }],
+    label: 'Label',
     variant: 'outlined',
     size: 'medium',
     disabled: false,

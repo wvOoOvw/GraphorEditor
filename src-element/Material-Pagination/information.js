@@ -1,12 +1,12 @@
 const information = {
-  name: '分页',
+  name: 'Pagination',
   type: 'Material UI Component',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setPage', label: '设置当前页码' },
-    { value: 'setCount', label: '设置页码总数' },
+    { value: 'setPage', label: 'Set Page' },
+    { value: 'setCount', label: 'Set Count' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

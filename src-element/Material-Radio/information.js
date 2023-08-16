@@ -1,12 +1,12 @@
 const information = {
-  name: '单选框',
+  name: 'Radio',
   type: 'Material UI Component',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setCheckedOpen', label: '设置为选中' },
-    { value: 'setCheckedClose', label: '设置为未选中' },
+    { value: 'setCheckedOpen', label: 'Check Value' },
+    { value: 'setCheckedClose', label: 'Uncheck Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },
@@ -16,7 +16,7 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: 'Value Change' },
+    { value: 'onChange', label: 'Check Change' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']

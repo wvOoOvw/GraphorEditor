@@ -1,5 +1,5 @@
 const information = {
-  name: '单选框组',
+  name: 'RadioGroup',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -23,7 +23,7 @@ const information = {
   },
   property: {
     value: '',
-    options: [{ label: '单选框组', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
     color: 'primary',
     size: 'medium',
     disabled: false

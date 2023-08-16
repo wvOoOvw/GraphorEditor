@@ -1,5 +1,5 @@
 const information = {
-  name: '选项卡',
+  name: 'Tabs',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -23,7 +23,7 @@ const information = {
   },
   property: {
     value: '',
-    options: [{ label: '选项卡', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
     textColor: 'primary',
     indicatorColor: 'primary',
     orientation: 'horizontal',

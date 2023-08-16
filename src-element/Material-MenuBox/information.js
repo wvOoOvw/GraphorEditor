@@ -1,8 +1,8 @@
 const information = {
-  name: '浮窗菜单',
+  name: 'Menu Box',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: '主模块' }
+    { value: 'main', label: 'Main' }
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
@@ -16,16 +16,16 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onClick', label: '单项点击' },
+    { value: 'onClick', label: 'Click Item' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
-    options: [{ label: '菜单', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
     openType: 'click',
     open: false,
-    clickClose: false
+    enableClose: true
   }
 }
 

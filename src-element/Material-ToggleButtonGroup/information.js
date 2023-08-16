@@ -1,5 +1,5 @@
 const information = {
-  name: '按钮组',
+  name: 'Toggle Button Group',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -16,14 +16,14 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: '切换' },
+    { value: 'onChange', label: 'Value Change' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
     value: '',
-    options: [{ label: '按钮组', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
     orientation: 'horizontal',
     size: 'medium',
     color: 'standard',

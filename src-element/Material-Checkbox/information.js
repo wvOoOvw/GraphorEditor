@@ -5,8 +5,8 @@ const information = {
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setCheckedOpen', label: 'Check' },
-    { value: 'setCheckedClose', label: 'Uncheck' },
+    { value: 'setCheckedOpen', label: 'Check Value' },
+    { value: 'setCheckedClose', label: 'Uncheck Value' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

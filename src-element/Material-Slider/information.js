@@ -1,5 +1,5 @@
 const information = {
-  name: '滑动条',
+  name: 'Slider',
   type: 'Material UI Component',
   children: false,
   monitor: [

@@ -16,19 +16,19 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>默认打开</div>
+      <div>Open</div>
       <Switch checked={value.open} onChange={e => onChange(Object.assign({}, value, { open: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>点击关闭</div>
-      <Switch checked={value.clickClose} onChange={e => onChange(Object.assign({}, value, { clickClose: e.target.checked }))} />
+      <div>Enable Click Close</div>
+      <Switch checked={value.enableClose} onChange={e => onChange(Object.assign({}, value, { enableClose: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>唤起方式</InputLabel>
-        <Select {...sx.SelectSX} value={value.openType} label='唤起方式' onChange={e => onChange(Object.assign({}, value, { openType: e.target.value }))}>
-          <MenuItem value='click'>点击</MenuItem>
-          <MenuItem value='mouseover'>悬浮</MenuItem>
+        <InputLabel>Open Type</InputLabel>
+        <Select {...sx.SelectSX} value={value.openType} label='Open Type' onChange={e => onChange(Object.assign({}, value, { openType: e.target.value }))}>
+          <MenuItem value='click'>Click</MenuItem>
+          <MenuItem value='mouseover'>Mouseover</MenuItem>
         </Select>
       </FormControl>
     </Grid>

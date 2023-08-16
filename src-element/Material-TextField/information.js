@@ -1,5 +1,5 @@
 const information = {
-  name: '输入框',
+  name: 'Text Field',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -28,7 +28,7 @@ const information = {
     value: '',
     variant: 'outlined',
     color: 'primary',
-    label: '输入',
+    label: 'Label',
     size: 'medium',
     disabled: false
   }

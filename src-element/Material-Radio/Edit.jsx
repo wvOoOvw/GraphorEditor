@@ -16,7 +16,7 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>默认值</div>
+      <div>Checked</div>
       <Switch checked={value.checked} onChange={e => onChange(Object.assign({}, value, { checked: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
@@ -36,9 +36,9 @@ function Edit(props) {
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
         <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          <MenuItem value='large'>大</MenuItem>
-          <MenuItem value='medium'>中</MenuItem>
-          <MenuItem value='small'>小</MenuItem>
+          <MenuItem value='large'>Large</MenuItem>
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>

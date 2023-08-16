@@ -12,14 +12,14 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.content} onChange={e => onChange(Object.assign({}, value, { content: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Content' value={value.content} onChange={e => onChange(Object.assign({}, value, { content: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
-          <MenuItem value='standard'>数字</MenuItem>
-          <MenuItem value='dot'>原点</MenuItem>
+        <InputLabel>Variant</InputLabel>
+        <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+          <MenuItem value='standard'>Standard</MenuItem>
+          <MenuItem value='dot'>Dot</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -38,19 +38,19 @@ function Edit(props) {
     </Grid>
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>水平位置</InputLabel>
-        <Select {...sx.SelectSX} value={value.anchorOrigin.horizontal} label='水平位置' onChange={e => onChange((v) => v.anchorOrigin.horizontal = e.target.value)}>
-          <MenuItem value='left'>左</MenuItem>
-          <MenuItem value='right'>右</MenuItem>
+        <InputLabel>Horizontal Position</InputLabel>
+        <Select {...sx.SelectSX} value={value.anchorOrigin.horizontal} label='Horizontal Position' onChange={e => onChange((v) => v.anchorOrigin.horizontal = e.target.value)}>
+          <MenuItem value='left'>Left</MenuItem>
+          <MenuItem value='right'>Right</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>垂直位置</InputLabel>
-        <Select {...sx.SelectSX} value={value.anchorOrigin.vertical} label='水平位置' onChange={e => onChange((v) => v.anchorOrigin.vertical = e.target.value)}>
-          <MenuItem value='top'>上</MenuItem>
-          <MenuItem value='bottom'>下</MenuItem>
+        <InputLabel>Vertical Position</InputLabel>
+        <Select {...sx.SelectSX} value={value.anchorOrigin.vertical} label='Vertical Position' onChange={e => onChange((v) => v.anchorOrigin.vertical = e.target.value)}>
+          <MenuItem value='top'>Top</MenuItem>
+          <MenuItem value='bottom'>Bottom</MenuItem>
         </Select>
       </FormControl>
     </Grid>

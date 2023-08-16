@@ -15,11 +15,13 @@ function Render(props) {
   }, [])
 
   const onClick = (e, value) => {
-    if (property.clickClose) onClose()
+    if (property.enableClose === false) return
+    onClose()
     if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
   const onClose = () => {
+    if (property.enableClose === false) return
     property.open = false
     update()
   }
@@ -34,7 +36,7 @@ function Render(props) {
   return <>
     <div
       {...event}
-    {...style}
+      {...style}
       ref={el => ref.current = el}
       onClick={property.openType === 'click' ? onOpen : undefined}
       onMouseOver={property.openType === 'mouseover' ? onOpen : undefined}

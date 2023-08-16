@@ -36,22 +36,22 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>多选</div>
+      <div>Multiple</div>
       <Switch checked={value.multiple} onChange={e => changemultiple(e)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='标题' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
-          <MenuItem value='outlined'>边线</MenuItem>
-          <MenuItem value='filled'>填充</MenuItem>
-          <MenuItem value='standard'>默认</MenuItem>
+        <InputLabel>Variant</InputLabel>
+        <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+          <MenuItem value='outlined'>Outlined</MenuItem>
+          <MenuItem value='filled'>Filled</MenuItem>
+          <MenuItem value='standard'>Standard</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -59,8 +59,8 @@ function Edit(props) {
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
         <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          <MenuItem value='medium'>中</MenuItem>
-          <MenuItem value='small'>小</MenuItem>
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>

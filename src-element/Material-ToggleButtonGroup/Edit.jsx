@@ -62,9 +62,9 @@ function Edit(props) {
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
         <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          <MenuItem value='large'>大</MenuItem>
-          <MenuItem value='medium'>中</MenuItem>
-          <MenuItem value='small'>小</MenuItem>
+          <MenuItem value='large'>Large</MenuItem>
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>

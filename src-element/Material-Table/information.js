@@ -1,5 +1,5 @@
 const information = {
-  name: '表格',
+  name: 'Table',
   type: 'Material UI Component',
   children: false,
   monitor: [

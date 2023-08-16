@@ -26,22 +26,19 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>表头固定</div>
+      <div>Sticky Header</div>
       <Switch checked={value.stickyHeader} onChange={e => onChange(Object.assign({}, value, { stickyHeader: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>边框</div>
+      <div>Border</div>
       <Switch checked={value.componentPaper} onChange={e => onChange(Object.assign({}, value, { componentPaper: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
         <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          {
-            ['medium', 'small'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -49,29 +46,29 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>使用分页</div>
+      <div>Use Pagination</div>
       <Switch checked={value.usePagination} onChange={e => onChange(Object.assign({}, value, { usePagination: e.target.checked }))} />
     </Grid>
     {
       value.usePagination ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>内置分页</div>
+            <div>Use Pagination Component</div>
             <Switch checked={value.paginationComponent} onChange={e => onChange(Object.assign({}, value, { paginationComponent: e.target.checked }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='单页计数' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='Pagination Size' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='页码' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='Pagination Page' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
-              <InputLabel>分页位置</InputLabel>
-              <Select {...sx.SelectSX} value={value.paginationJustifyContent} label='分页位置' onChange={e => onChange(Object.assign({}, value, { paginationJustifyContent: e.target.value }))}  >
-                <MenuItem value='center'>居中</MenuItem>
-                <MenuItem value='flex-start'>左</MenuItem>
-                <MenuItem value='flex-end'>右</MenuItem>
+              <InputLabel>Pagination Justify Content</InputLabel>
+              <Select {...sx.SelectSX} value={value.paginationJustifyContent} label='Pagination Justify Content' onChange={e => onChange(Object.assign({}, value, { paginationJustifyContent: e.target.value }))}  >
+                <MenuItem value='center'>Center</MenuItem>
+                <MenuItem value='flex-start'>Flex Start</MenuItem>
+                <MenuItem value='flex-end'>Flex End</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -82,7 +79,7 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>使用尾部按钮</div>
+      <div>Use Action Button</div>
       <Switch checked={value.useAction} onChange={e => onChange(Object.assign({}, value, { useAction: e.target.checked }))} />
     </Grid>
     {
@@ -90,31 +87,33 @@ function Edit(props) {
         <>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
-              <InputLabel>按钮类型</InputLabel>
-              <Select {...sx.SelectSX} value={value.actionVariant} label='按钮类型' onChange={e => onChange(Object.assign({}, value, { actionVariant: e.target.value }))}>
-                <MenuItem value='text'>文字</MenuItem>
-                <MenuItem value='outlined'>边线</MenuItem>
-                <MenuItem value='contained'>填充</MenuItem>
+              <InputLabel>Action Button Variant</InputLabel>
+              <Select {...sx.SelectSX} value={value.actionVariant} label='Action Button Variant' onChange={e => onChange(Object.assign({}, value, { actionVariant: e.target.value }))}>
+                <MenuItem value='text'>Text</MenuItem>
+                <MenuItem value='outlined'>Outlined</MenuItem>
+                <MenuItem value='contained'>Contained</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
-              <InputLabel>按钮Color</InputLabel>
-              <Select {...sx.SelectSX} value={value.actionColor} label='按钮Color' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
-                {
-                  ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-                    return <MenuItem key={i} value={i}>{i}</MenuItem>
-                  })
-                }
+              <InputLabel>Color</InputLabel>
+              <Select {...sx.SelectSX} value={value.actionColor} label='Color' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
+                <MenuItem value='primary'>Primary</MenuItem>
+                <MenuItem value='inherit'>Inherit</MenuItem>
+                <MenuItem value='secondary'>Secondary</MenuItem>
+                <MenuItem value='success'>Success</MenuItem>
+                <MenuItem value='error'>Error</MenuItem>
+                <MenuItem value='info'>Info</MenuItem>
+                <MenuItem value='warning'>Warning</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='标题文案' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='Title' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='按钮文案' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth label='Text' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
           </Grid>
         </>
         : null
