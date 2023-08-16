@@ -6,8 +6,8 @@ const information = {
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setValue', label: 'Set Value' },
-    { value: 'setDisabledOpen', label: 'Use Disabled' },
-    { value: 'setDisabledClose', label: 'Unuse Disabled' }
+    { value: 'setDisabledOpen', label: 'Disable Button' },
+    { value: 'setDisabledClose', label: 'Enable Button' }
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

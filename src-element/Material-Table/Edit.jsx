@@ -21,8 +21,8 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [modalHead, setModalHead] = React.useState(false)
-  const [modalBody, setModalBody] = React.useState(false)
+  const [headDialog, setHeadDialog] = React.useState(false)
+  const [bodyDialog, setBodyDialog] = React.useState(false)
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -122,14 +122,14 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>使用头部选择</div>
+      <div>Use Select Checkbox</div>
       <Switch checked={value.useSelect} onChange={e => onChange(Object.assign({}, value, { useSelect: e.target.checked }))} />
     </Grid>
     {
       value.useSelect ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>显示全选</div>
+            <div>Multiple</div>
             <Switch checked={value.selectMultiple} onChange={e => onChange(Object.assign({}, value, { selectMultiple: e.target.checked }))} />
           </Grid>
         </>
@@ -139,14 +139,14 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalHead(true)}>配置表头数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setHeadDialog(true)}>Set Head Options</Button>
     </Grid>
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalBody(true)}>配置表格数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setBodyDialog(true)}>Set Body Options</Button>
     </Grid>
 
     {
-      modalHead ?
+      headDialog ?
         <component.AceDialog
           value={JSON.stringify(value.head, null, 2)}
           onChange={v => {
@@ -154,19 +154,19 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.head = v_)
-              setModalHead(false)
+              setHeadDialog(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setModalHead(false)}
+          onClose={() => setHeadDialog(false)}
           mode='json'
         />
         : null
     }
 
     {
-      modalBody ?
+      bodyDialog ?
         <component.AceDialog
           value={JSON.stringify(value.body, null, 2)}
           onChange={v => {
@@ -174,12 +174,12 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.body = v_)
-              setModalBody(false)
+              setBodyDialog(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setModalBody(false)}
+          onClose={() => setBodyDialog(false)}
           mode='json'
         />
         : null
