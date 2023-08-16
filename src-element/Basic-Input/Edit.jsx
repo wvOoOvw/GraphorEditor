@@ -60,7 +60,8 @@ function Edit(props) {
           <Grid item xs={12}>
             <TextField {...sx.TextFieldSX} fullWidth label='File Accept' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
           </Grid>
-        </> : null
+        </>
+        : null
     }
   </Grid>
 }

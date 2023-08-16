@@ -1,5 +1,5 @@
 const information = {
-  name: 'SVG',
+  name: 'Svg',
   type: 'Basic',
   children: false,
   monitor: [

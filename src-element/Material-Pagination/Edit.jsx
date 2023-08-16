@@ -38,8 +38,8 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <InputLabel>Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
           {
             ['standard', 'primary', 'secondary'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -50,8 +50,8 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>尺寸</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <InputLabel>Size</InputLabel>
+        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='large'>大</MenuItem>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>

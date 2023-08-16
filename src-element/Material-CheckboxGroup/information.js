@@ -1,5 +1,5 @@
 const information = {
-  name: '选择框组',
+  name: 'Checkbox Group',
   type: 'Material UI Component',
   children: false,
   monitor: [

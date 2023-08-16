@@ -35,8 +35,8 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>尺寸</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <InputLabel>Size</InputLabel>
+        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           {
             ['medium', 'small'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -75,7 +75,8 @@ function Edit(props) {
               </Select>
             </FormControl>
           </Grid>
-        </> : null
+        </>
+        : null
     }
 
     <Grid item xs={12}><Divider /></Grid>
@@ -99,8 +100,8 @@ function Edit(props) {
           </Grid>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
-              <InputLabel>按钮主题颜色</InputLabel>
-              <Select {...sx.SelectSX} value={value.actionColor} label='按钮主题颜色' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
+              <InputLabel>按钮Color</InputLabel>
+              <Select {...sx.SelectSX} value={value.actionColor} label='按钮Color' onChange={e => onChange(Object.assign({}, value, { actionColor: e.target.value }))}>
                 {
                   ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
                     return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -115,7 +116,8 @@ function Edit(props) {
           <Grid item xs={12}>
             <TextField {...sx.TextFieldSX} fullWidth label='按钮文案' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
           </Grid>
-        </> : null
+        </>
+        : null
     }
 
     <Grid item xs={12}><Divider /></Grid>
@@ -131,7 +133,8 @@ function Edit(props) {
             <div>显示全选</div>
             <Switch checked={value.selectMultiple} onChange={e => onChange(Object.assign({}, value, { selectMultiple: e.target.checked }))} />
           </Grid>
-        </> : null
+        </>
+        : null
     }
 
     <Grid item xs={12}><Divider /></Grid>
@@ -159,7 +162,8 @@ function Edit(props) {
           }}
           onClose={() => setModalHead(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
 
     {
@@ -178,7 +182,8 @@ function Edit(props) {
           }}
           onClose={() => setModalBody(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
   </Grid >
 }

@@ -63,7 +63,8 @@ function Edit(props) {
           }}
           onClose={() => setModalHead(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
 
     {
@@ -82,7 +83,8 @@ function Edit(props) {
           }}
           onClose={() => setModalBody(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
   </Grid >
 }

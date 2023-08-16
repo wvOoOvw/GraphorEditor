@@ -13,11 +13,15 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>打开</div>
+      <div>Open</div>
       <Switch checked={value.open} onChange={e => onChange(v => v.open = e.target.checked)} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>分割线</div>
+      <div>Enable Click Close</div>
+      <Switch checked={value.enableClose} onChange={e => onChange(v => v.enableClose = e.target.checked)} />
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Dividers</div>
       <Switch checked={value.dividers} onChange={e => onChange(v => v.dividers = e.target.checked)} />
     </Grid>
   </Grid>

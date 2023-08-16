@@ -25,13 +25,14 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
-          {
-            ['primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+        <InputLabel>Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
+          <MenuItem value='success'>Success</MenuItem>
+          <MenuItem value='error'>Error</MenuItem>
+          <MenuItem value='info'>Info</MenuItem>
+          <MenuItem value='warning'>Warning</MenuItem>
         </Select>
       </FormControl>
     </Grid>

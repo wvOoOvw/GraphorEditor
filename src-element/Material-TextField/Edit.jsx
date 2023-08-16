@@ -18,7 +18,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>禁用</div>
+      <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
@@ -59,20 +59,21 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
-          {
-            ['primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+        <InputLabel>Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
+          <MenuItem value='success'>Success</MenuItem>
+          <MenuItem value='error'>Error</MenuItem>
+          <MenuItem value='info'>Info</MenuItem>
+          <MenuItem value='warning'>Warning</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>尺寸</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <InputLabel>Size</InputLabel>
+        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
           <MenuItem value='medium'>中</MenuItem>
           <MenuItem value='small'>小</MenuItem>
         </Select>

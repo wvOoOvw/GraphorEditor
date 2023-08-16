@@ -14,26 +14,26 @@ function Edit(props) {
   return <>
     <Grid container spacing={1}>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>禁用</div>
+        <div>Disabled</div>
         <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
       </Grid>
       <Grid item xs={12}>
-        <TextField {...sx.TextFieldSX} fullWidth label='内容' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
+        <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
       </Grid>
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>
-          <InputLabel>类型</InputLabel>
-          <Select {...sx.SelectSX} value={value.variant} label='类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
-            <MenuItem value='text'>文字</MenuItem>
-            <MenuItem value='outlined'>边线</MenuItem>
-            <MenuItem value='contained'>填充</MenuItem>
+          <InputLabel>Variant</InputLabel>
+          <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+            <MenuItem value='text'>Text</MenuItem>
+            <MenuItem value='outlined'>Outlined</MenuItem>
+            <MenuItem value='contained'>Contained</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>
-          <InputLabel>主题颜色</InputLabel>
-          <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <InputLabel>Color</InputLabel>
+          <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
             {
               ['primary', 'inherit', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
                 return <MenuItem key={i} value={i}>{i}</MenuItem>

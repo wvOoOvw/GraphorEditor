@@ -13,7 +13,7 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [modalOptions, setModalOptions] = React.useState(false)
+  const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -25,8 +25,8 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>文字主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.textColor} label='文字主题颜色' onChange={e => onChange(Object.assign({}, value, { textColor: e.target.value }))}>
+        <InputLabel>文字Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.textColor} label='文字Color' onChange={e => onChange(Object.assign({}, value, { textColor: e.target.value }))}>
           {
             ['primary', 'inherit', 'secondary'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -37,8 +37,8 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>背景主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.indicatorColor} label='背景主题颜色' onChange={e => onChange(Object.assign({}, value, { indicatorColor: e.target.value }))}>
+        <InputLabel>背景Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.indicatorColor} label='背景Color' onChange={e => onChange(Object.assign({}, value, { indicatorColor: e.target.value }))}>
           {
             ['primary', 'secondary'].map(i => {
               return <MenuItem key={i} value={i}>{i}</MenuItem>
@@ -81,11 +81,11 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalOptions(true)}>配置选项数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
     </Grid>
 
     {
-      modalOptions ?
+      aceDialog ?
         <component.AceDialog
           value={JSON.stringify(value.options, null, 2)}
           onChange={v => {
@@ -93,14 +93,15 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.options = v_)
-              setModalOptions(false)
+              setAceDialog(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setModalOptions(false)}
+          onClose={() => setAceDialog(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
   </Grid>
 }

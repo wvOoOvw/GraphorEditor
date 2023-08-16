@@ -13,11 +13,11 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [modalOptions, setModalOptions] = React.useState(false)
+  const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>禁用</div>
+      <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
@@ -25,23 +25,24 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>主题颜色</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='主题颜色' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
-          {
-            ['primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+        <InputLabel>Color</InputLabel>
+        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
+          <MenuItem value='success'>Success</MenuItem>
+          <MenuItem value='error'>Error</MenuItem>
+          <MenuItem value='info'>Info</MenuItem>
+          <MenuItem value='warning'>Warning</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>尺寸</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='尺寸' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
-          <MenuItem value='large'>大</MenuItem>
-          <MenuItem value='medium'>中</MenuItem>
-          <MenuItem value='small'>小</MenuItem>
+        <InputLabel>Size</InputLabel>
+        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+          <MenuItem value='large'>Large</MenuItem>
+          <MenuItem value='medium'>Medium</MenuItem>
+          <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -49,11 +50,11 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalOptions(true)}>配置选项数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
     </Grid>
 
     {
-      modalOptions ?
+      aceDialog ?
         <component.AceDialog
           value={JSON.stringify(value.options, null, 2)}
           onChange={v => {
@@ -61,14 +62,15 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.options = v_)
-              setModalOptions(false)
+              setAceDialog(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setModalOptions(false)}
+          onClose={() => setAceDialog(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
   </Grid>
 }

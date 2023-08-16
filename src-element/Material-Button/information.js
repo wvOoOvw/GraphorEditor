@@ -1,5 +1,5 @@
 const information = {
-  name: '按钮',
+  name: 'Button',
   type: 'Material UI Component',
   children: false,
   monitor: [

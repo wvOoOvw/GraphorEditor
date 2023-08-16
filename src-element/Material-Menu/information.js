@@ -1,5 +1,5 @@
 const information = {
-  name: '菜单',
+  name: 'Menu',
   type: 'Material UI Component',
   children: false,
   monitor: [
@@ -14,13 +14,13 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onClick', label: '单项点击' },
+    { value: 'onClick', label: 'Click Item' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
-    options: [{ label: '菜单', value: 'option' }],
+    options: [{ label: 'Option', value: 'option' }],
   }
 }
 

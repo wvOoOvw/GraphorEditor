@@ -8,7 +8,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='尺寸' value={value.size} onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth label='Size' value={value.size} onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='厚度' value={value.thickness} onChange={e => onChange(Object.assign({}, value, { thickness: e.target.value }))} type='number' />

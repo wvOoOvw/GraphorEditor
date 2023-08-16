@@ -25,6 +25,8 @@ function Render(props) {
   }, [])
 
   const onClose = (e) => {
+    if (property.enableClose === false) return
+
     property.open = false
     update()
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)

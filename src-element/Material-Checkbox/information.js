@@ -1,12 +1,12 @@
 const information = {
-  name: '选择框',
+  name: 'Checkbox',
   type: 'Material UI Component',
   children: false,
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
     { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: 'setCheckedOpen', label: '设置为选中' },
-    { value: 'setCheckedClose', label: '设置为未选中' },
+    { value: 'setCheckedOpen', label: 'Check' },
+    { value: 'setCheckedClose', label: 'Uncheck' },
   ],
   trigger: [
     { value: '@onClick', label: 'Click' },

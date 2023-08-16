@@ -46,7 +46,8 @@ function Render(props) {
     </AccordionSummary>
 
     {
-      property.divider ? <Divider /> : null
+      property.divider ? <Divider />
+        : null
     }
 
     <AccordionDetails>

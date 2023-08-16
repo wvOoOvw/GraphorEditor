@@ -16,16 +16,16 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>清除间距</div>
+      <div>Disable Padding</div>
       <Switch checked={value.disablePadding} onChange={e => onChange(Object.assign({}, value, { disablePadding: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>水平对齐方式</InputLabel>
-        <Select {...sx.SelectSX} value={value.textAlign} label='对齐方式' onChange={e => onChange(Object.assign({}, value, { textAlign: e.target.value }))}  >
-          <MenuItem value='center'>居中</MenuItem>
-          <MenuItem value='left'>左</MenuItem>
-          <MenuItem value='right'>右</MenuItem>
+        <InputLabel>Text Align</InputLabel>
+        <Select {...sx.SelectSX} value={value.textAlign} label='Text Align' onChange={e => onChange(Object.assign({}, value, { textAlign: e.target.value }))}  >
+          <MenuItem value='center'>Center</MenuItem>
+          <MenuItem value='left'>Left</MenuItem>
+          <MenuItem value='right'>Right</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -33,7 +33,7 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalValue(true)}>配置列表数据</Button>
+      <Button fullWidth variant='outlined' onClick={() => setModalValue(true)}>Set List</Button>
     </Grid>
 
     {
@@ -52,7 +52,8 @@ function Edit(props) {
           }}
           onClose={() => setModalValue(false)}
           mode='json'
-        /> : null
+        />
+        : null
     }
   </Grid >
 }
