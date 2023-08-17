@@ -15,15 +15,13 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onClick', label: 'Click Item' },
   ],
   style: {
     $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
   },
   property: {
     value: [{ title: 'Title', desciption: 'Desciption' }],
-    textAlign: 'left',
-    disablePadding: true,
+    disablePadding: false,
   }
 }
 

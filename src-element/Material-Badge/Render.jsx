@@ -2,7 +2,7 @@ import React from 'react'
 import { Badge } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, children, update } = props
+  const { event, style, property, monitor, children, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setContent) {

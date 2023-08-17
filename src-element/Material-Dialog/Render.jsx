@@ -56,7 +56,7 @@ function Render(props) {
     {R}
   </Dialog>
 
-  if (env === 'dev') return <div {...event}>
+  if (env === 'dev') return <div {...event} {...style}>
     {R}
   </div>
 }

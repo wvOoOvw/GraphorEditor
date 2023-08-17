@@ -12,32 +12,22 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
-  const [modalValue, setModalValue] = React.useState(false)
+  const [aceDialog, setAceDialog] = React.useState(false)
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disable Padding</div>
       <Switch checked={value.disablePadding} onChange={e => onChange(Object.assign({}, value, { disablePadding: e.target.checked }))} />
     </Grid>
-    <Grid item xs={12}>
-      <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>Text Align</InputLabel>
-        <Select {...sx.SelectSX} value={value.textAlign} label='Text Align' onChange={e => onChange(Object.assign({}, value, { textAlign: e.target.value }))}  >
-          <MenuItem value='center'>Center</MenuItem>
-          <MenuItem value='left'>Left</MenuItem>
-          <MenuItem value='right'>Right</MenuItem>
-        </Select>
-      </FormControl>
-    </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setModalValue(true)}>Set List</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set List</Button>
     </Grid>
 
     {
-      modalValue ?
+      aceDialog ?
         <component.AceDialog
           value={JSON.stringify(value.value, null, 2)}
           onChange={v => {
@@ -45,12 +35,12 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.value = v_)
-              setModalValue(false)
+              setAceDialog(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setModalValue(false)}
+          onClose={() => setAceDialog(false)}
           mode='json'
         />
         : null

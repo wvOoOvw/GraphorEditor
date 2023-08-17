@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, property, monitor, children, env, update } = props
+  const { event, style, property, monitor, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -36,7 +36,7 @@ function Render(props) {
     }
   }
 
-  return <div {...event}>
+  return <div {...event} {...style}>
     {
       render_()
     }

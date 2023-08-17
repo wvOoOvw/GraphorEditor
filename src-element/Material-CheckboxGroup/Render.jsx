@@ -36,7 +36,7 @@ function Render(props) {
     }
   }
 
-  return <FormGroup {...event}>
+  return <FormGroup {...event} {...style}>
     {
       property.options.map((i, index) => {
         return <FormControlLabel

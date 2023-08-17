@@ -30,7 +30,7 @@ function Edit(props) {
       <Switch checked={value.stickyHeader} onChange={e => onChange(Object.assign({}, value, { stickyHeader: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Border</div>
+      <div>Paper Container</div>
       <Switch checked={value.componentPaper} onChange={e => onChange(Object.assign({}, value, { componentPaper: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>

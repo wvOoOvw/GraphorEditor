@@ -14,17 +14,11 @@ function Render(props) {
     }
   }, [])
 
-  const onClick = (e, value) => {
-    if (trigger && trigger.onClick) trigger.onClick(value, e)
-  }
-
-  return <List {...event}>
+  return <List {...event} {...style}>
     {
       property.value.map((i, index) => {
         return <ListItem disablePadding={property.disablePadding} key={index}>
-          <ListItemButton onClick={(e) => onClick(e, i)}>
-            <ListItemText primary={i.title} secondary={i.desciption} />
-          </ListItemButton>
+          <ListItemText primary={i.title} secondary={i.desciption} />
         </ListItem>
       })
     }

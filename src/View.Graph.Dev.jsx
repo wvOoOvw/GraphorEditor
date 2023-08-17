@@ -9,6 +9,8 @@ import { hash } from './utils.common'
 import { caculateStyle } from './utils.graph.style'
 import { graphElementSearch } from './utils.graph.common'
 
+var hoverTimeout = null
+
 const nodeOffset = node => {
   const parentNodes = []
 
@@ -46,7 +48,7 @@ function Hover() {
   const handle = () => {
     const hover = document.querySelector('[data-status=hover]')
 
-    if (hover !== null) {
+    if (hover !== null && hoverPosition === undefined) {
       setHoverPosition(nodeOffset(hover))
     }
     if (hover === null) {
@@ -84,7 +86,7 @@ function Active() {
   const handle = () => {
     const active = document.querySelector('[data-status=active]')
 
-    if (active !== null) {
+    if (active !== null && activePosition === undefined) {
       setActivePosition(nodeOffset(active))
     }
     if (active === null) {
@@ -139,11 +141,14 @@ function ElementRender(props) {
     e.preventDefault()
   }
   const onMouseOver = e => {
+    hoverTimeout = null
     Imitation.assignState({ elementHover: id })
     e.stopPropagation()
   }
   const onMouseOut = e => {
-    Imitation.assignState({ elementHover: undefined })
+    hoverTimeout = setTimeout(() => {
+      if (hoverTimeout) Imitation.assignState({ elementHover: undefined })
+    }, 0)
     e.stopPropagation()
   }
   const onClick = e => {

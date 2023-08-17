@@ -18,7 +18,7 @@ function Render(props) {
     if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
-  return <MenuList {...event}>
+  return <MenuList {...event} {...style}>
     {
       property.options.map((i, index) => {
         return <MenuItem key={index} onClick={e => onClick(e, i.value)}>
