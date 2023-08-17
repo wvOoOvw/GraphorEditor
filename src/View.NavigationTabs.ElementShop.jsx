@@ -93,7 +93,7 @@ function App() {
             .filter(i => !filter || i.information.type === filter)
             .map(i => {
               return <Grid item xs={12} key={i.information.licenseKey}>
-                <Tooltip {...TooltipSX} placement='right' title={i.View() ? <div style={{ padding: 8, width: 100, height: 100 }}><i.View /></div> : undefined}>
+                <Tooltip {...TooltipSX} placement='right' title={i.View() ? <div style={{ padding: 8, width: 200, height: 200 }}><i.View /></div> : undefined}>
                   <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                     <div>
                       {i.information.name}

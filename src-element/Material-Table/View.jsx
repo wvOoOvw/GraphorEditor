@@ -12,14 +12,14 @@ function View() {
       <TableHead>
         <TableRow>
           <TableCell>
-            ***
+            Head
           </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
           <TableCell>
-            ******
+            Body
           </TableCell>
         </TableRow>
       </TableBody>

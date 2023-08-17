@@ -1,5 +1,5 @@
 const information = {
-  name: 'Tool Data',
+  name: 'Data Store',
   type: 'Tool',
   children: false,
   monitor: [

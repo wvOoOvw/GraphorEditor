@@ -1,5 +1,5 @@
 const license = {
-  key: 'Tool-Data'
+  key: 'Tool-HttpRequest'
 }
 
 export default license

@@ -1,5 +1,5 @@
 const license = {
-  key: 'Tool-Http'
+  key: 'Tool-EventStore'
 }
 
 export default license

@@ -11,13 +11,13 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='Size' value={value.size} onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='厚度' value={value.thickness} onChange={e => onChange(Object.assign({}, value, { thickness: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth label='Thickness' value={value.thickness} onChange={e => onChange(Object.assign({}, value, { thickness: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={8}>
-      <TextField {...sx.TextFieldSX} fullWidth label='颜色' value={value.color} onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Color' value={value.color} onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth label='调色板' value={value.color} onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))} type='color' />
+      <TextField {...sx.TextFieldSX} fullWidth label='Color' value={value.color} onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))} type='color' />
     </Grid>
   </Grid>
 }

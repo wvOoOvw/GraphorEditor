@@ -20,17 +20,13 @@ l.push(load('Basic-Svg'))
 l.push(load('Basic-Text'))
 l.push(load('Basic-Video'))
 
-l.push(load('Extra-VideoHls'))
-
 l.push(load('Box-Array'))
 l.push(load('Box-Basic'))
 l.push(load('Box-Drag'))
 l.push(load('Box-HashRouter'))
 l.push(load('Box-SPA'))
 
-l.push(load('Tool-Data'))
-l.push(load('Tool-Effect'))
-l.push(load('Tool-Http'))
+l.push(load('Extra-VideoHls'))
 
 l.push(load('Material-Accordion'))
 l.push(load('Material-Autocomplete'))
@@ -55,6 +51,10 @@ l.push(load('Material-Tabs'))
 l.push(load('Material-TextField'))
 l.push(load('Material-ToggleButtonGroup'))
 l.push(load('Material-Tooltip'))
+
+l.push(load('Tool-DataStore'))
+l.push(load('Tool-EventStore'))
+l.push(load('Tool-HttpRequest'))
 
 // l.push(load('Echarts-Custom'))
 

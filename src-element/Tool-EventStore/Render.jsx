@@ -4,9 +4,9 @@ function Render(props) {
   const { property, monitor, trigger, env } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setEffect) {
-      const remove = monitor.setEffect(data => {
-        if (trigger && trigger.onEffect) trigger.onEffect(data)
+    if (monitor && monitor.monitorEvent) {
+      const remove = monitor.monitorEvent(data => {
+        if (trigger && trigger.triggerEvent) trigger.triggerEvent(data)
       })
       return () => { remove() }
     }
@@ -16,8 +16,8 @@ function Render(props) {
 
   React.useEffect(() => {
     if (property.immediate) {
-      Promise.resolve().then(() => {
-        if (trigger && trigger.onEffect) trigger.onEffect()
+      requestAnimationFrame(() => {
+        if (trigger && trigger.triggerEvent) trigger.triggerEvent()
       })
     }
   }, [])

@@ -7,15 +7,15 @@ import { ListItemButton } from '@mui/material'
 
 function View() {
   return <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <List style={{ transform: 'scale(0.6)' }}>
+    <List>
       <ListItemButton>
         <ListItem disablePadding>
-          <ListItemText primary='***' secondary='******' />
+          <ListItemText primary='Text' secondary='Sub Text' />
         </ListItem>
       </ListItemButton>
       <ListItemButton>
         <ListItem disablePadding>
-          <ListItemText primary='***' secondary='******' />
+          <ListItemText primary='Text' secondary='Sub Text' />
         </ListItem>
       </ListItemButton>
     </List>

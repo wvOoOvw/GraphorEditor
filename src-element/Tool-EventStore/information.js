@@ -1,12 +1,12 @@
 const information = {
-  name: 'Tool Effect',
+  name: 'Event Store',
   type: 'Tool',
   children: false,
   monitor: [
-    { value: 'setEffect', label: 'Set Effect Event' }
+    { value: 'monitorEvent', label: 'Monitor Event' }
   ],
   trigger: [
-    { value: 'onEffect', label: 'Effect Event' }
+    { value: 'triggerEvent', label: 'Trigger Event' }
   ],
   style: {
     $use: ['use']

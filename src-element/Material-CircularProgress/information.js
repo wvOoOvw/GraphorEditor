@@ -1,5 +1,5 @@
 const information = {
-  name: '加载',
+  name: 'Circular Progress',
   type: 'Material UI Component',
   children: false,
   monitor: [

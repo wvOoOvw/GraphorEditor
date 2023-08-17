@@ -6,12 +6,12 @@ import { AccordionDetails } from '@mui/material'
 
 function View() {
   return <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <Accordion style={{ width: '100%', transform: 'scale(0.7)' }}>
+    <Accordion style={{ width: '100%' }}>
       <AccordionSummary>
-        ***
+        AccordionSummary
       </AccordionSummary>
       <AccordionDetails>
-        ******
+        AccordionDetails
       </AccordionDetails>
     </Accordion>
   </div>

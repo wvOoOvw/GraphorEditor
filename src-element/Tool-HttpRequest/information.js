@@ -1,5 +1,5 @@
 const information = {
-  name: '网路请求',
+  name: 'Http Request',
   type: 'Tool',
   children: false,
   monitor: [

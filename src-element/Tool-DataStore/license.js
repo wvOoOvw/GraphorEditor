@@ -1,5 +1,5 @@
 const license = {
-  key: 'Tool-Effect'
+  key: 'Tool-DataStore'
 }
 
 export default license
