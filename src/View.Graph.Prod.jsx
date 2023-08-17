@@ -119,7 +119,7 @@ function ElementRender(props) {
 }
 
 function App() {
-  const React = window.React
+  console.log(React)
   const { graphContent, graphConfig } = window
 
   const [update, setUpdate] = React.useState(0)
