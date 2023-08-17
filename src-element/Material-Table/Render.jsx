@@ -8,58 +8,13 @@ const paginationFilter = (index, paginationSize, paginationPage) => {
 function Render(props) {
   const { event, property, monitor, trigger, env, update } = props
 
-  React.useEffect(() => {
-    if (monitor && monitor.setBody) {
-      const remove = monitor.setBody(data => {
-        property.body = data
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
-  React.useEffect(() => {
-    if (monitor && monitor.setHead) {
-      const remove = monitor.setHead(data => {
-        property.head = data
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
-  React.useEffect(() => {
-    if (monitor && monitor.setPaginationSize) {
-      const remove = monitor.setPaginationSize(data => {
-        property.paginationSize = data
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
-  React.useEffect(() => {
-    if (monitor && monitor.setPaginationPage) {
-      const remove = monitor.setPaginationPage(data => {
-        property.paginationPage = data
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
-  React.useEffect(() => {
-    if (monitor && monitor.setSelectClear) {
-      const remove = monitor.setSelectClear(data => {
-        property.selectChecked = []
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
-
   const onClick = (e, v) => {
     if (trigger && trigger.onClick) trigger.onClick(v, e)
   }
 
   const onSelect = (e, item) => {
     if (env === 'dev') return
+
     property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
     if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
@@ -96,11 +51,62 @@ function Render(props) {
 
   const onPaginationChange = (e, value) => {
     if (env === 'dev') return
+
     property.selectChecked = []
     property.paginationPage = value
     update()
     if (trigger && trigger.onPaginationChange) trigger.onPaginationChange(property.paginationPage, e)
   }
+
+  React.useEffect(() => {
+    if (monitor && monitor.setBody) {
+      const remove = monitor.setBody(data => {
+        property.body = data
+        update()
+      })
+      return () => { remove() }
+    }
+  }, [])
+  
+  React.useEffect(() => {
+    if (monitor && monitor.setHead) {
+      const remove = monitor.setHead(data => {
+        property.head = data
+        update()
+      })
+      return () => { remove() }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (monitor && monitor.setPaginationSize) {
+      const remove = monitor.setPaginationSize(data => {
+        property.paginationSize = data
+        update()
+      })
+      return () => { remove() }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (monitor && monitor.setPaginationPage) {
+      const remove = monitor.setPaginationPage(data => {
+        property.paginationPage = data
+        update()
+      })
+      return () => { remove() }
+    }
+  }, [])
+  
+  React.useEffect(() => {
+    if (monitor && monitor.setSelectClear) {
+      const remove = monitor.setSelectClear(data => {
+        property.selectChecked = []
+        update()
+      })
+      return () => { remove() }
+    }
+  }, [])
 
   return <Box {...event} {...style} component={property.componentPaper ? Paper : null}>
     <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
