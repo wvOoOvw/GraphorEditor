@@ -2,7 +2,7 @@ import React from 'react'
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, trigger, env, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -28,14 +28,6 @@ function Render(props) {
     property.value = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
-  }
-
-  const style = {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
   }
 
   return <ToggleButtonGroup {...event} {...style} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, trigger, children, env, update } = props
+  const { event, style, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setOpenTrue) {

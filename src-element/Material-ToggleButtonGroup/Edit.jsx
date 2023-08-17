@@ -36,25 +36,27 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>多选</div>
+      <div>Exclusive</div>
       <Switch checked={!value.exclusive} onChange={e => changeExclusive(e)} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>填充宽度</div>
+      <div>Full Width</div>
       <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='默认值' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
         <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
-          {
-            ['standard', 'primary', 'secondary', 'success', 'error', 'info', 'warning'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+          <MenuItem value='standard'>Standard</MenuItem>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
+          <MenuItem value='success'>Success</MenuItem>
+          <MenuItem value='error'>Error</MenuItem>
+          <MenuItem value='info'>Info</MenuItem>
+          <MenuItem value='warning'>Warning</MenuItem>
         </Select>
       </FormControl>
     </Grid>
@@ -70,10 +72,10 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>排列方向</InputLabel>
-        <Select {...sx.SelectSX} value={value.orientation} label='排列方向' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
-          <MenuItem value='horizontal'>横向</MenuItem>
-          <MenuItem value='vertical'>纵向</MenuItem>
+        <InputLabel>Orientation</InputLabel>
+        <Select {...sx.SelectSX} value={value.orientation} label='Orientation' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
+          <MenuItem value='horizontal'>Horizontal</MenuItem>
+          <MenuItem value='vertical'>Vertical</MenuItem>
         </Select>
       </FormControl>
     </Grid>

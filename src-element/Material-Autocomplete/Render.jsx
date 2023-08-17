@@ -2,7 +2,7 @@ import React from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, trigger, env, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -42,22 +42,9 @@ function Render(props) {
     }
   }
 
-  const Render = <Autocomplete
-    {...event}
-    {...style}
-    multiple={property.multiple}
-    size={property.size}
-    options={property.options}
-    getOptionLabel={(option) => option.label}
-    value={getValue()}
-    onChange={onChange}
-    renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
-  />
-
-  if (env === 'prod') {
-    return Render
-  } else {
+  if (env === 'dev') {
     const ref = React.useRef()
+
     React.useEffect(() => {
       if (ref.current) {
         ref.current.addEventListener('mousedown', e => { event.onMouseDown(e) }, true)
@@ -65,7 +52,35 @@ function Render(props) {
         ref.current.addEventListener('click', e => { event.onClick(e) }, true)
       }
     }, [])
-    return <div ref={el => ref.current = el}>{Render}</div>
+    
+    return <Autocomplete
+      {...event}
+      {...style}
+      multiple={property.multiple}
+      size={property.size}
+      fullWidth={property.fullWidth}
+      options={property.options}
+      getOptionLabel={(option) => option.label}
+      value={getValue()}
+      onChange={onChange}
+      renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+      ref={el => ref.current = el}
+    />
+  }
+
+  if (env === 'prod') {
+    return <Autocomplete
+      {...event}
+      {...style}
+      multiple={property.multiple}
+      size={property.size}
+      fullWidth={property.fullWidth}
+      options={property.options}
+      getOptionLabel={(option) => option.label}
+      value={getValue()}
+      onChange={onChange}
+      renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+    />
   }
 }
 

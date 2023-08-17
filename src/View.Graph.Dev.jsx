@@ -41,37 +41,79 @@ const nodeOffset = node => {
 }
 
 function Hover() {
-  const [hoverPosition, setHoverPosition] = React.useState([])
+  const [hoverPosition, setHoverPosition] = React.useState()
 
   const handle = () => {
-    const hover = document.querySelector('[data-hover=hover]')
-    const active = document.querySelector('[data-hover=active]')
-    const r = [hover, active].map(i => {
-      return i ? nodeOffset(i) : null
-    })
-    setHoverPosition(r)
+    const hover = document.querySelector('[data-status=hover]')
+
+    if (hover !== null) {
+      setHoverPosition(nodeOffset(hover))
+    }
+    if (hover === null) {
+      setHoverPosition()
+    }
   }
 
   React.useEffect(() => {
-    handle()
-    setTimeout(() => handle(), 500)
-  }, [Imitation.state.navigationTabsElementValue, Imitation.state.elementHover, Imitation.state.graphContentUpdate])
+    const observer = new MutationObserver((mutationsList, observer) => { handle() })
 
-  const style = (i) => {
-    const size = 28
-    const r = {
-      transition: '0.5s all',
-      width: size,
-      height: size,
-      position: 'absolute',
-      zIndex: 99999,
-      top: i.offsetTop + i.offsetHeight,
-      left: i.offsetWidth / 2 + i.offsetLeft - size / 2,
-    }
-    return r
+    observer.observe(document.getElementById('screen'), { attributes: true, childList: true, subtree: true })
+
+    return () => observer.disconnect()
+  }, [])
+
+  if (hoverPosition === undefined) return null
+
+  const style = {
+    transition: '0.5s all',
+    width: 28,
+    height: 28,
+    position: 'absolute',
+    zIndex: 99999,
+    color: 'rgb(0, 0, 0)',
+    top: hoverPosition.offsetTop + hoverPosition.offsetHeight,
+    left: hoverPosition.offsetWidth / 2 + hoverPosition.offsetLeft - 28 / 2,
   }
 
-  return hoverPosition.map((i, index) => i ? <div style={style(i)} className='element-hover' key={index}><KeyboardArrowUpIcon style={{ width: '100%', height: '100%', color: index === 1 ? 'rgb(25, 118, 210)' : 'black' }} /> </div> : null)
+  return <KeyboardArrowUpIcon style={style} className='element-hover' />
+}
+
+function Active() {
+  const [activePosition, setActivePosition] = React.useState()
+
+  const handle = () => {
+    const active = document.querySelector('[data-status=active]')
+
+    if (active !== null) {
+      setActivePosition(nodeOffset(active))
+    }
+    if (active === null) {
+      setActivePosition()
+    }
+  }
+
+  React.useEffect(() => {
+    const observer = new MutationObserver((mutationsList, observer) => { handle() })
+
+    observer.observe(document.getElementById('screen'), { attributes: true, childList: true, subtree: true })
+
+    return () => observer.disconnect()
+  }, [])
+
+  if (activePosition === undefined) return null
+
+  const style = {
+    transition: '0.5s all',
+    width: 28,
+    height: 28,
+    position: 'absolute',
+    zIndex: 99999,
+    color: 'rgb(25, 118, 210)',
+    top: activePosition.offsetTop + activePosition.offsetHeight,
+    left: activePosition.offsetWidth / 2 + activePosition.offsetLeft - 28 / 2,
+  }
+
+  return <KeyboardArrowUpIcon style={style} className='element-active' />
 }
 
 function ElementRender(props) {
@@ -125,12 +167,12 @@ function ElementRender(props) {
     style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' }
   }
 
-  if (Imitation.state.elementHover === id) {
-    style_exe['data-hover'] = 'hover'
+  if (Imitation.state.elementHover && Imitation.state.elementHover === id) {
+    style_exe['data-status'] = 'hover'
   }
 
-  if (Imitation.state.navigationTabsElementValue === id) {
-    style_exe['data-hover'] = 'active'
+  if (Imitation.state.navigationTabsElementValue && (Imitation.state.navigationTabsElementValue === id || Imitation.state.navigationTabsElementValue.split('@')[0] === id)) {
+    style_exe['data-status'] = 'active'
   }
 
   const Render_exe = <Render
@@ -211,6 +253,7 @@ function App() {
       onTouchStart={e => e.stopPropagation()}
     >
       <Hover />
+      <Active />
       <div>
         {
           Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} />)

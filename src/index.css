@@ -14,7 +14,7 @@ body {
   height: 0;
 }
 
-.element-hover {
+.element-hover, .element-active {
   animation-name: animation-element-hover;
   animation-duration: 1s;
   animation-iteration-count: infinite;

@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, trigger, env, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setCheckedOpen) {

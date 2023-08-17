@@ -135,7 +135,7 @@ function StyleConfig(props) {
 
 
   const style = [
-    use(['visible'], <ElementConfigComponent.Visible value={currentGraphElement} onChange={handleChange} />),
+    use(['visibility'], <ElementConfigComponent.Visibility value={currentGraphElement} onChange={handleChange} />),
     use(['width', 'height'], <ElementConfigComponent.Size value={currentGraphElement} onChange={handleChange} />),
     use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit value={currentGraphElement} onChange={handleChange} />),
     use(['padding'], <ElementConfigComponent.Padding value={currentGraphElement} onChange={handleChange} />),
@@ -249,7 +249,7 @@ function ChildrenConfig(props) {
   const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ modalVisible: 'AddElement', modalContent: Imitation.state.modalContent + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
   }
 
   const handleEdit = (i) => {

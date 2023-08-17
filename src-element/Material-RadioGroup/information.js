@@ -23,7 +23,7 @@ const information = {
   },
   property: {
     value: '',
-    options: [{ label: 'Option', value: 'option' }],
+    options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
     color: 'primary',
     size: 'medium',
     disabled: false

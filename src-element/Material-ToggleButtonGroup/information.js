@@ -12,7 +12,7 @@ const information = {
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },
-    { value: '@onMouseLeave', label: 'Mouse Leave'},
+    { value: '@onMouseLeave', label: 'Mouse Leave' },
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
@@ -23,12 +23,13 @@ const information = {
   },
   property: {
     value: '',
-    options: [{ label: 'Option', value: 'option' }],
+    options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
     orientation: 'horizontal',
     size: 'medium',
     color: 'standard',
     disabled: false,
     exclusive: true,
+    fullWidth: false
   }
 }
 

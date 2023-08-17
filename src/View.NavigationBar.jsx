@@ -7,7 +7,7 @@ import { Tooltip } from '@mui/material'
 import { Button } from '@mui/material'
 import { Grid } from '@mui/material'
 import { Paper } from '@mui/material'
-import { Card } from '@mui/material'
+import { Divider } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { DialogTitle } from '@mui/material'
 import { DialogContent } from '@mui/material'
@@ -77,7 +77,7 @@ const styleToClass = (html) => {
   return r
 }
 
-const simpleify = (content) => {
+const encodeify = (content) => {
   const data = JSON.parse(JSON.stringify(content))
 
   const array = []
@@ -127,7 +127,7 @@ const simpleify = (content) => {
   return { data, map: map_ }
 }
 
-const resumeify = (content, map) => {
+const decodeify = (content, map) => {
   const data = JSON.parse(JSON.stringify(content))
 
   const rename = (item, map) => {
@@ -152,12 +152,12 @@ const resumeify = (content, map) => {
   return data
 }
 
-const resumeifyString = "function(content, map) { const data = JSON.parse(JSON.stringify(content)); const rename = (item, map) => { if (item && typeof item === 'object') { if (Array.isArray(item)) { item.forEach(i => rename(i, map)) } else {Object.entries(item).forEach(i => { const [k, v] = i; rename(v, map); if (map[k]) { item[map[k]] = item[k]; delete item[k] } }) } } }; rename(data, map); return data }"
+const decodeifyString = "function(content, map) { const data = JSON.parse(JSON.stringify(content)); const rename = (item, map) => { if (item && typeof item === 'object') { if (Array.isArray(item)) { item.forEach(i => rename(i, map)) } else {Object.entries(item).forEach(i => { const [k, v] = i; rename(v, map); if (map[k]) { item[map[k]] = item[k]; delete item[k] } }) } } }; rename(data, map); return data }"
 
 function DialogPublish(props) {
   const { onClose } = props
 
-  const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
+  const [option, setOption] = React.useState({ spilt: false, encode: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
 
   const handlePublish = async () => {
     const data = { graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }
@@ -165,8 +165,6 @@ function DialogPublish(props) {
     var html = await fetch(`${option.sourceOrigin}/html/index.html`).then(res => res.text())
 
     var render = await fetch(`${option.sourceOrigin}/render/index.js`).then(res => res.text())
-
-    // var element = await fetch(`${option.sourceOrigin}/element-collection/index.js`).then(res => res.text())
 
     var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
@@ -220,19 +218,16 @@ function DialogPublish(props) {
         `<script id="graph.render">${render}</script>`
       )
 
-
-
-
-    if (option.simple) {
+    if (option.encode) {
       const graphContent = data.graphContent
       const graphConfig = data.graphConfig
 
-      const simpleContent = simpleify(graphContent)
-      const simpleConfig = simpleify(graphConfig)
+      const encodeContent = encodeify(graphContent)
+      const encodeConfig = encodeify(graphConfig)
 
       html = html.replace(
         /<script id="graph.data">.+?<\/script>/,
-        `<script id="graph.data">window.graphContent = (${resumeifyString}(${JSON.stringify(simpleContent.data)}, ${JSON.stringify(simpleContent.map)})); window.graphConfig = (${resumeifyString}(${JSON.stringify(simpleConfig.data)}, ${JSON.stringify(simpleConfig.map)}));</script>`
+        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)})); window.graphConfig = (${decodeifyString}(${JSON.stringify(encodeConfig.data)}, ${JSON.stringify(encodeConfig.map)}));</script>`
       )
     }
 
@@ -264,14 +259,6 @@ function DialogPublish(props) {
           /<script id="graph.render">.+?<\/script>/,
           `<script id="graph.index">${content} ${element} ${render}</script>`,
         )
-    }
-
-    if (option.static) {
-      html = html.replace(/<script.+?<\/script>/g, '')
-    }
-
-    if (option.inline) {
-      html = styleToClass(html)
     }
 
     if (option.spilt) {
@@ -336,47 +323,29 @@ function DialogPublish(props) {
   }
 
   return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
-    <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>publish config</DialogTitle>
+    <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>Publish Config</DialogTitle>
     <DialogContent dividers>
       <Grid container spacing={1}>
         <Grid item xs={12}>
+          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
+        </Grid>
+        <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>Prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign({}, pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div>Encode</div>
+            <div><Switch checked={option['encode']} onChange={e => setOption(pre => Object.assign({}, pre, { ['encode']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>Static</div>
-            <div><Switch checked={option['static']} onChange={e => setOption(pre => Object.assign({}, pre, { ['static']: e.target.checked }))}></Switch></div>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>Inline</div>
-            <div><Switch checked={option['inline']} onChange={e => setOption(pre => Object.assign({}, pre, { ['inline']: e.target.checked }))}></Switch></div>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>Simple data</div>
-            <div><Switch checked={option['simple']} onChange={e => setOption(pre => Object.assign({}, pre, { ['simple']: e.target.checked }))}></Switch></div>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>Spilt file</div>
+            <div>Spilt File</div>
             <div><Switch checked={option['spilt']} onChange={e => setOption(pre => Object.assign({}, pre, { ['spilt']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
-            <div>One script</div>
+            <div>One Script</div>
             <div><Switch checked={option['onescript']} onChange={e => setOption(pre => Object.assign({}, pre, { ['onescript']: e.target.checked }))}></Switch></div>
           </div>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
       </Grid>
     </DialogContent>

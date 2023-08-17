@@ -21,6 +21,10 @@ function Edit(props) {
       <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Full Width</div>
+      <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+    </Grid>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='标题' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
     </Grid>

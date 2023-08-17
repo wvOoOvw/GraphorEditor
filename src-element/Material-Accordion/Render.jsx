@@ -9,7 +9,7 @@ function Icon() {
 }
 
 function Render(props) {
-  const { event, property, monitor, trigger, children, env, update } = props
+  const { event, style, property, monitor, trigger, children, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setExpandedOpen) {

@@ -16,7 +16,7 @@ const caculateStyle = (style) => {
 
   style_.className = style.className
 
-  if (style.visible !== undefined) style_.visible = style.visible
+  if (style.visibility !== undefined) style_.visibility = style.visibility
   if (style.display !== undefined) style_.display = style.display
   if (style.overflow !== undefined) style_.overflow = style.overflow
   if (style.verticalAlign !== undefined) style_.verticalAlign = style.verticalAlign

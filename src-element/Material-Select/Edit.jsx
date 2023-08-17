@@ -36,6 +36,10 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Full Width</div>
+      <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Multiple</div>
       <Switch checked={value.multiple} onChange={e => changemultiple(e)} />
     </Grid>

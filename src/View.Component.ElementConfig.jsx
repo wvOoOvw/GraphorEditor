@@ -61,32 +61,32 @@ export function ClassName(props) {
   </>
 }
 
-export function Visible(props) {
+export function Visibility(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.visible = JSON.parse(JSON.stringify(defaultStyle.visible))
+        value.style.visibility = JSON.parse(JSON.stringify(defaultStyle.visibility))
       } else {
-        delete value.style.visible
+        delete value.style.visibility
       }
     })
   }
 
   return <>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Visible</div>
-      <Switch checked={value.style.visible !== undefined} onChange={handleChecked} color='secondary' />
+      <div>Visibility</div>
+      <Switch checked={value.style.visibility !== undefined} onChange={handleChecked} color='secondary' />
     </Grid>
     {
-      value.style.visible !== undefined ?
+      value.style.visibility !== undefined ?
         <>
           <Grid item xs={12}>
             <FormControl {...SelectSX} fullWidth>
-              <InputLabel>Visible</InputLabel>
-              <Select {...SelectSX} label='Visible' value={value.style.visible} onChange={e => onChange(() => value.style.visible = e.target.value)}  >
-                <MenuItem value='visible'>Visible</MenuItem>
+              <InputLabel>Visibility</InputLabel>
+              <Select {...SelectSX} label='Visibility' value={value.style.visibility} onChange={e => onChange(() => value.style.visibility = e.target.value)}>
+                <MenuItem value='visibility'>Visibility</MenuItem>
                 <MenuItem value='hidden'>Hidden</MenuItem>
               </Select>
             </FormControl>

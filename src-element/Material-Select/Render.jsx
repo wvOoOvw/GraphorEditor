@@ -2,7 +2,7 @@ import React from 'react'
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
 function Render(props) {
-  const { event, property, monitor, trigger, env, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -30,25 +30,36 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
-  const Render = <FormControl {...event} {...style} size={property.size}>
-    <InputLabel>{property.label}</InputLabel>
-    <Select {...sx.SelectSX} multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
-      {
-        property.options.map((i, index) => {
-          return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>
-        })
-      }
-    </Select>
-  </FormControl>
-
-  if (env === 'prod') {
-    return Render
-  } else {
+  if (env === 'dev') {
     const ref = React.useRef()
+
     React.useEffect(() => {
       if (ref.current) ref.current.addEventListener('mousedown', e => { e.stopPropagation(); e.preventDefault() }, true)
     }, [])
-    return <div ref={el => ref.current = el}>{Render}</div>
+  
+    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el} >
+      <InputLabel>{property.label}</InputLabel>
+      <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
+        {
+          property.options.map((i, index) => {
+            return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>
+          })
+        }
+      </Select>
+    </FormControl>
+  }
+
+  if (env === 'prod') {
+    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth} >
+      <InputLabel>{property.label}</InputLabel>
+      <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
+        {
+          property.options.map((i, index) => {
+            return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>
+          })
+        }
+      </Select>
+    </FormControl>
   }
 }
 
