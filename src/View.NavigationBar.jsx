@@ -170,6 +170,22 @@ function DialogPublish(props) {
 
     var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
+    const loadDependencies = () => {
+      const dependencies = { ...Imitation.state.graphConfig.dependenciesMap }
+
+      const r = []
+
+      Object.entries(dependencies).forEach(i => {
+        const [key, value] = i
+        if (value.match(/.js$/)) r.push(`<script id="document.dependencies.${key}" src=${value}></script>`)
+        if (value.match(/.css$/)) r.push(`<link id="document.dependencies.${key}" rel="stylesheet" href=${value}></link>`)
+      })
+
+      return r.join('')
+    }
+
+    const dependencies = loadDependencies()
+
     html = html
       .replace(
         `<replace id="document.title"></replace>`,
@@ -182,6 +198,10 @@ function DialogPublish(props) {
       .replace(
         `<replace id="document.viewport"></replace>`,
         `<meta id="document.viewport" name="viewport" content="${data.graphConfig.document.viewport}" />`
+      )
+      .replace(
+        `<replace id="document.dependencies"></replace>`,
+        dependencies
       )
       .replace(
         `<replace id="project.renderId"></replace>`,
@@ -199,6 +219,9 @@ function DialogPublish(props) {
         `<replace id="graph.render"></replace>`,
         `<script id="graph.render">${render}</script>`
       )
+
+
+
 
     if (option.simple) {
       const graphContent = data.graphContent

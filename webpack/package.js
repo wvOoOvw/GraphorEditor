@@ -132,40 +132,7 @@ const render = async () => {
   const output = `
     import GraphProd from '../src/View.Graph.Prod'
 
-    const loadDependencies = (dependencies, callback) => {
-      var count = Object.entries(dependencies).length
-    
-      Object.entries(dependencies).forEach(i => {
-        const [key, value] = i
-        if (!value || window[key] || document.getElementById(key)) {
-          count = count - 1
-          if (count === 0 && callback) callback()
-          return
-        }
-        if (value.match(/.js$/)) {
-          var node = document.createElement('script')
-          node.src = value
-          node.id = key
-        }
-        if (value.match(/.css$/)) {
-          var node = document.createElement('link')
-          node.rel = 'stylesheet'
-          node.href = value
-          node.id = key
-        }
-        document.getElementsByTagName('head')[0].appendChild(node)
-        node.addEventListener('load', () => {
-          count = count - 1
-          if (count === 0 && callback) callback()
-        })
-      })
-    }
-
-    const graphDependencies = { ...window.graphConfig.dependenciesMap }
-    
-    loadDependencies(graphDependencies, () => {
-      ReactDOM.render(<GraphProd />, document.getElementById(window.graphConfig.project.renderId))
-    })
+    ReactDOM.render(<GraphProd />, document.getElementById(window.graphConfig.project.renderId))
   `
 
   fs.writeFileSync(path.join(__dirname, './index.js'), output)
@@ -176,9 +143,29 @@ const render = async () => {
 }
 
 const html = async () => {
-  const h = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><replace id="document.title"></replace><replace id="document.icon"></replace><replace id="document.viewport"></replace></head><body style="margin: 0; padding: 0;"><replace id="project.renderId"></replace></body><replace id="graph.data"></replace><replace id="graph.element"></replace><replace id="graph.render"></replace></html>`
+  const h = `
+  <!DOCTYPE html>
+  <html lang="en">
 
-  fs.writeFileSync(path.join(__dirname, '../build-package/html/index.html'), h)
+  <head>
+    <meta charset="utf-8" />
+    <replace id="document.title"></replace>
+    <replace id="document.icon"></replace>
+    <replace id="document.viewport"></replace>
+    <replace id="document.dependencies"></replace>
+  </head>
+
+  <body style="margin: 0; padding: 0;">
+    <replace id="project.renderId"></replace>
+  </body>
+  <replace id="graph.data"></replace>
+  <replace id="graph.element"></replace>
+  <replace id="graph.render"></replace>
+
+  </html>
+  `
+
+  fs.writeFileSync(path.join(__dirname, '../build-package/html/index.html'), h.replace(/\>[\r\n\s]+\</g, '><'))
 }
 
 const run = async () => {

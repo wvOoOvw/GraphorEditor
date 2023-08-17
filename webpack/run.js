@@ -1,10 +1,11 @@
 const webpack = require('webpack')
+const path = require('path')
 
 if (process.argv.includes('--dev')) {
   const webpackConfig = require('./webpack.dev')
   const compiler = webpack(webpackConfig)
 
-  const serverConfig = { port: 8000, open: true }
+  const serverConfig = { port: 8000, open: true, static: path.join(__dirname, '../build-package') }
   if (process.argv.filter(i => i.includes('port'))[0]) serverConfig.port = process.argv.filter(i => i.includes('port'))[0].split('=')[1]
 
   const WebpackDevServer = require('webpack-dev-server')
