@@ -155,12 +155,12 @@ const resumeify = (content, map) => {
 const resumeifyString = "function(content, map) { const data = JSON.parse(JSON.stringify(content)); const rename = (item, map) => { if (item && typeof item === 'object') { if (Array.isArray(item)) { item.forEach(i => rename(i, map)) } else {Object.entries(item).forEach(i => { const [k, v] = i; rename(v, map); if (map[k]) { item[map[k]] = item[k]; delete item[k] } }) } } }; rename(data, map); return data }"
 
 function DialogPublish(props) {
-  const { onClose, graphRef } = props
+  const { onClose } = props
 
   const [option, setOption] = React.useState({ prerender: false, static: false, spilt: false, inline: false, simple: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
 
   const handlePublish = async () => {
-    const data = graphRef.current.getData()
+    const data = { graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }
 
     var html = await fetch(`${option.sourceOrigin}/html/index.html`).then(res => res.text())
 
@@ -319,41 +319,41 @@ function DialogPublish(props) {
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>Prerender</div>
-            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign(pre, { ['prerender']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['prerender']} onChange={e => setOption(pre => Object.assign({}, pre, { ['prerender']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>Static</div>
-            <div><Switch checked={option['static']} onChange={e => setOption(pre => Object.assign(pre, { ['static']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['static']} onChange={e => setOption(pre => Object.assign({}, pre, { ['static']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>Inline</div>
-            <div><Switch checked={option['inline']} onChange={e => setOption(pre => Object.assign(pre, { ['inline']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['inline']} onChange={e => setOption(pre => Object.assign({}, pre, { ['inline']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>Simple data</div>
-            <div><Switch checked={option['simple']} onChange={e => setOption(pre => Object.assign(pre, { ['simple']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['simple']} onChange={e => setOption(pre => Object.assign({}, pre, { ['simple']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>Spilt file</div>
-            <div><Switch checked={option['spilt']} onChange={e => setOption(pre => Object.assign(pre, { ['spilt']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['spilt']} onChange={e => setOption(pre => Object.assign({}, pre, { ['spilt']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
             <div>One script</div>
-            <div><Switch checked={option['onescript']} onChange={e => setOption(pre => Object.assign(pre, { ['onescript']: e.target.checked }))}></Switch></div>
+            <div><Switch checked={option['onescript']} onChange={e => setOption(pre => Object.assign({}, pre, { ['onescript']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign(pre, { ['sourceOrigin']: e.target.value }))} />
+          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
       </Grid>
     </DialogContent>

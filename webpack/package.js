@@ -123,13 +123,14 @@ const render = async () => {
   const webpackConfig_ = Object.assign({}, webpackConfig, {
     entry: path.resolve(__dirname, './index.js'),
     output: {
+      libraryTarget: 'umd',
       filename: 'index.js',
       path: path.resolve(__dirname, '../build-package/render')
     }
   })
 
   const output = `
-    import GraphPure from '../src/View.Graph.Prod'
+    import GraphProd from '../src/View.Graph.Prod'
 
     const loadDependencies = (dependencies, callback) => {
       var count = Object.entries(dependencies).length
@@ -163,7 +164,7 @@ const render = async () => {
     const graphDependencies = { ...window.graphConfig.dependenciesMap }
     
     loadDependencies(graphDependencies, () => {
-      ReactDOM.render(<GraphPure />, document.getElementById(window.graphConfig.project.renderId))
+      ReactDOM.render(<GraphProd />, document.getElementById(window.graphConfig.project.renderId))
     })
   `
 
