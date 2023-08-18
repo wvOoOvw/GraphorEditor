@@ -23,9 +23,7 @@ const information = {
     { value: 'onSelect', label: 'Select Change' },
     { value: 'onPaginationChange', label: 'Pagination Change' }
   ],
-  style: {
-    $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
-  },
+  style: {},
   property: {
     size: 'medium',
     stickyHeader: false,

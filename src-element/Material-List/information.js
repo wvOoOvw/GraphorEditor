@@ -16,9 +16,7 @@ const information = {
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
   ],
-  style: {
-    $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
-  },
+  style: {},
   property: {
     value: [{ title: 'Title', desciption: 'Desciption' }],
     disablePadding: false,

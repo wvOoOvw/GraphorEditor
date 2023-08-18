@@ -15,9 +15,7 @@ const information = {
     { value: 'onOpen', label: 'Open' },
     { value: 'onClose', label: 'Close' },
   ],
-  style: {
-    $use: ['use', 'visible']
-  },
+  style: {},
   property: {
     open: false,
     arrow: false,

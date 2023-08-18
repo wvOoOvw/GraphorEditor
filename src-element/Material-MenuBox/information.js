@@ -18,9 +18,7 @@ const information = {
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onClick', label: 'Click Item' },
   ],
-  style: {
-    $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
-  },
+  style: {},
   property: {
     options: [{ label: 'Option', value: 'option' }],
     openType: 'click',

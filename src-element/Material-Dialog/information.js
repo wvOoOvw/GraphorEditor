@@ -15,9 +15,7 @@ const information = {
   trigger: [
     { value: 'onClose', label: 'Close' },
   ],
-  style: {
-    $use: ['width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'zIndex', 'use', 'visible']
-  },
+  style: {},
   property: {
     open: true,
     dividers: true,

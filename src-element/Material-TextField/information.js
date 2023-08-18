@@ -20,9 +20,7 @@ const information = {
     { value: 'onFocus', label: '聚焦' },
     { value: 'onBlur', label: '失焦' }
   ],
-  style: {
-    $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
-  },
+  style: {},
   property: {
     type: 'text',
     value: '',

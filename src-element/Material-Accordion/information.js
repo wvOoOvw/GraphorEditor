@@ -20,9 +20,7 @@ const information = {
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onChange', label: 'Value Change' },
   ],
-  style: {
-    $nonuse: ['transition', 'filter', 'border', 'borderRadius', 'boxShadow', 'outline', 'background', 'font', 'text', 'textDecoration', 'textShadow', 'textStroke', 'cursor']
-  },
+  style: {},
   property: {
     title: 'Accordion',
     expanded: true,
