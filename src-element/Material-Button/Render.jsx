@@ -32,14 +32,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Button
-    {...event}
-    {...style}
-    disabled={property.disabled}
-    variant={property.variant}
-    color={property.color}
-    component='div'
-  >
+  return <Button {...event} {...style} disabled={property.disabled} variant={property.variant} color={property.color}>
     {property.value}
   </Button>
 }

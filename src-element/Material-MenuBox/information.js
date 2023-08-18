@@ -2,7 +2,8 @@ const information = {
   name: 'Menu Box',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'main', label: 'Main' },
+    { value: 'menu', label: 'Menu' },
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
@@ -16,14 +17,11 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onClick', label: 'Click Item' },
   ],
   style: {},
   property: {
-    options: [{ label: 'Option', value: 'option' }],
     openType: 'click',
     open: false,
-    enableClose: true
   }
 }
 

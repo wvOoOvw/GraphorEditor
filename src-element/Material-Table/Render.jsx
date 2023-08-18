@@ -108,8 +108,8 @@ function Render(props) {
     }
   }, [])
 
-  return <Box {...event} component={property.componentPaper ? Paper : null}>
-    <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%', ...style }}>
+  return <Box {...event} {...style} component={property.componentPaper ? Paper : null}>
+    <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
       <Table size={property.size} stickyHeader={property.stickyHeader}>
         <TableHead>
           <TableRow>

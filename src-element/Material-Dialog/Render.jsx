@@ -52,7 +52,7 @@ function Render(props) {
     </DialogActions>
   </>
 
-  if (env === 'prod') return <Dialog open={property.open} sx={{ '& .MuiDialog-paper': event.style }} onClose={onClose}>
+  if (env === 'prod') return <Dialog open={property.open} onClose={onClose} sx={{ '& .MuiDialog-paper': style.style }}>
     {R}
   </Dialog>
 

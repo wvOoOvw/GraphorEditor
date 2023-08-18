@@ -14,12 +14,6 @@ function Render(props) {
     }
   }, [])
 
-  const onClick = (e, value) => {
-    if (property.enableClose === false) return
-    onClose()
-    if (trigger && trigger.onClick) trigger.onClick(value, e)
-  }
-
   const onClose = () => {
     if (property.enableClose === false) return
     property.open = false
@@ -45,15 +39,9 @@ function Render(props) {
         children && children.main ? children.main() : null
       }
     </div>
-    <Menu open={env && property.open} onClose={onClose} anchorEl={ref.current}>
+    <Menu open={env === 'prod' && property.open} onClose={onClose} anchorEl={ref.current}>
       {
-        property.options.map((i, index) => {
-          return <MenuItem key={index} onClick={e => onClick(e, i.value)}>
-            {
-              i.label
-            }
-          </MenuItem>
-        })
+        children && children.menu ? children.menu() : null
       }
     </Menu>
   </>

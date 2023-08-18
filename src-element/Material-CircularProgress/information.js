@@ -18,8 +18,7 @@ const information = {
   style: {},
   property: {
     size: 40,
-    thickness: 3.6,
-    color: '#000000'
+    thickness: 3.6
   }
 }
 

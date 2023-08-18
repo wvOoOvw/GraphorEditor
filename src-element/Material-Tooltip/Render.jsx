@@ -40,7 +40,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Tooltip
-      PopperProps={{ '& .MuiTooltip-tooltip': { backgroundColor: 'white', padding: 0 } }}
+      PopperProps={{ '& .MuiTooltip-tooltip': style.style }}
       open={property.open}
       enenterDelay={property.enterDelay}
       leaveDelay={property.leaveDelay}

@@ -29,13 +29,8 @@ function Render(props) {
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
-  return <BottomNavigation
-    {...event}
-    {...style}
-    value={property.value}
-    onChange={onChange}
-    showLabels
-  >
+
+  return <BottomNavigation {...event} {...style} value={property.value} onChange={onChange} showLabels>
     {
       property.options.map((i, index) => {
         return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>
