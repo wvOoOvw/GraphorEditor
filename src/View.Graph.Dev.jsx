@@ -73,6 +73,8 @@ function Active() {
 
   if (activePosition === undefined) return null
 
+  console.log(activePosition)
+
   const style = {
     transition: '0.5s all',
     width: 28,

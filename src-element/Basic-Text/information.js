@@ -18,8 +18,7 @@ const information = {
   ],
   style: {},
   property: {
-    value: 'Text',
-    dom: 'div'
+    value: 'Text'
   }
 }
 

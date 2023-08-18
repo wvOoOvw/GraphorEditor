@@ -18,7 +18,7 @@ const information = {
   ],
   style: {},
   property: {
-    options: [{ label: 'Option', value: 'option' }],
+    options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
   }
 }
 

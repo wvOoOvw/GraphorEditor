@@ -15,12 +15,14 @@ function Render(props) {
   }, [])
 
   const onClose = () => {
+    if (env === 'dev') return
     if (property.enableClose === false) return
     property.open = false
     update()
   }
 
   const onOpen = () => {
+    if (env === 'dev') return
     property.open = true
     update()
   }
@@ -28,21 +30,17 @@ function Render(props) {
   const ref = React.useRef()
 
   return <>
-    <div
-      {...event}
-      {...style}
-      ref={el => ref.current = el}
-      onClick={property.openType === 'click' ? onOpen : undefined}
-      onMouseOver={property.openType === 'mouseover' ? onOpen : undefined}
-    >
+    <div {...event} {...style} ref={el => ref.current = el} onClick={onOpen}>
       {
         children && children.main ? children.main() : null
       }
     </div>
     <Menu open={env === 'prod' && property.open} onClose={onClose} anchorEl={ref.current}>
-      {
-        children && children.menu ? children.menu() : null
-      }
+      <div onClick={onClose}>
+        {
+          children && children.menu ? children.menu() : null
+        }
+      </div>
     </Menu>
   </>
 }

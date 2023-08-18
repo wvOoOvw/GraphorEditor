@@ -14,23 +14,6 @@ function Edit(props) {
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
-    <Grid item xs={12}>
-      <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>Dom Type</InputLabel>
-        <Select {...sx.SelectSX} value={value.dom} label='Dom Type' onChange={e => onChange(Object.assign({}, value, { dom: e.target.value }))}>
-          <MenuItem value='div'>Div</MenuItem>
-          <MenuItem value='span'>Span</MenuItem>
-          <MenuItem value='button'>Button</MenuItem>
-          <MenuItem value='p'>P</MenuItem>
-          <MenuItem value='h1'>H1</MenuItem>
-          <MenuItem value='h2'>H2</MenuItem>
-          <MenuItem value='h3'>H3</MenuItem>
-          <MenuItem value='h4'>H4</MenuItem>
-          <MenuItem value='h5'>H5</MenuItem>
-          <MenuItem value='h6'>H6</MenuItem>
-        </Select>
-      </FormControl>
-    </Grid>
   </Grid>
 }
 

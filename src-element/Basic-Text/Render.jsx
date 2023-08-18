@@ -13,7 +13,7 @@ function Render(props) {
     }
   }, [])
 
-  return React.createElement(property.dom, { ...event, children: property.value })
+  return <span {...event} {...style}>{property.value}</span>
 }
 
 export default Render

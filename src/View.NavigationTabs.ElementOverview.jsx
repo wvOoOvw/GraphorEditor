@@ -19,7 +19,7 @@ import { deepSearch, hash, deleteArrayItem } from './utils.common'
 import { graphElementSearch } from './utils.graph.common'
 
 function ItemRender(props) {
-  const { license, id, name, children, style, parentId, drag } = props
+  const { license, id, name, use, children, style, parentId, drag } = props
 
   const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
@@ -38,10 +38,9 @@ function ItemRender(props) {
     return information.children.find(i => i.value === value)?.label
   }
 
-  const handleChangeVisible = (e) => {
+  const handleChangeUse = (e) => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
-    if (!currentGraphContent.style) return
-    currentGraphContent.style.visible = e
+    currentGraphContent.use = e
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
 
@@ -118,12 +117,10 @@ function ItemRender(props) {
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
         {
-          style.visible !== undefined ?
-            style.visible ?
-              <IconButton size='small' onClick={() => handleChangeVisible(false)}><VisibilityIcon fontSize='small' /></IconButton>
-              :
-              <IconButton size='small' onClick={() => handleChangeVisible(true)}><VisibilityOffIcon fontSize='small' /></IconButton>
-            : null
+          use ?
+            <IconButton size='small' onClick={() => handleChangeUse(false)}><VisibilityIcon fontSize='small' /></IconButton>
+            :
+            <IconButton size='small' onClick={() => handleChangeUse(true)}><VisibilityOffIcon fontSize='small' /></IconButton>
         }
         <IconButton size='small' onClick={handleDelete}><DeleteIcon fontSize='small' /></IconButton>
         <IconButton size='small' onClick={handleEdit}><EditIcon fontSize='small' /></IconButton>

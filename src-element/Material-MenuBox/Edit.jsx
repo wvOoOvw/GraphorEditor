@@ -17,14 +17,9 @@ function Edit(props) {
       <div>Open</div>
       <Switch checked={value.open} onChange={e => onChange(Object.assign({}, value, { open: e.target.checked }))} />
     </Grid>
-    <Grid item xs={12}>
-      <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>Open Type</InputLabel>
-        <Select {...sx.SelectSX} value={value.openType} label='Open Type' onChange={e => onChange(Object.assign({}, value, { openType: e.target.value }))}>
-          <MenuItem value='click'>Click</MenuItem>
-          <MenuItem value='mouseover'>Mouseover</MenuItem>
-        </Select>
-      </FormControl>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Enable Click Close</div>
+      <Switch checked={value.enableClose} onChange={e => onChange(v => v.enableClose = e.target.checked)} />
     </Grid>
   </Grid>
 }
