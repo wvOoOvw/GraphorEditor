@@ -11,37 +11,6 @@ import { graphElementSearch } from './utils.graph.common'
 
 var hoverTimeout = null
 
-const nodeOffset = node => {
-  const parentNodes = []
-
-  var cache = node
-
-  while (cache.parentNode && (cache.parentNode.id !== 'screen')) {
-    if (['fixed', 'absolute', 'relative'].includes(cache.parentNode?.style?.position) || cache.parentNode?.style?.transform) {
-      parentNodes.push(cache.parentNode)
-    }
-    cache = cache.parentNode
-  }
-
-  const r = {
-    offsetWidth: node.offsetWidth,
-    offsetHeight: node.offsetHeight,
-    offsetTop: node.offsetTop,
-    offsetLeft: node.offsetLeft,
-  }
-
-  if ([node.offsetWidth, node.offsetHeight, node.offsetTop, node.offsetLeft].includes(undefined)) {
-    return null
-  }
-
-  parentNodes.forEach(i => {
-    r.offsetTop = r.offsetTop + i.offsetTop
-    r.offsetLeft = r.offsetLeft + i.offsetLeft
-  })
-
-  return r
-}
-
 function Hover() {
   const [hoverPosition, setHoverPosition] = React.useState()
 
@@ -49,7 +18,7 @@ function Hover() {
     const hover = document.querySelector('[data-status=hover]')
 
     if (hover !== null && hoverPosition === undefined) {
-      setHoverPosition(nodeOffset(hover))
+      setHoverPosition(hover.getBoundingClientRect())
     }
     if (hover === null) {
       setHoverPosition()
@@ -73,8 +42,8 @@ function Hover() {
     position: 'absolute',
     zIndex: 99999,
     color: 'rgb(0, 0, 0)',
-    top: hoverPosition.offsetTop + hoverPosition.offsetHeight,
-    left: hoverPosition.offsetWidth / 2 + hoverPosition.offsetLeft - 28 / 2,
+    top: hoverPosition.top + hoverPosition.height,
+    left: hoverPosition.width / 2 + hoverPosition.left - 28 / 2,
   }
 
   return <KeyboardArrowUpIcon style={style} className='element-hover' />
@@ -87,7 +56,7 @@ function Active() {
     const active = document.querySelector('[data-status=active]')
 
     if (active !== null && activePosition === undefined) {
-      setActivePosition(nodeOffset(active))
+      setActivePosition(active.getBoundingClientRect())
     }
     if (active === null) {
       setActivePosition()
@@ -111,8 +80,8 @@ function Active() {
     position: 'absolute',
     zIndex: 99999,
     color: 'rgb(25, 118, 210)',
-    top: activePosition.offsetTop + activePosition.offsetHeight,
-    left: activePosition.offsetWidth / 2 + activePosition.offsetLeft - 28 / 2,
+    top: activePosition.top + activePosition.height,
+    left: activePosition.width / 2 + activePosition.left - 28 / 2,
   }
 
   return <KeyboardArrowUpIcon style={style} className='element-active' />
@@ -218,54 +187,56 @@ function App() {
     Imitation.assignState({ graphConfigUpdate: hash() })
   }
 
-  return <Paper
-    style={{
-      height: '100%',
-      position: 'relative',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      overflow: 'hidden',
-      flexGrow: 1,
-      cursor: mouseDown ? 'grabbing' : 'grab',
-      background: 'rgba(235,235,235)'
-    }}
-    onMouseDown={eventDown}
-    onMouseMove={eventMove}
-    onMouseUp={eventUp}
-    onMouseOut={eventUp}
-    onTouchStart={eventDown}
-    onTouchMove={eventMove}
-    onTouchEnd={eventUp}
-  >
+  return <>
     <Paper
-      id='screen'
       style={{
-        width: isNaN(Imitation.state.graphConfig.screen.width) ? Imitation.state.graphConfig.screen.width : Imitation.state.graphConfig.screen.width + 'px',
-        height: isNaN(Imitation.state.graphConfig.screen.height) ? Imitation.state.graphConfig.screen.height : Imitation.state.graphConfig.screen.height + 'px',
-        transform: `
+        height: '100%',
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        flexGrow: 1,
+        cursor: mouseDown ? 'grabbing' : 'grab',
+        background: 'rgba(235,235,235)'
+      }}
+      onMouseDown={eventDown}
+      onMouseMove={eventMove}
+      onMouseUp={eventUp}
+      onMouseOut={eventUp}
+      onTouchStart={eventDown}
+      onTouchMove={eventMove}
+      onTouchEnd={eventUp}
+    >
+      <Paper
+        id='screen'
+        style={{
+          width: isNaN(Imitation.state.graphConfig.screen.width) ? Imitation.state.graphConfig.screen.width : Imitation.state.graphConfig.screen.width + 'px',
+          height: isNaN(Imitation.state.graphConfig.screen.height) ? Imitation.state.graphConfig.screen.height : Imitation.state.graphConfig.screen.height + 'px',
+          transform: `
           translateX(${Imitation.state.graphConfig.screen.translateX}px)
           translateY(${Imitation.state.graphConfig.screen.translateY}px)
           scale(${Imitation.state.graphConfig.screen.scale})
         `,
-        position: 'absolute',
-        overflow: 'auto',
-        transitionDuration: '0.5s',
-        transitionProperty: 'width,height',
-        cursor: 'default'
-      }}
-      onMouseDown={e => e.stopPropagation()}
-      onTouchStart={e => e.stopPropagation()}
-    >
-      <Hover />
-      <Active />
-      <div>
-        {
-          Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} />)
-        }
-      </div>
+          position: 'absolute',
+          overflow: 'auto',
+          transitionDuration: '0.5s',
+          transitionProperty: 'width,height',
+          cursor: 'default'
+        }}
+        onMouseDown={e => e.stopPropagation()}
+        onTouchStart={e => e.stopPropagation()}
+      >
+        <div>
+          {
+            Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} />)
+          }
+        </div>
+      </Paper>
     </Paper>
-  </Paper>
+    <Hover />
+    <Active />
+  </>
 }
 
 export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementValue, state.elementHover])
