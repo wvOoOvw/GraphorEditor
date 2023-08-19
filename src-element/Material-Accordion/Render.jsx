@@ -20,6 +20,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
+
   React.useEffect(() => {
     if (monitor && monitor.setExpandedClose) {
       const remove = monitor.setExpandedClose(data => {
@@ -37,7 +38,7 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
   }
 
-  return <Accordion {...event} {...style} expanded={property.expanded} onChange={onChange} disabled={property.disabled}>
+  return <Accordion {...event} {...style} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
 
     <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
       {

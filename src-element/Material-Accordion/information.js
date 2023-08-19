@@ -14,7 +14,7 @@ const information = {
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },
-    { value: '@onMouseLeave', label: 'Mouse Leave'},
+    { value: '@onMouseLeave', label: 'Mouse Leave' },
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
@@ -26,7 +26,10 @@ const information = {
     expanded: true,
     expandIcon: true,
     divider: true,
-    disabled: false
+    disabled: false,
+    disableGutters: false,
+    square: false,
+    sx: { '& .MuiAccordionSummary-root': {}, '& .MuiCollapse-root': {} }
   }
 }
 

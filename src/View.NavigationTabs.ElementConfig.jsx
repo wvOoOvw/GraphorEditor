@@ -55,7 +55,7 @@ function BasicConfig(props) {
       <AccordionSummary>Basic Information</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
-        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>Use</div>
             <Switch checked={currentGraphElement.use} onChange={e => { currentGraphElement.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }); }} />
           </Grid>
@@ -230,6 +230,7 @@ function PropertyConfig(props) {
           onChange={handleChange}
           component={{ AceDialog }}
           sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX, SelectSX: SelectSX }}
+          sendMessage={message => Imitation.assignState({ message: message })}
         />
       </AccordionDetails>
     </Accordion>

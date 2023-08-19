@@ -7,9 +7,13 @@ import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 import { Switch } from '@mui/material'
+import { Divider } from '@mui/material'
+import { Button } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { value, onChange, component, sx, sendMessage } = props
+
+  const [aceDialogSX, setAceDialogSX] = React.useState(false)
 
   return <>
     <Grid container spacing={1}>
@@ -17,8 +21,15 @@ function Edit(props) {
         <div>Disabled</div>
         <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
       </Grid>
+      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>Full Width</div>
+        <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+      </Grid>
       <Grid item xs={12}>
         <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField {...sx.TextFieldSX} fullWidth label='Href' value={value.href} onChange={e => onChange((value) => value.href = e.target.value)} />
       </Grid>
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>
@@ -44,7 +55,34 @@ function Edit(props) {
           </Select>
         </FormControl>
       </Grid>
-    </Grid >
+
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
+      </Grid>
+
+      {
+        aceDialogSX ?
+          <component.AceDialog
+            value={JSON.stringify(value.sx, null, 2)}
+            onChange={v => {
+              console.log(v)
+              try {
+                onChange((value) => value.sx = JSON.parse(v))
+                setAceDialogSX()
+              } catch {
+                sendMessage('Format Error')
+              }
+            }}
+            onClose={() => setAceDialogSX()}
+            mode='json'
+          />
+          : null
+      }
+    </Grid>
   </>
 }
 

@@ -7,14 +7,14 @@ function Render(props) {
   React.useEffect(() => {
     if (monitor && monitor.setContent) {
       const remove = monitor.setContent(data => {
-        property.content = data
+        property.badgeContent = data
         update()
       })
       return () => { remove() }
     }
   }, [])
 
-  return <Badge {...event} {...style} badgeContent={Number(property.content)} max={99999} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin}>
+  return <Badge {...event} {...style} badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero} sx={property.sx}>
     {
       children && children.main ? children.main() : null
     }

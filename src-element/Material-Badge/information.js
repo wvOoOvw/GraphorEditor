@@ -13,20 +13,22 @@ const information = {
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
     { value: '@onMouseEnter', label: 'Mouse Enter' },
-    { value: '@onMouseLeave', label: 'Mouse Leave'},
+    { value: '@onMouseLeave', label: 'Mouse Leave' },
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
   ],
   style: {},
   property: {
-    content: 0,
+    badgeContent: 0,
     color: 'primary',
     variant: 'standard',
-    anchorOrigin: {
-      vertical: 'top',
-      horizontal: 'right',
-    },
+    anchorOrigin: { vertical: 'top', horizontal: 'right' },
+    invisible: false,
+    max: 99,
+    overlap: 'rectangular',
+    showZero: false,
+    sx: { '&.MuiBadge-root': {}, '& .MuiBadge-badge': {} },
   }
 }
 

@@ -12,81 +12,83 @@ import { graphElementSearch } from './utils.graph.common'
 var hoverTimeout = null
 
 function Hover() {
-  const [hoverPosition, setHoverPosition] = React.useState()
+  const timeRef = React.useRef()
+
+  const [position, setPosition] = React.useState()
 
   const handle = () => {
-    const hover = document.querySelector('[data-status=hover]')
+    const node = document.querySelector('[data-status=hover]')
 
-    if (hover !== null && hoverPosition === undefined) {
-      setHoverPosition(hover.getBoundingClientRect())
+    if (node !== null) {
+      setPosition(node.getBoundingClientRect())
     }
-    if (hover === null) {
-      setHoverPosition()
+    if (node === null) {
+      setPosition()
     }
   }
 
   React.useEffect(() => {
-    const observer = new MutationObserver((mutationsList, observer) => { handle() })
+    handle()
 
-    observer.observe(document.getElementById('screen'), { attributes: true, childList: true, subtree: true })
+    timeRef.current = setInterval(() => handle(), 500)
 
-    return () => observer.disconnect()
-  }, [])
+    return () => clearInterval(timeRef.current)
+  }, [Imitation.state.elementHover, Imitation.state.graphContent])
 
-  if (hoverPosition === undefined) return null
+  if (position === undefined) return null
 
   const style = {
     transition: '0.5s all',
     width: 28,
     height: 28,
     position: 'absolute',
-    zIndex: 99999,
+    zIndex: 1,
     color: 'rgb(0, 0, 0)',
-    top: hoverPosition.top + hoverPosition.height,
-    left: hoverPosition.width / 2 + hoverPosition.left - 28 / 2,
+    top: position.top + position.height,
+    left: position.width / 2 + position.left - 28 / 2,
   }
 
   return <KeyboardArrowUpIcon style={style} className='element-hover' />
 }
 
 function Active() {
-  const [activePosition, setActivePosition] = React.useState()
+  const timeRef = React.useRef()
+
+  const [position, setPosition] = React.useState()
 
   const handle = () => {
-    const active = document.querySelector('[data-status=active]')
+    const node = document.querySelector('[data-status=active]')
 
-    if (active !== null && activePosition === undefined) {
-      setActivePosition(active.getBoundingClientRect())
+    if (node !== null) {
+      setPosition(node.getBoundingClientRect())
     }
-    if (active === null) {
-      setActivePosition()
+    if (node === null) {
+      setPosition()
     }
   }
 
   React.useEffect(() => {
-    const observer = new MutationObserver((mutationsList, observer) => { handle() })
+    handle()
 
-    observer.observe(document.getElementById('screen'), { attributes: true, childList: true, subtree: true })
+    timeRef.current = setInterval(() => handle(), 500)
 
-    return () => observer.disconnect()
-  }, [])
+    return () => clearInterval(timeRef.current)
+  }, [Imitation.state.elementHover, Imitation.state.graphContent])
 
-  if (activePosition === undefined) return null
-
-  console.log(activePosition)
+  if (position === undefined) return null
 
   const style = {
     transition: '0.5s all',
     width: 28,
     height: 28,
     position: 'absolute',
-    zIndex: 99999,
+    zIndex: 1,
     color: 'rgb(25, 118, 210)',
-    top: activePosition.top + activePosition.height,
-    left: activePosition.width / 2 + activePosition.left - 28 / 2,
+    top: position.top + position.height,
+    left: position.width / 2 + position.left - 28 / 2,
   }
 
-  return <KeyboardArrowUpIcon style={style} className='element-active' />
+  return <KeyboardArrowUpIcon style={style} className='element-hover' />
 }
 
 function ElementRender(props) {
@@ -167,18 +169,22 @@ function ElementRender(props) {
 }
 
 function App() {
-  const [mouseDown, setMouseDown] = React.useState(false)
   const mouseDownPosition = React.useRef(null)
+
+  const [mouseDown, setMouseDown] = React.useState(false)
+
   const eventDown = e => {
     try {
       mouseDownPosition.current = [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY]
       setMouseDown(true)
     } catch { }
   }
+
   const eventUp = e => {
     mouseDownPosition.current = null
     setMouseDown(false)
   }
+
   const eventMove = e => {
     if (!mouseDownPosition.current) return
     const changeX = (e.pageX || e.targetTouches[0].pageX) - mouseDownPosition.current[0]
@@ -192,13 +198,13 @@ function App() {
   return <>
     <Paper
       style={{
+        width: '100%',
         height: '100%',
         position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
-        flexGrow: 1,
         cursor: mouseDown ? 'grabbing' : 'grab',
         background: 'rgba(235,235,235)'
       }}
@@ -236,6 +242,7 @@ function App() {
         </div>
       </Paper>
     </Paper>
+
     <Hover />
     <Active />
   </>

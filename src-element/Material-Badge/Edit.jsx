@@ -6,13 +6,20 @@ import { InputLabel } from '@mui/material'
 import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
+import { Divider } from '@mui/material'
+import { Button } from '@mui/material'
 
 function Edit(props) {
   const { value, onChange, component, sx } = props
 
+  const [aceDialogSX, setAceDialogSX] = React.useState(false)
+
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Content' value={value.content} onChange={e => onChange(Object.assign({}, value, { content: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth label='Badge Content' value={value.badgeContent} onChange={e => onChange(Object.assign({}, value, { badgeContent: e.target.value }))} type='number' />
+    </Grid>
+    <Grid item xs={12}>
+      <TextField {...sx.TextFieldSX} fullWidth label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
@@ -36,6 +43,15 @@ function Edit(props) {
         </Select>
       </FormControl>
     </Grid>
+    <Grid item xs={12}>
+      <FormControl {...sx.SelectSX} fullWidth>
+        <InputLabel>Overlap</InputLabel>
+        <Select {...sx.SelectSX} value={value.overlap} label='Overlap' onChange={e => onChange(Object.assign({}, value, { overlap: e.target.value }))}>
+          <MenuItem value='rectangular'>Vectangular</MenuItem>
+          <MenuItem value='circular'>Circular</MenuItem>
+        </Select>
+      </FormControl>
+    </Grid>
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Horizontal Position</InputLabel>
@@ -54,6 +70,41 @@ function Edit(props) {
         </Select>
       </FormControl>
     </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Invisible</div>
+      <Switch checked={value.invisible} onChange={e => onChange(Object.assign({}, value, { invisible: e.target.checked }))} />
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Show Zero</div>
+      <Switch checked={value.showZero} onChange={e => onChange(Object.assign({}, value, { showZero: e.target.checked }))} />
+    </Grid>
+
+    <Grid item xs={12}>
+      <Divider />
+    </Grid>
+
+    <Grid item xs={12}>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
+    </Grid>
+
+    {
+      aceDialogSX ?
+        <component.AceDialog
+          value={JSON.stringify(value.sx, null, 2)}
+          onChange={v => {
+            console.log(v)
+            try {
+              onChange((value) => value.sx = JSON.parse(v))
+              setAceDialogSX()
+            } catch {
+              sendMessage('Format Error')
+            }
+          }}
+          onClose={() => setAceDialogSX()}
+          mode='json'
+        />
+        : null
+    }
   </Grid>
 }
 

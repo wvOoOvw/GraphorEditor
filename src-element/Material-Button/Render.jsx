@@ -13,6 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
+
   React.useEffect(() => {
     if (monitor && monitor.setDisabledOpen) {
       const remove = monitor.setDisabledOpen(data => {
@@ -22,6 +23,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
+
   React.useEffect(() => {
     if (monitor && monitor.setDisabledClose) {
       const remove = monitor.setDisabledClose(data => {
@@ -32,7 +34,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Button {...event} {...style} disabled={property.disabled} variant={property.variant} color={property.color}>
+  return <Button {...event} {...style} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={property.sx}>
     {property.value}
   </Button>
 }
