@@ -17,14 +17,6 @@ function Edit(props) {
 
   return <>
     <Grid container spacing={1}>
-      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>Disabled</div>
-        <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
-      </Grid>
-      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>Full Width</div>
-        <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
-      </Grid>
       <Grid item xs={12}>
         <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
       </Grid>
@@ -55,15 +47,20 @@ function Edit(props) {
           </Select>
         </FormControl>
       </Grid>
-
-      <Grid item xs={12}>
-        <Divider />
+      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>Disabled</div>
+        <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      </Grid>
+      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>Full Width</div>
+        <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
       </Grid>
 
-      <Grid item xs={12}>
-        <Button fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
-      </Grid>
+      <Grid item xs={12}><Divider /></Grid>
 
+      <Grid item xs={12}>
+        <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
+      </Grid>
       {
         aceDialogSX ?
           <component.AceDialog

@@ -79,14 +79,11 @@ function Edit(props) {
       <Switch checked={value.showZero} onChange={e => onChange(Object.assign({}, value, { showZero: e.target.checked }))} />
     </Grid>
 
-    <Grid item xs={12}>
-      <Divider />
-    </Grid>
+    <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
     </Grid>
-
     {
       aceDialogSX ?
         <component.AceDialog

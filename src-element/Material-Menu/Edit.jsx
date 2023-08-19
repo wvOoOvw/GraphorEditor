@@ -10,7 +10,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
     </Grid>
 
     {

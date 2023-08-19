@@ -21,7 +21,7 @@ const information = {
   style: {},
   property: {
     value: '',
-    options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
+    options: ['Option A', 'Option B'],
     label: 'Label',
     variant: 'outlined',
     fullWidth: true,

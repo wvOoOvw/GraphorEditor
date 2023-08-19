@@ -12,6 +12,9 @@ function Edit(props) {
   const [aceDialogSX, setAceDialogSX] = React.useState(false)
 
   return <Grid container spacing={1}>
+    <Grid item xs={12}>
+      <TextField {...sx.TextFieldSX} fullWidth label='Title' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
+    </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
@@ -36,18 +39,11 @@ function Edit(props) {
       <div>Square</div>
       <Switch checked={value.square} onChange={e => onChange(Object.assign({}, value, { square: e.target.checked }))} />
     </Grid>
-    <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Title' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
-    </Grid>
+    <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Divider />
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
     </Grid>
-
-    <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
-    </Grid>
-
     {
       aceDialogSX ?
         <component.AceDialog

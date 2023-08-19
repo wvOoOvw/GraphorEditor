@@ -15,10 +15,11 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
 
-    <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
-    </Grid>
+    <Grid item xs={12}><Divider /></Grid>
 
+    <Grid item xs={12}>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
+    </Grid>
     {
       aceDialog ?
         <component.AceDialog

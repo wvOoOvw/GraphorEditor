@@ -24,12 +24,17 @@ const information = {
   property: {
     type: 'text',
     value: '',
+    placeholder: '',
     variant: 'outlined',
     fullWidth: true,
     color: 'primary',
     label: 'Label',
     size: 'medium',
-    disabled: false
+    disabled: false,
+    multiline: false,
+    rows: 'auto',
+    sx: { '& .MuiInputBase-root': {} }
+
   }
 }
 

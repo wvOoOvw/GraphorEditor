@@ -43,14 +43,17 @@ function Render(props) {
     fullWidth={property.fullWidth}
     type={property.type}
     value={property.value}
-    onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
     variant={property.variant}
     label={property.label}
     size={property.size}
     color={property.color}
     disabled={property.disabled}
+    multiline={property.multiline}
+    placeholder={property.placeholder}
+    sx={property.sx}
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
   />
 }
 

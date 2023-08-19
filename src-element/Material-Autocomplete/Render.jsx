@@ -52,15 +52,15 @@ function Render(props) {
         ref.current.addEventListener('click', e => { event.onClick(e) }, true)
       }
     }, [])
-    
+
     return <Autocomplete
       {...event}
       {...style}
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}
+      disabled={property.disabled}
       options={property.options}
-      getOptionLabel={(option) => option.label}
       value={getValue()}
       onChange={onChange}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
@@ -75,8 +75,8 @@ function Render(props) {
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}
+      disabled={property.disabled}
       options={property.options}
-      getOptionLabel={(option) => option.label}
       value={getValue()}
       onChange={onChange}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
