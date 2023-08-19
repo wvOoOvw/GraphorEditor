@@ -14,4 +14,4 @@ function Edit(props) {
   return null
 }
 
-export default null
+export default Edit
