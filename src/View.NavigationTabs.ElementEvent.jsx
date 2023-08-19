@@ -101,8 +101,13 @@ function ItemRender(props) {
             </div>
             <div style={{ whiteSpace: 'nowrap' }}>
               {
-                i[1] && i[1].length ?
-                  <IconButton color={childrenVisible.includes(i[0]) ? 'primary' : 'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon /></IconButton>
+                i[1] && i[1].length && childrenVisible.includes(i[0]) ?
+                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  : null
+              }
+              {
+                i[1] && i[1].length && !childrenVisible.includes(i[0]) ?
+                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
                   : null
               }
             </div>

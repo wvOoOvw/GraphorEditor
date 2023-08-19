@@ -16,10 +16,10 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Badge Content' value={value.badgeContent} onChange={e => onChange(Object.assign({}, value, { badgeContent: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Badge Content' value={value.badgeContent} onChange={e => onChange(Object.assign({}, value, { badgeContent: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} type='number' />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

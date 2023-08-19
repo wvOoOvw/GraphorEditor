@@ -10,7 +10,7 @@ import { hash } from './utils.common'
 
 function App() {
   const [visible, setVisible] = React.useState()
-  const [height, setHeight] = React.useState(window.innerHeight - 32)
+  const [height, setHeight] = React.useState()
 
   React.useEffect(() => {
     Imitation.state.graphElement = GraphElement
@@ -33,14 +33,18 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    const event = () => setHeight(window.innerHeight - 32)
+    const event = () => {
+      setHeight(window.innerHeight - 32)
+    }
+
+    event()
 
     window.addEventListener('resize', event)
 
     return () => window.removeEventListener('resize', event)
   }, [])
 
-  if (visible === undefined) return null
+  if (visible === undefined || height === undefined) return null
 
   return <div style={{ width: 'calc(100% - 32px)', height: height, display: 'flex', flexDirection: 'column', padding: 16 }}>
     <div style={{ marginBottom: 16 }}>

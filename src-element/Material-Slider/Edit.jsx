@@ -17,16 +17,16 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Min' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Min' value={value.min} onChange={e => onChange(Object.assign({}, value, { min: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Max' value={value.max} onChange={e => onChange(Object.assign({}, value, { max: e.target.value }))} />
     </Grid>
     <Grid item xs={4}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Step' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Step' value={value.step} onChange={e => onChange(Object.assign({}, value, { step: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

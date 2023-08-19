@@ -5,7 +5,7 @@ import { graphElementSearch } from './utils.graph.common'
 import { caculateStyle } from './utils.graph.style'
 
 function ElementRender(props) {
-  const graphElement = window._graphElement
+  const graphElement = window.graphElement
 
   const { flow, license, id, use, property, style, children, monitor, trigger, hook } = props.element
 
@@ -119,8 +119,8 @@ function ElementRender(props) {
 }
 
 function App() {
-  const graphContent = window._graphContent
-  const graphConfig = window._graphConfig
+  const graphContent = window.graphContent
+  const graphConfig = window.graphConfig
 
   const [update, setUpdate] = React.useState(0)
 

@@ -41,7 +41,7 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Base Url' value={value.baseUrl} onChange={e => onChange(Object.assign({}, value, { baseUrl: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Base Url' value={value.baseUrl} onChange={e => onChange(Object.assign({}, value, { baseUrl: e.target.value }))} />
     </Grid>
   </Grid>
 }

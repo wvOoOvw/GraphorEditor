@@ -8,6 +8,7 @@ import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 import { Switch } from '@mui/material'
 import { Divider } from '@mui/material'
+import { Button } from '@mui/material'
 
 function Edit(props) {
   const { value, onChange, component, sx } = props
@@ -21,13 +22,13 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Placeholder' value={value.placeholder} onChange={e => onChange(Object.assign({}, value, { placeholder: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={value.placeholder} onChange={e => onChange(Object.assign({}, value, { placeholder: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

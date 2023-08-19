@@ -43,9 +43,11 @@ function App() {
       <Tab value='ElementShop' icon={<Tooltip {...TooltipSX} title='Element Shop' placement='right'><AddIcon /></Tooltip>} />
       <Tab value='ElementOverview' icon={<Tooltip {...TooltipSX} title='Element Overview' placement='right'><FormatListBulletedIcon /></Tooltip>} />
       <Tab value='ElementEvent' icon={<Tooltip {...TooltipSX} title='Element Event' placement='right'><EventNoteIcon /></Tooltip>} />
-      <Tab value='ElementConfig' icon={<Tooltip {...TooltipSX} title='Element Config' placement='right'><SettingsApplicationsIcon /></Tooltip>} />
       <Tab value='GraphConfig' icon={<Tooltip {...TooltipSX} title='Graph Config' placement='right'><SettingsIcon /></Tooltip>} />
       <Tab value='@Close' icon={<Tooltip {...TooltipSX} title='Hidden' placement='right'><CloseFullscreenIcon /></Tooltip>} />
+      {
+        Imitation.state.navigationTabsValue === 'ElementConfig' ? <Tab value='ElementConfig' icon={<Tooltip {...TooltipSX} title='Element Config' placement='right'><SettingsApplicationsIcon /></Tooltip>} /> : null
+      }
     </Tabs>
 
     <div style={{ width: Imitation.state.navigationTabsValue ? 360 + 32 : 0, height: '100%', display: 'flex', transition: '0.5s all', overflow: 'hidden' }}>

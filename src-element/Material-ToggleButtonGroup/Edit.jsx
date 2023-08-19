@@ -44,7 +44,7 @@ function Edit(props) {
       <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

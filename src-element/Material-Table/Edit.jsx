@@ -57,10 +57,10 @@ function Edit(props) {
             <Switch checked={value.paginationComponent} onChange={e => onChange(Object.assign({}, value, { paginationComponent: e.target.checked }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='Pagination Size' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Size' value={value.paginationSize} onChange={e => onChange(Object.assign({}, value, { paginationSize: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='Pagination Page' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Page' value={value.paginationPage} onChange={e => onChange(Object.assign({}, value, { paginationPage: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
@@ -110,10 +110,10 @@ function Edit(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='Title' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={value.actionTitle} onChange={e => onChange(Object.assign({}, value, { actionTitle: e.target.value }))} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='Text' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Text' value={value.actionText} onChange={e => onChange(Object.assign({}, value, { actionText: e.target.value }))} />
           </Grid>
         </>
         : null

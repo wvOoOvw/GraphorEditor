@@ -13,10 +13,10 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={6}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Count' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Count' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
     </Grid>
     <Grid item xs={6}>
-      <TextField {...sx.TextFieldSX} fullWidth type='number' label='Page' value={value.page} onChange={e => onChange(Object.assign({}, value, { page: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Page' value={value.page} onChange={e => onChange(Object.assign({}, value, { page: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

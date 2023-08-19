@@ -12,7 +12,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
   </Grid>
 }

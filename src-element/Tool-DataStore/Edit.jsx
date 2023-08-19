@@ -55,7 +55,7 @@ function Edit(props) {
       value.useWindow ?
         <>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth label='Window Property Name' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
           </Grid>
         </>
         : null

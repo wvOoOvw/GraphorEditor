@@ -21,7 +21,7 @@ function Edit(props) {
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

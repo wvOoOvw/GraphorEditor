@@ -17,7 +17,7 @@ function Edit(props) {
       <Switch checked={value.useDom} onChange={(e) => onChange(Object.assign({}, value, { useDom: e.target.checked }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Href' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Href' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

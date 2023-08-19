@@ -44,10 +44,10 @@ function Edit(props) {
       <Switch checked={value.multiple} onChange={e => changemultiple(e)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth label='Value' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

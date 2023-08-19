@@ -21,9 +21,9 @@ function App() {
 
       const { graphContent, graphConfig, graphElement } = Imitation.state
 
-      window._graphContent = clone(graphContent)
-      window._graphConfig = clone(graphConfig)
-      window._graphElement = clone(graphElement)
+      window.graphContent = clone(graphContent)
+      window.graphConfig = clone(graphConfig)
+      window.graphElement = clone(graphElement)
     }
 
     setVisible(true)
