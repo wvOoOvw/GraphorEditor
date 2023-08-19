@@ -76,7 +76,7 @@ const element = async () => {
 
     const item = { Render, license }; 
     
-    window.graphElement = window.graphElement ? [...window.graphElement, item] : [item];
+    window._graphElement = window._graphElement ? [...window._graphElement, item] : [item];
   `
 
   for (let index = 0; index < dir.length; index++) {
@@ -132,7 +132,7 @@ const render = async () => {
   const output = `
     import GraphProd from '../src/View.Graph.Prod'
 
-    ReactDOM.render(<GraphProd />, document.getElementById(window.graphConfig.project.renderId))
+    ReactDOM.render(<GraphProd />, document.getElementById(window._graphConfig.project.renderId))
   `
 
   fs.writeFileSync(path.join(__dirname, './index.js'), output)

@@ -207,7 +207,7 @@ function DialogPublish(props) {
       )
       .replace(
         `<replace id="graph.data"></replace>`,
-        `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)}; window.graphConfig = ${JSON.stringify(data.graphConfig)};</script>`
+        `<script id="graph.data">window._graphContent = ${JSON.stringify(data.graphContent)}; window._graphConfig = ${JSON.stringify(data.graphConfig)};</script>`
       )
       .replace(
         `<replace id="graph.element"></replace>`,
@@ -227,7 +227,7 @@ function DialogPublish(props) {
 
       html = html.replace(
         /<script id="graph.data">.+?<\/script>/,
-        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)})); window.graphConfig = (${decodeifyString}(${JSON.stringify(encodeConfig.data)}, ${JSON.stringify(encodeConfig.map)}));</script>`
+        `<script id="graph.data">window._graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)})); window._graphConfig = (${decodeifyString}(${JSON.stringify(encodeConfig.data)}, ${JSON.stringify(encodeConfig.map)}));</script>`
       )
     }
 
