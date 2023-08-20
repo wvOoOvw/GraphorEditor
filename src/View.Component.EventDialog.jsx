@@ -35,10 +35,10 @@ function MonitorDialog(props) {
 
   return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 720, maxWidth: 'none' } }} className='font'>
     <DialogContent>
-      <Grid container spacing={2} style={{ padding: 12 }}>
+      <Grid container spacing={2}>
 
         <Grid item xs={12}>
-          <TextField fullWidth value={data.name} label='Custom Name' onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
+          <TextField {...TextFieldSX} fullWidth value={data.name} label='Custom Name' onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
         </Grid>
 
         <Grid item xs={12}>
@@ -53,7 +53,7 @@ function MonitorDialog(props) {
                 </Grid>
                 {
                   keyOptions.map((i, index) => {
-                    return <Grid item>
+                    return <Grid item key={index}>
                       <Button style={{ textTransform: 'none' }} key={index} variant={!data.useEval && data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value, useEval: false }))}>
                         {
                           i.label
@@ -102,7 +102,7 @@ function TriggerDialog(props) {
 
   return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 720, maxWidth: 'none' } }} className='font'>
     <DialogContent>
-      <Grid container spacing={2} style={{ padding: 12 }}>
+      <Grid container spacing={2}>
 
         <Grid item xs={12}>
           <FormControl {...SelectSX} fullWidth>
@@ -144,7 +144,7 @@ function TriggerDialog(props) {
               <Grid container spacing={1}>
                 {
                   keyOptions.map((i, index) => {
-                    return <Grid item>
+                    return <Grid item key={index}>
                       <Button style={{ textTransform: 'none' }} key={index} variant={data.key === i.value ? 'contained' : 'text'} onClick={() => setData(Object.assign({}, data, { key: i.value }))}>
                         {
                           i.label

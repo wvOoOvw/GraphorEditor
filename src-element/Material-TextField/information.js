@@ -17,8 +17,8 @@ const information = {
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onChange', label: 'Value Change' },
-    { value: 'onFocus', label: '聚焦' },
-    { value: 'onBlur', label: '失焦' }
+    { value: 'onFocus', label: 'Focus' },
+    { value: 'onBlur', label: 'Blur' }
   ],
   style: {},
   property: {

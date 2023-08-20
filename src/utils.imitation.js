@@ -9,7 +9,7 @@ const initState = () => {
     loading: 0,
 
     message: '',
-  
+
     version: '1.0.0',
 
     navigationTabsValue: '',

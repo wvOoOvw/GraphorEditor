@@ -22,9 +22,17 @@ function EventDialog(props) {
 
   return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 520, maxWidth: 'none' } }} className='font'>
     <DialogContent>
-      <HookConfig currentGraphContent={content} defaultExpanded={true} />
-      <MonitorConfig currentGraphContent={content} defaultExpanded={true} />
-      <TriggerConfig currentGraphContent={content} defaultExpanded={true} />
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <HookConfig currentGraphElement={content} />
+        </Grid>
+        <Grid item xs={12}>
+          <MonitorConfig currentGraphElement={content} />
+        </Grid>
+        <Grid item xs={12}>
+          <TriggerConfig currentGraphElement={content} />
+        </Grid>
+      </Grid>
     </DialogContent>
   </Dialog>
 }

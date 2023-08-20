@@ -2,7 +2,7 @@ import React from 'react'
 
 import NavigationBar from './View.NavigationBar'
 import NavigationTabs from './View.NavigationTabs'
-import GraphDev from './View.Graph.Dev'
+import NavigationContent from './View.NavigationContent'
 
 import { GraphElement, GraphExample } from './utils.package'
 import Imitation from './utils.imitation'
@@ -24,8 +24,6 @@ function App() {
       Imitation.state.graphContentUpdate = hash()
       Imitation.state.graphConfigUpdate = hash()
     }
-
-    Imitation.state.navigationTabsValue = 'ElementShop'
 
     Imitation.dispatch()
 
@@ -55,7 +53,7 @@ function App() {
         <NavigationTabs />
       </div>
       <div style={{ width: 0, height: '100%', flexGrow: 1 }}>
-        <GraphDev />
+        <NavigationContent />
       </div>
     </div>
   </div>
