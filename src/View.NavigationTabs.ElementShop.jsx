@@ -28,11 +28,8 @@ function App() {
       id: hash_,
       license: e.license.key,
       name: e.information.name,
-      use: true
-    }
-    newElement.hook = {
-      useBeforeRenderHook: false,
-      beforeRenderHook: evalBeforeRenderHook
+      use: true,
+      hook: []
     }
     if (e.information.style) {
       newElement.style = Object.assign({}, e.information.style)

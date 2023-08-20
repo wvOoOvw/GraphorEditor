@@ -29,12 +29,12 @@ import UploadIcon from '@mui/icons-material/Upload'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 import Imitation from './utils.imitation'
-import { deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, copy } from './utils.common'
+import { deepSearch, deleteArrayItem, deepCopyElement, getMonitorOptionsAll, updateTriggerLink, hash, copy, convertCamelCase } from './utils.common'
 import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-import { MonitorDialog, TriggerDialog } from './View.Component.EventDialog'
+import { HookDialog, MonitorDialog, TriggerDialog } from './View.Component.EventDialog'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
@@ -254,7 +254,7 @@ function ChildrenConfig(props) {
   }
 
   const handleEdit = (i) => {
-    Imitation.assignState({ modalContent: i })
+    Imitation.assignState({ navigationTabsElementValue: i })
   }
 
   return <Grid item xs={12}>
@@ -298,16 +298,22 @@ function ChildrenConfig(props) {
 function HookConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
-  const [aceDialog, setAceDialog] = React.useState()
+  const [dialog, setDialog] = React.useState()
 
-  const handleChange = (value) => {
-    currentGraphElement.hook[aceDialog] = value
+  const handleAdd = () => {
+    currentGraphElement.hook.push({ use: true, hookType: '', hookEval: evalEventMonitorDefault })
     Imitation.assignState({ graphContentUpdate: hash() })
-    setAceDialog(undefined)
   }
 
-  const handleChangeCallback = (callback) => {
-    callback()
+  const handleChange = (index, value, update) => {
+    setDialog(undefined)
+    currentGraphElement.hook[index] = value
+    Imitation.assignState({ graphContentUpdate: hash() })
+  }
+
+  const handleDelete = (index, update) => {
+    setDialog(undefined)
+    currentGraphElement.hook.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -316,28 +322,37 @@ function HookConfig(props) {
       <AccordionSummary>Event Config / Hook</AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={1}>
+          {
+            currentGraphElement.hook.map((i, index) => {
+              return <Grid item xs={12} key={index}>
+                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span>{convertCamelCase(i.hookType)}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
+                  </div>
+                </Paper>
+              </Grid>
+            })
+          }
           <Grid item xs={12}>
-            <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
-              <div>Before Render</div>
-              <div>
-                <IconButton onClick={() => setAceDialog('beforeRenderHook')}><CodeIcon style={{ fontSize: 22 }} /></IconButton>
-                <Switch checked={currentGraphElement.hook.useBeforeRenderHook} onChange={e => handleChangeCallback(() => currentGraphElement.hook.useBeforeRenderHook = e.target.checked)} />
-              </div>
-            </Paper>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
           </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>
 
     {
-      aceDialog === 'beforeRenderHook' ?
-        <AceDialog
-          onClose={() => setAceDialog(undefined)}
-          value={currentGraphElement.hook.beforeRenderHook}
-          onChange={e => handleChange(e)}
-          initValue={evalBeforeRenderHook}
-          mode='javascript'
-        /> : null
+      dialog ?
+        <HookDialog
+          value={dialog.data}
+          onChange={(value, update) => handleChange(dialog.index, value, update)}
+          onDelete={(update) => handleDelete(dialog.index, update)}
+          onClose={() => setDialog(undefined)}
+        />
+        : null
     }
   </Grid>
 }
@@ -345,7 +360,7 @@ function HookConfig(props) {
 function MonitorConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
-  const [modal, setModal] = React.useState()
+  const [dialog, setDialog] = React.useState()
 
   if (!currentGraphElement.monitor) return null
 
@@ -353,24 +368,32 @@ function MonitorConfig(props) {
 
   if (!information) return null
 
-  const handleChange = (index, value) => {
-    setModal(undefined)
+  const handleAdd = () => {
+    currentGraphElement.monitor.push({ use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' })
+    Imitation.assignState({ graphContentUpdate: hash() })
+  }
+
+  const handleChange = (index, value, update) => {
+    setDialog(undefined)
+    if (update === true) {
+      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, value.monitorName)
+    }
     currentGraphElement.monitor[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
-  const handleAdd = () => {
-    currentGraphElement.monitor.push({ name: hash(), event: evalEventMonitorDefault, key: '', useEval: false })
-    Imitation.assignState({ graphContentUpdate: hash() })
-  }
-  const handleDelete = (index) => {
-    setModal(undefined)
+
+  const handleDelete = (index, update) => {
+    setDialog(undefined)
+    if (update === true) {
+      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, '')
+    }
     currentGraphElement.monitor.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const keyOptions = information.monitor
+  const monitorOptions = information.monitor
 
-  if (!keyOptions && keyOptions.length === 0) return null
+  if (!monitorOptions && monitorOptions.length === 0) return null
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
@@ -382,22 +405,11 @@ function MonitorConfig(props) {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{i.name}</span>
-                    <span> - </span>
-                    <span>
-                      {
-                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) === undefined ? 'Empty' : null
-                      }
-                      {
-                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) !== undefined ? keyOptions.find(i_ => i_.value === i.key).label : null
-                      }
-                      {
-                        i.useEval ? 'Custom' : null
-                      }
-                    </span>
+                    <span>{i.monitorName}</span>
                   </div>
-                  <div>
-                    <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
                   </div>
                 </Paper>
               </Grid>
@@ -410,14 +422,15 @@ function MonitorConfig(props) {
       </AccordionDetails>
     </Accordion>
     {
-      modal ?
+      dialog ?
         <MonitorDialog
-          onClose={() => setModal(undefined)}
-          keyOptions={keyOptions}
-          value={modal.data}
-          onChange={(v) => handleChange(modal.index, v)}
-          onDelete={() => handleDelete(modal.index)}
-        /> : null
+          value={dialog.data}
+          onChange={(value, update) => handleChange(dialog.index, value, update)}
+          onDelete={(update) => handleDelete(dialog.index, update)}
+          onClose={() => setDialog(undefined)}
+          monitorOptions={monitorOptions}
+        />
+        : null
     }
   </Grid>
 }
@@ -425,7 +438,7 @@ function MonitorConfig(props) {
 function TriggerConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
-  const [modal, setModal] = React.useState()
+  const [dialog, setDialog] = React.useState()
 
   if (!currentGraphElement.trigger) return null
 
@@ -434,25 +447,25 @@ function TriggerConfig(props) {
   if (!information) return null
 
   const handleChange = (index, value) => {
-    setModal(undefined)
+    setDialog(undefined)
     currentGraphElement.trigger[index] = value
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleAdd = () => {
-    currentGraphElement.trigger.push({ name: '', event: evalEventTriggerDefault, key: '', useEval: false })
+    currentGraphElement.trigger.push({ use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' })
     Imitation.assignState({ graphContentUpdate: hash() })
   }
   const handleDelete = (index) => {
-    setModal(undefined)
+    setDialog(undefined)
     currentGraphElement.trigger.splice(index, 1)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const keyOptions = information.trigger
+  const triggerOptions = information.trigger
 
-  const monitorNameOptions = getEventName(Imitation.state.graphContent)
+  const monitorOptionsAll = getMonitorOptionsAll(Imitation.state.graphContent)
 
-  if (!keyOptions || keyOptions.length === 0) return null
+  if (!triggerOptions || triggerOptions.length === 0) return null
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
@@ -464,22 +477,11 @@ function TriggerConfig(props) {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{i.name ? i.name : 'Empty'}</span>
-                    <span> - </span>
-                    <span>
-                      {
-                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) === undefined ? 'Empty' : null
-                      }
-                      {
-                        !i.useEval && keyOptions.find(i_ => i_.value === i.key) !== undefined ? keyOptions.find(i_ => i_.value === i.key).label : null
-                      }
-                      {
-                        i.useEval ? 'Custom' : null
-                      }
-                    </span>
+                    <span>{i.monitorName}</span>
                   </div>
-                  <div>
-                    <IconButton onClick={e => setModal({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
                   </div>
                 </Paper>
               </Grid>
@@ -492,15 +494,16 @@ function TriggerConfig(props) {
       </AccordionDetails>
     </Accordion>
     {
-      modal ?
+      dialog ?
         <TriggerDialog
-          onClose={() => setModal(undefined)}
-          keyOptions={keyOptions}
-          value={modal.data}
-          onChange={(v) => handleChange(modal.index, v)}
-          onDelete={() => handleDelete(modal.index)}
-          monitorNameOptions={monitorNameOptions}
-        /> : null
+          value={dialog.data}
+          onChange={(v) => handleChange(dialog.index, v)}
+          onDelete={() => handleDelete(dialog.index)}
+          onClose={() => setDialog(undefined)}
+          triggerOptions={triggerOptions}
+          monitorOptionsAll={monitorOptionsAll}
+        />
+        : null
     }
   </Grid>
 }

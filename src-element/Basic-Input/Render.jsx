@@ -12,6 +12,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
+  
   React.useEffect(() => {
     if (monitor && monitor.setValueEmpty) {
       const remove = monitor.setValueEmpty(data => {

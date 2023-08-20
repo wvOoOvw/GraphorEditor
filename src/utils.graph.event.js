@@ -1,19 +1,19 @@
 const graphEvent = {
-  eventMonitor: [],
+  event: [],
   addEventMonitor: (props) => {
     const { name, event, env } = props
 
     const item = { name, event, env }
-    graphEvent.eventMonitor.push(item)
+    graphEvent.event.push(item)
     return () => {
-      graphEvent.eventMonitor = graphEvent.eventMonitor.filter(i => i !== item)
+      graphEvent.event = graphEvent.event.filter(i => i !== item)
     }
   },
   triggerEvent: (props) => {
     const { name, event, env, data } = props
 
     const resolve = (data) => {
-      graphEvent.eventMonitor.forEach(i => {
+      graphEvent.event.forEach(i => {
         if (i.name === name) {
           if (typeof i.event === 'function') i.event(data, i.env)
           if (typeof i.event === 'string') {
@@ -27,13 +27,15 @@ const graphEvent = {
       })
     }
 
-    if (event) {
+    if (event !== undefined) {
       try {
         new Function('data', 'env', 'resolve', `(${event})(data, env, resolve)`)(data, env, resolve)
       } catch (err) {
         console.error(err)
       }
-    } else {
+    }
+
+    if (event === undefined) {
       resolve(data)
     }
   }

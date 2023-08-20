@@ -16,10 +16,6 @@ function Edit(props) {
   const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
-    </Grid>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value.split(',') }))} />
     </Grid>
@@ -45,6 +41,10 @@ function Edit(props) {
           <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Disabled</div>
+      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

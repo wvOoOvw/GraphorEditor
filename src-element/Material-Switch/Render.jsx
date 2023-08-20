@@ -13,6 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
+  
   React.useEffect(() => {
     if (monitor && monitor.setCheckedClose) {
       const remove = monitor.setCheckedClose(data => {

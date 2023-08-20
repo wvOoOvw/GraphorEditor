@@ -1,15 +1,11 @@
 if (process.env === 'dev') {
-  // var baseIp = '//localhost'
-  // var baseIp = '//192.168.1.3'
-  var baseIp = '//124.222.36.246'
+  var baseIp = '//localhost'
 }
 if (process.env === 'prod' || process.env === 'simple') {
   var baseIp = window.location.origin
 }
 
-const baseUrl = baseIp + '/api/graph'
-
-export { baseIp, baseUrl }
+export { baseIp }
 
 const downloadFile = (fileName, content) => {
   const aLink = document.createElement('a')
@@ -40,6 +36,14 @@ const clone = (t, useJson) => {
   } else {
     return t
   }
+}
+
+const hash = (n = 4, l = 3) => {
+  return new Array(l).fill(undefined).map(i => Array.from(Array(n), () => Math.floor(Math.random() * 36).toString(36)).join('')).join('-').toUpperCase()
+}
+
+function convertCamelCase(string) {
+  return string.split(/(?=[A-Z])/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
 
 const deepSearch = (target, key, value) => {
@@ -83,24 +87,35 @@ const deepCopyElement = (target) => {
   return result
 }
 
-const getEventName = (content) => {
+const getMonitorOptionsAll = (content) => {
   return content.reduce((t, i) => {
     if (i.monitor) {
       i.monitor.forEach(i => {
-        if (i.name && !t.includes(i.name)) t.push(i.name)
+        t.push(i)
       })
     }
     if (i.children) {
       Object.values(i.children).forEach(i => {
-        t.push(...getEventName(i))
+        t.push(...getMonitorOptionsAll(i))
       })
     }
     return t
   }, [])
 }
 
-const hash = (n = 4, l = 3) => {
-  return new Array(l).fill(undefined).map(i => Array.from(Array(n), () => Math.floor(Math.random() * 36).toString(36)).join('')).join('-').toUpperCase()
+const updateTriggerLink = (content, pre, current) => {
+  content.forEach((i) => {
+    if (i.trigger) {
+      i.trigger.forEach(i => {
+        if (i.monitorName === pre) i.monitorName = current
+      })
+    }
+    if (i.children) {
+      Object.values(i.children).forEach(i => {
+        getMonitorOptionsAll(i)
+      })
+    }
+  })
 }
 
 const graphElementSearch = (license, list) => {
@@ -112,4 +127,4 @@ const graphElementSearch = (license, list) => {
   }
 }
 
-export { downloadFile, clone, copy, deepSearch, deleteArrayItem, deepCopyElement, getEventName, hash, graphElementSearch }
+export { downloadFile, clone, copy, hash, convertCamelCase, deepSearch, deleteArrayItem, deepCopyElement, getMonitorOptionsAll, updateTriggerLink, graphElementSearch }

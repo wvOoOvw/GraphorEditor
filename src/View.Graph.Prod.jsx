@@ -21,12 +21,12 @@ function ElementRender(props) {
   const trigger_exe = React.useMemo(() => {
     if (!trigger) return
     const r = {}
-    trigger.forEach(i => {
-      if (i.key) return r[i.key] ? r[i.key].push(i) : r[i.key] = [i]
+    trigger.filter(i => i.use && i.triggerKey).forEach(i => {
+      r[i.triggerKey] ? r[i.triggerKey].push(i) : r[i.triggerKey] = [i]
     })
     Object.entries(r).forEach(i => {
       r[i[0]] = (data, $event) => i[1].forEach(i => {
-        graphEvent.triggerEvent({ name: i.name, event: i.useEval ? i.event : null, env: { ...env, event: $event }, data })
+        graphEvent.triggerEvent({ name: i.monitorName, event: i.triggerKey === 'eval' ? i.triggerEval : undefined, env: { ...env, event: $event }, data })
       })
     })
     return r
@@ -37,11 +37,13 @@ function ElementRender(props) {
   const monitor_exe = React.useMemo(() => {
     if (!monitor) return
     const r = {}
-    monitor.filter(i => !i.useEval).forEach(i => i.key && r[i.key] ? r[i.key].push(i) : r[i.key] = [i])
+    monitor.filter(i => i.use && i.monitorKey && i.monitorType === 'default').forEach(i => {
+      r[i.monitorKey] ? r[i.monitorKey].push(i) : r[i.monitorKey] = [i]
+    })
     Object.entries(r).forEach(i => {
       r[i[0]] = (event) => {
         const remove = i[1].map(i => {
-          return graphEvent.addEventMonitor({ name: i.name, event, env })
+          return graphEvent.addEventMonitor({ name: i.monitorName, event, env })
         })
         return () => remove.forEach(i => i())
       }
@@ -52,14 +54,14 @@ function ElementRender(props) {
   React.useEffect(() => {
     if (!monitor) return
     const remove = [
-      ...monitor.filter(i => i.useEval).map(i => {
-        return graphEvent.addEventMonitor({ name: i.name, event: i.event, env })
+      ...monitor.filter(i => i.use && i.monitorType === 'eval').map(i => {
+        return graphEvent.addEventMonitor({ name: i.monitorName, event: i.monitorEval, env })
       }),
-      ...monitor.filter(i => i.key === '@setUseTrue').map(i => {
-        return graphEvent.addEventMonitor({ name: i.name, event: v => { props.element.use = false; update() } })
+      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '@setUseTrue').map(i => {
+        return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = false; update() } })
       }),
-      ...monitor.filter(i => i.key === '@setUseFalse').map(i => {
-        return graphEvent.addEventMonitor({ name: i.name, event: v => { props.element.use = true; update() } })
+      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '@setUseFalse').map(i => {
+        return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = true; update() } })
       }),
     ]
     return () => remove.forEach(i => i())
@@ -67,13 +69,17 @@ function ElementRender(props) {
 
   const hookEnv = { property, style, flow }
 
-  if (hook.useBeforeRenderHook) {
-    try {
-      new Function('env', `(${hook.beforeRenderHook})(env)`)(hookEnv)
-    } catch (err) {
-      console.error(err)
+  hook.forEach(i => {
+    if (i.use === false) return
+
+    if (i.hookType === 'beforeRender') {
+      try {
+        new Function('env', `(${i.hookEval})(env)`)(hookEnv)
+      } catch (err) {
+        console.error(err)
+      }
     }
-  }
+  })
 
   const children_exe = React.useMemo(() => {
     if (!children) return

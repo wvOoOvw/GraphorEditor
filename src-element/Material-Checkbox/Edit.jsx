@@ -12,14 +12,6 @@ function Edit(props) {
   const { value, onChange, component, sx } = props
 
   return <Grid container spacing={1}>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
-    </Grid>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Checked</div>
-      <Switch checked={value.checked} onChange={e => onChange(Object.assign({}, value, { checked: e.target.checked }))} />
-    </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
@@ -42,6 +34,14 @@ function Edit(props) {
           <MenuItem value='small'>Small</MenuItem>
         </Select>
       </FormControl>
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Disabled</div>
+      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Checked</div>
+      <Switch checked={value.checked} onChange={e => onChange(Object.assign({}, value, { checked: e.target.checked }))} />
     </Grid>
   </Grid>
 }
