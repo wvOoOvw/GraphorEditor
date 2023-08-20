@@ -33,7 +33,7 @@ function Hover() {
     timeRef.current = setInterval(() => handle(), 500)
 
     return () => clearInterval(timeRef.current)
-  }, [Imitation.state.elementHover, Imitation.state.graphContent])
+  }, [Imitation.state.elementHover, Imitation.state.graphContentUpdate])
 
   if (position === undefined) return null
 
@@ -73,7 +73,7 @@ function Active() {
     timeRef.current = setInterval(() => handle(), 500)
 
     return () => clearInterval(timeRef.current)
-  }, [Imitation.state.elementHover, Imitation.state.graphContent])
+  }, [Imitation.state.elementHover, Imitation.state.graphContentUpdate])
 
   if (position === undefined) return null
 

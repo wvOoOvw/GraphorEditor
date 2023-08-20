@@ -369,6 +369,11 @@ function App() {
     Imitation.assignState({ message: 'Clear Success', graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
   }
 
+  const handlePreview = () => {
+    localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }))
+    window.open(location.origin + location.pathname + '#/prod')
+  }
+
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
@@ -383,7 +388,7 @@ function App() {
         <IconButton style={{ marginLeft: 4 }} onClick={handleClear}><ClearAllIcon /></IconButton>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Preview'>
-        <IconButton style={{ marginLeft: 4 }} onClick={() => window.open(location.origin + location.pathname + '#/prod')}><DeveloperModeIcon /></IconButton>
+        <IconButton style={{ marginLeft: 4 }} onClick={handlePreview}><DeveloperModeIcon /></IconButton>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Publish'>
         <IconButton style={{ marginLeft: 4 }} onClick={() => setDialogPublish(true)}><DataSaverOffIcon /></IconButton>
