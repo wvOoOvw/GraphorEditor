@@ -43,7 +43,6 @@ function Screen(props) {
             <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>Reset Position</Button>
           </Grid>
           <Grid item xs={12}>
-            <div>Scale</div>
             <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
           </Grid>
         </Grid>
