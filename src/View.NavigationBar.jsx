@@ -366,7 +366,7 @@ function App() {
 
   const handleClear = () => {
     initState()
-    Imitation.assignState({ essage: 'Clear Success', graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
+    Imitation.assignState({ message: 'Clear Success', graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
   }
 
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>

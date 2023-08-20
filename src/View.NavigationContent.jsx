@@ -21,7 +21,7 @@ function Fade(props) {
 
 function App() {
 
-  if (Imitation.state.navigationTabsValue === 'ElementEvent') return <Fade key={1}><EventDev /></Fade>
+  // if (Imitation.state.navigationTabsValue === 'ElementEvent') return <Fade key={1}><EventDev /></Fade>
 
   return <Fade key={2}><GraphDev /></Fade>
 }
