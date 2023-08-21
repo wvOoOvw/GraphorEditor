@@ -172,7 +172,7 @@ function StyleConfig(props) {
               <AccordionSummary>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                   <div>Style Config</div>
-                  <div>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Tooltip
                       {...TooltipSX}
                       title={
