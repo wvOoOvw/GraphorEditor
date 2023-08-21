@@ -73,7 +73,7 @@ function Active() {
     timeRef.current = setInterval(() => handle(), 500)
 
     return () => clearInterval(timeRef.current)
-  }, [Imitation.state.elementHover, Imitation.state.graphContentUpdate])
+  }, [Imitation.state.navigationTabsElementValue, Imitation.state.graphContentUpdate])
 
   if (position === undefined) return null
 

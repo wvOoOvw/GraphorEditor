@@ -15,12 +15,12 @@ body {
 }
 
 .element-hover, .element-active {
-  animation-name: animation-element-hover;
+  animation-name: animation-element-use;
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
 
-@keyframes animation-element-hover {
+@keyframes animation-element-use {
   0% {
     transform: translateY(0px);
   }
@@ -34,7 +34,7 @@ body {
   }
 }
 
-@-webkit-keyframes animation-element-hover {
+@-webkit-keyframes animation-element-use {
   0% {
     transform: translateY(0px);
   }
