@@ -149,7 +149,7 @@ function TriggerDialog(props) {
             <Select {...SelectSX} label='Link Monitor Name' value={data.monitorName} onChange={e => setData(Object.assign({}, data, { monitorName: e.target.value }))}>
               {
                 [...new Set(monitorOptionsAll.map(i => i.monitorName))].map((i, index) => {
-                  return <MenuItem key={index} value={index}>{index}</MenuItem>
+                  return <MenuItem key={index} value={i}>{i}</MenuItem>
                 })
               }
             </Select>
