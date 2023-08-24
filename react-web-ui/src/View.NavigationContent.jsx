@@ -11,19 +11,22 @@ import EventDev from './View.Event.Dev'
 
 import Imitation from './utils.imitation'
 
-function Fade(props) {
-  const [opacity, setOpacity] = React.useState(0)
-
-  React.useEffect(() => requestAnimationFrame(() => setOpacity(1)), [])
-
-  return <div style={{ width: '100%', height: '100%', opacity: opacity, transition: '0.5s all' }}>{props.children}</div>
-}
-
 function App() {
+  const [current, setCurrent] = React.useState('')
 
-  // if (Imitation.state.navigationTabsValue === 'ElementEvent') return <Fade key={1}><EventDev /></Fade>
+  React.useEffect(() => {
+    if (current === '' && Imitation.state.navigationTabsValue === '') setCurrent('Graph')
 
-  return <Fade key={2}><GraphDev /></Fade>
+    if (['ElementShop', 'ElementOverview'].includes(Imitation.state.navigationTabsValue)) setCurrent('Graph')
+
+    if (['ElementEvent'].includes(Imitation.state.navigationTabsValue)) setCurrent('Event')
+
+  }, [Imitation.state.navigationTabsValue])
+
+  if (current === 'Graph') return <GraphDev />
+  if (current === 'Event') return <EventDev />
+
+  return null
 }
 
 export default Imitation.withBindRender(App, state => [state.navigationTabsValue])

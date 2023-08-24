@@ -31,6 +31,13 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
+  const onOpen = (e) => {
+    if (env === 'dev') return
+    property.open = e.target.open
+    update()
+    if (trigger && trigger.onOpen) trigger.onOpen(property.open, e)
+  }
+
   if (env === 'dev') {
     const ref = React.useRef()
 
@@ -51,9 +58,9 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth} >
+    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth}>
       <InputLabel>{property.label}</InputLabel>
-      <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
+      <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} open={property.open} value={property.value} onChange={onChange} onOpen={onOpen}>
         {
           property.options.map((i, index) => {
             return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>

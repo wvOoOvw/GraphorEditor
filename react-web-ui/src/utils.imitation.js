@@ -12,7 +12,7 @@ const initState = () => {
 
     version: '1.0.0',
 
-    navigationTabsValue: '',
+    navigationTabsValue: 'ElementShop',
     navigationTabsElementValue: undefined,
 
     elementHover: undefined,

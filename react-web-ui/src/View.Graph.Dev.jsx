@@ -39,16 +39,18 @@ function Hover() {
 
   const style = {
     transition: '0.5s all',
-    width: 28,
-    height: 28,
     position: 'absolute',
     zIndex: 1,
-    color: 'rgb(0, 0, 0)',
-    top: position.top + position.height,
-    left: position.width / 2 + position.left - 28 / 2,
+    background: '#000',
+    borderRadius: '50%'
   }
 
-  return <KeyboardArrowUpIcon style={style} className='element-hover' />
+  return <>
+    <div style={{ ...style, width: position.width, height: 2, top: position.top - 4, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 4 }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
+  </>
 }
 
 function Active() {
@@ -79,16 +81,18 @@ function Active() {
 
   const style = {
     transition: '0.5s all',
-    width: 28,
-    height: 28,
     position: 'absolute',
     zIndex: 1,
-    color: 'rgb(25, 118, 210)',
-    top: position.top + position.height,
-    left: position.width / 2 + position.left - 28 / 2,
+    background: 'rgb(25, 118, 210)',
+    borderRadius: '50%'
   }
 
-  return <KeyboardArrowUpIcon style={style} className='element-hover' />
+  return <>
+    <div style={{ ...style, width: position.width, height: 2, top: position.top - 4, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 4 }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
+  </>
 }
 
 function ElementRender(props) {
@@ -105,23 +109,25 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const onMouseDown = e => {
-    e.stopPropagation()
-    e.preventDefault()
-  }
-  const onMouseUp = e => {
-    e.stopPropagation()
-    e.preventDefault()
-  }
+  // const onMouseDown = e => {
+  //   e.stopPropagation()
+  //   e.preventDefault()
+  // }
+  // const onMouseUp = e => {
+  //   e.stopPropagation()
+  //   e.preventDefault()
+  // }
   const onMouseOver = e => {
     hoverTimeout = null
     Imitation.assignState({ elementHover: id })
     e.stopPropagation()
+
+    requestAnimationFrame
   }
   const onMouseOut = e => {
     hoverTimeout = setTimeout(() => {
       if (hoverTimeout) Imitation.assignState({ elementHover: undefined })
-    }, 0)
+    }, 50)
     e.stopPropagation()
   }
   const onClick = e => {
@@ -134,12 +140,12 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} element={i} />)
+      r[i[0]] = () => i[1].map(i => <div style={{ padding: 24 }}><ElementRender key={i.id} element={i} /></div>)
     })
     return r
   })
 
-  const event = { onClick, onMouseDown, onMouseUp, onMouseOver, onMouseOut }
+  const event = { onClick, onMouseOver, onMouseOut }
 
   const style_exe = {
     style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' }
@@ -217,7 +223,6 @@ function App() {
       onTouchEnd={eventUp}
     >
       <Paper
-        id='screen'
         style={{
           width: isNaN(Imitation.state.graphConfig.screen.width) ? Imitation.state.graphConfig.screen.width : Imitation.state.graphConfig.screen.width + 'px',
           height: isNaN(Imitation.state.graphConfig.screen.height) ? Imitation.state.graphConfig.screen.height : Imitation.state.graphConfig.screen.height + 'px',

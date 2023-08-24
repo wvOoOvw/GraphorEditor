@@ -26,7 +26,6 @@ function ItemRender(props) {
   if (!information) return null
 
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
-  const [EventDialog, setEventDialog] = React.useState(false)
 
   const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
 
@@ -76,6 +75,7 @@ function ItemRender(props) {
     } else {
       drag.setDragMove(undefined)
     }
+    Imitation.assignState({ elementHover: move })
   }
 
   const handleDragEnd = () => {
@@ -157,9 +157,6 @@ function ItemRender(props) {
           }
         </React.Fragment>
       }) : null
-    }
-    {
-      EventDialog ? <EventDialog content={EventDialog} onClose={() => setEventDialog(undefined)} /> : null
     }
   </>
 }

@@ -14,36 +14,39 @@ body {
   height: 0;
 }
 
-.element-hover, .element-active {
+.element-hover,
+.element-active {
   animation-name: animation-element-use;
   animation-duration: 1s;
   animation-iteration-count: infinite;
+
+  transform-origin: center center;
 }
 
 @keyframes animation-element-use {
   0% {
-    transform: translateY(0px);
+    transform: scale(1);
   }
 
   50% {
-    transform: translateY(10px);
+    transform: scale(0.8);
   }
 
   100% {
-    transform: translateY(0px);
+    transform: scale(1);
   }
 }
 
 @-webkit-keyframes animation-element-use {
   0% {
-    transform: translateY(0px);
+    transform: scale(1);
   }
 
   50% {
-    transform: translateY(10px);
+    transform: scale(0.8);
   }
 
   100% {
-    transform: translateY(0px);
+    transform: scale(1);
   }
 }
