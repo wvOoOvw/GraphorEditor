@@ -3,6 +3,12 @@ body {
   margin: 0;
 }
 
+.font-single {
+  font-size: 14px;
+  font-weight: bold !important;
+  font-family: monospace !important;
+}
+
 .font * {
   font-size: 14px;
   font-weight: bold !important;

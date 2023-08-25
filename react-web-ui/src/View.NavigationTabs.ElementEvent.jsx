@@ -47,13 +47,15 @@ function ItemRender(props) {
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
   const [eventDialog, setEventDialog] = React.useState(false)
 
-  const hoverStyle = Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+  const hoverStyle = (id) => {
+    return Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+  }
 
   const childrenLabel = (value) => {
     return information.children.find(i => i.value === value)?.label
   }
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (id) => {
     Imitation.assignState({ elementHover: id })
   }
 
@@ -73,8 +75,8 @@ function ItemRender(props) {
 
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle }}
-      onMouseEnter={handleMouseEnter}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
+      onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
@@ -100,7 +102,9 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentId.length * 8 + 16 }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
+            onMouseEnter={() => handleMouseEnter(id + '@' + i[0])}
+            onMouseLeave={handleMouseLeave}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
               {

@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const echarts = window.echarts
 
-  const { event, style, property, monitor, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   const ref = React.useRef()
   const chartRef = React.useRef()

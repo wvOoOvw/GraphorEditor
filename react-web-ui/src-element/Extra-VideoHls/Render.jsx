@@ -2,7 +2,7 @@ import React from 'react'
 import Hls from 'hls.js'
 
 function Render(props) {
-  const { event, style, property, monitor, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {

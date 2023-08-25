@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, update } = props
+  const { event, style, property, monitor, trigger, env, update } = props
 
   const ref = React.useRef()
 
