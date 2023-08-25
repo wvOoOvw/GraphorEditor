@@ -2,14 +2,10 @@ import React from 'react'
 
 import { Paper } from '@mui/material'
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
 import { graphElementSearch } from './utils.graph.common'
 import { deepSearch, hash, deleteArrayItem } from './utils.common'
-
-var hoverTimeout = null
 
 function Hover() {
   const timeRef = React.useRef()
@@ -110,23 +106,14 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const onMouseOver = (e, id) => {
-    hoverTimeout = null
-    Imitation.assignState({ elementHover: id })
-
-    e.stopPropagation()
-  }
-
-  const onMouseOut = (e) => {
-    hoverTimeout = setTimeout(() => {
-      if (hoverTimeout) Imitation.assignState({ elementHover: undefined })
-    }, 50)
-
-    e.stopPropagation()
-  }
-
   const onClick = (e) => {
     Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
+
+    e.stopPropagation()
+  }
+
+  const onMouseOver = (e, id) => {
+    Imitation.assignState({ elementHover: id })
 
     e.stopPropagation()
   }
@@ -178,7 +165,6 @@ function ElementRender(props) {
 
       const params = {
         onMouseOver: e => onMouseOver(e, id_),
-        onMouseOut: e => onMouseOut(e),
         onDragEnter: e => onDragEnter(e, id_)
       }
 
@@ -199,7 +185,6 @@ function ElementRender(props) {
   const params = {
     onClick: e => onClick(e),
     onMouseOver: e => onMouseOver(e, id),
-    onMouseOut: e => onMouseOut(e),
     onDragStart: e => onDragStart(e),
     onDragEnd: e => onDragEnd(e),
     onDragEnter: e => onDragEnter(e, id),
@@ -240,10 +225,6 @@ function App() {
     Imitation.assignState({ graphConfigUpdate: hash() })
   }
 
-  const onDragEnter = () => {
-    Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
-  }
-
   return <>
     <Paper
       style={{
@@ -264,7 +245,6 @@ function App() {
       onTouchStart={eventDown}
       onTouchMove={eventMove}
       onTouchEnd={eventUp}
-      onDragEnter={onDragEnter}
     >
       <Paper
         style={{

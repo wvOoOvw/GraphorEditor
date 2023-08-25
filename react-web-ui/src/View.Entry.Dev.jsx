@@ -12,6 +12,14 @@ function App() {
   const [visible, setVisible] = React.useState()
   const [height, setHeight] = React.useState()
 
+  const onDragEnter = () => {
+    Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
+  }
+
+  const onMouseOver = () => {
+    Imitation.assignState({ elementHover: undefined })
+  }
+
   React.useEffect(() => {
     Imitation.state.graphElement = GraphElement
     Imitation.state.graphElementUpdate = hash()
@@ -44,7 +52,7 @@ function App() {
 
   if (visible === undefined || height === undefined) return null
 
-  return <div style={{ width: 'calc(100% - 32px)', height: height, display: 'flex', flexDirection: 'column', padding: 16 }}>
+  return <div style={{ width: 'calc(100% - 32px)', height: height, display: 'flex', flexDirection: 'column', padding: 16 }} onDragEnter={onDragEnter} onMouseOver={onMouseOver}>
     <div style={{ marginBottom: 16 }}>
       <NavigationBar />
     </div>

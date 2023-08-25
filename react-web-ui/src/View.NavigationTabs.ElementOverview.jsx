@@ -63,16 +63,16 @@ function ItemRender(props) {
     setChildrenVisible(pre => pre.includes(item[0]) ? pre.filter(i => i !== item[0]) : [...pre, item[0]])
   }
 
-  const onMouseEnter = (e, id) => {
+  const onMouseOver = (e, id) => {
     Imitation.assignState({ elementHover: id })
-  }
 
-  const onMouseLeave = (e) => {
-    Imitation.assignState({ elementHover: undefined })
+    e.stopPropagation()
   }
 
   const onDragStart = (e) => {
     Imitation.assignState({ elementDragStart: id, elementHover: undefined })
+    
+    e.stopPropagation()
   }
 
   const onDragEnter = (e, id) => {
@@ -112,8 +112,7 @@ function ItemRender(props) {
     <div
       draggable
       style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStyle(id) }}
-      onMouseEnter={(e) => onMouseEnter(e, id)}
-      onMouseLeave={(e) => onMouseLeave(e)}
+      onMouseOver={(e) => onMouseOver(e, id)}
       onDragStart={(e) => onDragStart(e)}
       onDragEnd={(e) => onDragEnd(e)}
       onDragEnter={(e) => onDragEnter(e, id)}
@@ -135,8 +134,7 @@ function ItemRender(props) {
         return <React.Fragment key={index}>
           <div
             style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStyle(id + '@' + i[0]) }}
-            onMouseEnter={(e) => onMouseEnter(e, id + '@' + i[0])}
-            onMouseLeave={(e) => onMouseLeave(e)}
+            onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
