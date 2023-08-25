@@ -7,7 +7,9 @@ import { caculateStyle } from './utils.graph.style'
 function ElementRender(props) {
   const graphElement = window.graphElement
 
-  const { flow, license, id, use, property, style, children, monitor, trigger, hook } = props.element
+  const { prop } = props
+
+  const { license, id, use, property, style, children, monitor, trigger, hook } = props.element
 
   const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
 
@@ -16,7 +18,7 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const env = { property, style, flow, update }
+  const env = { property, style, prop, update }
 
   const trigger_exe = React.useMemo(() => {
     if (!trigger) return
@@ -30,7 +32,7 @@ function ElementRender(props) {
       })
     })
     return r
-  }, [property, style, flow, trigger])
+  }, [property, style, prop, trigger])
 
   env.trigger = trigger_exe
 
@@ -49,7 +51,7 @@ function ElementRender(props) {
       }
     })
     return r
-  }, [property, style, flow, monitor])
+  }, [property, style, prop, monitor])
 
   React.useEffect(() => {
     if (!monitor) return
@@ -65,9 +67,9 @@ function ElementRender(props) {
       }),
     ]
     return () => remove.forEach(i => i())
-  }, [property, style, flow, monitor])
+  }, [property, style, prop, monitor])
 
-  const hookEnv = { property, style, flow }
+  const hookEnv = { property, style, prop }
 
   hook.forEach(i => {
     if (i.use === false) return
@@ -85,10 +87,10 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} flow={prop ? prop : flow} element={i} />)
+      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} prop={prop} element={i} />)
     })
     return r
-  }, [children, flow])
+  }, [children])
 
   const params = {}
 
@@ -104,10 +106,12 @@ function ElementRender(props) {
   if (trigger_exe['@onTouchEnd']) params.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
 
   params.style = { ...caculateStyle(style), boxSizing: 'border-box' }
+  
+  params.id = id
 
   if (use === false) return null
 
-  return <Render env='prod' update={update} params={params} element={props.element} property={property} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} />
+  return <Render env='prod' update={update} params={params} element={props.element} property={property} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} prop={prop} />
 }
 
 function App() {

@@ -1,15 +1,15 @@
 const evalEventMonitorDefault = `function(data, env) {
-  const { property, style, flow, update } = env
+  const { property, style, prop, update } = env
 }`
 
 const evalEventTriggerDefault = `function(data, env, resolve) {
-  const { property, style, flow, update, trigger, event } = env
+  const { property, style, prop, update, trigger, event } = env
 
   resolve(data)
 }`
 
 const evalBeforeRenderHook = `function(env) {
-  const { property, style, flow } = env
+  const { property, style, prop } = env
 }`
 
 const defaultEventMonitor = [
