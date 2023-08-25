@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu, MenuItem } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {

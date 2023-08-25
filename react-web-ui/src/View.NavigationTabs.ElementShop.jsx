@@ -31,38 +31,22 @@ function App() {
       use: true,
       hook: []
     }
-    if (e.information.style) {
-      newElement.style = Object.assign({}, e.information.style)
-      delete newElement.style.$use
-      delete newElement.style.$nonuse
-      if (e.information.style.$use) {
-        Object.keys(newElement.style).forEach(i => {
-          if (!e.information.style.$use.includes(i)) delete newElement.style[i]
-        })
-      }
-      if (e.information.style.$nonuse) {
-        Object.keys(newElement.style).forEach(i => {
-          if (e.information.style.$nonuse.includes(i)) delete newElement.style[i]
-        })
-      }
-    }
+    if (e.information.style) newElement.style = {}
+    if (e.information.style && e.information.style.default) newElement.style = JSON.parse(JSON.stringify(e.information.style.default))
     if (e.information.property) newElement.property = JSON.parse(JSON.stringify(e.information.property))
     if (e.information.monitor) newElement.monitor = []
     if (e.information.trigger) newElement.trigger = []
-    if (e.information.children) {
-      const c = {}
-      e.information.children.forEach(i => c[i.value] = [])
-      newElement.children = c
-    }
+    if (e.information.children) newElement.children = e.information.children.reduce((t, i) => { t[i.value] = []; return t }, {})
 
-    if (Imitation.state.navigationTabsElementValue) {
+    if (Imitation.state.navigationTabsElementValue !== undefined) {
       const [id, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
       const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
       currentGraphContent.children[childrenKey].push(newElement)
     }
-    if (!Imitation.state.navigationTabsElementValue) {
+    if (Imitation.state.navigationTabsElementValue === undefined) {
       Imitation.state.graphContent.push(newElement)
     }
+
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 

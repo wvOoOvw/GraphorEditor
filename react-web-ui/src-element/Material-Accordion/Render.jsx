@@ -9,7 +9,13 @@ function Icon() {
 }
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+
+  const onChange = (e) => {
+    property.expanded = !property.expanded
+    update()
+    if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
+  }
 
   React.useEffect(() => {
     if (monitor && monitor.setExpandedOpen) {
@@ -31,33 +37,71 @@ function Render(props) {
     }
   }, [])
 
-  const onChange = (e) => {
-    if (env === 'dev') return
-    property.expanded = !property.expanded
-    update()
-    if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
+  if (env === 'dev') {
+    return <Accordion {...params} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
+
+      <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
+        {
+          property.titleCustom === true ?
+            (
+              children && children.title ? children.title(prop) : null
+            )
+            : null
+        }
+        {
+          property.titleCustom === false ?
+            (
+              property.title
+            )
+            : null
+        }
+      </AccordionSummary>
+
+      {
+        property.divider ? <Divider /> : null
+      }
+
+      <AccordionDetails>
+        {
+          children && children.main ? children.main(prop) : null
+        }
+      </AccordionDetails>
+
+    </Accordion>
   }
 
-  return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
+  if (env === 'prod') {
+    return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
 
-    <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
+      <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
+        {
+          property.titleCustom === true ?
+            (
+              children && children.title ? children.title(prop) : null
+            )
+            : null
+        }
+        {
+          property.titleCustom === false ?
+            (
+              property.title
+            )
+            : null
+        }
+      </AccordionSummary>
+
       {
-        property.title
+        property.divider ? <Divider /> : null
       }
-    </AccordionSummary>
 
-    {
-      property.divider ? <Divider />
-        : null
-    }
+      <AccordionDetails>
+        {
+          children && children.main ? children.main(prop) : null
+        }
+      </AccordionDetails>
 
-    <AccordionDetails>
-      {
-        children && children.main ? children.main() : null
-      }
-    </AccordionDetails>
-
-  </Accordion>
+    </Accordion>
+  }
 }
 
 export default Render

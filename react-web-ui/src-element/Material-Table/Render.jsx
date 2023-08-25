@@ -6,7 +6,7 @@ const paginationFilter = (index, paginationSize, paginationPage) => {
 }
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   const onClick = (e, v) => {
     if (trigger && trigger.onClick) trigger.onClick(v, e)

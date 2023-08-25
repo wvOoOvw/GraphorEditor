@@ -53,12 +53,14 @@ function Edit(props) {
     {
       value.type === 'file' ?
         <>
+          <Grid item xs={12}><Divider /></Grid>
+
+          <Grid item xs={12}>
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
+          </Grid>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>File Multiple</span>
             <Switch checked={value.fileMultiple} onChange={e => onChange(Object.assign({}, value, { fileMultiple: e.target.checked }))} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
           </Grid>
         </>
         : null

@@ -1,17 +1,9 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
-  React.useEffect(() => {
-    if (monitor && monitor.request) {
-      const remove = monitor.request(data => {
-        if (property.mode === 'fetch') fetch_exe(data)
-        if (property.mode === 'xhr') xhr_exe(data)
-      })
-      return () => { remove() }
-    }
-  }, [])
+  if (env === 'dev') return null
 
   const preHandlParams = (data) => {
     var method = data && data.method ? data.method.toUpperCase() : property.method.toUpperCase()
@@ -78,6 +70,16 @@ function Render(props) {
     }
     xhrINS.send(body)
   }
+
+  React.useEffect(() => {
+    if (monitor && monitor.request) {
+      const remove = monitor.request(data => {
+        if (property.mode === 'fetch') fetch_exe(data)
+        if (property.mode === 'xhr') xhr_exe(data)
+      })
+      return () => remove()
+    }
+  }, [])
 
   return null
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -13,7 +13,14 @@ function Render(props) {
     }
   }, [])
 
-  return <iframe {...params} {...style} src={property.src} />
+  if (env === 'dev') {
+    return <span {...params}>Iframe</span>
+  }
+
+  if (env === 'prod') {
+    return <iframe {...params} src={property.src} />
+  }
+
 }
 
 export default Render

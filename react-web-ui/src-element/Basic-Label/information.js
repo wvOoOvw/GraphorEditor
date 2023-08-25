@@ -3,7 +3,7 @@ const information = {
   type: 'Basic',
   children: [
     { value: 'main', label: 'Main' },
-    { value: 'input', label: 'Input' },
+    { value: 'input', label: 'Invisible Input' },
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },

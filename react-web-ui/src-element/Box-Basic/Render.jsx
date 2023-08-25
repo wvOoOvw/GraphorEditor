@@ -1,21 +1,11 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
-
-  React.useEffect(() => {
-    if (monitor && monitor.setValue) {
-      const remove = monitor.setValue(data => {
-        property.value = data
-        update()
-      })
-      return () => { remove() }
-    }
-  }, [])
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   return <div {...params}>
     {
-      children && children.main ? children.main(property.value) : null
+      children && children.main ? children.main(prop) : null
     }
   </div>
 }

@@ -1,9 +1,13 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
+
+  const onEnded = e => {
+    if (trigger && trigger.onEnded) trigger.onEnded(undefined, e)
+  }
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -35,20 +39,13 @@ function Render(props) {
     }
   }, [])
 
-  const onEnded = e => {
-    if (trigger && trigger.onEnded) trigger.onEnded(undefined, e)
+  if (env === 'dev') {
+    return <span {...params}>Video</span>
   }
 
-  return <video
-    {...params}
-    ref={el => ref.current = el}
-    src={property.src}
-    poster={property.poster}
-    controls={property.controls}
-    autoPlay={property.autoplay}
-    loop={property.loop}
-    onEnded={onEnded}
-  />
+  if (env === 'prod') {
+    return <video {...params} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+  }
 }
 
 export default Render

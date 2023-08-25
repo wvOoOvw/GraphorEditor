@@ -1,18 +1,28 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
-  return <label {...params}>
-    <div style={{ display: 'none' }}>
+  if (env === 'dev') {
+    return <label {...params}>
       {
-        env && children && children.main ? children.input() : null
+        children && children.main ? children.main(prop) : null
       }
-    </div>
-    {
-      children && children.main ? children.main() : null
-    }
-  </label>
+    </label>
+  }
+
+  if (env === 'prod') {
+    return <label {...params}>
+      <div style={{ display: 'none' }}>
+        {
+          env && children && children.main ? children.input(prop) : null
+        }
+      </div>
+      {
+        children && children.main ? children.main(prop) : null
+      }
+    </label>
+  }
 }
 
 export default Render

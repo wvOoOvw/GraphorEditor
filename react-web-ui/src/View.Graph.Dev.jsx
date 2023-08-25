@@ -110,12 +110,14 @@ function ElementRender(props) {
     Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
 
     e.stopPropagation()
+    e.preventDefault()
   }
 
   const onMouseOver = (e, id) => {
     Imitation.assignState({ elementHover: id })
 
     e.stopPropagation()
+    e.preventDefault()
   }
 
   const onDragStart = (e) => {
@@ -169,7 +171,7 @@ function ElementRender(props) {
       }
 
       r[i[0]] = () => {
-        return <Paper style={{ padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all' }} id={id_} {...params}>
+        return <Paper style={{ width: '100%', height: '100%', boxShadow: Imitation.state.elementDragStart ? undefined : 'none', padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all' }} id={id_} {...params}>
           <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 14 : 0, transition: '0.5s all' }} className='font-single'>{title}</Paper>
           {
             i[1].map(i => {

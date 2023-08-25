@@ -2,7 +2,7 @@ import React from 'react'
 import { Radio, FormControl, RadioGroup, FormControlLabel } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {

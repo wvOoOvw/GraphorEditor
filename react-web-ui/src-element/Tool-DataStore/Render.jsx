@@ -1,7 +1,9 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element } = props
+  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+
+  if (env === 'dev') return null
 
   const bindWindow = () => {
     if (property.useWindow && property.windowName) window[property.windowName] = property.value
@@ -28,8 +30,6 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-
-  if (env === 'dev') return null
 
   React.useEffect(() => {
     if (property.immediate) {

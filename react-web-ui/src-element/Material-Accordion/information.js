@@ -2,7 +2,8 @@ const information = {
   name: 'Accordion',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'main', label: 'Main' },
+    { value: 'title', label: 'Title' },
   ],
   monitor: [
     { value: '@setUseTrue', label: 'Use Element' },
@@ -23,6 +24,7 @@ const information = {
   style: {},
   property: {
     title: 'Accordion',
+    titleCustom: false,
     expanded: true,
     expandIcon: true,
     divider: true,

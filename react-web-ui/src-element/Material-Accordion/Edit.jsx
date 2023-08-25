@@ -16,6 +16,10 @@ function Edit(props) {
       <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Title Custom</div>
+      <Switch checked={value.titleCustom} onChange={e => onChange(Object.assign({}, value, { titleCustom: e.target.checked }))} />
+    </Grid>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
       <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
     </Grid>
