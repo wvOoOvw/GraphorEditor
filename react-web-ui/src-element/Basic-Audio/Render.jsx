@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   const ref = React.useRef()
 
@@ -40,8 +40,7 @@ function Render(props) {
   }
 
   return <audio
-    {...event}
-    {...style}
+    {...params}
     ref={el => ref.current = el}
     src={property.src}
     controls={property.controls}

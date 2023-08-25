@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu, MenuItem } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, children, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
@@ -30,7 +30,7 @@ function Render(props) {
   const ref = React.useRef()
 
   return <>
-    <div {...event} {...style} ref={el => ref.current = el} onClick={onOpen}>
+    <div {...params} ref={el => ref.current = el} onClick={onOpen}>
       {
         children && children.main ? children.main() : null
       }

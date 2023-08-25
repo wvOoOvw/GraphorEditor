@@ -2,7 +2,7 @@ import React from 'react'
 import Hls from 'hls.js'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -57,8 +57,7 @@ function Render(props) {
   }
 
   return <video
-    {...event}
-    {...style}
+    {...params}
     ref={el => ref.current = el}
     src={property.src}
     poster={property.poster}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -34,7 +34,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Button {...event} {...style} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={property.sx}>
+  return <Button {...params} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={property.sx}>
     {property.value}
   </Button>
 }

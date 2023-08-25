@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +13,7 @@ function Render(props) {
     }
   }, [])
 
-  return <span {...event} {...style}>{property.value}</span>
+  return <span {...params}>{property.value}</span>
 }
 
 export default Render

@@ -2,7 +2,7 @@ import React from 'react'
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -45,7 +45,7 @@ function Render(props) {
       if (ref.current) ref.current.addEventListener('mousedown', e => { e.stopPropagation(); e.preventDefault() }, true)
     }, [])
   
-    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el} >
+    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el} >
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} onChange={onChange}>
         {
@@ -58,7 +58,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <FormControl {...event} {...style} size={property.size} fullWidth={property.fullWidth}>
+    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth}>
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} open={property.open} value={property.value} onChange={onChange} onOpen={onOpen}>
         {

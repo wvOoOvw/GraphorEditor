@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs, Tab } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -32,8 +32,7 @@ function Render(props) {
   }
 
   return <Tabs
-    {...event}
-    {...style}
+    {...params}
     value={property.value}
     onChange={onChange}
     textColor={property.textColor}

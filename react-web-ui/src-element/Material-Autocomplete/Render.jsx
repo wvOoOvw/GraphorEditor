@@ -2,7 +2,7 @@ import React from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setOptions) {
       const remove = monitor.setOptions(data => {
@@ -55,8 +55,7 @@ function Render(props) {
     }, [])
 
     return <Autocomplete
-      {...event}
-      {...style}
+      {...params}
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}
@@ -71,8 +70,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Autocomplete
-      {...event}
-      {...style}
+      {...params}
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}

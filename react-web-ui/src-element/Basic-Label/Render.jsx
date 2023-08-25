@@ -1,9 +1,9 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, children, env } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
-  return <label {...event} {...style}>
+  return <label {...params}>
     <div style={{ display: 'none' }}>
       {
         env && children && children.main ? children.input() : null

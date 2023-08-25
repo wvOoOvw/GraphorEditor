@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -44,8 +44,7 @@ function Render(props) {
     style.resize = 'none'
 
     return <textarea
-      {...event}
-      {...style}
+      {...params}
       value={property.value}
       onChange={onChange}
       onFocus={onFocus}
@@ -57,8 +56,7 @@ function Render(props) {
 
   if (property.type === 'file') {
     return <input
-      {...event}
-      {...style}
+      {...params}
       value={property.value}
       onChange={onChange}
       onFocus={onFocus}
@@ -72,8 +70,7 @@ function Render(props) {
   }
 
   return <input
-    {...event}
-    {...style}
+    {...params}
     value={property.value}
     onChange={onChange}
     onFocus={onFocus}

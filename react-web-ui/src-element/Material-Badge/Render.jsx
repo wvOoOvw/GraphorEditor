@@ -2,7 +2,7 @@ import React from 'react'
 import { Badge } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, children, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setContent) {
@@ -14,7 +14,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Badge {...event} {...style} badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero} sx={property.sx}>
+  return <Badge {...params} badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero} sx={property.sx}>
     {
       children && children.main ? children.main() : null
     }

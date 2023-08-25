@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, property, monitor, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   const ref = React.useRef()
 
@@ -22,7 +22,7 @@ function Render(props) {
     document.getElementsByTagName('head')[0].appendChild(script)
   }, [property.src])
 
-  return <div {...event} {...style} id={property.id} ref={el => ref.current = el}></div>
+  return <div {...params} id={property.id} ref={el => ref.current = el}></div>
 }
 
 export default Render

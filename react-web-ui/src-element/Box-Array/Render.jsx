@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, children, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +13,7 @@ function Render(props) {
     }
   }, [])
 
-  return <div {...event} {...style}>
+  return <div {...params}>
     {
       env && property.value.map((i) => children && children.main ? children.main(i) : null)
     }

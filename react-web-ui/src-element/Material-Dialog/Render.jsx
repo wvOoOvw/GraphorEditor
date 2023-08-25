@@ -2,7 +2,7 @@ import React from 'react'
 import { Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, children, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setOpenTrue) {
@@ -56,7 +56,7 @@ function Render(props) {
     {R}
   </Dialog>
 
-  if (env === 'dev') return <div {...event} {...style}>
+  if (env === 'dev') return <div {...params}>
     {R}
   </div>
 }

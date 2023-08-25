@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, children, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setHref) {
@@ -24,7 +24,7 @@ function Render(props) {
   }
 
   if (property.useDom === true) {
-    return <a {...event} {...style} href={property.href} target={property.target}>
+    return <a {...params} href={property.href} target={property.target}>
       {
         children && children.main ? children.main() : null
       }
@@ -32,7 +32,7 @@ function Render(props) {
   }
   
   if (property.useDom === false) {
-    return <div {...event} {...style} onClick={onClick}>
+    return <div {...params} onClick={onClick}>
       {
         children && children.main ? children.main() : null
       }

@@ -3,7 +3,7 @@ import { TextField } from '@mui/material'
 
 function Render(props) {
 
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -39,8 +39,7 @@ function Render(props) {
   }
 
   return <TextField
-    {...event}
-    {...style}
+    {...params}
     fullWidth={property.fullWidth}
     type={property.type}
     value={property.value}

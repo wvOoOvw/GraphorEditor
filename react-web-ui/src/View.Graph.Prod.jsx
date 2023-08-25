@@ -90,38 +90,24 @@ function ElementRender(props) {
     return r
   }, [children, flow])
 
-  const event = {}
+  const params = {}
 
-  if (trigger_exe['@onClick']) event.onClick = e => trigger_exe['@onClick'](undefined, e)
-  if (trigger_exe['@onDoubleClick']) event.onDoubleClick = e => trigger_exe['@onDoubleClick'](undefined, e)
-  if (trigger_exe['@onMouseEnter']) event.onMouseEnter = e => trigger_exe['@onMouseEnter'](undefined, e)
-  if (trigger_exe['@onMouseLeave']) event.onMouseLeave = e => trigger_exe['@onMouseLeave'](undefined, e)
-  if (trigger_exe['@onMouseMove']) event.onMouseMove = e => trigger_exe['@onMouseMove'](undefined, e)
-  if (trigger_exe['@onMouseDown']) event.onMouseDown = e => trigger_exe['@onMouseDown'](undefined, e)
-  if (trigger_exe['@onMouseUp']) event.onMouseUp = e => trigger_exe['@onMouseUp'](undefined, e)
-  if (trigger_exe['@onTouchMove']) event.onTouchMove = e => trigger_exe['@onTouchMove'](undefined, e)
-  if (trigger_exe['@onTouchStart']) event.onTouchStart = e => trigger_exe['@onTouchStart'](undefined, e)
-  if (trigger_exe['@onTouchEnd']) event.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
+  if (trigger_exe['@onClick']) params.onClick = e => trigger_exe['@onClick'](undefined, e)
+  if (trigger_exe['@onDoubleClick']) params.onDoubleClick = e => trigger_exe['@onDoubleClick'](undefined, e)
+  if (trigger_exe['@onMouseEnter']) params.onMouseEnter = e => trigger_exe['@onMouseEnter'](undefined, e)
+  if (trigger_exe['@onMouseLeave']) params.onMouseLeave = e => trigger_exe['@onMouseLeave'](undefined, e)
+  if (trigger_exe['@onMouseMove']) params.onMouseMove = e => trigger_exe['@onMouseMove'](undefined, e)
+  if (trigger_exe['@onMouseDown']) params.onMouseDown = e => trigger_exe['@onMouseDown'](undefined, e)
+  if (trigger_exe['@onMouseUp']) params.onMouseUp = e => trigger_exe['@onMouseUp'](undefined, e)
+  if (trigger_exe['@onTouchMove']) params.onTouchMove = e => trigger_exe['@onTouchMove'](undefined, e)
+  if (trigger_exe['@onTouchStart']) params.onTouchStart = e => trigger_exe['@onTouchStart'](undefined, e)
+  if (trigger_exe['@onTouchEnd']) params.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
 
-  const style_exe = {
-    style: { ...caculateStyle(style), boxSizing: 'border-box' }
-  }
-
-  const Render_exe = <Render
-    event={event}
-    style={style_exe}
-    property={property}
-    monitor={monitor_exe}
-    trigger={trigger_exe}
-    children={children_exe}
-    env={'prod'}
-    update={update}
-    id={id}
-  />
+  params.style = { ...caculateStyle(style), boxSizing: 'border-box' }
 
   if (use === false) return null
 
-  return Render_exe
+  return <Render env='prod' update={update} params={params} element={props.element} property={property} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} />
 }
 
 function App() {

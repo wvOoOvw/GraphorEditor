@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { property, monitor, trigger } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.request) {

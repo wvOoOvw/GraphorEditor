@@ -6,7 +6,7 @@ const paginationFilter = (index, paginationSize, paginationPage) => {
 }
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   const onClick = (e, v) => {
     if (trigger && trigger.onClick) trigger.onClick(v, e)
@@ -108,7 +108,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Box {...event} {...style} component={property.componentPaper ? Paper : null}>
+  return <Box {...params} component={property.componentPaper ? Paper : null}>
     <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
       <Table size={property.size} stickyHeader={property.stickyHeader}>
         <TableHead>

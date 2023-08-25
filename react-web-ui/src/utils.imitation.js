@@ -17,6 +17,9 @@ const initState = () => {
 
     elementHover: undefined,
 
+    elementDragStart: undefined,
+    elementDragEnter: undefined,
+
     graphContent: [],
     graphContentUpdate: undefined,
 

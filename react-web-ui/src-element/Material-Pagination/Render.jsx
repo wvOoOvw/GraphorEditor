@@ -2,7 +2,7 @@ import React from 'react'
 import { Pagination } from '@mui/material'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setPage) {
@@ -32,8 +32,7 @@ function Render(props) {
   }
 
   return <Pagination
-    {...event}
-    {...style}
+    {...params}
     count={Number(property.count)}
     page={Number(property.page)}
     onChange={onChange}

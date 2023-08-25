@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -19,7 +19,7 @@ function Render(props) {
     ref.current.innerHTML = property.value
   }, [property.value])
 
-  return <svg {...event} {...style} ref={el => ref.current = el}></svg>
+  return <svg {...params} ref={el => ref.current = el}></svg>
 }
 
 export default Render

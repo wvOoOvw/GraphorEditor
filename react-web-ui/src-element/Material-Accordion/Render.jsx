@@ -9,7 +9,7 @@ function Icon() {
 }
 
 function Render(props) {
-  const { event, style, property, monitor, trigger, children, env, update } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setExpandedOpen) {
@@ -38,7 +38,7 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
   }
 
-  return <Accordion {...event} {...style} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
+  return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
 
     <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
       {

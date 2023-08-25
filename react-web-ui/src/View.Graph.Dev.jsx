@@ -99,7 +99,7 @@ function ElementRender(props) {
   const { drag, parentId } = props
   const { license, id, use, style, property, children } = props.element
 
-  const { Render } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { Render, information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!Render) {
     console.warn(license)
@@ -132,68 +132,62 @@ function ElementRender(props) {
   }
 
   const onDragStart = (e) => {
-    drag.setDragStart(id)
-    Imitation.assignState({ elementHover: undefined })
+    Imitation.assignState({ elementDragStart: id, elementHover: undefined })
 
     e.stopPropagation()
   }
 
   const onDragEnter = (e, id) => {
-    if (parentId.includes(drag.dragStart) === false && id !== drag.dragStart) {
-      drag.setDragMove(id)
-      Imitation.assignState({ elementHover: id })
+    if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
+      Imitation.assignState({ elementDragEnter: id, elementHover: id })
     }
-    if (parentId.includes(drag.dragStart) === true || id === drag.dragStart) {
-      drag.setDragMove(undefined)
-      Imitation.assignState({ elementHover: undefined })
+    if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
+      Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
     }
 
     e.stopPropagation()
   }
 
   const onDragEnd = (e) => {
-    if (drag.dragStart && drag.dragMove && drag.dragStart !== drag.dragMove) {
-      if (drag.dragMove.includes('@')) {
-        const [id, childrenKey] = drag.dragMove.split('@')
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', drag.dragStart)
+    if (Imitation.state.elementDragStart && Imitation.state.elementDragEnter && Imitation.state.elementDragStart !== Imitation.state.elementDragEnter) {
+      if (Imitation.state.elementDragEnter.includes('@')) {
+        const [id, childrenKey] = Imitation.state.elementDragEnter.split('@')
+        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
         const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', id)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         currentGraphContent_.children[childrenKey].push(currentGraphContent)
-
       } else {
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', drag.dragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', drag.dragMove)
+        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
+        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragEnter)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         const index = parentGraphContent_.indexOf(currentGraphContent_)
         parentGraphContent_.splice(index + 1, 0, currentGraphContent)
       }
     }
-    Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
-    drag.setDragStart(undefined)
-    drag.setDragMove(undefined)
+    Imitation.assignState({ elementDragStart: undefined, elementDragEnter: undefined, graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
 
     e.stopPropagation()
   }
 
-  const childrenExe = React.useMemo(() => {
+  const children_exe = React.useMemo(() => {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
       const id_ = id + '@' + i[0]
+      const title = information.children.find(i_ => i_.value === i[0]).label
 
       const params = {
         onMouseOver: e => onMouseOver(e, id_),
         onMouseOut: e => onMouseOut(e),
-        onDragEnd: e => onDragEnd(e),
         onDragEnter: e => onDragEnter(e, id_)
       }
 
       r[i[0]] = () => {
-        return <Paper style={{ padding: 8 }} id={id_} {...params}>
-          <Paper style={{ padding: 8, background: 'rgba(235,235,235)' }} className='font-single'>i[0]</Paper>
+        return <Paper style={{ padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all' }} id={id_} {...params}>
+          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 14 : 0, transition: '0.5s all' }} className='font-single'>{title}</Paper>
           {
             i[1].map(i => {
-              return <ElementRender key={i.id} element={i} drag={drag} parentId={[...parentId, id]} />
+              return <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />
             })
           }
         </Paper>
@@ -216,15 +210,13 @@ function ElementRender(props) {
 
   if (use === false) return null
 
-  return <Render env='dev' update={update} element={props.element} children={childrenExe} params={params} property={property} />
+  return <Render env='dev' update={update} params={params} element={props.element} property={property} children={children_exe} />
 }
 
 function App() {
   const mouseDownPosition = React.useRef(null)
 
   const [mouseDown, setMouseDown] = React.useState(false)
-  const [dragStart, setDragStart] = React.useState()
-  const [dragMove, setDragMove] = React.useState()
 
   const eventDown = e => {
     try {
@@ -248,7 +240,9 @@ function App() {
     Imitation.assignState({ graphConfigUpdate: hash() })
   }
 
-  const drag = { dragStart, setDragStart, dragMove, setDragMove }
+  const onDragEnter = () => {
+    Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
+  }
 
   return <>
     <Paper
@@ -270,6 +264,7 @@ function App() {
       onTouchStart={eventDown}
       onTouchMove={eventMove}
       onTouchEnd={eventUp}
+      onDragEnter={onDragEnter}
     >
       <Paper
         style={{
@@ -291,7 +286,7 @@ function App() {
       >
         <div>
           {
-            Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} drag={drag} parentId={[]} />)
+            Imitation.state.graphContent.map(i => <ElementRender key={i.id} element={i} parentId={[]} />)
           }
         </div>
       </Paper>

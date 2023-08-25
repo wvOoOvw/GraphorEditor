@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { event, property, trigger, children } = props
+  const { env, update, params, property, monitor, trigger, children, element } = props
 
   const dragEvent = {
     onDrag: (e) => {
@@ -27,7 +27,7 @@ function Render(props) {
     },
   }
 
-  return <div {...event} {...style} {...dragEvent} draggable={property.draggable}>
+  return <div {...params} {...dragEvent} draggable={property.draggable}>
     {
       children && children.main ? children.main() : null
     }
