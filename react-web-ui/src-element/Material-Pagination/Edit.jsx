@@ -13,15 +13,15 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={6}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Count' value={value.count} onChange={e => onChange(Object.assign({}, value, { count: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Count' value={element.property.count} onChange={e => { element.property.count = e.target.value; update() }} />
     </Grid>
     <Grid item xs={6}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Page' value={value.page} onChange={e => onChange(Object.assign({}, value, { page: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' type='number' label='Page' value={element.property.page} onChange={e => { element.property.page = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Variant</InputLabel>
-        <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.variant} label='Variant' onChange={e => { element.property.variant = e.target.value; update() }}>
           <MenuItem value='text'>Text</MenuItem>
           <MenuItem value='outlined'>Outlined</MenuItem>
         </Select>
@@ -30,7 +30,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Shape</InputLabel>
-        <Select {...sx.SelectSX} value={value.shape} label='Shape' onChange={e => onChange(Object.assign({}, value, { shape: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.shape} label='Shape' onChange={e => { element.property.shape = e.target.value; update() }}>
           <MenuItem value='rounded'>Rounded</MenuItem>
           <MenuItem value='circular'>Circular</MenuItem>
         </Select>
@@ -39,7 +39,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
           <MenuItem value='standard'>Standard</MenuItem>
           <MenuItem value='primary'>Primary</MenuItem>
           <MenuItem value='secondary'>Secondary</MenuItem>
@@ -49,7 +49,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
           <MenuItem value='large'>Large</MenuItem>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>

@@ -17,12 +17,12 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value.split(',') }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={element.property.value} onChange={e => { element.property.value = e.target.value; update().split(',') } />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
           <MenuItem value='primary'>Primary</MenuItem>
           <MenuItem value='secondary'>Secondary</MenuItem>
           <MenuItem value='success'>Success</MenuItem>
@@ -35,7 +35,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
           <MenuItem value='large'>Large</MenuItem>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
@@ -44,7 +44,7 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

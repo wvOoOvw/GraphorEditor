@@ -17,7 +17,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disable Padding</div>
-      <Switch checked={value.disablePadding} onChange={e => onChange(Object.assign({}, value, { disablePadding: e.target.checked }))} />
+      <Switch checked={element.property.disablePadding} onChange={e => { element.property.disablePadding = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

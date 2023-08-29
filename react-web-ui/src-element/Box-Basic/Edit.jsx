@@ -13,7 +13,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Pass Prop</div>
-      <Switch checked={value.passProp} onChange={(e) => onChange(Object.assign({}, value, { passProp: e.target.checked }))} />
+      <Switch checked={element.property.passProp} onChange={(e) => { passProp = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

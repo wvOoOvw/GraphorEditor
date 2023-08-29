@@ -14,16 +14,16 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Open</div>
-      <Switch checked={value.open} onChange={e => onChange(v => v.open = e.target.checked)} />
+      <Switch checked={element.property.open} onChange={e => onChange(v => v.open = e.target.checked)} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Arrow</div>
-      <Switch checked={value.arrow} onChange={e => onChange(v => v.arrow = e.target.checked)} />
+      <Switch checked={element.property.arrow} onChange={e => onChange(v => v.arrow = e.target.checked)} />
     </Grid>
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Placement Position</InputLabel>
-        <Select {...sx.SelectSX} value={value.placementPosition} label='Placement Position' onChange={e => onChange((v) => v.placementPosition = e.target.value)}>
+        <Select {...sx.SelectSX} value={element.property.placementPosition} label='Placement Position' onChange={e => onChange((v) => v.placementPosition  = e.target.value; update())}>
           <MenuItem value='bottom'>Bottom</MenuItem>
           <MenuItem value='left'>Left</MenuItem>
           <MenuItem value='right'>Right</MenuItem>
@@ -34,7 +34,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Placement Align</InputLabel>
-        <Select {...sx.SelectSX} value={value.placementAlign} label='Placement Align' onChange={e => onChange((v) => v.placementAlign = e.target.value)}>
+        <Select {...sx.SelectSX} value={element.property.placementAlign} label='Placement Align' onChange={e => onChange((v) => v.placementAlign  = e.target.value; update())}>
           <MenuItem value='center'>Center</MenuItem>
           <MenuItem value='start'>Start</MenuItem>
           <MenuItem value='end'>End</MenuItem>
@@ -42,10 +42,10 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Enter Delay' value={value.enterDelay} onChange={e => onChange((value) => value.enterDelay = e.target.value)} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Enter Delay' value={element.property.enterDelay} onChange={e => onChange((value) => value.enterDelay  = e.target.value; update())} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Leave Delay' value={value.leaveDelay} onChange={e => onChange((value) => value.leaveDelay = e.target.value)} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Leave Delay' value={element.property.leaveDelay} onChange={e => onChange((value) => value.leaveDelay  = e.target.value; update())} type='number' />
     </Grid>
   </Grid>
 }

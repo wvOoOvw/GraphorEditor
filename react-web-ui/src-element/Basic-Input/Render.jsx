@@ -4,7 +4,7 @@ function Render(props) {
   const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
   const onChange = (e) => {
-    property.value = e.target.value
+    property.value  = e.target.value; update()
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }

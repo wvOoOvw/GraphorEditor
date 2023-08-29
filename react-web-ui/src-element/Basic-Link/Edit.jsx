@@ -14,15 +14,15 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Use Dom Link</div>
-      <Switch checked={value.useDom} onChange={(e) => onChange(Object.assign({}, value, { useDom: e.target.checked }))} />
+      <Switch checked={element.property.useDom} onChange={(e) => { useDom = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Href' value={value.href} onChange={e => onChange(Object.assign({}, value, { href: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Href' value={element.property.href} onChange={e => { element.property.href = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Target</InputLabel>
-        <Select {...sx.SelectSX} value={value.target} label='Target' onChange={e => onChange(Object.assign({}, value, { target: e.target.value }))}  >
+        <Select {...sx.SelectSX} value={element.property.target} label='Target' onChange={e => { element.property.target = e.target.value; update() }}  >
           <MenuItem value='_self'>当前页面打开</MenuItem>
           <MenuItem value='_blank'>新窗口打开</MenuItem>
         </Select>

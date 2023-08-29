@@ -15,11 +15,11 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Open</div>
-      <Switch checked={value.open} onChange={e => onChange(Object.assign({}, value, { open: e.target.checked }))} />
+      <Switch checked={element.property.open} onChange={e => { element.property.open = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Enable Click Close</div>
-      <Switch checked={value.enableClose} onChange={e => onChange(v => v.enableClose = e.target.checked)} />
+      <Switch checked={element.property.enableClose} onChange={e => onChange(v => v.enableClose = e.target.checked)} />
     </Grid>
   </Grid>
 }

@@ -17,28 +17,28 @@ function Edit(props) {
 
   const changeValue = (e) => {
     if (value.exclusive) {
-      onChange(Object.assign({}, value, { value: e.target.value }))
+      { value = e.target.value; update() 
     } else {
-      onChange(Object.assign({}, value, { value: e.target.value.split(',') }))
+      { value = e.target.value; update().split(',') 
     }
   }
 
   const changeExclusive = (e) => {
     if (!e.target.checked) {
-      onChange(Object.assign({}, value, { exclusive: !e.target.checked, value: value.value.toString() }))
+      { exclusive: !e.target.checked, value: value.value.toString() 
     } else {
-      onChange(Object.assign({}, value, { exclusive: !e.target.checked, value: value.value.split(',').filter(i => i) }))
+      { exclusive: !e.target.checked, value: value.value.split(',').filter(i => i) 
     }
   }
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
           <MenuItem value='standard'>Standard</MenuItem>
           <MenuItem value='primary'>Primary</MenuItem>
           <MenuItem value='secondary'>Secondary</MenuItem>
@@ -52,7 +52,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
           <MenuItem value='large'>Large</MenuItem>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
@@ -62,7 +62,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Orientation</InputLabel>
-        <Select {...sx.SelectSX} value={value.orientation} label='Orientation' onChange={e => onChange(Object.assign({}, value, { orientation: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.orientation} label='Orientation' onChange={e => { element.property.orientation = e.target.value; update() }}>
           <MenuItem value='horizontal'>Horizontal</MenuItem>
           <MenuItem value='vertical'>Vertical</MenuItem>
         </Select>
@@ -70,7 +70,7 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Exclusive</div>
@@ -78,7 +78,7 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Full Width</div>
-      <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+      <Switch checked={element.property.fullWidth} onChange={e => { element.property.fullWidth = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

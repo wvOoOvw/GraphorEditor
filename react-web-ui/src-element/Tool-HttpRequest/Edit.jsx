@@ -14,7 +14,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Mode</InputLabel>
-        <Select {...sx.SelectSX} value={value.mode} label='Mode' onChange={e => onChange(Object.assign({}, value, { mode: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.mode} label='Mode' onChange={e => { element.property.mode = e.target.value; update() }}>
           <MenuItem value='fetch'>Fetch</MenuItem>
           <MenuItem value='xhr'>Xhr</MenuItem>
         </Select>
@@ -23,7 +23,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Method</InputLabel>
-        <Select {...sx.SelectSX} value={value.method} label='Method' onChange={e => onChange(Object.assign({}, value, { method: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.method} label='Method' onChange={e => { element.property.method = e.target.value; update() }}>
           <MenuItem value='get'>Get</MenuItem>
           <MenuItem value='post'>Post</MenuItem>
           <MenuItem value='delete'>Delete</MenuItem>
@@ -34,14 +34,14 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Body Type</InputLabel>
-        <Select {...sx.SelectSX} value={value.bodyType} label='Body Type' onChange={e => onChange(Object.assign({}, value, { bodyType: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.bodyType} label='Body Type' onChange={e => { element.property.bodyType = e.target.value; update() }}>
           <MenuItem value='json'>Json</MenuItem>
           <MenuItem value='formdata'>Formdata</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Base Url' value={value.baseUrl} onChange={e => onChange(Object.assign({}, value, { baseUrl: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Base Url' value={element.property.baseUrl} onChange={e => { element.property.baseUrl = e.target.value; update() }} />
     </Grid>
   </Grid>
 }

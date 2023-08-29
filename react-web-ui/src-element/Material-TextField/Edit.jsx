@@ -17,23 +17,23 @@ function Edit(props) {
 
   const handleSetType = e => {
     if (e.type === 'file') onChange((value) => value.value = '')
-    onChange((value) => value.type = e.target.value)
+    onChange((value) => value.type  = e.target.value; update())
   }
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={element.property.label} onChange={e => { element.property.label = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={value.placeholder} onChange={e => onChange(Object.assign({}, value, { placeholder: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={element.property.placeholder} onChange={e => { element.property.placeholder = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange(Object.assign({}, value, { value: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => { element.property.value = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.type} label='类型' onChange={handleSetType}>
+        <Select {...sx.SelectSX} value={element.property.type} label='类型' onChange={handleSetType}>
           <MenuItem value='text'>文本</MenuItem>
           <MenuItem value='password'>密码</MenuItem>
           <MenuItem value='number'>数字</MenuItem>
@@ -53,7 +53,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>样式类型</InputLabel>
-        <Select {...sx.SelectSX} value={value.variant} label='样式类型' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.variant} label='样式类型' onChange={e => { element.property.variant = e.target.value; update() }}>
           <MenuItem value='outlined'>边线</MenuItem>
           <MenuItem value='filled'>填充</MenuItem>
           <MenuItem value='standard'>默认</MenuItem>
@@ -63,7 +63,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
-        <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
           <MenuItem value='primary'>Primary</MenuItem>
           <MenuItem value='secondary'>Secondary</MenuItem>
           <MenuItem value='success'>Success</MenuItem>
@@ -76,7 +76,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
         </Select>
@@ -85,15 +85,15 @@ function Edit(props) {
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Full Width</div>
-      <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+      <Switch checked={element.property.fullWidth} onChange={e => { element.property.fullWidth = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Multiline</div>
-      <Switch checked={value.multiline} onChange={e => onChange(Object.assign({}, value, { multiline: e.target.checked }))} />
+      <Switch checked={element.property.multiline} onChange={e => { element.property.multiline = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>

@@ -18,15 +18,15 @@ function Edit(props) {
   return <>
     <Grid container spacing={1}>
       <Grid item xs={12}>
-        <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
+        <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => onChange((value) => value.value  = e.target.value; update())} />
       </Grid>
       <Grid item xs={12}>
-        <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Href' value={value.href} onChange={e => onChange((value) => value.href = e.target.value)} />
+        <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Href' value={element.property.href} onChange={e => onChange((value) => value.href  = e.target.value; update())} />
       </Grid>
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>
           <InputLabel>Variant</InputLabel>
-          <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+          <Select {...sx.SelectSX} value={element.property.variant} label='Variant' onChange={e => { element.property.variant = e.target.value; update() }}>
             <MenuItem value='text'>Text</MenuItem>
             <MenuItem value='outlined'>Outlined</MenuItem>
             <MenuItem value='contained'>Contained</MenuItem>
@@ -36,7 +36,7 @@ function Edit(props) {
       <Grid item xs={12}>
         <FormControl {...sx.SelectSX} fullWidth>
           <InputLabel>Color</InputLabel>
-          <Select {...sx.SelectSX} value={value.color} label='Color' onChange={e => onChange(Object.assign({}, value, { color: e.target.value }))}>
+          <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
             <MenuItem value='primary'>Primary</MenuItem>
             <MenuItem value='inherit'>Inherit</MenuItem>
             <MenuItem value='secondary'>Secondary</MenuItem>
@@ -49,11 +49,11 @@ function Edit(props) {
       </Grid>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>Disabled</div>
-        <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+        <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
       </Grid>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>Full Width</div>
-        <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+        <Switch checked={element.property.fullWidth} onChange={e => { element.property.fullWidth = e.target.checked; update() }} />
       </Grid>
 
       <Grid item xs={12}><Divider /></Grid>

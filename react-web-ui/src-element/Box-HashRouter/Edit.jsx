@@ -13,12 +13,12 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Router Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Router Value' value={element.property.value} onChange={e => onChange((value) => value.value  = e.target.value; update())} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Router Type</InputLabel>
-        <Select {...sx.SelectSX} value={value.type} label='Router Type' onChange={e => onChange(Object.assign({}, value, { type: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.type} label='Router Type' onChange={e => { element.property.type = e.target.value; update() }}>
           <MenuItem value='equal'>Equal</MenuItem>
           <MenuItem value='start'>Start</MenuItem>
           <MenuItem value='includes'>Inclueds</MenuItem>

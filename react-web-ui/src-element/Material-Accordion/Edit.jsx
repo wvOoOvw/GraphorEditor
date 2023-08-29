@@ -13,35 +13,35 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={value.title} onChange={e => onChange(Object.assign({}, value, { title: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={element.property.title} onChange={e => { element.property.title = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Title Custom</div>
-      <Switch checked={value.titleCustom} onChange={e => onChange(Object.assign({}, value, { titleCustom: e.target.checked }))} />
+      <Switch checked={element.property.titleCustom} onChange={e => { element.property.titleCustom = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Expanded</div>
-      <Switch checked={value.expanded} onChange={e => onChange(Object.assign({}, value, { expanded: e.target.checked }))} />
+      <Switch checked={element.property.expanded} onChange={e => { element.property.expanded = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>ExpandIcon</div>
-      <Switch checked={value.expandIcon} onChange={e => onChange(Object.assign({}, value, { expandIcon: e.target.checked }))} />
+      <Switch checked={element.property.expandIcon} onChange={e => { element.property.expandIcon = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Divider</div>
-      <Switch checked={value.divider} onChange={e => onChange(Object.assign({}, value, { divider: e.target.checked }))} />
+      <Switch checked={element.property.divider} onChange={e => { element.property.divider = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disable Gutters</div>
-      <Switch checked={value.disableGutters} onChange={e => onChange(Object.assign({}, value, { disableGutters: e.target.checked }))} />
+      <Switch checked={element.property.disableGutters} onChange={e => { element.property.disableGutters = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Square</div>
-      <Switch checked={value.square} onChange={e => onChange(Object.assign({}, value, { square: e.target.checked }))} />
+      <Switch checked={element.property.square} onChange={e => { element.property.square = e.target.checked; update() }} />
     </Grid>
     
     <Grid item xs={12}><Divider /></Grid>

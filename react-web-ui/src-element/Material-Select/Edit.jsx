@@ -17,42 +17,42 @@ function Edit(props) {
 
   const changeValue = (e) => {
     if (value.multiple) {
-      onChange(Object.assign({}, value, { value: e.target.value.split(',') }))
+      { value = e.target.value; update().split(',') 
     } else {
-      onChange(Object.assign({}, value, { value: e.target.value }))
+      { value = e.target.value; update() 
     }
   }
   const changemultiple = (e) => {
     if (e.target.checked) {
-      onChange(Object.assign({}, value, { multiple: e.target.checked, value: value.value.split(',').filter(i => i) }))
+      { multiple= e.target.checked, value: value.value.split(',').filter(i => i) 
     } else {
-      onChange(Object.assign({}, value, { multiple: e.target.checked, value: value.value.toString() }))
+      { multiple= e.target.checked, value: value.value.toString() 
     }
   }
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Full Width</div>
-      <Switch checked={value.fullWidth} onChange={e => onChange(Object.assign({}, value, { fullWidth: e.target.checked }))} />
+      <Switch checked={element.property.fullWidth} onChange={e => { element.property.fullWidth = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Multiple</div>
-      <Switch checked={value.multiple} onChange={e => changemultiple(e)} />
+      <Switch checked={element.property.multiple} onChange={e => changemultiple(e)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={value.label} onChange={e => onChange(Object.assign({}, value, { label: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={element.property.label} onChange={e => { element.property.label = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Variant</InputLabel>
-        <Select {...sx.SelectSX} value={value.variant} label='Variant' onChange={e => onChange(Object.assign({}, value, { variant: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.variant} label='Variant' onChange={e => { element.property.variant = e.target.value; update() }}>
           <MenuItem value='outlined'>Outlined</MenuItem>
           <MenuItem value='filled'>Filled</MenuItem>
           <MenuItem value='standard'>Standard</MenuItem>
@@ -62,7 +62,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={value.size} label='Size' onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))}>
+        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
         </Select>

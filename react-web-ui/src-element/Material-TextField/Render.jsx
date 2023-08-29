@@ -27,7 +27,7 @@ function Render(props) {
 
   const onChange = (e) => {
     if (env === 'dev') return
-    property.value = e.target.value
+    property.value  = e.target.value; update()
     update()
     if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
   }

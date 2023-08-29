@@ -15,7 +15,7 @@ function Edit(props) {
     {
       aceDialog ?
         <component.AceDialog
-          value={value.value}
+          value={element.property.value}
           onChange={v => {
             onChange((value) => value.value = v)
             setAceDialog(false)

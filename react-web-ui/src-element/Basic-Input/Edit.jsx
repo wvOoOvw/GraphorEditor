@@ -14,24 +14,24 @@ function Edit(props) {
 
   const handleSetType = e => {
     if (e.target.value === 'file') onChange((value) => value.value = '')
-    onChange((value) => value.type = e.target.value)
+    onChange((value) => value.type  = e.target.value; update())
   }
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={value.disabled} onChange={e => onChange(Object.assign({}, value, { disabled: e.target.checked }))} />
+      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => onChange((value) => value.value = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => onChange((value) => value.value  = e.target.value; update())} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={value.placeholder} onChange={e => onChange((value) => value.placeholder = e.target.value)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={element.property.placeholder} onChange={e => onChange((value) => value.placeholder  = e.target.value; update())} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Type</InputLabel>
-        <Select {...sx.SelectSX} value={value.type} label='Type' onChange={handleSetType}>
+        <Select {...sx.SelectSX} value={element.property.type} label='Type' onChange={handleSetType}>
           <MenuItem value='text'>Text</MenuItem>
           <MenuItem value='textarea'>Textarea</MenuItem>
           <MenuItem value='password'>Password</MenuItem>
@@ -56,11 +56,11 @@ function Edit(props) {
           <Grid item xs={12}><Divider /></Grid>
 
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={value.fileAccept} onChange={e => onChange(Object.assign({}, value, { fileAccept: e.target.value }))} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={element.property.fileAccept} onChange={e => { element.property.fileAccept = e.target.value; update() }} />
           </Grid>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>File Multiple</span>
-            <Switch checked={value.fileMultiple} onChange={e => onChange(Object.assign({}, value, { fileMultiple: e.target.checked }))} />
+            <Switch checked={element.property.fileMultiple} onChange={e => { element.property.fileMultiple = e.target.checked; update() }} />
           </Grid>
         </>
         : null

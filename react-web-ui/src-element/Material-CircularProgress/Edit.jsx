@@ -8,10 +8,10 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Size' value={value.size} onChange={e => onChange(Object.assign({}, value, { size: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Size' value={element.property.size} onChange={e => { element.property.size = e.target.value; update() }} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Thickness' value={value.thickness} onChange={e => onChange(Object.assign({}, value, { thickness: e.target.value }))} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Thickness' value={element.property.thickness} onChange={e => { element.property.thickness = e.target.value; update() }} type='number' />
     </Grid>
   </Grid>
 }

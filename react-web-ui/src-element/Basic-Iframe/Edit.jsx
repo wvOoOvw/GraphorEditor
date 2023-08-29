@@ -8,7 +8,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Src' value={value.src} onChange={e => onChange(Object.assign({}, value, { src: e.target.value }))} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Src' value={element.property.src} onChange={e => { element.property.src = e.target.value; update() }} />
     </Grid>
   </Grid>
 }

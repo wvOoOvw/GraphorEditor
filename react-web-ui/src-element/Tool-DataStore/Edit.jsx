@@ -14,7 +14,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Immediate Effect</div>
-      <Switch checked={value.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
+      <Switch checked={element.property.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
@@ -47,14 +47,14 @@ function Edit(props) {
     <Grid item xs={12}>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>Use Window Property</div>
-        <Switch checked={value.useWindow} onChange={e => onChange((value) => value.useWindow = e.target.checked)} />
+        <Switch checked={element.property.useWindow} onChange={e => onChange((value) => value.useWindow = e.target.checked)} />
       </Grid>
     </Grid>
     {
       value.useWindow ?
         <>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={value.windowName} onChange={e => onChange((value) => value.windowName = e.target.value)} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={element.property.windowName} onChange={e => onChange((value) => value.windowName  = e.target.value; update())} />
           </Grid>
         </>
         : null
