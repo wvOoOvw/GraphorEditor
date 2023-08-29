@@ -28,7 +28,6 @@ const information = {
     size: 'medium',
     disabled: false,
     multiple: false,
-    sx: { '&.MuiInputBase-root': {}, '& input': {} }
   }
 }
 

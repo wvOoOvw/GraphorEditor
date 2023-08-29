@@ -6,13 +6,13 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => { element.property.value = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={property.value} onChange={e => { property.value = e.target.value; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
@@ -28,7 +28,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.options = v_
+              property.options = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')

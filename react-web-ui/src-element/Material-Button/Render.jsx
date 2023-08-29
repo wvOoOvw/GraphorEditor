@@ -34,7 +34,7 @@ function Render(props) {
     }
   }, [])
 
-  return <Button {...params} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={property.sx}>
+  return <Button {...params} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
     {property.value}
   </Button>
 }

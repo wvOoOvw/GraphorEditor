@@ -50,7 +50,7 @@ function Render(props) {
     disabled={property.disabled}
     multiline={property.multiline}
     placeholder={property.placeholder}
-    sx={property.sx}
+   
     onChange={onChange}
     onFocus={onFocus}
     onBlur={onBlur}

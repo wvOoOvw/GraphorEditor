@@ -9,7 +9,7 @@ import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   return null
 }

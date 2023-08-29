@@ -25,7 +25,6 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (env === 'dev') return
     property.value = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
@@ -41,7 +40,7 @@ function Render(props) {
     </ToggleButtonGroup>
   }
 
-  if (env === 'dev') {
+  if (env === 'prod') {
     return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {

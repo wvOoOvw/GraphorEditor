@@ -10,16 +10,16 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Open</div>
-      <Switch checked={element.property.open} onChange={e => { element.property.open = e.target.checked; update() }} />
+      <Switch checked={property.open} onChange={e => { property.open = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Enable Click Close</div>
-      <Switch checked={element.property.enableClose} onChange={e => { element.property.enableClose = e.target.checked; update() }} />
+      <Switch checked={property.enableClose} onChange={e => { property.enableClose = e.target.checked; update() }} />
     </Grid>
   </Grid>
 }

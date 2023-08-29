@@ -33,7 +33,6 @@ const information = {
     disabled: false,
     multiline: false,
     rows: 'auto',
-    sx: { '& .MuiInputBase-root': {} }
 
   }
 }

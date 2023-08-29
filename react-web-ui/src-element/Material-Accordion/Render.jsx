@@ -40,7 +40,7 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <Accordion {...params} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
+    return <Accordion {...params} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square}>
 
       <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {
@@ -73,7 +73,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={property.sx}>
+    return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square}>
 
       <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {

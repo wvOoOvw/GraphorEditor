@@ -10,21 +10,19 @@ import { Divider } from '@mui/material'
 import { Button } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
-
-  const [aceDialogSX, setAceDialogSX] = React.useState(false)
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Badge Content' value={element.property.badgeContent} onChange={e => { element.property.badgeContent = e.target.value; update() }} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Badge Content' value={property.badgeContent} onChange={e => { property.badgeContent = e.target.value; update() }} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Max' value={element.property.max} onChange={e => { element.property.max = e.target.value; update() }} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Max' value={property.max} onChange={e => { property.max = e.target.value; update() }} type='number' />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Variant</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.variant} label='Variant' onChange={e => { element.property.variant = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.variant} label='Variant' onChange={e => { property.variant = e.target.value; update() }}>
           <MenuItem value='standard'>Standard</MenuItem>
           <MenuItem value='dot'>Dot</MenuItem>
         </Select>
@@ -33,7 +31,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Color</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.color} label='Color' onChange={e => { element.property.color = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.color} label='Color' onChange={e => { property.color = e.target.value; update() }}>
           <MenuItem value='primary'>Primary</MenuItem>
           <MenuItem value='secondary'>Secondary</MenuItem>
           <MenuItem value='success'>Success</MenuItem>
@@ -46,7 +44,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Overlap</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.overlap} label='Overlap' onChange={e => { element.property.overlap = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.overlap} label='Overlap' onChange={e => { property.overlap = e.target.value; update() }}>
           <MenuItem value='rectangular'>Vectangular</MenuItem>
           <MenuItem value='circular'>Circular</MenuItem>
         </Select>
@@ -55,7 +53,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Horizontal Position</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.anchorOrigin.horizontal} label='Horizontal Position' onChange={e => { element.property.anchorOrigin.horizontal = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.anchorOrigin.horizontal} label='Horizontal Position' onChange={e => { property.anchorOrigin.horizontal = e.target.value; update() }}>
           <MenuItem value='left'>Left</MenuItem>
           <MenuItem value='right'>Right</MenuItem>
         </Select>
@@ -64,7 +62,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Vertical Position</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.anchorOrigin.vertical} label='Vertical Position' onChange={e => { element.property.anchorOrigin.vertical = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.anchorOrigin.vertical} label='Vertical Position' onChange={e => { property.anchorOrigin.vertical = e.target.value; update() }}>
           <MenuItem value='top'>Top</MenuItem>
           <MenuItem value='bottom'>Bottom</MenuItem>
         </Select>
@@ -72,36 +70,12 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Invisible</div>
-      <Switch checked={element.property.invisible} onChange={e => { element.property.invisible = e.target.checked; update() }} />
+      <Switch checked={property.invisible} onChange={e => { property.invisible = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Show Zero</div>
-      <Switch checked={element.property.showZero} onChange={e => { element.property.showZero = e.target.checked; update() }} />
+      <Switch checked={property.showZero} onChange={e => { property.showZero = e.target.checked; update() }} />
     </Grid>
-
-    <Grid item xs={12}><Divider /></Grid>
-
-    <Grid item xs={12}>
-      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
-    </Grid>
-    {
-      aceDialogSX ?
-        <component.AceDialog
-          value={JSON.stringify(value.sx, null, 2)}
-          onChange={v => {
-            console.log(v)
-            try {
-              element.property.sx = JSON.parse(v)
-              setAceDialogSX()
-            } catch {
-              sendMessage('Format Error')
-            }
-          }}
-          onClose={() => setAceDialogSX()}
-          mode='json'
-        />
-        : null
-    }
   </Grid>
 }
 

@@ -11,27 +11,27 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [aceDialog, setAceDialog] = React.useState()
 
   const changeValue = (e) => {
-    if (element.property.value.multiple === true) {
-      element.property.value = e.target.value.split(',')
+    if (property.value.multiple === true) {
+      property.value = e.target.value.split(',')
     }
-    if (element.property.value.multiple === false) {
-      element.property.value = e.target.value;
+    if (property.value.multiple === false) {
+      property.value = e.target.value;
     }
     update()
   }
   const changeMultiple = (e) => {
     if (e.target.checked === true) {
-      element.property.multiple = e.target.checked
-      element.property.value = value.value.split(',').filter(i => i)
+      property.multiple = e.target.checked
+      property.value = value.value.split(',').filter(i => i)
     }
     if (e.target.checked === false) {
-      element.property.multiple = e.target.checked
-      element.property.value = value.value.toString()
+      property.multiple = e.target.checked
+      property.value = value.value.toString()
     }
     update()
   }
@@ -39,26 +39,26 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
+      <Switch checked={property.disabled} onChange={e => { property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Full Width</div>
-      <Switch checked={element.property.fullWidth} onChange={e => { element.property.fullWidth = e.target.checked; update() }} />
+      <Switch checked={property.fullWidth} onChange={e => { property.fullWidth = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Multiple</div>
-      <Switch checked={element.property.multiple} onChange={e => changeMultiple(e)} />
+      <Switch checked={property.multiple} onChange={e => changeMultiple(e)} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={element.property.label} onChange={e => { element.property.label = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={property.label} onChange={e => { property.label = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => changeValue(e)} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={property.value} onChange={e => changeValue(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Variant</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.variant} label='Variant' onChange={e => { element.property.variant = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.variant} label='Variant' onChange={e => { property.variant = e.target.value; update() }}>
           <MenuItem value='outlined'>Outlined</MenuItem>
           <MenuItem value='filled'>Filled</MenuItem>
           <MenuItem value='standard'>Standard</MenuItem>
@@ -68,7 +68,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.size} label='Size' onChange={e => { property.size = e.target.value; update() }}>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
         </Select>
@@ -89,7 +89,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.options = v_
+              property.options = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')

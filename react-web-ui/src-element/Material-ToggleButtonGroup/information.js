@@ -27,7 +27,7 @@ const information = {
     color: 'standard',
     disabled: false,
     exclusive: true,
-    fullWidth: false
+    fullWidth: false,
   }
 }
 

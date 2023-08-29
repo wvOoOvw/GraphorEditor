@@ -10,14 +10,14 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [aceDialog, setAceDialog] = React.useState(false)
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disable Padding</div>
-      <Switch checked={element.property.disablePadding} onChange={e => { element.property.disablePadding = e.target.checked; update() }} />
+      <Switch checked={property.disablePadding} onChange={e => { property.disablePadding = e.target.checked; update() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
@@ -34,7 +34,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.value = v_
+              property.value = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')

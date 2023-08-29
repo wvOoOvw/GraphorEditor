@@ -10,31 +10,31 @@ import { Select } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const handleSetType = e => {
     if (e.target.value === 'file') {
-      element.property.value = ''
+      property.value = ''
     }
-    element.property.type = e.target.value
+    property.type = e.target.value
     update()
   }
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>
-      <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
+      <Switch checked={property.disabled} onChange={e => { property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => { element.property.value = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={property.value} onChange={e => { property.value = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={element.property.placeholder} onChange={e => { element.property.placeholder = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={property.placeholder} onChange={e => { property.placeholder = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Type</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.type} label='Type' onChange={handleSetType}>
+        <Select {...sx.SelectSX} value={property.type} label='Type' onChange={handleSetType}>
           <MenuItem value='text'>Text</MenuItem>
           <MenuItem value='textarea'>Textarea</MenuItem>
           <MenuItem value='password'>Password</MenuItem>
@@ -59,11 +59,11 @@ function Edit(props) {
           <Grid item xs={12}><Divider /></Grid>
 
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={element.property.fileAccept} onChange={e => { element.property.fileAccept = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='File Accept' value={property.fileAccept} onChange={e => { property.fileAccept = e.target.value; update() }} />
           </Grid>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>File Multiple</span>
-            <Switch checked={element.property.fileMultiple} onChange={e => { element.property.fileMultiple = e.target.checked; update() }} />
+            <Switch checked={property.fileMultiple} onChange={e => { property.fileMultiple = e.target.checked; update() }} />
           </Grid>
         </>
         : null

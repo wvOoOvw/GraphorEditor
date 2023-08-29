@@ -9,12 +9,12 @@ import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Ivmmediate Trigger Event</div>
-      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked; update() }} />
+      <Switch checked={property.immediate} onChange={e => { property.immediate = e.target.checked; update() }} />
     </Grid>
   </Grid>
 }

@@ -7,56 +7,48 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
-  const [aceDialog, setAceDialog] = React.useState()
+  const [aceDialogValue, setAceDialogValue] = React.useState()
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Immediate Effect</div>
-      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked; update() }} />
+      <Switch checked={property.immediate} onChange={e => { property.immediate = e.target.checked; update() }} />
     </Grid>
-
-    <Grid item xs={12}><Divider /></Grid>
-
-    <Grid item xs={12}>
-      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Value</Button>
-    </Grid>
-    {
-      aceDialog ?
-        <component.AceDialog
-          value={JSON.stringify(value.value, null, 2)}
-          onChange={v => {
-            try {
-              const v_ = JSON.parse(v)
-              element.property.value = v_
-              setAceDialog(false)
-            } catch {
-              alert('Format Error')
-            }
-          }}
-          onClose={() => setAceDialog(false)}
-          mode='json'
-          initValue={'{}'}
-        />
-        : null
-    }
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>Use Window Property</div>
-        <Switch checked={element.property.useWindow} onChange={e => { element.property.useWindow = e.target.checked; update() }} />
+        <Switch checked={property.useWindow} onChange={e => { property.useWindow = e.target.checked; update() }} />
       </Grid>
     </Grid>
     {
       value.useWindow ?
         <>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={element.property.windowName} onChange={e => { element.property.windowName = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={property.windowName} onChange={e => { property.windowName = e.target.value; update() }} />
           </Grid>
         </>
+        : null
+    }
+
+    <Grid item xs={12}><Divider /></Grid>
+
+    <Grid item xs={12}>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogValue(true)}>Set Value</Button>
+    </Grid>
+
+    {
+      aceDialogValue ?
+        <component.AceDialog
+          value={JSON.stringify(value.value, null, 2)}
+          onChange={v => { try { property.value = JSON.parse(v); update(); setAceDialogValue(); } catch { sendMessage('Format Error') } }}
+          onClose={() => setAceDialogValue()}
+          mode='json'
+        />
         : null
     }
   </Grid>

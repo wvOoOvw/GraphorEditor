@@ -28,7 +28,6 @@ const information = {
     max: 99,
     overlap: 'rectangular',
     showZero: false,
-    sx: { '&.MuiBadge-root': {}, '& .MuiBadge-badge': {} },
   }
 }
 

@@ -14,7 +14,7 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [modalHead, setModalHead] = React.useState(false)
   const [modalBody, setModalBody] = React.useState(false)
@@ -22,28 +22,28 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>图例</div>
-      <Switch checked={element.property.option.legend.show} onChange={e => { element.property.option.legend.show = e.target.checked; updare() }} />
+      <Switch checked={property.option.legend.show} onChange={e => { property.option.legend.show = e.target.checked; updare() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>网格</div>
-      <Switch checked={element.property.option.grid.show} onChange={e => { element.property.option.grid.show = e.target.checked; updare() }} />
+      <Switch checked={property.option.grid.show} onChange={e => { property.option.grid.show = e.target.checked; updare() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>X轴</div>
-      <Switch checked={element.property.option.xAxis.show} onChange={e => { element.property.option.xAxis.show = e.target.checked; updare() }} />
+      <Switch checked={property.option.xAxis.show} onChange={e => { property.option.xAxis.show = e.target.checked; updare() }} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Y轴</div>
-      <Switch checked={element.property.option.yAxis.show} onChange={e => { element.property.option.yAxis.show = e.target.checked; updare() }} />
+      <Switch checked={property.option.yAxis.show} onChange={e => { property.option.yAxis.show = e.target.checked; updare() }} />
     </Grid>
 
 
@@ -55,7 +55,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.head = v_
+              property.head = v_
               updare()
               setModalHead(false)
             } catch {
@@ -76,7 +76,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.body = v_
+              property.body = v_
               updare()
               setModalBody(false)
             } catch {

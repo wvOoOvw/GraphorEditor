@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 import { Button } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [aceDialog, setAceDialog] = React.useState()
 
@@ -21,7 +21,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.options = v_
+              property.options = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')

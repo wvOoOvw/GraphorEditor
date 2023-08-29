@@ -19,7 +19,7 @@ import { TableRow } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   const [headDialog, setHeadDialog] = React.useState(false)
   const [bodyDialog, setBodyDialog] = React.useState(false)
@@ -27,16 +27,16 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Sticky Header</div>
-      <Switch checked={element.property.stickyHeader} onChange={e => { element.property.stickyHeader = e.target.checked; update() }} />
+      <Switch checked={property.stickyHeader} onChange={e => { property.stickyHeader = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Paper Container</div>
-      <Switch checked={element.property.componentPaper} onChange={e => { element.property.componentPaper = e.target.checked; update() }} />
+      <Switch checked={property.componentPaper} onChange={e => { property.componentPaper = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Size</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.size} label='Size' onChange={e => { element.property.size = e.target.value; update() }}>
+        <Select {...sx.SelectSX} value={property.size} label='Size' onChange={e => { property.size = e.target.value; update() }}>
           <MenuItem value='medium'>Medium</MenuItem>
           <MenuItem value='small'>Small</MenuItem>
         </Select>
@@ -47,25 +47,25 @@ function Edit(props) {
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Use Pagination</div>
-      <Switch checked={element.property.usePagination} onChange={e => { element.property.usePagination = e.target.checked; update() }} />
+      <Switch checked={property.usePagination} onChange={e => { property.usePagination = e.target.checked; update() }} />
     </Grid>
     {
       value.usePagination ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>Use Pagination Component</div>
-            <Switch checked={element.property.paginationComponent} onChange={e => { element.property.paginationComponent = e.target.checked; update() }} />
+            <Switch checked={property.paginationComponent} onChange={e => { property.paginationComponent = e.target.checked; update() }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Size' value={element.property.paginationSize} onChange={e => { element.property.paginationSize = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Size' value={property.paginationSize} onChange={e => { property.paginationSize = e.target.value; update() }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Page' value={element.property.paginationPage} onChange={e => { element.property.paginationPage = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Pagination Page' value={property.paginationPage} onChange={e => { property.paginationPage = e.target.value; update() }} />
           </Grid>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>Pagination Justify Content</InputLabel>
-              <Select {...sx.SelectSX} value={element.property.paginationJustifyContent} label='Pagination Justify Content' onChange={e => { element.property.paginationJustifyContent = e.target.value; update() }}  >
+              <Select {...sx.SelectSX} value={property.paginationJustifyContent} label='Pagination Justify Content' onChange={e => { property.paginationJustifyContent = e.target.value; update() }}  >
                 <MenuItem value='center'>Center</MenuItem>
                 <MenuItem value='flex-start'>Flex Start</MenuItem>
                 <MenuItem value='flex-end'>Flex End</MenuItem>
@@ -80,7 +80,7 @@ function Edit(props) {
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Use Action Button</div>
-      <Switch checked={element.property.useAction} onChange={e => { element.property.useAction = e.target.checked; update() }} />
+      <Switch checked={property.useAction} onChange={e => { property.useAction = e.target.checked; update() }} />
     </Grid>
     {
       value.useAction ?
@@ -88,7 +88,7 @@ function Edit(props) {
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>Action Button Variant</InputLabel>
-              <Select {...sx.SelectSX} value={element.property.actionVariant} label='Action Button Variant' onChange={e => { element.property.actionVariant = e.target.value; update() }}>
+              <Select {...sx.SelectSX} value={property.actionVariant} label='Action Button Variant' onChange={e => { property.actionVariant = e.target.value; update() }}>
                 <MenuItem value='text'>Text</MenuItem>
                 <MenuItem value='outlined'>Outlined</MenuItem>
                 <MenuItem value='contained'>Contained</MenuItem>
@@ -98,7 +98,7 @@ function Edit(props) {
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
               <InputLabel>Color</InputLabel>
-              <Select {...sx.SelectSX} value={element.property.actionColor} label='Color' onChange={e => { element.property.actionColor = e.target.value; update() }}>
+              <Select {...sx.SelectSX} value={property.actionColor} label='Color' onChange={e => { property.actionColor = e.target.value; update() }}>
                 <MenuItem value='primary'>Primary</MenuItem>
                 <MenuItem value='inherit'>Inherit</MenuItem>
                 <MenuItem value='secondary'>Secondary</MenuItem>
@@ -110,10 +110,10 @@ function Edit(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={element.property.actionTitle} onChange={e => { element.property.actionTitle = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={property.actionTitle} onChange={e => { property.actionTitle = e.target.value; update() }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Text' value={element.property.actionText} onChange={e => { element.property.actionText = e.target.value; update() }} />
+            <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Text' value={property.actionText} onChange={e => { property.actionText = e.target.value; update() }} />
           </Grid>
         </>
         : null
@@ -123,14 +123,14 @@ function Edit(props) {
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Use Select Checkbox</div>
-      <Switch checked={element.property.useSelect} onChange={e => { element.property.useSelect = e.target.checked; update() }} />
+      <Switch checked={property.useSelect} onChange={e => { property.useSelect = e.target.checked; update() }} />
     </Grid>
     {
       value.useSelect ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>Multiple</div>
-            <Switch checked={element.property.selectMultiple} onChange={e => { element.property.selectMultiple = e.target.checked; update() }} />
+            <Switch checked={property.selectMultiple} onChange={e => { property.selectMultiple = e.target.checked; update() }} />
           </Grid>
         </>
         : null
@@ -153,7 +153,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.head = v_
+              property.head = v_
               setHeadDialog(false)
             } catch {
               alert('Format Error')
@@ -173,7 +173,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              element.property.body = v_
+              property.body = v_
               setBodyDialog(false)
             } catch {
               alert('Format Error')

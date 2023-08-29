@@ -26,7 +26,6 @@ const information = {
     href: '',
     disabled: false,
     fullWidth: false,
-    sx: { '&.MuiButtonBase-root': {} },
   }
 }
 

@@ -33,7 +33,6 @@ const information = {
     disabled: false,
     disableGutters: false,
     square: false,
-    sx: { '& .MuiAccordionSummary-root': {}, '& .MuiCollapse-root': {} }
   }
 }
 

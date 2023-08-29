@@ -221,6 +221,8 @@ function PropertyConfig(props) {
       <AccordionDetails>
         <Edit
           element={currentGraphElement}
+          property={currentGraphElement.property}
+          style={currentGraphElement.style}
           update={update}
           component={{ AceDialog }}
           sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX, SelectSX: SelectSX }}

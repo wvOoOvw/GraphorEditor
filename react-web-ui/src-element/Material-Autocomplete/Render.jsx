@@ -51,7 +51,7 @@ function Render(props) {
       value={property.value}
       componentsProps={{ popper: { open: false } }}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
-      sx={property.sx}
+     
       ref={el => ref.current = el}
     />
   }
@@ -67,7 +67,7 @@ function Render(props) {
       value={property.value}
       onChange={onChange}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
-      sx={property.sx}
+     
     />
   }
 }

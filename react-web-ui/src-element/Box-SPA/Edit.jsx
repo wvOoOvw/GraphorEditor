@@ -9,14 +9,14 @@ import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 
 function Edit(props) {
-  const { element, update, component, sx, sendMessage } = props
+  const { element, property, style, update, component, sx, sendMessage } = props
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Src' value={element.property.src} onChange={e => { element.property.src  = e.target.value; update()}} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Src' value={property.src} onChange={e => { property.src = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Render Id' value={element.property.id} onChange={e => { element.property.id  = e.target.value; update()}} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Render Id' value={property.id} onChange={e => { property.id = e.target.value; update() }} />
     </Grid>
   </Grid >
 }
