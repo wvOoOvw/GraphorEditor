@@ -14,7 +14,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Ivmmediate Trigger Event</div>
-      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked)} />
+      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked}} />
     </Grid>
   </Grid>
 }

@@ -14,11 +14,11 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Open</div>
-      <Switch checked={element.property.open} onChange={e => onChange(v => v.open = e.target.checked)} />
+      <Switch checked={element.property.open} onChange={e => { element.property.open = e.target.checked}} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Arrow</div>
-      <Switch checked={element.property.arrow} onChange={e => onChange(v => v.arrow = e.target.checked)} />
+      <Switch checked={element.property.arrow} onChange={e => { element.property.arrow = e.target.checked}} />
     </Grid>
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>

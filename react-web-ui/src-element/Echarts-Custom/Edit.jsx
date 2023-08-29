@@ -22,28 +22,28 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>图例</div>
-      <Switch checked={element.property.option.legend.show} onChange={e => onChange(v => v.option.legend.show = e.target.checked)} />
+      <Switch checked={element.property.option.legend.show} onChange={e => { element.property.option.legend.show = e.target.checked}} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>网格</div>
-      <Switch checked={element.property.option.grid.show} onChange={e => onChange(v => v.option.grid.show = e.target.checked)} />
+      <Switch checked={element.property.option.grid.show} onChange={e => { element.property.option.grid.show = e.target.checked}} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>X轴</div>
-      <Switch checked={element.property.option.xAxis.show} onChange={e => onChange(v => v.option.xAxis.show = e.target.checked)} />
+      <Switch checked={element.property.option.xAxis.show} onChange={e => { element.property.option.xAxis.show = e.target.checked}} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Y轴</div>
-      <Switch checked={element.property.option.yAxis.show} onChange={e => onChange(v => v.option.yAxis.show = e.target.checked)} />
+      <Switch checked={element.property.option.yAxis.show} onChange={e => { element.property.option.yAxis.show = e.target.checked}} />
     </Grid>
 
 

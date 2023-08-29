@@ -14,7 +14,7 @@ function Edit(props) {
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Immediate Effect</div>
-      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked)} />
+      <Switch checked={element.property.immediate} onChange={e => { element.property.immediate = e.target.checked}} />
     </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
@@ -47,7 +47,7 @@ function Edit(props) {
     <Grid item xs={12}>
       <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>Use Window Property</div>
-        <Switch checked={element.property.useWindow} onChange={e => { element.property.useWindow = e.target.checked)} />
+        <Switch checked={element.property.useWindow} onChange={e => { element.property.useWindow = e.target.checked}} />
       </Grid>
     </Grid>
     {

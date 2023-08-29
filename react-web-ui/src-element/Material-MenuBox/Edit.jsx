@@ -19,7 +19,7 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Enable Click Close</div>
-      <Switch checked={element.property.enableClose} onChange={e => onChange(v => v.enableClose = e.target.checked)} />
+      <Switch checked={element.property.enableClose} onChange={e => { element.property.enableClose = e.target.checked}} />
     </Grid>
   </Grid>
 }
