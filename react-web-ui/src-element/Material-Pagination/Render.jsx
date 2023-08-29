@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setCount) {
       const remove = monitor.setCount(data => {
@@ -25,22 +25,35 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (env === 'dev') return
     property.page = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.page, e)
   }
 
-  return <Pagination
-    {...params}
-    count={Number(property.count)}
-    page={Number(property.page)}
-    onChange={onChange}
-    size={property.size}
-    color={property.color}
-    shape={property.shape}
-    variant={property.variant}
-  />
+  if (env === 'dev') {
+    return <Pagination
+      {...params}
+      count={Number(property.count)}
+      page={Number(property.page)}
+      size={property.size}
+      color={property.color}
+      shape={property.shape}
+      variant={property.variant}
+    />
+  }
+
+  if (env === 'prod') {
+    return <Pagination
+      {...params}
+      count={Number(property.count)}
+      page={Number(property.page)}
+      onChange={onChange}
+      size={property.size}
+      color={property.color}
+      shape={property.shape}
+      variant={property.variant}
+    />
+  }
 }
 
 export default Render

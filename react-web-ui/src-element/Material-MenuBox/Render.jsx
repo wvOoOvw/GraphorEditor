@@ -15,34 +15,48 @@ function Render(props) {
   }, [])
 
   const onClose = () => {
-    if (env === 'dev') return
-    if (property.enableClose === false) return
     property.open = false
     update()
   }
 
   const onOpen = () => {
-    if (env === 'dev') return
     property.open = true
     update()
   }
 
-  const ref = React.useRef()
+  if (env === 'dev') {
+    return <>
+      <div {...params}>
+        <div>
+          {
+            children && children.main ? children.main() : null
+          }
+        </div>
+        <div>
+          {
+            children && children.menu ? children.menu() : null
+          }
+        </div>
+      </div>
+    </>
+  }
 
-  return <>
-    <div {...params} ref={el => ref.current = el} onClick={onOpen}>
-      {
-        children && children.main ? children.main() : null
-      }
-    </div>
-    <Menu open={env === 'prod' && property.open} onClose={onClose} anchorEl={ref.current}>
-      <div onClick={onClose}>
+  if (env === 'prod') {
+    return <>
+      <div {...params} onClick={onOpen}>
         {
-          children && children.menu ? children.menu() : null
+          children && children.main ? children.main() : null
         }
       </div>
-    </Menu>
-  </>
+      <Menu open={env === 'prod' && property.open} onClose={onClose} anchorEl={ref.current}>
+        <div onClick={onClose}>
+          {
+            children && children.menu ? children.menu() : null
+          }
+        </div>
+      </Menu>
+    </>
+  }
 }
 
 export default Render

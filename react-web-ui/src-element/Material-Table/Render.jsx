@@ -13,8 +13,6 @@ function Render(props) {
   }
 
   const onSelect = (e, item) => {
-    if (env === 'dev') return
-
     property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
     if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
@@ -30,8 +28,6 @@ function Render(props) {
   }
 
   const onSelectMultiple = (e) => {
-    if (env === 'dev') return
-
     if (property.usePagination) {
       var body = property.body.filter((i, index) => paginationFilter(index, property.paginationSize, property.paginationPage))
     } else {
@@ -50,8 +46,6 @@ function Render(props) {
   }
 
   const onPaginationChange = (e, value) => {
-    if (env === 'dev') return
-
     property.selectChecked = []
     property.paginationPage = value
     update()
@@ -67,7 +61,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setHead) {
       const remove = monitor.setHead(data => {
@@ -97,7 +91,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setSelectClear) {
       const remove = monitor.setSelectClear(data => {
@@ -108,61 +102,121 @@ function Render(props) {
     }
   }, [])
 
-  return <Box {...params} component={property.componentPaper ? Paper : null}>
-    <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
-      <Table size={property.size} stickyHeader={property.stickyHeader}>
-        <TableHead>
-          <TableRow>
+  if (env === 'dev') {
+    return <Box {...params} component={property.componentPaper ? Paper : null}>
+      <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
+        <Table size={property.size} stickyHeader={property.stickyHeader}>
+          <TableHead>
+            <TableRow>
+              {
+                property.useSelect && property.selectMultiple ?
+                  <TableCell>
+                    <Checkbox checked={selectMultipleChecked()}/>
+                  </TableCell> : null
+              }
+              {
+                property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
+              }
+              {
+                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
+              }
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {
-              property.useSelect && property.selectMultiple ?
-                <TableCell>
-                  <Checkbox checked={selectMultipleChecked()} onChange={onSelectMultiple} />
-                </TableCell> : null
+              property.body.map((i, index) => {
+                if (property.usePagination && !paginationFilter(index, property.paginationSize, property.paginationPage)) return null
+                return <TableRow key={index}>
+                  {
+                    property.useSelect ?
+                      <TableCell>
+                        <Checkbox checked={property.selectChecked.includes(i)}/>
+                      </TableCell> : null
+                  }
+                  {
+                    property.head.map((i_, index) => {
+                      return <TableCell key={index}>{i[i_.value]}</TableCell>
+                    })
+                  }
+                  {
+                    property.useAction ?
+                      <TableCell>
+                        <Button variant={property.actionVariant} color={property.actionColor}>{property.actionText}</Button>
+                      </TableCell> : null
+                  }
+                </TableRow>
+              })
             }
-            {
-              property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
-            }
-            {
-              property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
-            }
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            property.body.map((i, index) => {
-              if (property.usePagination && !paginationFilter(index, property.paginationSize, property.paginationPage)) return null
-              return <TableRow key={index}>
-                {
-                  property.useSelect ?
-                    <TableCell>
-                      <Checkbox checked={property.selectChecked.includes(i)} onChange={(e) => onSelect(e, i)} />
-                    </TableCell> : null
-                }
-                {
-                  property.head.map((i_, index) => {
-                    return <TableCell key={index}>{i[i_.value]}</TableCell>
-                  })
-                }
-                {
-                  property.useAction ?
-                    <TableCell>
-                      <Button variant={property.actionVariant} color={property.actionColor} onClick={(e) => onClick(e, i)}>{property.actionText}</Button>
-                    </TableCell> : null
-                }
-              </TableRow>
-            })
-          }
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-    {
-      property.usePagination && property.paginationComponent ?
-        <div style={{ display: 'flex', justifyContent: property.paginationJustifyContent, alignItems: 'center', height: 50 }}>
-          <Pagination count={Math.ceil(property.body.length / Number(property.paginationSize))} page={Number(property.paginationPage)} onChange={onPaginationChange} size={property.size} />
-        </div> : null
-    }
-  </Box>
+      {
+        property.usePagination && property.paginationComponent ?
+          <div style={{ display: 'flex', justifyContent: property.paginationJustifyContent, alignItems: 'center', height: 50 }}>
+            <Pagination count={Math.ceil(property.body.length / Number(property.paginationSize))} page={Number(property.paginationPage)} size={property.size} />
+          </div> : null
+      }
+    </Box>
+  }
+
+  if (env === 'prod') {
+    return <Box {...params} component={property.componentPaper ? Paper : null}>
+      <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
+        <Table size={property.size} stickyHeader={property.stickyHeader}>
+          <TableHead>
+            <TableRow>
+              {
+                property.useSelect && property.selectMultiple ?
+                  <TableCell>
+                    <Checkbox checked={selectMultipleChecked()} onChange={onSelectMultiple} />
+                  </TableCell> : null
+              }
+              {
+                property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
+              }
+              {
+                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
+              }
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              property.body.map((i, index) => {
+                if (property.usePagination && !paginationFilter(index, property.paginationSize, property.paginationPage)) return null
+                return <TableRow key={index}>
+                  {
+                    property.useSelect ?
+                      <TableCell>
+                        <Checkbox checked={property.selectChecked.includes(i)} onChange={(e) => onSelect(e, i)} />
+                      </TableCell> : null
+                  }
+                  {
+                    property.head.map((i_, index) => {
+                      return <TableCell key={index}>{i[i_.value]}</TableCell>
+                    })
+                  }
+                  {
+                    property.useAction ?
+                      <TableCell>
+                        <Button variant={property.actionVariant} color={property.actionColor} onClick={(e) => onClick(e, i)}>{property.actionText}</Button>
+                      </TableCell> : null
+                  }
+                </TableRow>
+              })
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {
+        property.usePagination && property.paginationComponent ?
+          <div style={{ display: 'flex', justifyContent: property.paginationJustifyContent, alignItems: 'center', height: 50 }}>
+            <Pagination count={Math.ceil(property.body.length / Number(property.paginationSize))} page={Number(property.paginationPage)} onChange={onPaginationChange} size={property.size} />
+          </div> : null
+      }
+    </Box>
+  }
 }
 
 export default Render

@@ -18,17 +18,33 @@ function Render(props) {
     if (trigger && trigger.onClick) trigger.onClick(value, e)
   }
 
-  return <MenuList {...params}>
-    {
-      property.options.map((i, index) => {
-        return <MenuItem key={index} onClick={e => onClick(e, i.value)}>
-          {
-            i.label
-          }
-        </MenuItem>
-      })
-    }
-  </MenuList>
+  if (env === 'dev') {
+    return <MenuList {...params}>
+      {
+        property.options.map((i, index) => {
+          return <MenuItem key={index}>
+            {
+              i.label
+            }
+          </MenuItem>
+        })
+      }
+    </MenuList>
+  }
+
+  if (env === 'prod') {
+    return <MenuList {...params}>
+      {
+        property.options.map((i, index) => {
+          return <MenuItem key={index} onClick={e => onClick(e, i.value)}>
+            {
+              i.label
+            }
+          </MenuItem>
+        })
+      }
+    </MenuList>
+  }
 }
 
 export default Render

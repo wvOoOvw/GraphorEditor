@@ -17,10 +17,6 @@ function Edit(props) {
       <div>Open</div>
       <Switch checked={property.open} onChange={e => { property.open = e.target.checked; update() }} />
     </Grid>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Enable Click Close</div>
-      <Switch checked={property.enableClose} onChange={e => { property.enableClose = e.target.checked; update() }} />
-    </Grid>
   </Grid>
 }
 

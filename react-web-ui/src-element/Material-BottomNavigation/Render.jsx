@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setOptions) {
       const remove = monitor.setOptions(data => {
@@ -25,19 +25,30 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (env === 'dev') return
     property.value = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
-  return <BottomNavigation {...params} value={property.value} onChange={onChange} showLabels>
-    {
-      property.options.map((i, index) => {
-        return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>
-      })
-    }
-  </BottomNavigation>
+  if (env === 'dev') {
+    return <BottomNavigation {...params} value={property.value} showLabels>
+      {
+        property.options.map((i, index) => {
+          return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>
+        })
+      }
+    </BottomNavigation>
+  }
+
+  if (env === 'prod') {
+    return <BottomNavigation {...params} value={property.value} onChange={onChange} showLabels>
+      {
+        property.options.map((i, index) => {
+          return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>
+        })
+      }
+    </BottomNavigation>
+  }
 }
 
 export default Render

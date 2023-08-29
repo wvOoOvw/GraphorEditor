@@ -47,11 +47,10 @@ function Render(props) {
       size={property.size}
       fullWidth={property.fullWidth}
       disabled={property.disabled}
-      options={[]}
+      options={property.options}
       value={property.value}
       componentsProps={{ popper: { open: false } }}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
-     
       ref={el => ref.current = el}
     />
   }
@@ -67,7 +66,6 @@ function Render(props) {
       value={property.value}
       onChange={onChange}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
-     
     />
   }
 }

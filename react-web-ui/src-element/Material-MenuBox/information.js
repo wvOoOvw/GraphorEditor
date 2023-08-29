@@ -21,7 +21,6 @@ const information = {
   style: {},
   property: {
     open: false,
-    enableClose: false,
   }
 }
 

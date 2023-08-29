@@ -32,33 +32,49 @@ function Render(props) {
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
-  const R = <>
-    <DialogTitle>
-      {
-        children && children.title ? children.title() : null
-      }
-    </DialogTitle>
+  if (env === 'dev') {
+    return <div {...params}>
+      <DialogTitle>
+        {
+          children && children.title ? children.title() : null
+        }
+      </DialogTitle>
 
-    <DialogContent dividers={property.dividers}>
-      {
-        children && children.main ? children.main() : null
-      }
-    </DialogContent>
+      <DialogContent dividers={property.dividers}>
+        {
+          children && children.main ? children.main() : null
+        }
+      </DialogContent>
 
-    <DialogActions>
-      {
-        children && children.action ? children.action() : null
-      }
-    </DialogActions>
-  </>
+      <DialogActions>
+        {
+          children && children.action ? children.action() : null
+        }
+      </DialogActions>
+    </div>
+  }
 
-  if (env === 'prod') return <Dialog open={property.open} onClose={onClose} sx={{ '& .MuiDialog-paper': style.style }}>
-    {R}
-  </Dialog>
+  if (env === 'prod') {
+    return <Dialog open={property.open} onClose={onClose} sx={{ '& .MuiDialog-paper': style.style }}>
+      <DialogTitle>
+        {
+          children && children.title ? children.title(prop) : null
+        }
+      </DialogTitle>
 
-  if (env === 'dev') return <div {...params}>
-    {R}
-  </div>
+      <DialogContent dividers={property.dividers}>
+        {
+          children && children.main ? children.main(prop) : null
+        }
+      </DialogContent>
+
+      <DialogActions>
+        {
+          children && children.action ? children.action(prop) : null
+        }
+      </DialogActions>
+    </Dialog>
+  }
 }
 
 export default Render

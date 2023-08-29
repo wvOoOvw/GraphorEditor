@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setCheckedClose) {
       const remove = monitor.setCheckedClose(data => {
@@ -25,20 +25,31 @@ function Render(props) {
   }, [])
 
   const onChange = (e) => {
-    if (env === 'dev') return
     property.checked = e.target.checked
     update()
     if (trigger && trigger.onChange) trigger.onChange(e.target.checked, e)
   }
 
-  return <Switch
-    {...params}
-    checked={property.checked}
-    onChange={onChange}
-    size={property.size}
-    color={property.color}
-    disabled={property.disabled}
-  />
+  if (env === 'dev') {
+    return <Switch
+      {...params}
+      checked={property.checked}
+      size={property.size}
+      color={property.color}
+      disabled={property.disabled}
+    />
+  }
+
+  if (env === 'prod') {
+    return <Switch
+      {...params}
+      checked={property.checked}
+      onChange={onChange}
+      size={property.size}
+      color={property.color}
+      disabled={property.disabled}
+    />
+  }
 }
 
 export default Render

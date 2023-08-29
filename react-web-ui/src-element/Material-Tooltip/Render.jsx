@@ -36,9 +36,23 @@ function Render(props) {
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
+  if (env === 'dev') {
+    return <div {...params}>
+      <div>
+        {
+          children && children.main ? children.main() : null
+        }
+      </div>
+      <div>
+        {
+          children && children.float ? children.float() : null
+        }
+      </div>
+    </div>
+  }
+
   if (env === 'prod') {
     return <Tooltip
-      PopperProps={{ '& .MuiTooltip-tooltip': style.style }}
       open={property.open}
       enenterDelay={property.enterDelay}
       leaveDelay={property.leaveDelay}
@@ -52,10 +66,6 @@ function Render(props) {
         children && children.main ? children.main() : null
       }
     </Tooltip>
-  }
-
-  if (env === 'dev') {
-    return children && children.main ? children.main() : null
   }
 }
 

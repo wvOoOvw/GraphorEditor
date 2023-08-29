@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setOptions) {
       const remove = monitor.setOptions(data => {
@@ -25,30 +25,44 @@ function Render(props) {
   }, [])
 
   const onChange = (e) => {
-    if (env === 'dev') return
-    property.value  = e.target.value; update()
+    property.value = e.target.value; update()
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
-  return <RadioGroup
-    {...params}
-    value={property.value}
-    onChange={onChange}
-  >
-    {
-      property.options.map((i, index) => {
-        return <FormControlLabel
-          key={index}
-          label={i.label}
-          value={i.value}
-          control={
-            <Radio size={property.size} color={property.color} disabled={property.disabled} />
-          }
-        />
-      })
-    }
-  </RadioGroup>
+  if (env === 'dev') {
+    return <RadioGroup {...params} value={property.value}>
+      {
+        property.options.map((i, index) => {
+          return <FormControlLabel
+            key={index}
+            label={i.label}
+            value={i.value}
+            control={
+              <Radio size={property.size} color={property.color} disabled={property.disabled} />
+            }
+          />
+        })
+      }
+    </RadioGroup>
+  }
+
+  if (env === 'prod') {
+    return <RadioGroup {...params} value={property.value} onChange={onChange}>
+      {
+        property.options.map((i, index) => {
+          return <FormControlLabel
+            key={index}
+            label={i.label}
+            value={i.value}
+            control={
+              <Radio size={property.size} color={property.color} disabled={property.disabled} />
+            }
+          />
+        })
+      }
+    </RadioGroup>
+  }
 }
 
 export default Render
