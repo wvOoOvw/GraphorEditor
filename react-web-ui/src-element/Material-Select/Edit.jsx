@@ -16,18 +16,24 @@ function Edit(props) {
   const [aceDialog, setAceDialog] = React.useState()
 
   const changeValue = (e) => {
-    if (value.multiple) {
-      { value = e.target.value; update().split(',') 
-    } else {
-      { value = e.target.value; update() 
+    if (element.property.value.multiple === true) {
+      element.property.value = e.target.value.split(',')
     }
+    if (element.property.value.multiple === false) {
+      element.property.value = e.target.value;
+    }
+    update()
   }
-  const changemultiple = (e) => {
-    if (e.target.checked) {
-      { multiple= e.target.checked, value: value.value.split(',').filter(i => i) 
-    } else {
-      { multiple= e.target.checked, value: value.value.toString() 
+  const changeMultiple = (e) => {
+    if (e.target.checked === true) {
+      element.property.multiple = e.target.checked
+      element.property.value = value.value.split(',').filter(i => i)
     }
+    if (e.target.checked === false) {
+      element.property.multiple = e.target.checked
+      element.property.value = value.value.toString()
+    }
+    update()
   }
 
   return <Grid container spacing={1}>
@@ -41,7 +47,7 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Multiple</div>
-      <Switch checked={element.property.multiple} onChange={e => changemultiple(e)} />
+      <Switch checked={element.property.multiple} onChange={e => changeMultiple(e)} />
     </Grid>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Label' value={element.property.label} onChange={e => { element.property.label = e.target.value; update() }} />
@@ -83,7 +89,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              { element.property.options = v_)
+              element.property.options = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')
