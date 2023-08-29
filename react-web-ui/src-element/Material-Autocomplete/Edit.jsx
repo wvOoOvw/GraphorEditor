@@ -11,9 +11,10 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
-  const [aceDialog, setAceDialog] = React.useState()
+  const [aceDialogOptions, setAceDialogOptions] = React.useState()
+  const [aceDialogSX, setAceDialogSX] = React.useState()
 
   const changeValue = (e) => {
     if (value.multiple) {
@@ -22,6 +23,11 @@ function Edit(props) {
       onChange(Object.assign({}, value, { value: e.target.value }))
     }
   }
+
+  const changeOptions = (e) => {
+    onChange(Object.assign({}, value, { value: e.target.value.split(',') }))
+  }
+
   const changemultiple = (e) => {
     if (e.target.checked) {
       onChange(Object.assign({}, value, { multiple: e.target.checked, value: value.value.split(',').filter(i => i) }))
@@ -36,6 +42,9 @@ function Edit(props) {
     </Grid>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={value.value} onChange={e => changeValue(e)} />
+    </Grid>
+    <Grid item xs={12}>
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Options' value={value.options} onChange={e => changeOptions(e)} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
@@ -72,10 +81,33 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Options</Button>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogSX(true)}>SX Extra Style</Button>
     </Grid>
     {
-      aceDialog ?
+      aceDialogSX ?
+        <component.AceDialog
+          value={JSON.stringify(value.sx, null, 2)}
+          onChange={v => {
+            console.log(v)
+            try {
+              onChange((value) => value.sx = JSON.parse(v))
+              setAceDialogSX()
+            } catch {
+              sendMessage('Format Error')
+            }
+          }}
+          onClose={() => setAceDialogSX()}
+          mode='json'
+        />
+        : null
+    }
+
+    <Grid item xs={12}>
+      <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialogOptions(true)}>Set Options</Button>
+    </Grid>
+
+    {
+      aceDialogOptions ?
         <component.AceDialog
           value={JSON.stringify(value.options, null, 2)}
           onChange={v => {
@@ -83,12 +115,12 @@ function Edit(props) {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
               onChange((value) => value.options = v_)
-              setAceDialog(false)
+              setAceDialogOptions(false)
             } catch {
               alert('Format Error')
             }
           }}
-          onClose={() => setAceDialog(false)}
+          onClose={() => setAceDialogOptions(false)}
           mode='json'
         />
         : null

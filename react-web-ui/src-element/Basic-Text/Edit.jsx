@@ -8,7 +8,7 @@ import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>

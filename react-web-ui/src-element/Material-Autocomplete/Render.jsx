@@ -25,22 +25,9 @@ function Render(props) {
   }, [])
 
   const onChange = (e, v) => {
-    if (env === 'dev') return
-    if (v) {
-      property.value = Array.isArray(v) ? v.map(i => i.value) : v.value
-    } else {
-      property.value = ''
-    }
+    property.value = v
     update()
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
-  }
-
-  const getValue = () => {
-    if (property.value) {
-      return Array.isArray(property.value) ? property.value.map(i => property.options.find(i_ => i_.value === i)) : property.options.find(i => i.value === property.value)
-    } else {
-      return null
-    }
   }
 
   if (env === 'dev') {
@@ -48,22 +35,23 @@ function Render(props) {
 
     React.useEffect(() => {
       if (ref.current) {
-        ref.current.addEventListener('mousedown', e => { event.onMouseDown(e) }, true)
-        ref.current.addEventListener('mouseup', e => { event.onMouseUp(e) }, true)
-        ref.current.addEventListener('click', e => { event.onClick(e) }, true)
+        ref.current.addEventListener('click', e => { params.onClick(e) }, true)
+        ref.current.setAttribute('id', params.id)
       }
     }, [])
 
     return <Autocomplete
       {...params}
+      id=''
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}
       disabled={property.disabled}
-      options={property.options}
-      value={getValue()}
-      onChange={onChange}
+      options={[]}
+      value={property.value}
+      componentsProps={{ popper: { open: false } }}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+      sx={property.sx}
       ref={el => ref.current = el}
     />
   }
@@ -76,9 +64,10 @@ function Render(props) {
       fullWidth={property.fullWidth}
       disabled={property.disabled}
       options={property.options}
-      value={getValue()}
+      value={property.value}
       onChange={onChange}
       renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+      sx={property.sx}
     />
   }
 }

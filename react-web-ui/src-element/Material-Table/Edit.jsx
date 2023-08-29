@@ -19,7 +19,7 @@ import { TableRow } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
   const [headDialog, setHeadDialog] = React.useState(false)
   const [bodyDialog, setBodyDialog] = React.useState(false)

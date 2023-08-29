@@ -39,15 +39,15 @@ function Render(props) {
 
   if (env === 'dev') {
     if (property.type === 'textarea') {
-      return <textarea {...params} style={{ ...params.style, resize: 'none' }} value={property.value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} placeholder={property.placeholder} disabled={property.disabled} />
+      return <textarea {...params} style={{ ...params.style, resize: 'none' }} value={property.value} onFocus={onFocus} onBlur={onBlur} placeholder={property.placeholder} disabled={property.disabled} />
     }
 
     if (property.type === 'file') {
-      return <input {...params} value={property.value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} type={property.type} placeholder={property.placeholder} disabled={property.disabled} multiple={property.fileMultiple} accept={property.fileAccept} />
+      return <input {...params} value={property.value} onFocus={onFocus} onBlur={onBlur} type={property.type} placeholder={property.placeholder} disabled={property.disabled} multiple={property.fileMultiple} accept={property.fileAccept} />
     }
 
     if (property.type !== 'textarea' && property.type !== 'file') {
-      return <input {...params} value={property.value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} type={property.type} placeholder={property.placeholder} disabled={property.disabled} />
+      return <input {...params} value={property.value} onFocus={onFocus} onBlur={onBlur} type={property.type} placeholder={property.placeholder} disabled={property.disabled} />
     }
   }
 

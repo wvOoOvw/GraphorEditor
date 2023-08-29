@@ -36,8 +36,6 @@ function Render(props) {
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
-  const Render = children && children.main ? children.main() : null
-
   if (env === 'prod') {
     return <Tooltip
       PopperProps={{ '& .MuiTooltip-tooltip': style.style }}
@@ -50,11 +48,15 @@ function Render(props) {
       onOpen={onOpen}
       onClose={onClose}
     >
-      {Render}
+      {
+        children && children.main ? children.main() : null
+      }
     </Tooltip>
   }
 
-  if (env === 'dev') return Render
+  if (env === 'dev') {
+    return children && children.main ? children.main() : null
+  }
 }
 
 export default Render

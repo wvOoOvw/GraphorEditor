@@ -211,13 +211,7 @@ function PropertyConfig(props) {
 
   if (!Edit) return null
 
-  const handleChange = (value) => {
-    if (typeof value === 'function') {
-      value(currentGraphElement.property)
-    }
-    if (typeof value !== 'function') {
-      currentGraphElement.property = value
-    }
+  const update = (value) => {
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -226,8 +220,8 @@ function PropertyConfig(props) {
       <AccordionSummary>Property Config</AccordionSummary>
       <AccordionDetails>
         <Edit
-          value={currentGraphElement.property}
-          onChange={handleChange}
+          element={currentGraphElement}
+          update={update}
           component={{ AceDialog }}
           sx={{ TooltipSX: TooltipSX, TextFieldSX: TextFieldSX, AutocompleteSX: AutocompleteSX, SelectSX: SelectSX }}
           sendMessage={message => Imitation.assignState({ message: message })}

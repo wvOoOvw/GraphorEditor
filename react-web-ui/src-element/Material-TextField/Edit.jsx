@@ -11,7 +11,7 @@ import { Divider } from '@mui/material'
 import { Button } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
   const [aceDialogSX, setAceDialogSX] = React.useState(false)
 

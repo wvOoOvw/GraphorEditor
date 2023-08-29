@@ -14,7 +14,9 @@ function Render(props) {
   const onChange = (e) => {
     property.expanded = !property.expanded
     update()
-    if (trigger && trigger.onChange) trigger.onChange(property.expanded, e)
+    if (trigger && trigger.onExpandedChange) trigger.onExpandedChange(property.expanded, e)
+    if (trigger && trigger.onExpandedOpen && property.expanded === true) trigger.onExpandedOpen(property.expanded, e)
+    if (trigger && trigger.onExpandedClose && property.expanded === false) trigger.onExpandedClose(property.expanded, e)
   }
 
   React.useEffect(() => {
@@ -44,7 +46,7 @@ function Render(props) {
         {
           property.titleCustom === true ?
             (
-              children && children.title ? children.title(prop) : null
+              children && children.title ? children.title() : null
             )
             : null
         }

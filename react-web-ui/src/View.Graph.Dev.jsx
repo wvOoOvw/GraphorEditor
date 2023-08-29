@@ -107,6 +107,7 @@ function ElementRender(props) {
   const update = () => setUpdate(pre => pre + 1)
 
   const onClick = (e) => {
+    console.log(1)
     Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
 
     e.stopPropagation()

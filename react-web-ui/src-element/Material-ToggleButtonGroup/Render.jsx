@@ -13,7 +13,7 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-  
+
   React.useEffect(() => {
     if (monitor && monitor.setOptions) {
       const remove = monitor.setOptions(data => {
@@ -31,13 +31,27 @@ function Render(props) {
     if (trigger && trigger.onChange) trigger.onChange(property.value, e)
   }
 
-  return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
-    {
-      property.options.map((i, index) => {
-        return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>
-      })
-    }
-  </ToggleButtonGroup>
+  if (env === 'dev') {
+    return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value}>
+      {
+        property.options.map((i, index) => {
+          return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>
+        })
+      }
+    </ToggleButtonGroup>
+  }
+
+  if (env === 'dev') {
+    return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
+      {
+        property.options.map((i, index) => {
+          return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>
+        })
+      }
+    </ToggleButtonGroup>
+  }
+
+
 }
 
 export default Render

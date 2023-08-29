@@ -10,7 +10,7 @@ import { Select } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
   const handleSetType = e => {
     if (e.target.value === 'file') onChange((value) => value.value = '')

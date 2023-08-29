@@ -19,7 +19,9 @@ const information = {
     { value: '@onMouseMove', label: 'Mouse Move' },
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onChange', label: 'Value Change' },
+    { value: 'onExpandedChange', label: 'Expanded Change' },
+    { value: 'onExpandedOpen', label: 'Open' },
+    { value: 'onExpandedClose', label: 'Close' },
   ],
   style: {},
   property: {

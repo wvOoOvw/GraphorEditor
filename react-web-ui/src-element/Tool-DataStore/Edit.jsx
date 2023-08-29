@@ -7,11 +7,17 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx } = props
+  const { element, update, component, sx, sendMessage } = props
 
   const [aceDialog, setAceDialog] = React.useState()
 
   return <Grid container spacing={1}>
+    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>Immediate Effect</div>
+      <Switch checked={value.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
+    </Grid>
+
+    <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
       <Button style={{ textTransform: 'none' }} fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set Value</Button>
@@ -32,16 +38,9 @@ function Edit(props) {
           onClose={() => setAceDialog(false)}
           mode='json'
           initValue={'{}'}
-        /> 
+        />
         : null
     }
-
-    <Grid item xs={12}><Divider /></Grid>
-
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Immediate Effect</div>
-      <Switch checked={value.immediate} onChange={e => onChange((value) => value.immediate = e.target.checked)} />
-    </Grid>
 
     <Grid item xs={12}><Divider /></Grid>
 

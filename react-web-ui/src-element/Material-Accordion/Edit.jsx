@@ -7,7 +7,7 @@ import { Button } from '@mui/material'
 import { Divider } from '@mui/material'
 
 function Edit(props) {
-  const { value, onChange, component, sx, sendMessage } = props
+  const { element, update, component, sx, sendMessage } = props
 
   const [aceDialogSX, setAceDialogSX] = React.useState(false)
 
@@ -43,6 +43,7 @@ function Edit(props) {
       <div>Square</div>
       <Switch checked={value.square} onChange={e => onChange(Object.assign({}, value, { square: e.target.checked }))} />
     </Grid>
+    
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
