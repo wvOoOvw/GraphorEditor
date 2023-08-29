@@ -23,7 +23,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Placement Position</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.placementPosition} label='Placement Position' onChange={e => onChange((v) => v.placementPosition  = e.target.value; update()}}>
+        <Select {...sx.SelectSX} value={element.property.placementPosition} label='Placement Position' onChange={e => { element.property.placementPosition = e.target.value; update() }}>
           <MenuItem value='bottom'>Bottom</MenuItem>
           <MenuItem value='left'>Left</MenuItem>
           <MenuItem value='right'>Right</MenuItem>
@@ -34,7 +34,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Placement Align</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.placementAlign} label='Placement Align' onChange={e => onChange((v) => v.placementAlign  = e.target.value; update()}}>
+        <Select {...sx.SelectSX} value={element.property.placementAlign} label='Placement Align' onChange={e => { element.property.placementAlign = e.target.value; update() }}>
           <MenuItem value='center'>Center</MenuItem>
           <MenuItem value='start'>Start</MenuItem>
           <MenuItem value='end'>End</MenuItem>
@@ -42,10 +42,10 @@ function Edit(props) {
       </FormControl>
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Enter Delay' value={element.property.enterDelay} onChange={e => { element.property.enterDelay  = e.target.value; update()}} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Enter Delay' value={element.property.enterDelay} onChange={e => { element.property.enterDelay = e.target.value; update() }} type='number' />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Leave Delay' value={element.property.leaveDelay} onChange={e => { element.property.leaveDelay  = e.target.value; update()}} type='number' />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Leave Delay' value={element.property.leaveDelay} onChange={e => { element.property.leaveDelay = e.target.value; update() }} type='number' />
     </Grid>
   </Grid>
 }

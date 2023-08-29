@@ -34,7 +34,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              { element.property.value = v_)
+              element.property.value = v_
               setAceDialog(false)
             } catch {
               alert('Format Error')

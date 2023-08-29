@@ -17,7 +17,7 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={element.property.value} onChange={e => { element.property.value = e.target.value; update().split(',') } />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={element.property.value} onChange={e => { element.property.value = e.target.value.split(','); update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

@@ -16,19 +16,25 @@ function Edit(props) {
   const [aceDialogOptions, setAceDialogOptions] = React.useState()
 
   const changeValue = (e) => {
-    if (value.exclusive) {
-      { value = e.target.value; update() 
-    } else {
-      { value = e.target.value; update().split(',') 
+    if (element.property.exclusive === true) {
+      element.property.value = e.target.value
     }
+    if (element.property.exclusive === false) {
+      element.property.value = e.target.value.split(',')
+    }
+    update()
   }
 
   const changeExclusive = (e) => {
-    if (!e.target.checked) {
-      { exclusive: !e.target.checked, value: value.value.toString() 
-    } else {
-      { exclusive: !e.target.checked, value: value.value.split(',').filter(i => i) 
+    if (e.target.checked === false) {
+      element.property.exclusive = !e.target.checked
+      element.property.value = element.property.value.toString()
     }
+    if (e.target.checked === true) {
+      element.property.exclusive = !e.target.checked
+      element.property.value = element.property.value.split(',').filter(i => i)
+    }
+    update()
   }
 
   return <Grid container spacing={1}>

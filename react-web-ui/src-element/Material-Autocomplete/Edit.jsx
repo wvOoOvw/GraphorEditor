@@ -17,23 +17,30 @@ function Edit(props) {
   const [aceDialogSX, setAceDialogSX] = React.useState()
 
   const changeValue = (e) => {
-    if (value.multiple) {
-      { value = e.target.value; update().split(',') 
-    } else {
-      { value = e.target.value; update() 
+    if (element.property.multiple === true) {
+      element.property.value = e.target.value.split(',')
     }
+    if (element.property.multiple === false) {
+      element.property.value = e.target.value
+    }
+    update()
   }
 
   const changeOptions = (e) => {
-    { value = e.target.value; update().split(',') 
+    element.property.value = e.target.value.split(',')
+    update()
   }
 
   const changemultiple = (e) => {
-    if (e.target.checked) {
-      { multiple= e.target.checked, value: value.value.split(',').filter(i => i) 
-    } else {
-      { multiple= e.target.checked, value: value.value.toString() 
+    if (e.target.checked === true) {
+      element.property.multiple = e.target.checked
+      element.property.value = element.property.value.split(',').filter(i => i)
     }
+    if (e.target.checked === false) {
+      element.property.multiple = e.target.checked
+      element.property.value = element.property.value.toString()
+    }
+    update()
   }
 
   return <Grid container spacing={1}>

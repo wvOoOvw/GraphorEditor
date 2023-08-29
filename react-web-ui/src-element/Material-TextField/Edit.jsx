@@ -16,8 +16,11 @@ function Edit(props) {
   const [aceDialogSX, setAceDialogSX] = React.useState(false)
 
   const handleSetType = e => {
-    if (e.type === 'file') { element.property.value = '')
-    { element.property.type  = e.target.value; update())
+    if (e.type === 'file') {
+      element.property.value = ''
+    }
+    element.property.type = e.target.value
+    update()
   }
 
   return <Grid container spacing={1}>
