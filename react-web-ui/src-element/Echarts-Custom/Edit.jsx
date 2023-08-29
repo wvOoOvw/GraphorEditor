@@ -55,7 +55,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              onChange((value) => value.head = v_)
+              { element.property.head = v_)
               setModalHead(false)
             } catch {
               alert('Format Error')
@@ -75,7 +75,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              onChange((value) => value.body = v_)
+              { element.property.body = v_)
               setModalBody(false)
             } catch {
               alert('Format Error')

@@ -55,7 +55,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Horizontal Position</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.anchorOrigin.horizontal} label='Horizontal Position' onChange={e => onChange((v) => v.anchorOrigin.horizontal  = e.target.value; update())}>
+        <Select {...sx.SelectSX} value={element.property.anchorOrigin.horizontal} label='Horizontal Position' onChange={e => onChange((v) => v.anchorOrigin.horizontal  = e.target.value; update()}}>
           <MenuItem value='left'>Left</MenuItem>
           <MenuItem value='right'>Right</MenuItem>
         </Select>
@@ -64,7 +64,7 @@ function Edit(props) {
     <Grid item xs={6}>
       <FormControl {...sx.SelectSX} fullWidth>
         <InputLabel>Vertical Position</InputLabel>
-        <Select {...sx.SelectSX} value={element.property.anchorOrigin.vertical} label='Vertical Position' onChange={e => onChange((v) => v.anchorOrigin.vertical  = e.target.value; update())}>
+        <Select {...sx.SelectSX} value={element.property.anchorOrigin.vertical} label='Vertical Position' onChange={e => onChange((v) => v.anchorOrigin.vertical  = e.target.value; update()}}>
           <MenuItem value='top'>Top</MenuItem>
           <MenuItem value='bottom'>Bottom</MenuItem>
         </Select>
@@ -91,7 +91,7 @@ function Edit(props) {
           onChange={v => {
             console.log(v)
             try {
-              onChange((value) => value.sx = JSON.parse(v))
+              { element.property.sx = JSON.parse(v))
               setAceDialogSX()
             } catch {
               sendMessage('Format Error')

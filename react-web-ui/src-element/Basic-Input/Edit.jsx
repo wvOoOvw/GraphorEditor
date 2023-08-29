@@ -13,8 +13,11 @@ function Edit(props) {
   const { element, update, component, sx, sendMessage } = props
 
   const handleSetType = e => {
-    if (e.target.value === 'file') onChange((value) => value.value = '')
-    onChange((value) => value.type  = e.target.value; update())
+    if (e.target.value === 'file') {
+      element.property.value = ''
+    }
+    element.property.type = e.target.value
+    update()
   }
 
   return <Grid container spacing={1}>
@@ -23,10 +26,10 @@ function Edit(props) {
       <Switch checked={element.property.disabled} onChange={e => { element.property.disabled = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => onChange((value) => value.value  = e.target.value; update())} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={element.property.value} onChange={e => { element.property.value = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={element.property.placeholder} onChange={e => onChange((value) => value.placeholder  = e.target.value; update())} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Placeholder' value={element.property.placeholder} onChange={e => { element.property.placeholder = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>

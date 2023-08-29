@@ -56,7 +56,7 @@ function Edit(props) {
           onChange={v => {
             console.log(v)
             try {
-              onChange((value) => value.sx = JSON.parse(v))
+              { element.property.sx = JSON.parse(v))
               setAceDialogSX()
             } catch {
               sendMessage('Format Error')

@@ -90,7 +90,7 @@ function Edit(props) {
           onChange={v => {
             console.log(v)
             try {
-              onChange((value) => value.sx = JSON.parse(v))
+              { element.property.sx = JSON.parse(v))
               setAceDialogSX()
             } catch {
               sendMessage('Format Error')
@@ -114,7 +114,7 @@ function Edit(props) {
             try {
               const v_ = JSON.parse(v)
               if (!Array.isArray(v_)) throw new Error()
-              onChange((value) => value.options = v_)
+              { element.property.options = v_)
               setAceDialogOptions(false)
             } catch {
               alert('Format Error')

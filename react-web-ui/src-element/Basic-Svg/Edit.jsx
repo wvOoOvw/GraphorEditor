@@ -17,7 +17,7 @@ function Edit(props) {
         <component.AceDialog
           value={element.property.value}
           onChange={v => {
-            onChange((value) => value.value = v)
+            { element.property.value = v)
             setAceDialog(false)
           }}
           onClose={() => setAceDialog(false)}

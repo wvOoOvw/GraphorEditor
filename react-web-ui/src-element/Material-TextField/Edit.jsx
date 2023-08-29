@@ -16,8 +16,8 @@ function Edit(props) {
   const [aceDialogSX, setAceDialogSX] = React.useState(false)
 
   const handleSetType = e => {
-    if (e.type === 'file') onChange((value) => value.value = '')
-    onChange((value) => value.type  = e.target.value; update())
+    if (e.type === 'file') { element.property.value = '')
+    { element.property.type  = e.target.value; update())
   }
 
   return <Grid container spacing={1}>
@@ -108,7 +108,7 @@ function Edit(props) {
           onChange={v => {
             console.log(v)
             try {
-              onChange((value) => value.sx = JSON.parse(v))
+              { element.property.sx = JSON.parse(v))
               setAceDialogSX()
             } catch {
               sendMessage('Format Error')

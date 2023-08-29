@@ -16,7 +16,7 @@ function Edit(props) {
       aceDialogValue ?
         <component.AceDialog
           value={JSON.stringify(value.value, null, 2)}
-          onChange={v => { try { if (!Array.isArray(JSON.parse(v))) throw new Error(); onChange((value) => value.value = JSON.parse(v)); setAceDialogValue(); } catch { sendMessage('Format Error') } }}
+          onChange={v => { try { if (!Array.isArray(JSON.parse(v))) throw new Error(); { element.property.value = JSON.parse(v)); setAceDialogValue(); } catch { sendMessage('Format Error') } }}
           onClose={() => setAceDialogValue()}
           mode='json'
         />
