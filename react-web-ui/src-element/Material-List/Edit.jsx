@@ -12,7 +12,7 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { element, property, style, update, component, sx, sendMessage } = props
 
-  const [aceDialog, setAceDialog] = React.useState(false)
+  const [aceDialogValue, setAceDialogValue] = React.useState(false)
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -23,24 +23,15 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialog(true)}>Set List</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialogValue(true)}>Set Value</Button>
     </Grid>
 
     {
-      aceDialog ?
+      aceDialogValue ?
         <component.AceDialog
           value={JSON.stringify(value.value, null, 2)}
-          onChange={v => {
-            try {
-              const v_ = JSON.parse(v)
-              if (!Array.isArray(v_)) throw new Error()
-              property.value = v_
-              setAceDialog(false)
-            } catch {
-              alert('Format Error')
-            }
-          }}
-          onClose={() => setAceDialog(false)}
+          onChange={v => { try { if (!Array.isArray(JSON.parse(v))) throw new Error(); property.value = JSON.parse(v); update(); setAceDialogOptions(); } catch { sendMessage('Format Error') } }}
+          onClose={() => setAceDialogOptions()}
           mode='json'
         />
         : null

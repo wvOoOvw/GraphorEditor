@@ -13,7 +13,6 @@ import { Button } from '@mui/material'
 function Edit(props) {
   const { element, property, style, update, component, sx, sendMessage } = props
 
-
   return <>
     <Grid container spacing={1}>
       <Grid item xs={12}>

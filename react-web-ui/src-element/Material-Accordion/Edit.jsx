@@ -9,7 +9,6 @@ import { Divider } from '@mui/material'
 function Edit(props) {
   const { element, property, style, update, component, sx, sendMessage } = props
 
-
   return <Grid container spacing={1}>
     <Grid item xs={12}>
       <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={property.title} onChange={e => { property.title = e.target.value; update() }} />
