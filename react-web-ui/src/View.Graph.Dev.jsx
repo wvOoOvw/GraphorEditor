@@ -172,7 +172,7 @@ function ElementRender(props) {
 
       r[i[0]] = () => {
         return <Paper style={{ width: '100%', height: '100%', boxShadow: Imitation.state.elementDragStart ? undefined : 'none', padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all', boxSizing: 'border-box' }} id={id_} {...params}>
-          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 18 : 0, transition: '0.5s all'}} className='font-single'>{title}</Paper>
+          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 16 : 0, transition: '0.5s all'}} className='font-single'>{title}</Paper>
           {
             i[1].map(i => {
               return <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />

@@ -37,7 +37,16 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth}>
+    const ref = React.useRef()
+
+    React.useEffect(() => {
+      if (ref.current) {
+        ref.current.addEventListener('mousedown', e => { e.stopPropagation(); e.preventDefault(); console.log(1) }, true)
+        ref.current.setAttribute('id', params.id)
+      }
+    }, [])
+
+    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el}>
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} MenuProps={{ open: false }}>
         {

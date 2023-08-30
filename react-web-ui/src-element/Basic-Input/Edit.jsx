@@ -54,7 +54,7 @@ function Edit(props) {
     </Grid>
 
     {
-      value.type === 'file' ?
+      property.type === 'file' ?
         <>
           <Grid item xs={12}><Divider /></Grid>
 
