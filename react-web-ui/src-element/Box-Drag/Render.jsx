@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const dragProps = {
     onDrag: (e) => {
@@ -29,7 +29,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <div {...params}>
+    return <div {...devParams} style={{ ...style.main }}>
       {
         children && children.main ? children.main(prop) : null
       }
@@ -37,7 +37,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <div {...params} {...dragProps}>
+    return <div style={{ ...style.main }} {...dragProps}>
       {
         children && children.main ? children.main(prop) : null
       }

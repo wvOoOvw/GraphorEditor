@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
 
@@ -40,11 +40,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <span {...params}>Video</span>
+    return <video {...devParams} style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
   }
 
   if (env === 'prod') {
-    return <video {...params} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+    return <video style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
   }
 }
 

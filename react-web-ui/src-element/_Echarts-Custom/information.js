@@ -1,11 +1,7 @@
 const information = {
   name: '自定义图表',
   type: 'Echarts',
-  children: false,
-  monitor: [
-    { value: '@setUseTrue', label: 'Use Element' },
-    { value: '@setUseFalse', label: 'Unuse Element' },
-  ],
+  monitor: [],
   trigger: [
     { value: '@onClick', label: 'Click' },
     { value: '@onDoubleClick', label: 'Double Click' },
@@ -15,9 +11,7 @@ const information = {
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
   ],
-  style: {
-    '$use': ['use']
-  },  property: {
+  property: {
     option: {
       legend: {
         show: true

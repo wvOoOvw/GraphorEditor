@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -13,7 +13,14 @@ function Render(props) {
     }
   }, [])
 
-  return <img {...params} src={property.src} alt={property.alt} />
+  if (env === 'dev') {
+    return <img {...devParams} style={{ ...style.main }} src={property.src} alt={property.alt} />
+  }
+
+  if (env === 'prod') {
+    return <img style={{ ...style.main }} src={property.src} alt={property.alt} />
+  }
+
 }
 
 export default Render

@@ -1,27 +1,23 @@
 const information = {
   name: 'Audio',
   type: 'Basic',
-  children: false,
   monitor: [
-    { value: '@setUseTrue', label: 'Use Element' },
-    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setUrl', label: 'Set Url' },
-    { value: 'setPlay', label: 'Play' },
-    { value: 'setPause', label: 'Pause' },
+    { value: 'play', label: 'Play' },
+    { value: 'pause', label: 'Pause' },
   ],
   trigger: [
-    { value: '@onClick', label: 'Click' },
-    { value: '@onDoubleClick', label: 'Double Click' },
-    { value: '@onMouseEnter', label: 'Mouse Enter' },
-    { value: '@onMouseLeave', label: 'Mouse Leave'},
-    { value: '@onMouseMove', label: 'Mouse Move' },
-    { value: '@onMouseDown', label: 'Mouse Down' },
-    { value: '@onMouseUp', label: 'Mouse Up' },
-    { value: 'onEnded', label: 'Play Ended' },
+    { value: 'onEnded', label: 'On Ended' },
   ],
-  style: {
-    $nonuse: ['font', 'text', 'textDecoration', 'textShadow', 'textStroke']
-  },
+  style: [
+    {
+      value: 'main',
+      label: 'Main',
+      rule: {
+        $nonuse: ['font', 'text', 'textDecoration', 'textShadow', 'textStroke']
+      }
+    }
+  ],
   property: {
     src: '',
     controls: false,

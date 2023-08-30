@@ -11,11 +11,11 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Title' value={property.title} onChange={e => { property.title = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Summary' value={property.summary} onChange={e => { property.summary = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Title Custom</div>
-      <Switch checked={property.titleCustom} onChange={e => { property.titleCustom = e.target.checked; update() }} />
+      <div>Custom Summary</div>
+      <Switch checked={property.customSummary} onChange={e => { property.customSummary = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>Disabled</div>

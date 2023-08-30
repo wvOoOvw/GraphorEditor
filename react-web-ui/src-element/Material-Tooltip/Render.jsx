@@ -2,24 +2,26 @@ import React from 'react'
 import { Tooltip } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setOpenTrue) {
-      const remove = monitor.setOpenTrue(data => {
+    if (monitor && monitor.openTooltip) {
+      const remove = monitor.openTooltip(data => {
         property.open = true
         update()
-      })
+    if (trigger && trigger.onOpen) trigger.onOpen(property.open, e)
+  })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setOpenFalse) {
-      const remove = monitor.setOpenFalse(data => {
+    if (monitor && monitor.closeTootip) {
+      const remove = monitor.closeTootip(data => {
         property.open = false
         update()
-      })
+    if (trigger && trigger.onClose) trigger.onClose(property.open, e)
+  })
       return () => { remove() }
     }
   }, [])
@@ -37,15 +39,15 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <div {...params}>
+    return <div {...devParams}>
       <div>
         {
-          children && children.main ? children.main() : null
+          children && children.tooltipContent ? children.tooltipContent() : null
         }
       </div>
       <div>
         {
-          children && children.float ? children.float() : null
+          children && children.tooltipPopup ? children.tooltipPopup() : null
         }
       </div>
     </div>
@@ -54,16 +56,16 @@ function Render(props) {
   if (env === 'prod') {
     return <Tooltip
       open={property.open}
-      enenterDelay={property.enterDelay}
+      enterDelay={property.enterDelay}
       leaveDelay={property.leaveDelay}
-      title={children && children.float ? children.float() : null}
+      title={children && children.tooltipPopup ? children.tooltipPopup() : null}
       placement={property.placementPosition + (property.placementAlign === 'center' ? '' : '-' + property.placementAlign)}
       arrow={property.arrow}
       onOpen={onOpen}
       onClose={onClose}
     >
       {
-        children && children.main ? children.main() : null
+        children && children.tooltipContent ? children.tooltipContent() : null
       }
     </Tooltip>
   }

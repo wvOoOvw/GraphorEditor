@@ -3,7 +3,7 @@ import React from 'react'
 function Render(props) {
   const echarts = window.echarts
 
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
   const chartRef = React.useRef()
@@ -22,7 +22,7 @@ function Render(props) {
     resize()
   }, [event.style.width, event.style.height, event.style.minWidth, event.style.minHeight, event.style.maxWidth, event.style.maxHeight])
 
-  return <div {...params} ref={el => ref.current = el} onTransitionEnd={e => resize()}></div>
+  return <div {...devParams} ref={el => ref.current = el} onTransitionEnd={e => resize()}></div>
 }
 
 export default Render

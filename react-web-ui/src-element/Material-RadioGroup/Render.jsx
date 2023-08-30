@@ -2,7 +2,7 @@ import React from 'react'
 import { Radio, FormControl, RadioGroup, FormControlLabel } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -31,7 +31,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <RadioGroup {...params} value={property.value}>
+    return <RadioGroup {...devParams} value={property.value}>
       {
         property.options.map((i, index) => {
           return <FormControlLabel
@@ -48,7 +48,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <RadioGroup {...params} value={property.value} onChange={onChange}>
+    return <RadioGroup {...devParams} value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {
           return <FormControlLabel

@@ -59,10 +59,10 @@ function ElementRender(props) {
       ...monitor.filter(i => i.use && i.monitorType === 'eval').map(i => {
         return graphEvent.addEventMonitor({ name: i.monitorName, event: i.monitorEval, env })
       }),
-      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '@setUseTrue').map(i => {
+      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '_Use').map(i => {
         return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = false; update() } })
       }),
-      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '@setUseFalse').map(i => {
+      ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '_Nonuse').map(i => {
         return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = true; update() } })
       }),
     ]
@@ -92,26 +92,18 @@ function ElementRender(props) {
     return r
   }, [children])
 
-  const params = {}
-
-  if (trigger_exe['@onClick']) params.onClick = e => trigger_exe['@onClick'](undefined, e)
-  if (trigger_exe['@onDoubleClick']) params.onDoubleClick = e => trigger_exe['@onDoubleClick'](undefined, e)
-  if (trigger_exe['@onMouseEnter']) params.onMouseEnter = e => trigger_exe['@onMouseEnter'](undefined, e)
-  if (trigger_exe['@onMouseLeave']) params.onMouseLeave = e => trigger_exe['@onMouseLeave'](undefined, e)
-  if (trigger_exe['@onMouseMove']) params.onMouseMove = e => trigger_exe['@onMouseMove'](undefined, e)
-  if (trigger_exe['@onMouseDown']) params.onMouseDown = e => trigger_exe['@onMouseDown'](undefined, e)
-  if (trigger_exe['@onMouseUp']) params.onMouseUp = e => trigger_exe['@onMouseUp'](undefined, e)
-  if (trigger_exe['@onTouchMove']) params.onTouchMove = e => trigger_exe['@onTouchMove'](undefined, e)
-  if (trigger_exe['@onTouchStart']) params.onTouchStart = e => trigger_exe['@onTouchStart'](undefined, e)
-  if (trigger_exe['@onTouchEnd']) params.onTouchEnd = e => trigger_exe['@onTouchEnd'](undefined, e)
-
-  params.style = { ...caculateStyle(style), boxSizing: 'border-box' }
-  
-  params.id = id
+  const style_exe = React.useMemo(() => {
+    if (!style) return
+    const r = {}
+    Object.entries(style).forEach(i => {
+      r[i[0]] = caculateStyle(i[1])
+    })
+    return r
+  })
 
   if (use === false) return null
 
-  return <Render env='prod' update={update} params={params} element={props.element} property={property} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} prop={prop} />
+  return <Render env='prod' update={update} element={props.element} property={property} style={style_exe} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} prop={prop} />
 }
 
 function App() {

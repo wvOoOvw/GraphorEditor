@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
 
@@ -20,8 +20,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setPlay) {
-      const remove = monitor.setPlay(data => {
+    if (monitor && monitor.play) {
+      const remove = monitor.play(data => {
         ref.current.play()
         update()
       })
@@ -30,8 +30,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setPause) {
-      const remove = monitor.setPause(data => {
+    if (monitor && monitor.pause) {
+      const remove = monitor.pause(data => {
         ref.current.pause()
         update()
       })
@@ -40,11 +40,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <span {...params}>Audio</span>
+    return <audio {...devParams} style={{ ...style.main }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
   }
 
   if (env === 'prod') {
-    return <audio {...params} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+    return <audio style={{ ...style.main }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   if (env === 'dev') return null
 

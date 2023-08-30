@@ -100,106 +100,107 @@ function StyleConfig(props) {
 
   if (!currentGraphElement.style || !information) return null
 
+  const [options, setOptions] = React.useState(information.style)
+  const [current, setCurrent] = React.useState(information.style[0].value)
+
   const handleChange = (callback) => {
     callback()
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const use = (name, children) => {
-    var status = true
-    name.forEach(i => {
-      if (information.style.$use) {
-        const r = information.style.$use.find(i_ => i_ === i)
-        if (r === undefined) status = false
-      }
-      if (information.style.$nonuse) {
-        const r = information.style.$nonuse.find(i_ => i_ === i)
-        if (r !== undefined) status = false
-      }
-    })
+  const renderStyle = (rule) => {
+    const use = (name, children) => {
+      if (!rule) return children
 
-    return status ? children : null
-  }
+      var status = true
 
-  const handleExport = () => {
-    copy(JSON.stringify(currentGraphElement.style), () => { Imitation.assignState({ message: 'Copy Success' }) })
-  }
+      name.forEach(i => {
+        if (rule.$use) {
+          const r = rule.$use.find(i_ => i_ === i)
+          if (r === undefined) status = false
+        }
+        if (rule.$nonuse) {
+          const r = rule.$nonuse.find(i_ => i_ === i)
+          if (r !== undefined) status = false
+        }
+      })
 
-  const handleImport = () => {
-    const v = prompt('Import Style')
-    try {
-      const data = JSON.parse(v)
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
-    } catch { }
-  }
-
-
-  const style = [
-    use(['visibility'], <ElementConfigComponent.Visibility value={currentGraphElement} onChange={handleChange} />),
-    use(['width', 'height'], <ElementConfigComponent.Size value={currentGraphElement} onChange={handleChange} />),
-    use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit value={currentGraphElement} onChange={handleChange} />),
-    use(['padding'], <ElementConfigComponent.Padding value={currentGraphElement} onChange={handleChange} />),
-    use(['margin'], <ElementConfigComponent.Margin value={currentGraphElement} onChange={handleChange} />),
-    use(['display'], <ElementConfigComponent.Display value={currentGraphElement} onChange={handleChange} />),
-    use(['position'], <ElementConfigComponent.Position value={currentGraphElement} onChange={handleChange} />),
-    use(['inset'], <ElementConfigComponent.Inset value={currentGraphElement} onChange={handleChange} />),
-    use(['zIndex'], <ElementConfigComponent.ZIndex value={currentGraphElement} onChange={handleChange} />),
-    use(['verticalAlign'], <ElementConfigComponent.VerticalAlign value={currentGraphElement} onChange={handleChange} />),
-    use(['flex'], <ElementConfigComponent.Flex value={currentGraphElement} onChange={handleChange} />),
-    use(['transform'], <ElementConfigComponent.Transform value={currentGraphElement} onChange={handleChange} />),
-    use(['overflow'], <ElementConfigComponent.Overflow value={currentGraphElement} onChange={handleChange} />),
-    use(['transition'], <ElementConfigComponent.Transition value={currentGraphElement} onChange={handleChange} />),
-    use(['filter'], <ElementConfigComponent.Filter value={currentGraphElement} onChange={handleChange} />),
-    use(['border'], <ElementConfigComponent.Border value={currentGraphElement} onChange={handleChange} />),
-    use(['borderRadius'], <ElementConfigComponent.BorderRadius value={currentGraphElement} onChange={handleChange} />),
-    use(['boxShadow'], <ElementConfigComponent.BoxShadow value={currentGraphElement} onChange={handleChange} />),
-    use(['outline'], <ElementConfigComponent.Outline value={currentGraphElement} onChange={handleChange} />),
-    use(['background'], <ElementConfigComponent.Background value={currentGraphElement} onChange={handleChange} />),
-    use(['font'], <ElementConfigComponent.Font value={currentGraphElement} onChange={handleChange} />),
-    use(['text'], <ElementConfigComponent.Text value={currentGraphElement} onChange={handleChange} />),
-    use(['textDecoration'], <ElementConfigComponent.TextDecoration value={currentGraphElement} onChange={handleChange} />),
-    use(['textShadow'], <ElementConfigComponent.TextShadow value={currentGraphElement} onChange={handleChange} />),
-    use(['textStroke'], <ElementConfigComponent.TextStroke value={currentGraphElement} onChange={handleChange} />),
-    use(['cursor'], <ElementConfigComponent.Cursor value={currentGraphElement} onChange={handleChange} />),
-  ]
-
-  return <>
-    {
-      style.filter(i => i).length ?
-        <>
-          <Grid item xs={12}>
-            <Accordion defaultExpanded={false}>
-              <AccordionSummary>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                  <div>Style Config</div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Tooltip
-                      {...TooltipSX}
-                      title={
-                        <>
-                          <IconButton><UploadIcon fontSize='small' /></IconButton>
-                          <IconButton><DownloadIcon fontSize='small' /></IconButton>
-                        </>
-                      }
-                    >
-                      <SettingsIcon style={{ fontSize: 20 }} />
-                    </Tooltip>
-                  </div>
-                </div>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Grid container spacing={1}>
-                  {
-                    style
-                  }
-                </Grid>
-              </AccordionDetails>
-            </Accordion>
-          </Grid>
-        </>
-        : null
+      return status ? children : null
     }
-  </>
+
+    const style = [
+      use(['visibility'], <ElementConfigComponent.Visibility value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['width', 'height'], <ElementConfigComponent.Size value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['minWidth', 'minHeight', 'maxWidth', 'maxHeight'], <ElementConfigComponent.SizeLimit value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['padding'], <ElementConfigComponent.Padding value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['margin'], <ElementConfigComponent.Margin value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['display'], <ElementConfigComponent.Display value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['position'], <ElementConfigComponent.Position value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['inset'], <ElementConfigComponent.Inset value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['zIndex'], <ElementConfigComponent.ZIndex value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['verticalAlign'], <ElementConfigComponent.VerticalAlign value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['flex'], <ElementConfigComponent.Flex value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['transform'], <ElementConfigComponent.Transform value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['overflow'], <ElementConfigComponent.Overflow value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['transition'], <ElementConfigComponent.Transition value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['filter'], <ElementConfigComponent.Filter value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['border'], <ElementConfigComponent.Border value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['borderRadius'], <ElementConfigComponent.BorderRadius value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['boxShadow'], <ElementConfigComponent.BoxShadow value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['outline'], <ElementConfigComponent.Outline value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['background'], <ElementConfigComponent.Background value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['font'], <ElementConfigComponent.Font value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['text'], <ElementConfigComponent.Text value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['textDecoration'], <ElementConfigComponent.TextDecoration value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['textShadow'], <ElementConfigComponent.TextShadow value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['textStroke'], <ElementConfigComponent.TextStroke value={currentGraphElement.style[current]} onChange={handleChange} />),
+      use(['cursor'], <ElementConfigComponent.Cursor value={currentGraphElement.style[current]} onChange={handleChange} />),
+    ]
+
+    return style
+  }
+
+  return <Grid item xs={12}>
+    <Accordion defaultExpanded={false}>
+      <AccordionSummary>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <div>Style Config</div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Tooltip
+              {...TooltipSX}
+              title={
+                <>
+                  <IconButton><UploadIcon fontSize='small' /></IconButton>
+                  <IconButton><DownloadIcon fontSize='small' /></IconButton>
+                </>
+              }
+            >
+              <SettingsIcon style={{ fontSize: 20 }} />
+            </Tooltip>
+          </div>
+        </div>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Area</InputLabel>
+              <Select {...SelectSX} label='Area' value={current} onChange={e => setCurrent(e.target.value)}>
+                {
+                  options.map(i => {
+                    return <MenuItem value={i.value}>{i.label}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
+          </Grid>
+          {
+            renderStyle(information.style.find(i_ => i_.value === current))
+          }
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
+  </Grid>
 }
 
 function PropertyConfig(props) {
@@ -258,8 +259,8 @@ function ChildrenConfig(props) {
       <AccordionSummary>Children Config</AccordionSummary>
       <AccordionDetails>
         <FormControl {...SelectSX} fullWidth>
-          <InputLabel>Model</InputLabel>
-          <Select {...SelectSX} label='Model' value={current} onChange={e => setCurrent(e.target.value)}>
+          <InputLabel>Area</InputLabel>
+          <Select {...SelectSX} label='Area' value={current} onChange={e => setCurrent(e.target.value)}>
             {
               options.map(i => {
                 return <MenuItem value={i.value}>{i.label}</MenuItem>
@@ -387,7 +388,7 @@ function MonitorConfig(props) {
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
-  const monitorOptions = information.monitor
+  const monitorOptions = [{ value: '_Use', label: 'Use' }, { value: '_Nonuse', label: 'Nonuse' }, ...information.monitor]
 
   if (!monitorOptions && monitorOptions.length === 0) return null
 

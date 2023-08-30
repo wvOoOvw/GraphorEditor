@@ -1,7 +1,6 @@
 const information = {
   name: 'Data Store',
   type: 'Tool',
-  children: false,
   monitor: [
     { value: 'setValue', label: 'Set Value' },
     { value: 'assignValue', label: 'Assign Value' },
@@ -9,9 +8,6 @@ const information = {
   trigger: [
     { value: 'onEffect', label: 'Effect' }
   ],
-  style: {
-    $use: ['use']
-  },
   property: {
     value: {},
     immediate: false,

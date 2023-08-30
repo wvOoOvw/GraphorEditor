@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu, MenuItem } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
 
@@ -28,7 +28,7 @@ function Render(props) {
 
   if (env === 'dev') {
     return <>
-      <div {...params}>
+      <div {...devParams}>
         <div>
           {
             children && children.main ? children.main() : null
@@ -45,7 +45,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <>
-      <div {...params} onClick={onOpen} ref={el => ref.current = el}>
+      <div {...devParams} onClick={onOpen} ref={el => ref.current = el}>
         {
           children && children.main ? children.main() : null
         }

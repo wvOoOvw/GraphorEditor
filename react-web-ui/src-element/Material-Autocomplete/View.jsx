@@ -9,7 +9,7 @@ function View() {
       fullWidth
       options={['Option A', 'Option B']}
       size='small'
-      renderInput={(params) => <TextField {...params} />}
+      renderInput={(devParams) => <TextField {...devParams} />}
     />
   </div>
 }

@@ -14,8 +14,6 @@ const caculateStyle = (style) => {
 
   const style_ = {}
 
-  style_.className = style.className
-
   if (style.visibility !== undefined) style_.visibility = style.visibility
   if (style.display !== undefined) style_.display = style.display
   if (style.overflow !== undefined) style_.overflow = style.overflow
@@ -190,14 +188,14 @@ const caculateStyle = (style) => {
 }
 
 const defaultStyle = {
-  visible: 'visible',
+  visibility: 'visible',
 
   display: 'block',
   overflow: 'visible',
   verticalAlign: 'baseline',
   position: 'static',
   cursor: 'default',
-  zIndex: '1',
+  zIndex: 1,
 
   padding: ['', '', '', ''],
   margin: ['', '', '', ''],

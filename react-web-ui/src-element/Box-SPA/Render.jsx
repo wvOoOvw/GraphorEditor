@@ -1,9 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
-
-  const ref = React.useRef()
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setSrc) {
@@ -15,20 +13,18 @@ function Render(props) {
     }
   }, [])
 
-  React.useEffect(() => {
-    if (env === 'prod' && property.src) {
-      const script = document.createElement('script')
-      script.src = property.src
-      document.getElementsByTagName('head')[0].appendChild(script)
-    }
-  }, [property.src])
-
   if (env === 'dev') {
-    return <div {...params}></div>
+    return <div {...devParams} style={{ ...style.main }}></div>
   }
 
   if (env === 'prod') {
-    return <div {...params} id={property.id} ref={el => ref.current = el}></div>
+    React.useEffect(() => {
+      const script = document.createElement('script')
+      script.src = property.src
+      document.getElementsByTagName('head')[0].appendChild(script)
+    }, [property.src])
+
+    return <div style={{ ...style.main }} id={property.id}></div>
   }
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   if (env === 'dev') {
-    return <label {...params}>
+    return <label {...devParams} style={{ ...style.main }}>
       {
         children && children.main ? children.main(prop) : null
       }
@@ -12,7 +12,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <label {...params}>
+    return <label style={{ ...style.main }}>
       <div style={{ display: 'none' }}>
         {
           env && children && children.main ? children.input(prop) : null

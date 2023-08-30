@@ -2,7 +2,7 @@ import React from 'react'
 import { Slider } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -22,7 +22,7 @@ function Render(props) {
 
   if (env === 'dev') {
     return <Slider
-      {...params}
+      {...devParams}
       value={Number(property.value)}
       min={Number(property.min)}
       max={Number(property.max)}
@@ -36,7 +36,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Slider
-      {...params}
+      {...devParams}
       value={Number(property.value)}
       onChange={onChange}
       min={Number(property.min)}

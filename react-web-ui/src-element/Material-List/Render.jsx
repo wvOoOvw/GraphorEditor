@@ -2,7 +2,7 @@ import React from 'react'
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -14,7 +14,7 @@ function Render(props) {
     }
   }, [])
 
-  return <List {...params}>
+  return <List {...devParams}>
     {
       property.value.map((i, index) => {
         return <ListItem disablePadding={property.disablePadding} key={index}>

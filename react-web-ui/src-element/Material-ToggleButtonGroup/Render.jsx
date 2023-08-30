@@ -2,7 +2,7 @@ import React from 'react'
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -31,7 +31,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value}>
+    return <ToggleButtonGroup {...devParams} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value}>
       {
         property.options.map((i, index) => {
           return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>
@@ -41,7 +41,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <ToggleButtonGroup {...params} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
+    return <ToggleButtonGroup {...devParams} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {
           return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>

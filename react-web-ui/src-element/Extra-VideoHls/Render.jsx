@@ -2,7 +2,7 @@ import React from 'react'
 import Hls from 'hls.js'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const ref = React.useRef()
 
@@ -40,8 +40,14 @@ function Render(props) {
     }
   }, [])
 
-  React.useEffect(() => {
-    if (env === 'prod' && property.src.endsWith('.m3u8')) {
+  if (env === 'dev') {
+    return <video {...devParams} style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
+  }
+
+  if (env === 'prod') {
+    React.useEffect(() => {
+      if (property.src.endsWith('.m3u8') === false) return
+
       const hls = new Hls()
 
       hls.loadSource(property.src)
@@ -51,15 +57,9 @@ function Render(props) {
       })
 
       return () => hls.destroy()
-    }
-  }, [property.src])
+    }, [property.src])
 
-  if (env === 'dev') {
-    return <span {...params}>Video</span>
-  }
-
-  if (env === 'prod') {
-    return <video {...params} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+    return <video style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
   }
 }
 

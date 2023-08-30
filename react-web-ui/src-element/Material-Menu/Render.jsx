@@ -2,7 +2,7 @@ import React from 'react'
 import { MenuList, MenuItem } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
@@ -19,7 +19,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <MenuList {...params}>
+    return <MenuList {...devParams}>
       {
         property.options.map((i, index) => {
           return <MenuItem key={index}>
@@ -33,7 +33,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <MenuList {...params}>
+    return <MenuList {...devParams}>
       {
         property.options.map((i, index) => {
           return <MenuItem key={index} onClick={e => onClick(e, i.value)}>

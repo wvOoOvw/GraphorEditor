@@ -2,22 +2,18 @@ const information = {
   name: 'Dialog',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: 'Main' },
-    { value: 'title', label: 'Title' },
-    { value: 'action', label: 'Action ' }
+    { value: 'dialogContent', label: 'Dialog Content' },
+    { value: 'dialogTitle', label: 'Dialog Title' },
+    { value: 'dialogAction', label: 'Dialog Action' }
   ],
   monitor: [
-    { value: '@setUseTrue', label: 'Use Element' },
-    { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: '@setOpenTure', label: 'Open' },
-    { value: '@setOpenFalse', label: 'Close' },
+    { value: 'openDialog', label: 'Open Dialog' },
+    { value: 'closeDialog', label: 'Close Dialog' },
   ],
   trigger: [
-    { value: 'onClose', label: 'Close' },
+    { value: 'onOpen', label: 'On Open' },
+    { value: 'onClose', label: 'On Close' },
   ],
-  style: {
-    '$use': ['use']
-  },
   property: {
     open: true,
     dividers: true,

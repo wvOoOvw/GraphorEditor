@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const onClick = () => {
     if (property.target === '_self') {
@@ -23,16 +23,16 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <span {...params}>
+    return <a {...devParams} style={{ ...style.main }}>
       {
         children && children.main ? children.main(prop) : null
       }
-    </span>
+    </a>
   }
 
   if (env === 'prod') {
     if (property.useDom === true) {
-      return <a {...params} href={property.href} target={property.target}>
+      return <a style={{ ...style.main }} href={property.href} target={property.target}>
         {
           children && children.main ? children.main(prop) : null
         }
@@ -40,7 +40,7 @@ function Render(props) {
     }
 
     if (property.useDom === false) {
-      return <span {...params} onClick={onClick}>
+      return <span style={{ ...style.main }} onClick={onClick}>
         {
           children && children.main ? children.main(prop) : null
         }

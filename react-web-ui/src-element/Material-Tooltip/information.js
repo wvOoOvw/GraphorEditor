@@ -2,22 +2,17 @@ const information = {
   name: 'Tooltip',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: 'Main' },
-    { value: 'float', label: 'Float' }
+    { value: 'tooltipContent', label: 'Tooltip Content' },
+    { value: 'tooltipPopup', label: 'Tooltip Popup' }
   ],
   monitor: [
-    { value: '@setUseTrue', label: 'Use Element' },
-    { value: '@setUseFalse', label: 'Unuse Element' },
-    { value: '@setOpenTure', label: 'Open Tooltip' },
-    { value: '@setOpenFalse', label: 'Close Tootip' },
+    { value: 'openTooltip', label: 'Open Tooltip' },
+    { value: 'closeTootip', label: 'Close Tootip' },
   ],
   trigger: [
-    { value: 'onOpen', label: 'Open' },
-    { value: 'onClose', label: 'Close' },
+    { value: 'onOpen', label: 'On Open' },
+    { value: 'onClose', label: 'On Close' },
   ],
-  style: {
-    '$use': ['use']
-  },
   property: {
     open: false,
     arrow: false,

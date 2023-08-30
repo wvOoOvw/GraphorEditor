@@ -2,7 +2,7 @@ import React from 'react'
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -45,7 +45,7 @@ function Render(props) {
       }
     }, [])
 
-    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el}>
+    return <FormControl {...devParams} size={property.size} fullWidth={property.fullWidth} ref={el => ref.current = el}>
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} value={property.value} MenuProps={{ open: false }}>
         {
@@ -58,7 +58,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <FormControl {...params} size={property.size} fullWidth={property.fullWidth}>
+    return <FormControl {...devParams} size={property.size} fullWidth={property.fullWidth}>
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} open={property.open} value={property.value} onChange={onChange} onOpen={onOpen}>
         {

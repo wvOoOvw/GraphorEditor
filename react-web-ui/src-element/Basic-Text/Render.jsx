@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,7 +13,14 @@ function Render(props) {
     }
   }, [])
 
-  return <span {...params}>{property.value}</span>
+  if (env === 'dev') {
+    return <span {...devParams} style={{ ...style.main }} >{property.value}</span>
+  }
+
+  if (env === 'prod') {
+    return <span style={{ ...style.main }} >{property.value}</span>
+  }
+
 }
 
 export default Render

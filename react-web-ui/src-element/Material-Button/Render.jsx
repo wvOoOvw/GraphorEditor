@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -15,8 +15,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setDisabledOpen) {
-      const remove = monitor.setDisabledOpen(data => {
+    if (monitor && monitor.enabledButton) {
+      const remove = monitor.enabledButton(data => {
         property.disabled = true
         update()
       })
@@ -25,8 +25,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setDisabledClose) {
-      const remove = monitor.setDisabledClose(data => {
+    if (monitor && monitor.disabledButton) {
+      const remove = monitor.disabledButton(data => {
         property.disabled = false
         update()
       })
@@ -34,9 +34,17 @@ function Render(props) {
     }
   }, [])
 
-  return <Button {...params} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
-    {property.value}
-  </Button>
+  if (env === 'dev') {
+    return <Button {...devParams} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
+      {property.value}
+    </Button>
+  }
+
+  if (env === 'prod') {
+    return <Button disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
+      {property.value}
+    </Button>
+  }
 }
 
 export default Render

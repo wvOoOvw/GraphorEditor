@@ -9,51 +9,52 @@ function Icon() {
 }
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const onChange = (e) => {
     property.expanded = !property.expanded
     update()
-    if (trigger && trigger.onExpandedChange) trigger.onExpandedChange(property.expanded, e)
-    if (trigger && trigger.onExpandedOpen && property.expanded === true) trigger.onExpandedOpen(property.expanded, e)
-    if (trigger && trigger.onExpandedClose && property.expanded === false) trigger.onExpandedClose(property.expanded, e)
+    if (trigger && trigger.onExpandAccordion && property.expanded === true) trigger.onExpandAccordion(property.expanded, e)
+    if (trigger && trigger.onCollapseAccordion && property.expanded === false) trigger.onCollapseAccordion(property.expanded, e)
   }
 
   React.useEffect(() => {
-    if (monitor && monitor.setExpandedOpen) {
-      const remove = monitor.setExpandedOpen(data => {
+    if (monitor && monitor.expandAccordion) {
+      const remove = monitor.expandAccordion(data => {
         property.expanded = true
         update()
+        if (trigger && trigger.onExpandAccordion) trigger.onExpandAccordion(property.expanded)
       })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setExpandedClose) {
-      const remove = monitor.setExpandedClose(data => {
+    if (monitor && monitor.collapseAccordion) {
+      const remove = monitor.collapseAccordion(data => {
         property.expanded = false
         update()
+        if (trigger && trigger.onCollapseAccordion) trigger.onCollapseAccordion(property.expanded)
       })
       return () => { remove() }
     }
   }, [])
 
   if (env === 'dev') {
-    return <Accordion {...params} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square}>
+    return <Accordion {...devParams} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={{ '&.MuiAccordion-root': style.accordion, '& .MuiAccordionSummary-root': style.accordionSummary, '& .MuiAccordionDetails-root': style.accordionDetails }}>
 
       <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {
-          property.titleCustom === true ?
+          property.customSummary === true ?
             (
-              children && children.title ? children.title() : null
+              children && children.accordionSummary ? children.accordionSummary() : null
             )
             : null
         }
         {
-          property.titleCustom === false ?
+          property.customSummary === false ?
             (
-              property.title
+              property.summary
             )
             : null
         }
@@ -65,7 +66,7 @@ function Render(props) {
 
       <AccordionDetails>
         {
-          children && children.main ? children.main(prop) : null
+          children && children.accordionDetails ? children.accordionDetails() : null
         }
       </AccordionDetails>
 
@@ -73,20 +74,20 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Accordion {...params} expanded={property.expanded} onChange={onChange} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square}>
+    return <Accordion expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={{ '.MuiAccordion-root': style.accordion, '.MuiAccordionSummary-root': style.accordionSummary, '.MuiCollapse-root': style.accordionDetails }} onChange={onChange}>
 
       <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {
-          property.titleCustom === true ?
+          property.customSummary === true ?
             (
-              children && children.title ? children.title(prop) : null
+              children && children.accordionSummary ? children.accordionSummary(prop) : null
             )
             : null
         }
         {
-          property.titleCustom === false ?
+          property.customSummary === false ?
             (
-              property.title
+              property.summary
             )
             : null
         }
@@ -98,7 +99,7 @@ function Render(props) {
 
       <AccordionDetails>
         {
-          children && children.main ? children.main(prop) : null
+          children && children.accordionDetails ? children.accordionDetails(prop) : null
         }
       </AccordionDetails>
 

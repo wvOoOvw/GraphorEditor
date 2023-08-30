@@ -2,7 +2,7 @@ import React from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -35,13 +35,13 @@ function Render(props) {
 
     React.useEffect(() => {
       if (ref.current) {
-        ref.current.addEventListener('click', e => { params.onClick(e) }, true)
-        ref.current.setAttribute('id', params.id)
+        ref.current.addEventListener('click', e => { devParams.onClick(e) }, true)
+        ref.current.setAttribute('id', devParams.id)
       }
     }, [])
 
     return <Autocomplete
-      {...params}
+      {...devParams}
       id=''
       multiple={property.multiple}
       size={property.size}
@@ -50,14 +50,14 @@ function Render(props) {
       options={property.options}
       value={property.value}
       componentsProps={{ popper: { open: false } }}
-      renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+      renderInput={(devParams) => <TextField {...devParams} label={property.label} variant={property.variant} />}
+      sx={{ '&.MuiFormControl-root': style.formControl, '& .MuiInputBase-root': style.inputRoot, '& input': style.input }}
       ref={el => ref.current = el}
     />
   }
 
   if (env === 'prod') {
     return <Autocomplete
-      {...params}
       multiple={property.multiple}
       size={property.size}
       fullWidth={property.fullWidth}
@@ -65,7 +65,8 @@ function Render(props) {
       options={property.options}
       value={property.value}
       onChange={onChange}
-      renderInput={(params) => <TextField {...params} label={property.label} variant={property.variant} />}
+      renderInput={(devParams) => <TextField {...devParams} label={property.label} variant={property.variant} />}
+      sx={{ '&.MuiFormControl-root': style.formControl, '& .MuiInputBase-root': style.inputRoot, '& input': style.input }}
     />
   }
 }

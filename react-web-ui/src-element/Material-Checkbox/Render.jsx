@@ -2,11 +2,11 @@ import React from 'react'
 import { Checkbox } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setCheckedOpen) {
-      const remove = monitor.setCheckedOpen(data => {
+    if (monitor && monitor.checkBox) {
+      const remove = monitor.checkBox(data => {
         property.checked = true
         update()
       })
@@ -15,8 +15,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setCheckedClose) {
-      const remove = monitor.setCheckedClose(data => {
+    if (monitor && monitor.uncheckBox) {
+      const remove = monitor.uncheckBox(data => {
         property.checked = false
         update()
       })
@@ -31,11 +31,11 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <Checkbox {...params} checked={property.checked}size={property.size} color={property.color} disabled={property.disabled} />
+    return <Checkbox {...devParams} checked={property.checked} size={property.size} color={property.color} disabled={property.disabled} />
   }
 
   if (env === 'prod') {
-    return <Checkbox {...params} checked={property.checked} onChange={onChange} size={property.size} color={property.color} disabled={property.disabled} />
+    return <Checkbox checked={property.checked} onChange={onChange} size={property.size} color={property.color} disabled={property.disabled} />
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Radio } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setCheckedOpen) {
@@ -32,7 +32,7 @@ function Render(props) {
 
   if (env === 'dev') {
     return <Radio
-      {...params}
+      {...devParams}
       checked={property.checked}
       size={property.size}
       color={property.color}
@@ -42,7 +42,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Radio
-      {...params}
+      {...devParams}
       checked={property.checked}
       onChange={onChange}
       size={property.size}

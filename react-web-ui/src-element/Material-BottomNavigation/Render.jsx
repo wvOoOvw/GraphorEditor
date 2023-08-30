@@ -2,7 +2,7 @@ import React from 'react'
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -31,7 +31,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <BottomNavigation {...params} value={property.value} showLabels>
+    return <BottomNavigation {...devParams} value={property.value} showLabels>
       {
         property.options.map((i, index) => {
           return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>
@@ -41,7 +41,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <BottomNavigation {...params} value={property.value} onChange={onChange} showLabels>
+    return <BottomNavigation value={property.value} onChange={onChange} showLabels>
       {
         property.options.map((i, index) => {
           return <BottomNavigationAction key={index} value={i.value} label={i.label}></BottomNavigationAction>

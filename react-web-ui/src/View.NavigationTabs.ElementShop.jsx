@@ -24,25 +24,22 @@ function App() {
 
   const handleAdd = e => {
     const hash_ = hash()
-    const newElement = {
-      id: hash_,
-      license: e.license.key,
-      name: e.information.name,
-      use: true,
-      hook: []
-    }
-    if (e.information.style) newElement.style = {}
-    if (e.information.style && e.information.style.default) newElement.style = JSON.parse(JSON.stringify(e.information.style.default))
+    const newElement = { id: hash_, license: e.license.key, name: e.information.name, use: true, hook: [] }
+
+    if (e.information.style) newElement.style = e.information.style.reduce((t, i) => { t[i.value] = i.default ? i.default : {}; return t }, {})
     if (e.information.property) newElement.property = JSON.parse(JSON.stringify(e.information.property))
-    if (e.information.monitor) newElement.monitor = []
-    if (e.information.trigger) newElement.trigger = e.information.trigger.map(i => ({ use: true, triggerType: 'eval', triggerEval: `function(data, env) { console.log('${e.information.name + '-' + i.label}') }`, triggerKey: i.value, monitorName: '' }))
     if (e.information.children) newElement.children = e.information.children.reduce((t, i) => { t[i.value] = []; return t }, {})
+    if (e.information.monitor) newElement.monitor = []
+    if (e.information.trigger) newElement.trigger = []
+
+    if (e.information.created) e.information.created(newElement)
 
     if (Imitation.state.navigationTabsElementValue !== undefined) {
       const [id, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
       const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
       currentGraphContent.children[childrenKey].push(newElement)
     }
+    
     if (Imitation.state.navigationTabsElementValue === undefined) {
       Imitation.state.graphContent.push(newElement)
     }

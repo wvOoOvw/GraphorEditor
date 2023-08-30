@@ -2,7 +2,7 @@ import React from 'react'
 import { Checkbox, FormControl, FormGroup, FormControlLabel } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -37,7 +37,7 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <FormGroup {...params}>
+    return <FormGroup {...devParams}>
       {
         property.options.map((i, index) => {
           return <FormControlLabel
@@ -58,7 +58,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <FormGroup {...params}>
+    return <FormGroup>
       {
         property.options.map((i, index) => {
           return <FormControlLabel

@@ -2,75 +2,75 @@ import React from 'react'
 import { Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setOpenTrue) {
-      const remove = monitor.setOpenTrue(data => {
+    if (monitor && monitor.openDialog) {
+      const remove = monitor.openDialog(data => {
         property.open = true
         update()
+        if (trigger && trigger.onOpen) trigger.onOpen(property.open)
       })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setOpenFalse) {
-      const remove = monitor.setOpenFalse(data => {
+    if (monitor && monitor.closeDialog) {
+      const remove = monitor.closeDialog(data => {
         property.open = false
         update()
+        if (trigger && trigger.onClose) trigger.onClose(property.open)
       })
       return () => { remove() }
     }
   }, [])
 
   const onClose = (e) => {
-    if (property.enableClose === false) return
-
     property.open = false
     update()
     if (trigger && trigger.onClose) trigger.onClose(property.open, e)
   }
 
   if (env === 'dev') {
-    return <div {...params}>
+    return <div {...devParams}>
       <DialogTitle>
         {
-          children && children.title ? children.title() : null
+          children && children.dialogTitle ? children.dialogTitle() : null
         }
       </DialogTitle>
 
       <DialogContent dividers={property.dividers}>
         {
-          children && children.main ? children.main() : null
+          children && children.dialogContent ? children.dialogContent() : null
         }
       </DialogContent>
 
       <DialogActions>
         {
-          children && children.action ? children.action() : null
+          children && children.dialogAction ? children.dialogAction() : null
         }
       </DialogActions>
     </div>
   }
 
   if (env === 'prod') {
-    return <Dialog {...params} open={property.open} onClose={onClose}>
+    return <Dialog {...devParams} open={property.open} onClose={onClose}>
       <DialogTitle>
         {
-          children && children.title ? children.title(prop) : null
+          children && children.dialogTitle ? children.dialogTitle(prop) : null
         }
       </DialogTitle>
 
       <DialogContent dividers={property.dividers}>
         {
-          children && children.main ? children.main(prop) : null
+          children && children.dialogContent ? children.dialogContent(prop) : null
         }
       </DialogContent>
 
       <DialogActions>
         {
-          children && children.action ? children.action(prop) : null
+          children && children.dialogAction ? children.dialogAction(prop) : null
         }
       </DialogActions>
     </Dialog>

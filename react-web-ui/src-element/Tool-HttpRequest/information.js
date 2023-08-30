@@ -1,7 +1,6 @@
 const information = {
   name: 'Http Request',
   type: 'Tool',
-  children: false,
   monitor: [
     { value: 'request', label: 'Request' }
   ],
@@ -9,9 +8,6 @@ const information = {
     { value: 'onResponse', label: 'Request Response' },
     { value: 'onError', label: 'Request Error' }
   ],
-  style: {
-    $use: ['use']
-  },
   property: {
     mode: 'fetch',
     method: 'post',

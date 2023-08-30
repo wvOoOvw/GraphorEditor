@@ -184,7 +184,16 @@ function ElementRender(props) {
     return r
   })
 
-  const params = {
+  const style_exe = React.useMemo(() => {
+    if (!style) return
+    const r = {}
+    Object.entries(style).forEach(i => {
+      r[i[0]] = caculateStyle(i[1])
+    })
+    return r
+  })
+
+  const devParams = {
     onClick: e => onClick(e),
     onMouseOver: e => onMouseOver(e, id),
     onDragStart: e => onDragStart(e),
@@ -192,12 +201,11 @@ function ElementRender(props) {
     onDragEnter: e => onDragEnter(e, id),
     draggable: true,
     id: id,
-    style: { ...caculateStyle(style), cursor: 'pointer', boxSizing: 'border-box' },
   }
 
   if (use === false) return null
 
-  return <Render env='dev' update={update} params={params} element={props.element} property={property} children={children_exe} />
+  return <Render env='dev' update={update} devParams={devParams} element={props.element} property={property} style={style_exe} children={children_exe} />
 }
 
 function App() {

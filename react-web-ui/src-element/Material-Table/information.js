@@ -1,10 +1,7 @@
 const information = {
   name: 'Table',
   type: 'Material UI Component',
-  children: false,
   monitor: [
-    { value: '@setUseTrue', label: 'Use Element' },
-    { value: '@setUseFalse', label: 'Unuse Element' },
     { value: 'setBody', label: 'Set Body' },
     { value: 'setHead', label: 'Set Head' },
     { value: 'setPaginationSize', label: 'Set Pagination Size' },
@@ -12,20 +9,10 @@ const information = {
     { value: 'setSelectClear', label: 'Clear Select' },
   ],
   trigger: [
-    { value: '@onClick', label: 'Click' },
-    { value: '@onDoubleClick', label: 'Double Click' },
-    { value: '@onMouseEnter', label: 'Mouse Enter' },
-    { value: '@onMouseLeave', label: 'Mouse Leave' },
-    { value: '@onMouseMove', label: 'Mouse Move' },
-    { value: '@onMouseDown', label: 'Mouse Down' },
-    { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onClick', label: 'Click Row Item' },
     { value: 'onSelect', label: 'Select Change' },
     { value: 'onPaginationChange', label: 'Pagination Change' }
   ],
-  style: {
-    '$use': ['use']
-  },
   property: {
     size: 'medium',
     stickyHeader: false,

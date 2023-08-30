@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
@@ -13,13 +13,13 @@ function Render(props) {
     }
   }, [])
 
-  const ref = React.useRef()
+  if (env === 'dev') {
+    return <svg {...devParams} style={{ ...style.main }} dangerouslySetInnerHTML={property.value}></svg>
+  }
 
-  React.useEffect(() => {
-    ref.current.innerHTML = property.value
-  }, [property.value])
-
-  return <svg {...params} ref={el => ref.current = el}></svg>
+  if (env === 'prod') {
+    return <svg style={{ ...style.main }} dangerouslySetInnerHTML={property.value}></svg>
+  }
 }
 
 export default Render

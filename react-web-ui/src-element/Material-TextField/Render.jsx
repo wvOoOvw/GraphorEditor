@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@mui/material'
 
 function Render(props) {
-  const { env, update, params, property, monitor, trigger, children, element, prop } = props
+  const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const onChange = (e) => {
     property.value = e.target.value; update()
@@ -40,7 +40,7 @@ function Render(props) {
 
   if (env === 'dev') {
     return <TextField
-      {...params}
+      {...devParams}
       fullWidth={property.fullWidth}
       type={property.type}
       value={property.value}
@@ -56,7 +56,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <TextField
-      {...params}
+      {...devParams}
       fullWidth={property.fullWidth}
       type={property.type}
       value={property.value}
