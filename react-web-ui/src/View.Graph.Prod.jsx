@@ -87,7 +87,7 @@ function ElementRender(props) {
     if (!children) return
     const r = {}
     Object.entries(children).forEach(i => {
-      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} prop={prop} element={i} />)
+      r[i[0]] = (prop) => i[1].map(i => <ElementRender key={i.id} element={i} prop={prop} />)
     })
     return r
   }, [children])

@@ -92,7 +92,8 @@ function Active() {
 }
 
 function ElementRender(props) {
-  const { drag, parentId } = props
+  const { parentId } = props
+  
   const { license, id, use, style, property, children } = props.element
 
   const { Render, information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])

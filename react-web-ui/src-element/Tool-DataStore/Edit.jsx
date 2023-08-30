@@ -25,8 +25,9 @@ function Edit(props) {
         <Switch checked={property.useWindow} onChange={e => { property.useWindow = e.target.checked; update() }} />
       </Grid>
     </Grid>
+    
     {
-      value.useWindow ?
+      property.useWindow ?
         <>
           <Grid item xs={12}>
             <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Window Property Name' value={property.windowName} onChange={e => { property.windowName = e.target.value; update() }} />
