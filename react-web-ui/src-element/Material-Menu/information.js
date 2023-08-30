@@ -3,7 +3,7 @@ const information = {
   type: 'Material UI Component',
   monitor: [],
   trigger: [
-    { value: 'onClick', label: 'Click Item' },
+    { value: 'onClickItem', label: 'On Click Item' },
   ],
   property: {
     options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
