@@ -23,7 +23,9 @@ const information = {
     { value: 'onExpandedOpen', label: 'Open' },
     { value: 'onExpandedClose', label: 'Close' },
   ],
-  style: {},
+  style: {
+    '$use': ['use']
+  },
   property: {
     title: 'Accordion',
     titleCustom: false,

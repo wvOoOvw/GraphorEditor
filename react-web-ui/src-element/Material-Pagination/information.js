@@ -18,8 +18,9 @@ const information = {
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onChange', label: 'Value Change' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     page: 1,
     count: 10,
     variant: 'text',

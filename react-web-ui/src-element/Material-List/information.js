@@ -16,8 +16,9 @@ const information = {
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     value: [{ title: 'Title', desciption: 'Desciption' }],
     disablePadding: false,
   }

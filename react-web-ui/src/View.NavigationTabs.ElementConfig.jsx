@@ -473,7 +473,7 @@ function TriggerConfig(props) {
               return <Grid item xs={12} key={index}>
                 <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                   <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{i.monitorName}</span>
+                    <span>{triggerOptions.find(i_ => i_.value === i.triggerKey) ? triggerOptions.find(i_ => i_.value === i.triggerKey).label : null}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>

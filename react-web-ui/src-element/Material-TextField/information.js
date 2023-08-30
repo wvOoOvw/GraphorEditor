@@ -20,8 +20,9 @@ const information = {
     { value: 'onFocus', label: 'Focus' },
     { value: 'onBlur', label: 'Blur' }
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     type: 'text',
     value: '',
     placeholder: '',

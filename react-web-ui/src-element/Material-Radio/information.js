@@ -18,8 +18,9 @@ const information = {
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onChange', label: 'Check Change' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     color: 'primary',
     size: 'medium',
     checked: false,

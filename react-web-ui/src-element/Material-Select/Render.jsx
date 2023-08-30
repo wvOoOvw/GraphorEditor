@@ -41,8 +41,7 @@ function Render(props) {
 
     React.useEffect(() => {
       if (ref.current) {
-        ref.current.addEventListener('mousedown', e => { e.stopPropagation(); e.preventDefault(); console.log(1) }, true)
-        ref.current.setAttribute('id', params.id)
+        ref.current.addEventListener('mousedown', e => { e.stopPropagation(); e.preventDefault() }, true)
       }
     }, [])
 

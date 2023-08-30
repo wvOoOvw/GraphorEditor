@@ -18,8 +18,9 @@ const information = {
     { value: '@onMouseDown', label: 'Mouse Down' },
     { value: '@onMouseUp', label: 'Mouse Up' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     badgeContent: 0,
     color: 'primary',
     variant: 'standard',

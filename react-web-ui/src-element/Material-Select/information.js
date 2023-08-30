@@ -19,8 +19,9 @@ const information = {
     { value: 'onChange', label: 'Value Change' },
     { value: 'onOpen', label: 'Options Visible Change' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     value: '',
     options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
     label: 'Label',

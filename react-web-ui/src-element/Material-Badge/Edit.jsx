@@ -6,8 +6,7 @@ import { InputLabel } from '@mui/material'
 import { MenuItem } from '@mui/material'
 import { FormControl } from '@mui/material'
 import { Select } from '@mui/material'
-import { Divider } from '@mui/material'
-import { Button } from '@mui/material'
+import { Switch } from '@mui/material'
 
 function Edit(props) {
   const { element, property, style, update, component, sx, sendMessage } = props

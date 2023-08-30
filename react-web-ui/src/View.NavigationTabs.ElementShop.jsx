@@ -35,7 +35,7 @@ function App() {
     if (e.information.style && e.information.style.default) newElement.style = JSON.parse(JSON.stringify(e.information.style.default))
     if (e.information.property) newElement.property = JSON.parse(JSON.stringify(e.information.property))
     if (e.information.monitor) newElement.monitor = []
-    if (e.information.trigger) newElement.trigger = []
+    if (e.information.trigger) newElement.trigger = e.information.trigger.map(i => ({ use: true, triggerType: 'eval', triggerEval: `function(data, env) { console.log('${e.information.name + '-' + i.label}') }`, triggerKey: i.value, monitorName: '' }))
     if (e.information.children) newElement.children = e.information.children.reduce((t, i) => { t[i.value] = []; return t }, {})
 
     if (Imitation.state.navigationTabsElementValue !== undefined) {

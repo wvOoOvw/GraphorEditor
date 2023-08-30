@@ -18,8 +18,9 @@ const information = {
     { value: '@onMouseUp', label: 'Mouse Up' },
     { value: 'onChange', label: 'Value Change' },
   ],
-  style: {},
-  property: {
+  style: {
+    '$use': ['use']
+  },  property: {
     value: '',
     options: [{ label: 'Option A', value: 'A' }, { label: 'Option B', value: 'B' }],
     textColor: 'primary',

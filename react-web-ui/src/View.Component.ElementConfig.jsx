@@ -14,60 +14,13 @@ import { Autocomplete } from '@mui/material'
 import { defaultStyle } from './utils.graph.style'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-export function Render(props) {
-  const { value, onChange } = props
-
-  return <>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Use</div>
-      <Switch checked={value.style.use} onChange={e => onChange(() => value.style.use = e.target.checked)} />
-    </Grid>
-  </>
-}
-
-export function ClassName(props) {
-  const { value, onChange } = props
-
-  const handleChecked = e => {
-    onChange(() => {
-      if (e.target.checked) {
-        value.style.className = JSON.parse(JSON.stringify(defaultStyle.className))
-      } else {
-        delete value.style.className
-      }
-    })
-  }
-
-  return <>
-    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Class Name</div>
-      <Switch checked={value.style.className !== undefined} onChange={handleChecked} color='secondary' />
-    </Grid>
-    {
-      value.style.className !== undefined ?
-        <>
-          <Grid item xs={12}>
-            <Autocomplete
-              {...AutocompleteSX}
-              multiple
-              options={[]}
-              value={value.style.className}
-              onChange={(e, v) => onChange(() => value.style.className = v)}
-              renderInput={(params) => <TextField {...params} label='Class Name' />}
-            />
-          </Grid>
-        </> : null
-    }
-  </>
-}
-
 export function Visibility(props) {
   const { value, onChange } = props
 
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.style.visibility = JSON.parse(JSON.stringify(defaultStyle.visibility))
+        value.style.visibility = defaultStyle.visibility
       } else {
         delete value.style.visibility
       }

@@ -28,7 +28,7 @@ function ElementRender(props) {
     })
     Object.entries(r).forEach(i => {
       r[i[0]] = (data, $event) => i[1].forEach(i => {
-        graphEvent.triggerEvent({ name: i.monitorName, event: i.triggerKey === 'eval' ? i.triggerEval : undefined, env: { ...env, event: $event }, data })
+        graphEvent.triggerEvent({ name: i.monitorName, event: i.triggerType === 'eval' ? i.triggerEval : undefined, env: { ...env, event: $event }, data })
       })
     })
     return r
