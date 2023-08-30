@@ -48,8 +48,6 @@ function Render(props) {
       valueLabelDisplay={property.valueLabelDisplay}
     />
   }
-
-
 }
 
 export default Render

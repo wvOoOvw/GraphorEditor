@@ -4,6 +4,8 @@ import { Menu, MenuItem } from '@mui/material'
 function Render(props) {
   const { env, update, params, property, monitor, trigger, children, element, prop } = props
 
+  const ref = React.useRef()
+
   React.useEffect(() => {
     if (monitor && monitor.setValues) {
       const remove = monitor.setValues(data => {
@@ -43,7 +45,7 @@ function Render(props) {
 
   if (env === 'prod') {
     return <>
-      <div {...params} onClick={onOpen}>
+      <div {...params} onClick={onOpen} ref={el => ref.current = el}>
         {
           children && children.main ? children.main() : null
         }

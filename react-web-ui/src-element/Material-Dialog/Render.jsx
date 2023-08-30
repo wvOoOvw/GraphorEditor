@@ -55,7 +55,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Dialog open={property.open} onClose={onClose} sx={{ '& .MuiDialog-paper': style.style }}>
+    return <Dialog {...params} style={undefined} open={property.open} onClose={onClose} sx={{ '& .MuiDialog-paper': params.style }}>
       <DialogTitle>
         {
           children && children.title ? children.title(prop) : null

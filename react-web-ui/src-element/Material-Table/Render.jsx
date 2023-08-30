@@ -111,14 +111,15 @@ function Render(props) {
               {
                 property.useSelect && property.selectMultiple ?
                   <TableCell>
-                    <Checkbox checked={selectMultipleChecked()}/>
-                  </TableCell> : null
+                    <Checkbox checked={selectMultipleChecked()} />
+                  </TableCell>
+                  : <TableCell></TableCell>
               }
               {
                 property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
               }
               {
-                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
+                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : <TableCell></TableCell>
               }
             </TableRow>
           </TableHead>
@@ -130,7 +131,7 @@ function Render(props) {
                   {
                     property.useSelect ?
                       <TableCell>
-                        <Checkbox checked={property.selectChecked.includes(i)}/>
+                        <Checkbox checked={property.selectChecked.includes(i)} />
                       </TableCell> : null
                   }
                   {
@@ -170,13 +171,14 @@ function Render(props) {
                 property.useSelect && property.selectMultiple ?
                   <TableCell>
                     <Checkbox checked={selectMultipleChecked()} onChange={onSelectMultiple} />
-                  </TableCell> : null
+                  </TableCell>
+                  : <TableCell></TableCell>
               }
               {
                 property.head.map((i, index) => <TableCell key={index}>{i.label}</TableCell>)
               }
               {
-                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : null
+                property.useAction ? <TableCell>{property.actionTitle}</TableCell> : <TableCell></TableCell>
               }
             </TableRow>
           </TableHead>

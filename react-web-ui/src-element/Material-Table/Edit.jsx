@@ -50,7 +50,7 @@ function Edit(props) {
       <Switch checked={property.usePagination} onChange={e => { property.usePagination = e.target.checked; update() }} />
     </Grid>
     {
-      value.usePagination ?
+      property.usePagination ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>Use Pagination Component</div>
@@ -83,7 +83,7 @@ function Edit(props) {
       <Switch checked={property.useAction} onChange={e => { property.useAction = e.target.checked; update() }} />
     </Grid>
     {
-      value.useAction ?
+      property.useAction ?
         <>
           <Grid item xs={12}>
             <FormControl {...sx.SelectSX} fullWidth>
@@ -126,7 +126,7 @@ function Edit(props) {
       <Switch checked={property.useSelect} onChange={e => { property.useSelect = e.target.checked; update() }} />
     </Grid>
     {
-      value.useSelect ?
+      property.useSelect ?
         <>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>Multiple</div>
@@ -148,7 +148,7 @@ function Edit(props) {
     {
       headDialog ?
         <component.AceDialog
-          value={JSON.stringify(value.head, null, 2)}
+          value={JSON.stringify(property.head, null, 2)}
           onChange={v => {
             try {
               const v_ = JSON.parse(v)
@@ -168,7 +168,7 @@ function Edit(props) {
     {
       bodyDialog ?
         <component.AceDialog
-          value={JSON.stringify(value.body, null, 2)}
+          value={JSON.stringify(property.body, null, 2)}
           onChange={v => {
             try {
               const v_ = JSON.parse(v)

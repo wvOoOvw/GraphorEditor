@@ -158,6 +158,19 @@ function TriggerDialog(props) {
 
         <Grid item xs={12} className='font'>
           <FormControl {...SelectSX} fullWidth>
+            <InputLabel>Trigger Key</InputLabel>
+            <Select {...SelectSX} label='Trigger Key' value={data.triggerKey} onChange={e => setData(Object.assign({}, data, { triggerKey: e.target.value }))}>
+              {
+                triggerOptions.map((i, index) => {
+                  return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>
+                })
+              }
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} className='font'>
+          <FormControl {...SelectSX} fullWidth>
             <InputLabel>Trigger Type</InputLabel>
             <Select {...SelectSX} label='Trigger Type' value={data.triggerType} onChange={e => setData(Object.assign({}, data, { triggerType: e.target.value }))}>
               <MenuItem value='default'>Default</MenuItem>
@@ -165,25 +178,6 @@ function TriggerDialog(props) {
             </Select>
           </FormControl>
         </Grid>
-
-        {
-          data.triggerType === 'default' ?
-            <>
-              <Grid item xs={12} className='font'>
-                <FormControl {...SelectSX} fullWidth>
-                  <InputLabel>Trigger Key</InputLabel>
-                  <Select {...SelectSX} label='Trigger Key' value={data.triggerKey} onChange={e => setData(Object.assign({}, data, { triggerKey: e.target.value }))}>
-                    {
-                      triggerOptions.map((i, index) => {
-                        return <MenuItem key={index} value={i.value}>{i.label}</MenuItem>
-                      })
-                    }
-                  </Select>
-                </FormControl>
-              </Grid>
-            </>
-            : null
-        }
 
         {
           data.triggerType === 'eval' ?
