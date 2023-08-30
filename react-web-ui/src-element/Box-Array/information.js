@@ -2,14 +2,14 @@ const information = {
   name: 'Box Array',
   type: 'Box',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   monitor: [
     { value: 'setValue', label: 'Set Value' },
   ],
   trigger: [],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
     value: []

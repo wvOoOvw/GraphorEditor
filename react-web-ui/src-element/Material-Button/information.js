@@ -6,7 +6,9 @@ const information = {
     { value: 'disabledButton', label: 'Disable Button' },
     { value: 'enabledButton', label: 'Enable Button' }
   ],
-  trigger: [],
+  trigger: [
+    { value: 'onClick', label: 'On Click' },
+  ],
   property: {
     value: 'Button',
     variant: 'contained',

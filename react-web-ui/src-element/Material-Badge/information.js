@@ -2,7 +2,7 @@ const information = {
   name: 'Badge',
   type: 'Material UI Component',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   monitor: [
     { value: 'setBadgeContent', label: 'Set Badge Content' },

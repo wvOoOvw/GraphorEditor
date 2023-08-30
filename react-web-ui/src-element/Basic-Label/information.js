@@ -2,13 +2,13 @@ const information = {
   name: 'Label',
   type: 'Basic',
   children: [
-    { value: 'main', label: 'Main' },
-    { value: 'input', label: 'Invisible Input' },
+    { value: 'content', label: 'Content' },
+    { value: 'invisibleInput', label: 'Invisible Input' },
   ],
   monitor: [],
   trigger: [],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ]
 }
 

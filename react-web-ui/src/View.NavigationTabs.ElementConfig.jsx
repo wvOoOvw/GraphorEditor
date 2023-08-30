@@ -258,35 +258,37 @@ function ChildrenConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Children Config</AccordionSummary>
       <AccordionDetails>
-        <FormControl {...SelectSX} fullWidth>
-          <InputLabel>Area</InputLabel>
-          <Select {...SelectSX} label='Area' value={current} onChange={e => setCurrent(e.target.value)}>
-            {
-              options.map(i => {
-                return <MenuItem value={i.value}>{i.label}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
-        <List>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <FormControl {...SelectSX} fullWidth>
+              <InputLabel>Area</InputLabel>
+              <Select {...SelectSX} label='Area' value={current} onChange={e => setCurrent(e.target.value)}>
+                {
+                  options.map(i => {
+                    return <MenuItem value={i.value}>{i.label}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
+          </Grid>
           {
-            currentGraphElement.children[current].map(i => {
-              return <ListItemButton key={i.id} onClick={() => handleEdit(i.id)} sx={{ '& *': { fontSize: '14px !important' } }}>
-                <ListItemText>
-                  {
-                    i.name
-                  }
-                </ListItemText>
-                <ListItemText style={{ color: 'gray' }}>
-                  {
-                    i.id
-                  }
-                </ListItemText>
-              </ListItemButton>
+            currentGraphElement.children[current].map((i, index) => {
+              return <Grid item xs={12} key={index}>
+                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
+                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span>{i.name} {i.id}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton onClick={() => handleEdit(i.id)}><EditIcon style={{ fontSize: 22 }} /></IconButton>
+                  </div>
+                </Paper>
+              </Grid>
             })
           }
-        </List>
-        <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}>Add</Button>
+          <Grid item xs={12}>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
+          </Grid>
+        </Grid>
       </AccordionDetails>
     </Accordion>
   </Grid>

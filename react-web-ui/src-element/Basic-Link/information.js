@@ -2,14 +2,14 @@ const information = {
   name: 'Link',
   type: 'Basic',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   monitor: [
     { value: 'setHref', label: 'Set Href' },
   ],
   trigger: [],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
     useDom: true,

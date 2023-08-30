@@ -7,8 +7,8 @@ const information = {
   trigger: [],
   style: [
     {
-      value: 'main',
-      label: 'Main',
+      value: 'content',
+      label: 'Content',
       rule: {
         $nonuse: ['font', 'text', 'textDecoration', 'textShadow', 'textStroke']
       }

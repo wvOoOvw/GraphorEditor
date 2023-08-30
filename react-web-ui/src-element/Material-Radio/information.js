@@ -2,11 +2,11 @@ const information = {
   name: 'Radio',
   type: 'Material UI Component',
   monitor: [
-    { value: 'setCheckedOpen', label: 'Check Value' },
-    { value: 'setCheckedClose', label: 'Uncheck Value' },
+    { value: 'checkRadio', label: 'Check Radio' },
+    { value: 'uncheckRadio', label: 'Uncheck Radio' },
   ],
   trigger: [
-    { value: 'onChange', label: 'Check Change' },
+    { value: 'onChange', label: 'On Change' },
   ],
   property: {
     color: 'primary',

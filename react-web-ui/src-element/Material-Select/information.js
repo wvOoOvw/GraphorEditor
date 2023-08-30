@@ -7,7 +7,7 @@ const information = {
   ],
   trigger: [
     { value: 'onChange', label: 'On Change' },
-    { value: 'onOpen', label: 'Options Visible Change' },
+    { value: 'onOpen', label: 'On Open' },
   ],
   property: {
     value: '',

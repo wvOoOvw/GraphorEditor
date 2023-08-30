@@ -40,11 +40,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <audio {...devParams} style={{ ...style.main }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
+    return <audio {...devParams} style={{ ...style.content }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
   }
 
   if (env === 'prod') {
-    return <audio style={{ ...style.main }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+    return <audio style={{ ...style.content }} ref={el => ref.current = el} src={property.src} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
   }
 }
 

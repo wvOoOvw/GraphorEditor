@@ -4,17 +4,17 @@ function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   if (env === 'dev') {
-    return <div {...devParams} style={{ ...style.main }}>
+    return <div {...devParams} style={{ ...style.content }}>
       {
-        children && children.main ? children.main(prop) : null
+        children && children.content ? children.content(prop) : null
       }
     </div>
   }
 
   if (env === 'prod') {
-    return <div style={{ ...style.main }}>
+    return <div style={{ ...style.content }}>
       {
-        children && children.main ? children.main(prop) : null
+        children && children.content ? children.content(prop) : null
       }
     </div>
   }

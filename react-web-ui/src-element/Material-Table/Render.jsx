@@ -9,13 +9,13 @@ function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const onClick = (e, v) => {
-    if (trigger && trigger.onClick) trigger.onClick(v, e)
+    if (trigger && trigger.onClickRowItem) trigger.onClickRowItem(v, e)
   }
 
   const onSelect = (e, item) => {
     property.selectChecked = property.selectChecked.includes(item) ? property.selectChecked.filter(i => i !== item) : [...property.selectChecked, item]
     update()
-    if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
+    if (trigger && trigger.onSelectChange) trigger.onSelectChange(property.selectChecked, e)
   }
 
   const selectMultipleChecked = () => {
@@ -37,11 +37,11 @@ function Render(props) {
     if (body.filter(i => property.selectChecked.includes(i)).length === body.length) {
       property.selectChecked = []
       update()
-      if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
+      if (trigger && trigger.onSelectChange) trigger.onSelectChange(property.selectChecked, e)
     } else {
       property.selectChecked = body
       update()
-      if (trigger && trigger.onSelect) trigger.onSelect(property.selectChecked, e)
+      if (trigger && trigger.onSelectChange) trigger.onSelectChange(property.selectChecked, e)
     }
   }
 
@@ -162,7 +162,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Box {...devParams} component={property.componentPaper ? Paper : null}>
+    return <Box component={property.componentPaper ? Paper : null}>
       <TableContainer style={{ height: (property.usePagination && property.paginationComponent) ? `calc(100% - 50px)` : '100%' }}>
         <Table size={property.size} stickyHeader={property.stickyHeader}>
           <TableHead>

@@ -9,9 +9,9 @@ const information = {
     { value: 'setSelectClear', label: 'Clear Select' },
   ],
   trigger: [
-    { value: 'onClick', label: 'Click Row Item' },
-    { value: 'onSelect', label: 'Select Change' },
-    { value: 'onPaginationChange', label: 'Pagination Change' }
+    { value: 'onClickRowItem', label: 'On Click Row Item' },
+    { value: 'onSelectChange', label: 'On Select Change' },
+    { value: 'onPaginationChange', label: 'On Pagination Change' }
   ],
   property: {
     size: 'medium',

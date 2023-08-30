@@ -6,7 +6,7 @@ const information = {
   ],
   trigger: [],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
     value: '',

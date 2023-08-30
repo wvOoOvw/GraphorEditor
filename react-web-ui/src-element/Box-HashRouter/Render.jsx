@@ -30,19 +30,19 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <div {...devParams} style={{ ...style.main }}>
+    return <div {...devParams} style={{ ...style.content }}>
       {
-        children && children.main ? children.main() : null
+        children && children.content ? children.content() : null
       }
     </div>
   }
 
   if (env === 'prod') {
-    return <div style={{ ...style.main }}>
+    return <div style={{ ...style.content }}>
       {
         inRouter() ?
           (
-            children && children.main ? children.main() : null
+            children && children.content ? children.content() : null
           )
           : null
       }

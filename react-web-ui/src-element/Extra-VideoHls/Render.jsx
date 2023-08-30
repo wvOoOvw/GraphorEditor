@@ -41,7 +41,7 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <video {...devParams} style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
+    return <video {...devParams} style={{ ...style.content }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} />
   }
 
   if (env === 'prod') {
@@ -59,7 +59,7 @@ function Render(props) {
       return () => hls.destroy()
     }, [property.src])
 
-    return <video style={{ ...style.main }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
+    return <video style={{ ...style.content }} ref={el => ref.current = el} src={property.src} poster={property.poster} controls={property.controls} autoPlay={property.autoplay} loop={property.loop} onEnded={onEnded} />
   }
 }
 

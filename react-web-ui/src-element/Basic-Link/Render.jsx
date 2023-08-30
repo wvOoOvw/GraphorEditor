@@ -23,26 +23,26 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <a {...devParams} style={{ ...style.main }}>
+    return <a {...devParams} style={{ ...style.content }}>
       {
-        children && children.main ? children.main(prop) : null
+        children && children.content ? children.content(prop) : null
       }
     </a>
   }
 
   if (env === 'prod') {
     if (property.useDom === true) {
-      return <a style={{ ...style.main }} href={property.href} target={property.target}>
+      return <a style={{ ...style.content }} href={property.href} target={property.target}>
         {
-          children && children.main ? children.main(prop) : null
+          children && children.content ? children.content(prop) : null
         }
       </a>
     }
 
     if (property.useDom === false) {
-      return <span style={{ ...style.main }} onClick={onClick}>
+      return <span style={{ ...style.content }} onClick={onClick}>
         {
-          children && children.main ? children.main(prop) : null
+          children && children.content ? children.content(prop) : null
         }
       </span>
     }

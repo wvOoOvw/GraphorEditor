@@ -44,7 +44,6 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Pagination
-      {...devParams}
       count={Number(property.count)}
       page={Number(property.page)}
       onChange={onChange}

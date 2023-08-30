@@ -11,7 +11,7 @@ const information = {
     { value: 'onBlur', label: 'On Blur' }
   ],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
     value: 'Input',

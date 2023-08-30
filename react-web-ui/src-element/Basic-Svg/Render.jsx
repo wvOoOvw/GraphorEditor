@@ -14,11 +14,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <svg {...devParams} style={{ ...style.main }} dangerouslySetInnerHTML={property.value}></svg>
+    return <svg {...devParams} style={{ ...style.content }} dangerouslySetInnerHTML={property.value}></svg>
   }
 
   if (env === 'prod') {
-    return <svg style={{ ...style.main }} dangerouslySetInnerHTML={property.value}></svg>
+    return <svg style={{ ...style.content }} dangerouslySetInnerHTML={property.value}></svg>
   }
 }
 

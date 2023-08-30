@@ -36,7 +36,6 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Slider
-      {...devParams}
       value={Number(property.value)}
       onChange={onChange}
       min={Number(property.min)}

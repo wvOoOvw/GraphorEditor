@@ -56,7 +56,6 @@ function Render(props) {
 
   if (env === 'prod') {
     return <TextField
-      {...devParams}
       fullWidth={property.fullWidth}
       type={property.type}
       value={property.value}

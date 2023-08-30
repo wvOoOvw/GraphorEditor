@@ -15,7 +15,7 @@ function Render(props) {
   }, [])
 
   const onClick = (e, value) => {
-    if (trigger && trigger.onClick) trigger.onClick(value, e)
+    if (trigger && trigger.onClickItem) trigger.onClickItem(value, e)
   }
 
   if (env === 'dev') {
@@ -33,7 +33,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <MenuList {...devParams}>
+    return <MenuList>
       {
         property.options.map((i, index) => {
           return <MenuItem key={index} onClick={e => onClick(e, i.value)}>

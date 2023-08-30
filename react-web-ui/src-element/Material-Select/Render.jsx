@@ -58,7 +58,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <FormControl {...devParams} size={property.size} fullWidth={property.fullWidth}>
+    return <FormControl size={property.size} fullWidth={property.fullWidth}>
       <InputLabel>{property.label}</InputLabel>
       <Select multiple={property.multiple} label={property.label} variant={property.variant} disabled={property.disabled} open={property.open} value={property.value} onChange={onChange} onOpen={onOpen}>
         {

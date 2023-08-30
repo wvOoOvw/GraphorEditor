@@ -2,14 +2,14 @@ const information = {
   name: 'Text',
   type: 'Basic',
   monitor: [
-    { value: 'setValue', label: 'Set Value' },
+    { value: 'setText', label: 'Set Text' },
   ],
   trigger: [],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
-    value: 'Text'
+    text: 'Text'
   }
 }
 

@@ -2,8 +2,8 @@ const information = {
   name: 'Switch',
   type: 'Material UI Component',
   monitor: [
-    { value: 'setCheckedOpen', label: 'Check Value' },
-    { value: 'setCheckedClose', label: 'Uncheck Value' },
+    { value: 'checkSwitch', label: 'Check Switch' },
+    { value: 'uncheckSwitch', label: 'Uncheck Switch' },
   ],
   trigger: [
     { value: 'onChange', label: 'On Change' },

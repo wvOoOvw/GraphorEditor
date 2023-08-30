@@ -5,8 +5,8 @@ function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setCheckedOpen) {
-      const remove = monitor.setCheckedOpen(data => {
+    if (monitor && monitor.checkRadio) {
+      const remove = monitor.checkRadio(data => {
         property.checked = true
         update()
       })
@@ -15,8 +15,8 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setCheckedClose) {
-      const remove = monitor.setCheckedClose(data => {
+    if (monitor && monitor.uncheckRadio) {
+      const remove = monitor.uncheckRadio(data => {
         property.checked = false
         update()
       })
@@ -42,7 +42,6 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Radio
-      {...devParams}
       checked={property.checked}
       onChange={onChange}
       size={property.size}

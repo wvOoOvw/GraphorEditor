@@ -51,7 +51,6 @@ function Render(props) {
 
   if (env === 'prod') {
     return <Tabs
-      {...devParams}
       value={property.value}
       onChange={onChange}
       textColor={property.textColor}

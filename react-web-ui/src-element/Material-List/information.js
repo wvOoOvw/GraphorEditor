@@ -6,7 +6,7 @@ const information = {
   ],
   trigger: [],
   property: {
-    value: [{ title: 'Title', desciption: 'Desciption' }],
+    value: [{ primary: 'Primary', secondary: 'Secondary' }],
     disablePadding: false,
   }
 }

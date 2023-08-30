@@ -41,7 +41,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <ToggleButtonGroup {...devParams} fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
+    return <ToggleButtonGroup fullWidth={property.fullWidth} size={property.size} color={property.color} orientation={property.orientation} exclusive={property.exclusive} disabled={property.disabled} value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {
           return <ToggleButton key={index} value={i.value}>{i.label}</ToggleButton>

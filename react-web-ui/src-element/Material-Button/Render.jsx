@@ -34,6 +34,10 @@ function Render(props) {
     }
   }, [])
 
+  const onClick = (e) => {
+    if (trigger && trigger.onClick) trigger.onClick(undefined, e)
+  }
+
   if (env === 'dev') {
     return <Button {...devParams} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
       {property.value}
@@ -41,7 +45,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Button disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
+    return <Button disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} onClick={onClick}>
       {property.value}
     </Button>
   }

@@ -14,15 +14,29 @@ function Render(props) {
     }
   }, [])
 
-  return <List {...devParams}>
-    {
-      property.value.map((i, index) => {
-        return <ListItem disablePadding={property.disablePadding} key={index}>
-          <ListItemText primary={i.title} secondary={i.desciption} />
-        </ListItem>
-      })
-    }
-  </List>
+  if (env === 'dev') {
+    return <List {...devParams}>
+      {
+        property.value.map((i, index) => {
+          return <ListItem disablePadding={property.disablePadding} key={index}>
+            <ListItemText primary={i.primary} secondary={i.secondary} />
+          </ListItem>
+        })
+      }
+    </List>
+  }
+
+  if (env === 'prod') {
+    return <List>
+      {
+        property.value.map((i, index) => {
+          return <ListItem disablePadding={property.disablePadding} key={index}>
+            <ListItemText primary={i.primary} secondary={i.secondary} />
+          </ListItem>
+        })
+      }
+    </List>
+  }
 }
 
 export default Render

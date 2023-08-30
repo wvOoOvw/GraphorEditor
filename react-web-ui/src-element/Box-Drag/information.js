@@ -2,7 +2,7 @@ const information = {
   name: 'Box Drag',
   type: 'Box',
   children: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   monitor: [],
   trigger: [
@@ -15,7 +15,7 @@ const information = {
     { value: 'onDrop', label: 'Drop' },
   ],
   style: [
-    { value: 'main', label: 'Main' }
+    { value: 'content', label: 'Content' }
   ],
   property: {
     draggable: true,

@@ -4,9 +4,9 @@ function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   React.useEffect(() => {
-    if (monitor && monitor.setValue) {
-      const remove = monitor.setValue(data => {
-        property.value = data
+    if (monitor && monitor.setText) {
+      const remove = monitor.setText(data => {
+        property.text = data
         update()
       })
       return () => { remove() }
@@ -14,11 +14,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <span {...devParams} style={{ ...style.main }} >{property.value}</span>
+    return <span {...devParams} style={{ ...style.content }} >{property.text}</span>
   }
 
   if (env === 'prod') {
-    return <span style={{ ...style.main }} >{property.value}</span>
+    return <span style={{ ...style.content }} >{property.text}</span>
   }
 
 }

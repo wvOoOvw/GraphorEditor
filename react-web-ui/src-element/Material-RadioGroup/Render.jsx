@@ -48,7 +48,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <RadioGroup {...devParams} value={property.value} onChange={onChange}>
+    return <RadioGroup value={property.value} onChange={onChange}>
       {
         property.options.map((i, index) => {
           return <FormControlLabel

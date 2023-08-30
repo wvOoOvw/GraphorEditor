@@ -14,11 +14,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <iframe {...devParams} style={{ ...style.main }} />
+    return <iframe {...devParams} style={{ ...style.content }} />
   }
 
   if (env === 'prod') {
-    return <iframe style={{ ...style.main }} src={property.src} />
+    return <iframe style={{ ...style.content }} src={property.src} />
   }
 }
 

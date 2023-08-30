@@ -3,12 +3,12 @@ const information = {
   type: 'Material UI Component',
   monitor: [
     { value: 'setValue', label: 'Set Value' },
-    { value: 'setValueEmpty', label: 'Clear Value' },
+    { value: 'clearValue', label: 'Clear Value' },
   ],
   trigger: [
     { value: 'onChange', label: 'On Change' },
-    { value: 'onFocus', label: 'Focus' },
-    { value: 'onBlur', label: 'Blur' }
+    { value: 'onFocus', label: 'On Focus' },
+    { value: 'onBlur', label: 'On Blur' }
   ],
   property: {
     type: 'text',

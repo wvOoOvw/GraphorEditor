@@ -14,7 +14,7 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <div {...devParams} style={{ ...style.main }}></div>
+    return <div {...devParams} style={{ ...style.content }}></div>
   }
 
   if (env === 'prod') {
@@ -24,7 +24,7 @@ function Render(props) {
       document.getElementsByTagName('head')[0].appendChild(script)
     }, [property.src])
 
-    return <div style={{ ...style.main }} id={property.id}></div>
+    return <div style={{ ...style.content }} id={property.id}></div>
   }
 }
 

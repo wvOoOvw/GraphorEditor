@@ -14,11 +14,11 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <img {...devParams} style={{ ...style.main }} src={property.src} alt={property.alt} />
+    return <img {...devParams} style={{ ...style.content }} src={property.src} alt={property.alt} />
   }
 
   if (env === 'prod') {
-    return <img style={{ ...style.main }} src={property.src} alt={property.alt} />
+    return <img style={{ ...style.content }} src={property.src} alt={property.alt} />
   }
 
 }
