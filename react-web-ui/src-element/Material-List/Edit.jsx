@@ -23,7 +23,7 @@ function Edit(props) {
     <Grid item xs={12}><Divider /></Grid>
 
     <Grid item xs={12}>
-      <Button fullWidth variant='outlined' onClick={() => setAceDialogValue(true)}>Set Value</Button>
+      <Button fullWidth variant='outlined' onClick={() => setAceDialogValue(true)}>Value</Button>
     </Grid>
 
     {
