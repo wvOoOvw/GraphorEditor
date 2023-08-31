@@ -17,63 +17,58 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>居中</div>
+      <div>Centered</div>
       <Switch checked={property.centered} onChange={e => { property.centered = e.target.checked; update() }} />
     </Grid>
     <Grid item xs={12}>
-      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='默认值' value={property.value} onChange={e => { property.value = e.target.value; update() }} />
+      <TextField {...sx.TextFieldSX} fullWidth autoComplete='off' label='Value' value={property.value} onChange={e => { property.value = e.target.value; update() }} />
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>文字Color</InputLabel>
-        <Select {...sx.SelectSX} value={property.textColor} label='文字Color' onChange={e => { property.textColor = e.target.value; update() }}>
-          {
-            ['primary', 'inherit', 'secondary'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+        <InputLabel>Text Color</InputLabel>
+        <Select {...sx.SelectSX} value={property.textColor} label='Text Color' onChange={e => { property.textColor = e.target.value; update() }}>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='inherit'>Inherit</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>背景Color</InputLabel>
-        <Select {...sx.SelectSX} value={property.indicatorColor} label='背景Color' onChange={e => { property.indicatorColor = e.target.value; update() }}>
-          {
-            ['primary', 'secondary'].map(i => {
-              return <MenuItem key={i} value={i}>{i}</MenuItem>
-            })
-          }
+        <InputLabel>Indicator Color</InputLabel>
+        <Select {...sx.SelectSX} value={property.indicatorColor} label='Indicator Color' onChange={e => { property.indicatorColor = e.target.value; update() }}>
+          <MenuItem value='primary'>Primary</MenuItem>
+          <MenuItem value='secondary'>Secondary</MenuItem>
         </Select>
       </FormControl>
     </Grid>
 
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>方向</InputLabel>
-        <Select {...sx.SelectSX} value={property.orientation} label='方向' onChange={e => { property.orientation = e.target.value; update() }}>
-          <MenuItem value='horizontal'>横向</MenuItem>
-          <MenuItem value='vertical'>纵向</MenuItem>
+        <InputLabel>Orientation</InputLabel>
+        <Select {...sx.SelectSX} value={property.orientation} label='Orientation' onChange={e => { property.orientation = e.target.value; update() }}>
+          <MenuItem value='horizontal'>Horizontal</MenuItem>
+          <MenuItem value='vertical'>Vertical</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>类型</InputLabel>
-        <Select {...sx.SelectSX} value={property.variant} label='类型' onChange={e => { property.variant = e.target.value; update() }}>
-          <MenuItem value='standard'>默认</MenuItem>
-          <MenuItem value='fullWidth'>填充宽度</MenuItem>
-          <MenuItem value='scrollable'>滑动</MenuItem>
+        <InputLabel>Variant</InputLabel>
+        <Select {...sx.SelectSX} value={property.variant} label='Variant' onChange={e => { property.variant = e.target.value; update() }}>
+          <MenuItem value='standard'>Standard</MenuItem>
+          <MenuItem value='fullWidth'>Full Width</MenuItem>
+          <MenuItem value='scrollable'>Scrollable</MenuItem>
         </Select>
       </FormControl>
     </Grid>
     <Grid item xs={12}>
       <FormControl {...sx.SelectSX} fullWidth>
-        <InputLabel>滑动按钮</InputLabel>
-        <Select {...sx.SelectSX} value={property.scrollButtons} label='滑动按钮' onChange={e => { property.scrollButtons = e.target.value; update() }}>
-          <MenuItem value='auto'>自动</MenuItem>
-          <MenuItem value={true}>打开</MenuItem>
-          <MenuItem value={false}>关闭</MenuItem>
+        <InputLabel>Scroll Buttons</InputLabel>
+        <Select {...sx.SelectSX} value={property.scrollButtons} label='Scroll Buttons' onChange={e => { property.scrollButtons = e.target.value; update() }}>
+          <MenuItem value='auto'>Auto</MenuItem>
+          <MenuItem value={true}>On</MenuItem>
+          <MenuItem value={false}>Off</MenuItem>
         </Select>
       </FormControl>
     </Grid>
