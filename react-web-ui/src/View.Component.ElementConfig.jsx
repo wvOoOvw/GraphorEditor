@@ -20,7 +20,7 @@ export function Visibility(props) {
   const handleChecked = e => {
     onChange(() => {
       if (e.target.checked) {
-        value.display = JSON.parse(JSON.stringify(defaultStyle.display))
+        value.visibility = JSON.parse(JSON.stringify(defaultStyle.visibility))
       } else {
         delete value.visibility
       }
