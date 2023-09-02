@@ -6,6 +6,7 @@ function Render(props) {
   React.useEffect(() => {
     if (monitor && monitor.setText) {
       const remove = monitor.setText(data => {
+        console.log(data)
         property.text = data
         update()
       })

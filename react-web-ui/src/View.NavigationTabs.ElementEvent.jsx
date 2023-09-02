@@ -75,7 +75,7 @@ function ItemRender(props) {
 
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
       onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
     >
@@ -102,7 +102,7 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
             onMouseEnter={() => handleMouseEnter(id + '@' + i[0])}
             onMouseLeave={handleMouseLeave}
           >
@@ -149,4 +149,4 @@ function App() {
   </Grid>
 }
 
-export default Imitation.withBindRender(App, state => [state.elementHover])
+export default App

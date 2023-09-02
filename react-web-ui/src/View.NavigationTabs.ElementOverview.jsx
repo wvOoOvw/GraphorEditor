@@ -52,6 +52,7 @@ function ItemRender(props) {
   const handleDelete = () => {
     const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== currentGraphContent.id)
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
 
@@ -111,7 +112,7 @@ function ItemRender(props) {
   return <>
     <div
       draggable
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', marginBottom: 1, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStyle(id) }}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', margin: '1px 0', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStyle(id) }}
       onMouseOver={(e) => onMouseOver(e, id)}
       onDragStart={(e) => onDragStart(e)}
       onDragEnd={(e) => onDragEnd(e)}
@@ -133,7 +134,7 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 1, padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStyle(id + '@' + i[0]) }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
           >
@@ -178,4 +179,4 @@ function App() {
   </Grid>
 }
 
-export default Imitation.withBindRender(App, state => [state.elementHover])
+export default App

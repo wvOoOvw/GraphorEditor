@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
 
 import { IconButton } from '@mui/material'
 import { Tooltip } from '@mui/material'
@@ -12,11 +11,6 @@ import { Dialog } from '@mui/material'
 import { DialogTitle } from '@mui/material'
 import { DialogContent } from '@mui/material'
 import { DialogActions } from '@mui/material'
-import { List } from '@mui/material'
-import { ListItem } from '@mui/material'
-import { ListItemIcon } from '@mui/material'
-import { ListItemText } from '@mui/material'
-import { ListItemButton } from '@mui/material'
 import { Switch } from '@mui/material'
 import { TextField } from '@mui/material'
 
@@ -31,12 +25,14 @@ import { GraphElement, GraphExample } from './utils.package'
 import { downloadFile, baseIp, hash } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
-const elementOrigin = (content, list = []) => {
+const getLicenseAll = (content) => {
+  const list = []
+
   content.forEach(i => {
     if (!list.includes(i.license)) list.push(i.license)
 
     if (i.children) {
-      Object.values(i.children).forEach(i => elementOrigin(i, list))
+      Object.values(i.children).forEach(i => list.push(...getLicenseAll(i)))
     }
   })
 
@@ -166,7 +162,7 @@ function DialogPublish(props) {
 
     var render = await fetch(`${option.sourceOrigin}/render/index.js`).then(res => res.text())
 
-    var element = await Promise.all(elementOrigin(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
+    var element = await Promise.all(getLicenseAll(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
     const loadDependencies = () => {
       const dependencies = { ...Imitation.state.graphConfig.dependenciesMap }
@@ -207,7 +203,7 @@ function DialogPublish(props) {
       )
       .replace(
         `<replace id="graph.data"></replace>`,
-        `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)}; window.graphConfig = ${JSON.stringify(data.graphConfig)};</script>`
+        `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)};</script>`
       )
       .replace(
         `<replace id="graph.element"></replace>`,
@@ -220,14 +216,12 @@ function DialogPublish(props) {
 
     if (option.encode) {
       const graphContent = data.graphContent
-      const graphConfig = data.graphConfig
 
       const encodeContent = encodeify(graphContent)
-      const encodeConfig = encodeify(graphConfig)
 
       html = html.replace(
         /<script id="graph.data">.+?<\/script>/,
-        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)})); window.graphConfig = (${decodeifyString}(${JSON.stringify(encodeConfig.data)}, ${JSON.stringify(encodeConfig.map)}));</script>`
+        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)}));</script>`
       )
     }
 
@@ -356,11 +350,25 @@ function DialogPublish(props) {
   </Dialog>
 }
 
+function DialogDocument(props) {
+  const { onClose } = props
+
+  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 1080 } }} onClose={onClose} className='font'>
+    <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>Document</DialogTitle>
+    <DialogContent dividers>
+      <Grid container spacing={1}>
+
+      </Grid>
+    </DialogContent>
+  </Dialog>
+}
+
 function App() {
   const [dialogPublish, setDialogPublish] = React.useState()
+  const [dialogDocument, setDialogDocument] = React.useState()
 
   const handleSave = () => {
-    localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }))
+    localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphEvent: Imitation.state.graphEvent, graphConfig: Imitation.state.graphConfig }))
     Imitation.assignState({ message: 'Save Success' })
   }
 
@@ -370,30 +378,35 @@ function App() {
   }
 
   const handlePreview = () => {
-    localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }))
+    localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphEvent: Imitation.state.graphEvent, graphConfig: Imitation.state.graphConfig }))
     window.open(location.origin + location.pathname + '#/prod')
   }
 
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
-        <Button style={{ textTransform: 'none' }} color='inherit'>GRAPHOR</Button>
+        <Button style={{ textTransform: 'none', marginRight: 8 }} color='inherit'>GRAPHOR</Button>
+        <Button style={{ textTransform: 'none', marginRight: 8 }} variant='outlined' onClick={() => setDialogDocument(true)}>Document</Button>
       </Grid>
     </div>
     <div>
       <Tooltip {...TooltipSX} title='Save'>
-        <IconButton style={{ marginLeft: 4 }} onClick={handleSave}><SaveIcon /></IconButton>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handleSave}><SaveIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Clear'>
-        <IconButton style={{ marginLeft: 4 }} onClick={handleClear}><ClearAllIcon /></IconButton>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handleClear}><ClearAllIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Preview'>
-        <IconButton style={{ marginLeft: 4 }} onClick={handlePreview}><DeveloperModeIcon /></IconButton>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handlePreview}><DeveloperModeIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Publish'>
-        <IconButton style={{ marginLeft: 4 }} onClick={() => setDialogPublish(true)}><DataSaverOffIcon /></IconButton>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => setDialogPublish(true)}><DataSaverOffIcon /></Button>
       </Tooltip>
     </div>
+
+    {
+      dialogDocument ? <DialogDocument onClose={() => setDialogDocument()} /> : null
+    }
 
     {
       dialogPublish ? <DialogPublish onClose={() => setDialogPublish()} /> : null

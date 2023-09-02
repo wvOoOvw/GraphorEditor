@@ -2,8 +2,8 @@ const information = {
   name: 'Input',
   type: 'Basic',
   monitor: [
-    { value: 'Set Value', label: 'Set Value' },
-    { value: 'Clear Value', label: 'Clear Value' }
+    { value: 'setValue', label: 'Set Value' },
+    { value: 'clearValue', label: 'Clear Value' }
   ],
   trigger: [
     { value: 'onChange', label: 'On Change' },

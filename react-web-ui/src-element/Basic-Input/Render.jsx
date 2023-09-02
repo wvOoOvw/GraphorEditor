@@ -20,6 +20,7 @@ function Render(props) {
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
       const remove = monitor.setValue(data => {
+        console.log(data)
         property.value = data
         update()
       })
@@ -28,15 +29,14 @@ function Render(props) {
   }, [])
 
   React.useEffect(() => {
-    if (monitor && monitor.setValueEmpty) {
-      const remove = monitor.setValueEmpty(data => {
+    if (monitor && monitor.clearValue) {
+      const remove = monitor.clearValue(data => {
         property.value = ''
         update()
       })
       return () => { remove() }
     }
   }, [])
-
 
   if (env === 'dev') {
     if (property.type === 'textarea') {

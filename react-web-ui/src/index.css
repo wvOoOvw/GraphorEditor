@@ -7,12 +7,16 @@ body {
   font-size: 14px;
   font-weight: bold !important;
   font-family: monospace !important;
+  vertical-align: bottom !important;
+  user-select: none;
 }
 
-.font * {
+.font, .font * {
   font-size: 14px;
   font-weight: bold !important;
   font-family: monospace !important;
+  vertical-align: bottom !important;
+  user-select: none;
 }
 
 ::-webkit-scrollbar {

@@ -51,7 +51,7 @@ function HookDialog(props) {
       </Grid>
     </DialogContent>
     <DialogActions className='font'>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(data)}>Delete</Button>
       <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>Save</Button>
     </DialogActions>
   </Dialog >
@@ -128,7 +128,7 @@ function MonitorDialog(props) {
       </Grid>
     </DialogContent>
     <DialogActions className='font'>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(update)}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(data, update)}>Delete</Button>
       <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data, update)}>Save</Button>
     </DialogActions>
   </Dialog >
@@ -201,7 +201,7 @@ function TriggerDialog(props) {
       </Grid>
     </DialogContent>
     <DialogActions className='font'>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete()}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(data)}>Delete</Button>
       <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>Save</Button>
     </DialogActions>
   </Dialog>

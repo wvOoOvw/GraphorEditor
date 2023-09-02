@@ -20,7 +20,10 @@ import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 import { AceDialog } from './View.Component.Ace'
 
 function Screen(props) {
-  const { handleChange } = props
+  const handleChange = (callback) => {
+    callback()
+    Imitation.assignState({ graphConfigUpdate: hash() })
+  }
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={true}>
@@ -28,22 +31,16 @@ function Screen(props) {
       <AccordionDetails>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screen.width} label='Width' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.width = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screenGraph.width} label='Width' onChange={e => handleChange(() => Imitation.state.graphConfig.screenGraph.width = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={6}>
-            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screen.height} label='Height' onChange={e => handleChange(() => Imitation.state.graphConfig.screen.height = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' value={Imitation.state.graphConfig.screenGraph.height} label='Height' onChange={e => handleChange(() => Imitation.state.graphConfig.screenGraph.height = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 375; Imitation.state.graphConfig.screen.height = 667; })}>Phone Size</Button>
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screenGraph.width = 375; Imitation.state.graphConfig.screenGraph.height = 667; })}>Phone Size</Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.width = 1200; Imitation.state.graphConfig.screen.height = 720; })}>PC Size</Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screen.translateX = 0; Imitation.state.graphConfig.screen.translateY = 0; })}>Reset Position</Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Slider value={Imitation.state.graphConfig.screen.scale} onChange={(e, v) => handleChange(() => Imitation.state.graphConfig.screen.scale = v)} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
+            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={e => handleChange(() => { Imitation.state.graphConfig.screenGraph.width = 1200; Imitation.state.graphConfig.screenGraph.height = 720; })}>PC Size</Button>
           </Grid>
         </Grid>
       </AccordionDetails>
@@ -52,7 +49,10 @@ function Screen(props) {
 }
 
 function Document(props) {
-  const { handleChange } = props
+  const handleChange = (callback) => {
+    callback()
+    Imitation.assignState({ graphConfigUpdate: hash() })
+  }
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
@@ -75,7 +75,10 @@ function Document(props) {
 }
 
 function Project(props) {
-  const { handleChange } = props
+  const handleChange = (callback) => {
+    callback()
+    Imitation.assignState({ graphConfigUpdate: hash() })
+  }
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
@@ -98,9 +101,12 @@ function Project(props) {
 }
 
 function DependenciesMap(props) {
-  const { handleChange } = props
-
   const [name, setName] = React.useState('')
+
+  const handleChange = (callback) => {
+    callback()
+    Imitation.assignState({ graphConfigUpdate: hash() })
+  }
 
   const handleDelete = (key) => {
     handleChange(() => { delete Imitation.state.graphConfig.dependenciesMap[key] })
@@ -197,15 +203,11 @@ function WriteJson(props) {
   </Grid>
 }
 
-function App() {
-  const handleChange = (callback) => {
-    callback()
-    Imitation.assignState({ graphConfigUpdate: hash() })
-  }
-
+function Action(props) {
   const handleExport = () => {
     const data = {
       graphContent: Imitation.state.graphContent,
+      graphEvent: Imitation.state.graphEvent,
       graphConfig: Imitation.state.graphConfig
     }
     copy(JSON.stringify(data), () => { Imitation.assignState({ message: 'Copy Success' }) })
@@ -228,17 +230,7 @@ function App() {
     } catch { }
   }
 
-  return <Grid container spacing={2}>
-    <Grid item xs={12}>Graph Config</Grid>
-    <Grid item xs={12}><Divider /></Grid>
-
-    <Screen handleChange={handleChange} />
-    <Document handleChange={handleChange} />
-    <Project handleChange={handleChange} />
-    <DependenciesMap handleChange={handleChange} />
-    <WriteJson />
-
-    <Grid item xs={12}><Divider /></Grid>
+  return <>
     <Grid item xs={12}>
       <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleExport}>Export Data</Button>
     </Grid>
@@ -248,6 +240,20 @@ function App() {
     <Grid item xs={12}>
       <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleImportElement}>Import Element</Button>
     </Grid>
+  </>
+}
+
+function App() {
+  return <Grid container spacing={2}>
+    <Grid item xs={12}>Graph Config</Grid>
+    <Grid item xs={12}><Divider /></Grid>
+    <Screen />
+    <Document />
+    <Project />
+    <DependenciesMap />
+    <WriteJson />
+    <Grid item xs={12}><Divider /></Grid>
+    <Action />
   </Grid>
 }
 

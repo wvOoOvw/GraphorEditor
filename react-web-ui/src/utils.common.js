@@ -49,23 +49,15 @@ function convertCamelCase(string) {
 const deepSearch = (target, key, value) => {
   var current = undefined
   var parent = undefined
+
   target.forEach(i => {
-    if (current && parent) return
-    if (i[key] === value) {
-      current = i
-      parent = target
-      return
-    }
+    if (i[key] === value) [current, parent] = current && parent ? [current, parent] : [i, target]
+
     if (i.children) {
-      Object.values(i.children).forEach(i => {
-        const r = deepSearch(i, key, value)
-        if (r && r[0] && r[1]) {
-          current = r[0]
-          parent = r[1]
-        }
-      })
+      Object.values(i.children).forEach(i => [current, parent] = current && parent ? [current, parent] : deepSearch(i, key, value))
     }
   })
+
   return [current, parent]
 }
 
@@ -74,33 +66,72 @@ const deleteArrayItem = (target, item) => {
   if (index > -1) target.splice(index, 1)
 }
 
-const deepCopyElementHelp = (t) => {
-  t.id = hash()
-  if (t.children) Object.values(t.children).forEach(i => {
-    i.forEach(i => deepCopyElementHelp(i))
-  })
+const deepCopyElement = (target) => {
+  const deepCopyElementHelp = (t) => {
+    t.id = hash()
+    if (t.children) Object.values(t.children).forEach(i => {
+      i.forEach(i => deepCopyElementHelp(i))
+    })
+    return t
+  }
+
+  return deepCopyElementHelp(JSON.parse(JSON.stringify(target)))
 }
 
-const deepCopyElement = (target) => {
-  const result = clone(target, true)
-  deepCopyElementHelp(result)
-  return result
+const getElementsAll = (content) => {
+  const r = []
+
+  content.forEach(i => {
+    if (i) r.push(i)
+
+    if (i.children) {
+      Object.values(i.children).forEach(i => r.push(...getElementAll(i)))
+    }
+  })
+
+  return r
 }
 
 const getMonitorOptionsAll = (content) => {
-  return content.reduce((t, i) => {
-    if (i.monitor) {
-      i.monitor.forEach(i => {
-        t.push(i)
-      })
-    }
+  const r = []
+
+  content.forEach((i) => {
+    if (i.monitor) r.push(...i.monitor)
+
     if (i.children) {
-      Object.values(i.children).forEach(i => {
-        t.push(...getMonitorOptionsAll(i))
-      })
+      Object.values(i.children).forEach(i => r.push(...getMonitorOptionsAll(i)))
     }
-    return t
-  }, [])
+  })
+
+  return r
+}
+
+const getElementById = (target, id) => {
+  var current = undefined
+
+  target.forEach(i => {
+    if (i.id === id) current = current ? current : i
+
+    if (i.children) {
+      Object.values(i.children).forEach(i => current = current ? current : getElementById(i, id))
+    }
+  })
+
+  return current
+}
+
+const getEventById = (target, id, type) => {
+  var current = undefined
+
+  target.forEach(i => {
+    if (i[type]) current = current ? current : i[type].find(i_ => i_.id === id)
+
+    if (i.children) {
+      Object.values(i.children).forEach(i => current = current ? current : getEventById(i, id))
+    }
+  })
+
+  return current
 }
 
 const updateTriggerLink = (content, pre, current) => {
@@ -127,4 +158,4 @@ const graphElementSearch = (license, list) => {
   }
 }
 
-export { downloadFile, clone, copy, hash, convertCamelCase, deepSearch, deleteArrayItem, deepCopyElement, getMonitorOptionsAll, updateTriggerLink, graphElementSearch }
+export { downloadFile, clone, copy, hash, convertCamelCase, deepSearch, deleteArrayItem, deepCopyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, graphElementSearch, getElementById, getEventById }

@@ -300,20 +300,23 @@ function HookConfig(props) {
   const [dialog, setDialog] = React.useState()
 
   const handleAdd = () => {
-    currentGraphElement.hook.push({ use: true, hookType: '', hookEval: evalEventMonitorDefault })
-    Imitation.assignState({ graphContentUpdate: hash() })
+    const item = { id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
+    currentGraphElement.hook.push(item)
+    Imitation.state.graphEvent.push({ eventType: 'hook', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   const handleChange = (index, value, update) => {
     setDialog(undefined)
     currentGraphElement.hook[index] = value
-    Imitation.assignState({ graphContentUpdate: hash() })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleDelete = (index, update) => {
+  const handleDelete = (index, value, update) => {
     setDialog(undefined)
     currentGraphElement.hook.splice(index, 1)
-    Imitation.assignState({ graphContentUpdate: hash() })
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'hook' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   return <Grid item xs={12}>
@@ -348,7 +351,7 @@ function HookConfig(props) {
         <HookDialog
           value={dialog.data}
           onChange={(value, update) => handleChange(dialog.index, value, update)}
-          onDelete={(update) => handleDelete(dialog.index, update)}
+          onDelete={(value, update) => handleDelete(dialog.index, update)}
           onClose={() => setDialog(undefined)}
         />
         : null
@@ -368,8 +371,10 @@ function MonitorConfig(props) {
   if (!information) return null
 
   const handleAdd = () => {
-    currentGraphElement.monitor.push({ use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' })
-    Imitation.assignState({ graphContentUpdate: hash() })
+    const item = { id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
+    currentGraphElement.monitor.push(item)
+    Imitation.state.graphEvent.push({ eventType: 'monitor', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   const handleChange = (index, value, update) => {
@@ -378,15 +383,16 @@ function MonitorConfig(props) {
       updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, value.monitorName)
     }
     currentGraphElement.monitor[index] = value
-    Imitation.assignState({ graphContentUpdate: hash() })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleDelete = (index, update) => {
+  const handleDelete = (index, value, update) => {
     setDialog(undefined)
     if (update === true) {
       updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, '')
     }
     currentGraphElement.monitor.splice(index, 1)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'monitor' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
 
@@ -445,19 +451,24 @@ function TriggerConfig(props) {
 
   if (!information) return null
 
-  const handleChange = (index, value) => {
+  const handleAdd = () => {
+    const item = { id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
+    currentGraphElement.trigger.push(item)
+    Imitation.state.graphEvent.push({ eventType: 'trigger', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+  }
+
+  const handleChange = (index, value, update) => {
     setDialog(undefined)
     currentGraphElement.trigger[index] = value
-    Imitation.assignState({ graphContentUpdate: hash() })
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
-  const handleAdd = () => {
-    currentGraphElement.trigger.push({ use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' })
-    Imitation.assignState({ graphContentUpdate: hash() })
-  }
-  const handleDelete = (index) => {
+
+  const handleDelete = (index, value, update) => {
     setDialog(undefined)
     currentGraphElement.trigger.splice(index, 1)
-    Imitation.assignState({ graphContentUpdate: hash() })
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'trigger' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   const triggerOptions = information.trigger
@@ -507,15 +518,12 @@ function TriggerConfig(props) {
   </Grid>
 }
 
-function App() {
-  if (!Imitation.state.navigationTabsElementValue) return null
-
-  const [currentGraphElement, parentGraphElement] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
-
-  if (!currentGraphElement) return null
+function Action(props) {
+  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   const handleDelete = () => {
     deleteArrayItem(parentGraphElement, currentGraphElement)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== currentGraphElement.id)
     Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'ElementShop' })
   }
 
@@ -529,19 +537,7 @@ function App() {
     copy(JSON.stringify(currentGraphElement), () => { Imitation.assignState({ message: 'Copy Success' }) })
   }
 
-  return <Grid container spacing={2}>
-    <Grid item xs={12}>Element Config</Grid>
-    <Grid item xs={12}><Divider /></Grid>
-
-    <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <StyleConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <PropertyConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <ChildrenConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <HookConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <MonitorConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <TriggerConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-
-    <Grid item xs={12}><Divider /></Grid>
+  return <>
     <Grid item xs={12}>
       <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleCopy}>Copy Element</Button>
     </Grid>
@@ -551,6 +547,28 @@ function App() {
     <Grid item xs={12}>
       <Button variant='outlined' color='primary' fullWidth style={{ textTransform: 'none' }} onClick={handleDelete}>Delete Element</Button>
     </Grid>
+  </>
+}
+
+function App() {
+  if (!Imitation.state.navigationTabsElementValue) return null
+
+  const [currentGraphElement, parentGraphElement] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
+
+  if (!currentGraphElement) return null
+
+  return <Grid container spacing={2}>
+    <Grid item xs={12}>Element Config</Grid>
+    <Grid item xs={12}><Divider /></Grid>
+    <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <StyleConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <PropertyConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <ChildrenConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <HookConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <MonitorConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <TriggerConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <Grid item xs={12}><Divider /></Grid>
+    <Action currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
   </Grid>
 }
 

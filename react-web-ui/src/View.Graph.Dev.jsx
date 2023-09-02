@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Paper } from '@mui/material'
+import { Slider } from '@mui/material'
 
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
@@ -36,7 +37,6 @@ function Hover() {
   const style = {
     transition: '0.5s all',
     position: 'absolute',
-    zIndex: 1,
     background: '#000',
     borderRadius: '50%'
   }
@@ -78,7 +78,6 @@ function Active() {
   const style = {
     transition: '0.5s all',
     position: 'absolute',
-    zIndex: 1,
     background: 'rgb(25, 118, 210)',
     borderRadius: '50%'
   }
@@ -93,7 +92,7 @@ function Active() {
 
 function ElementRender(props) {
   const { parentId } = props
-  
+
   const { license, id, use, style, property, children } = props.element
 
   const { Render, information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
@@ -173,7 +172,7 @@ function ElementRender(props) {
 
       r[i[0]] = () => {
         return <Paper style={{ width: '100%', height: '100%', boxShadow: Imitation.state.elementDragStart ? undefined : 'none', padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all', boxSizing: 'border-box' }} id={id_} {...params}>
-          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 16 : 0, transition: '0.5s all'}} className='font-single'>{title}</Paper>
+          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 16 : 0, transition: '0.5s all' }} className='font-single'>{title}</Paper>
           {
             i[1].map(i => {
               return <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />
@@ -214,25 +213,25 @@ function App() {
 
   const [mouseDown, setMouseDown] = React.useState(false)
 
-  const eventDown = e => {
+  const onMouseDown = e => {
     try {
       mouseDownPosition.current = [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY]
       setMouseDown(true)
     } catch { }
   }
 
-  const eventUp = e => {
+  const onMouseUp = e => {
     mouseDownPosition.current = null
     setMouseDown(false)
   }
 
-  const eventMove = e => {
+  const onMouseMove = e => {
     if (!mouseDownPosition.current) return
     const changeX = (e.pageX || e.targetTouches[0].pageX) - mouseDownPosition.current[0]
     const changeY = (e.pageY || e.targetTouches[0].pageY) - mouseDownPosition.current[1]
     mouseDownPosition.current = [mouseDownPosition.current[0] + changeX, mouseDownPosition.current[1] + changeY]
-    Imitation.state.graphConfig.screen.translateX = Math.floor(Number(Imitation.state.graphConfig.screen.translateX) + changeX)
-    Imitation.state.graphConfig.screen.translateY = Math.floor(Number(Imitation.state.graphConfig.screen.translateY) + changeY)
+    Imitation.state.graphConfig.screenGraph.translateX = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateX) + changeX)
+    Imitation.state.graphConfig.screenGraph.translateY = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateY) + changeY)
     Imitation.assignState({ graphConfigUpdate: hash() })
   }
 
@@ -249,28 +248,28 @@ function App() {
         cursor: mouseDown ? 'grabbing' : 'grab',
         background: 'rgba(235,235,235)'
       }}
-      onMouseDown={eventDown}
-      onMouseMove={eventMove}
-      onMouseUp={eventUp}
-      onMouseOut={eventUp}
-      onTouchStart={eventDown}
-      onTouchMove={eventMove}
-      onTouchEnd={eventUp}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+      onTouchStart={onMouseDown}
+      onTouchMove={onMouseMove}
+      onTouchEnd={onMouseUp}
     >
       <Paper
         style={{
-          width: isNaN(Imitation.state.graphConfig.screen.width) ? Imitation.state.graphConfig.screen.width : Imitation.state.graphConfig.screen.width + 'px',
-          height: isNaN(Imitation.state.graphConfig.screen.height) ? Imitation.state.graphConfig.screen.height : Imitation.state.graphConfig.screen.height + 'px',
+          width: isNaN(Imitation.state.graphConfig.screenGraph.width) ? Imitation.state.graphConfig.screenGraph.width : Imitation.state.graphConfig.screenGraph.width + 'px',
+          height: isNaN(Imitation.state.graphConfig.screenGraph.height) ? Imitation.state.graphConfig.screenGraph.height : Imitation.state.graphConfig.screenGraph.height + 'px',
           transform: `
-          translateX(${Imitation.state.graphConfig.screen.translateX}px)
-          translateY(${Imitation.state.graphConfig.screen.translateY}px)
-          scale(${Imitation.state.graphConfig.screen.scale})
+          translateX(${Imitation.state.graphConfig.screenGraph.translateX}px)
+          translateY(${Imitation.state.graphConfig.screenGraph.translateY}px)
+          scale(${Imitation.state.graphConfig.screenGraph.scale})
         `,
           position: 'absolute',
           overflow: 'auto',
           transitionDuration: '0.5s',
           transitionProperty: 'width,height',
-          cursor: 'default'
+          cursor: 'default',
         }}
         onMouseDown={e => e.stopPropagation()}
         onTouchStart={e => e.stopPropagation()}
@@ -282,6 +281,9 @@ function App() {
         </div>
       </Paper>
 
+      <Paper style={{ position: 'absolute', bottom: 16, left: 0, right: 0, margin: 'auto', width: 480, maxWidth: 'calc(100% - 32px)', padding: '8px 24px' }}>
+        <Slider className='font' value={Imitation.state.graphConfig.screenGraph.scale} onChange={(e, v) => { Imitation.state.graphConfig.screenGraph.scale = v; Imitation.assignState({ graphConfigUpdate: hash() }) }} min={0} max={2} step={0.01} valueLabelDisplay='auto' onMouseDown={e => e.stopPropagation()} />
+      </Paper>
     </Paper>
 
     <Hover />

@@ -20,13 +20,24 @@ const initState = () => {
     elementDragStart: undefined,
     elementDragEnter: undefined,
 
+    eventMouseDownTarget: undefined,
+    eventMouseDownPosition: undefined,
+
     graphContent: [],
     graphContentUpdate: undefined,
 
+    graphEvent: [],
+    graphEventUpdate: undefined,
+
     graphConfig: {
-      screen: {
+      screenGraph: {
         width: 375,
         height: 667,
+        scale: 1,
+        translateX: 0,
+        translateY: 0
+      },
+      screenEvent: {
         scale: 1,
         translateX: 0,
         translateY: 0

@@ -28,8 +28,10 @@ function App() {
 
     if (cache) {
       Imitation.state.graphContent = cache.graphContent
+      Imitation.state.graphEvent = cache.graphEvent
       Imitation.state.graphConfig = cache.graphConfig
       Imitation.state.graphContentUpdate = hash()
+      Imitation.state.graphEventUpdate = hash()
       Imitation.state.graphConfigUpdate = hash()
     }
 
@@ -41,6 +43,8 @@ function App() {
   React.useEffect(() => {
     const event = () => {
       setHeight(window.innerHeight - 32)
+
+      if (window.innerWidth < 1800 || window.innerHeight < 900) Imitation.assignState({ message: `suggest 'ctrl -' to zoom out screen` })
     }
 
     event()
