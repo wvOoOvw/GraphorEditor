@@ -23,6 +23,8 @@ const initState = () => {
     eventMouseDownTarget: undefined,
     eventMouseDownPosition: undefined,
 
+    eventRootRef: undefined,
+
     graphContent: [],
     graphContentUpdate: undefined,
 

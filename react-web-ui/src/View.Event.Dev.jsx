@@ -12,6 +12,10 @@ import EventDev from './View.Event.Dev'
 import Imitation from './utils.imitation'
 import { hash, getElementById, getEventById, graphElementSearch } from './utils.common'
 
+const offsetLink = (item) => {
+  return { ...item, x: item.x + Imitation.state.eventRootRef.offsetWidth / 2, y: item.y + Imitation.state.eventRootRef.offsetHeight / 2 }
+}
+
 function NeuronLinkAction() {
   const mouseDownPosition = React.useRef(null)
   const fromPosition = React.useRef(null)
@@ -68,7 +72,7 @@ function NeuronLinkAction() {
   return <NeuronLink from={fromPosition.current} to={toPosition.current} color={color} />
 }
 
-function NeuronLink(props) {
+function Link(props) {
   const refColor = React.useRef(hash())
 
   const [removeDialog, setRemoveDialog] = React.useState(false)
@@ -79,10 +83,10 @@ function NeuronLink(props) {
     setRemoveDialog(true)
   }
 
-  const remove = () => {
-    Imitation.state.context.neuronLink = Imitation.state.context.neuronLink.filter(i_ => i_.id !== props.neuronLink.id)
-    Imitation.dispatch()
-  }
+  // const remove = () => {
+  //   Imitation.state.context.neuronLink = Imitation.state.context.neuronLink.filter(i_ => i_.id !== props.neuronLink.id)
+  //   Imitation.dispatch()
+  // }
 
   const [x, y, x_, y_] = React.useMemo(() => {
     return [props.from.x, props.from.y, props.to.x, props.to.y]
@@ -101,13 +105,13 @@ function NeuronLink(props) {
   })
 
   const color = React.useMemo(() => {
-    if (props.color) return props.color
+    // if (props.color) return props.color
     return ['black', 'red']
   })
 
   const strokeDasharray = React.useMemo(() => {
-    if (Imitation.state.neuronLinkInformationMouseEnter && props.neuronLink && Imitation.state.neuronLinkInformationMouseEnter.id === props.neuronLink.id) return '2 4'
-    if (Imitation.state.runLogMouseEnterArray.find(i => (i.from && i.from.find(i => i.id === props.neuronLink.from) && i.neuron.id === props.neuronLink.to) || (i.to && i.to.find(i => i.id === props.neuronLink.to) && i.neuron.id === props.neuronLink.from))) return '2 4'
+    // if (Imitation.state.neuronLinkInformationMouseEnter && props.neuronLink && Imitation.state.neuronLinkInformationMouseEnter.id === props.neuronLink.id) return '2 4'
+    // if (Imitation.state.runLogMouseEnterArray.find(i => (i.from && i.from.find(i => i.id === props.neuronLink.from) && i.neuron.id === props.neuronLink.to) || (i.to && i.to.find(i => i.id === props.neuronLink.to) && i.neuron.id === props.neuronLink.from))) return '2 4'
     // if (Imitation.state.runContext && Imitation.state.runContext.log.find(i => i.neuron.id === props.neuronLink.from || i.neuron.id === props.neuronLink.to)) return '2 4'
     return '1 0'
   })
@@ -118,7 +122,7 @@ function NeuronLink(props) {
 
   return <>
     <defs>
-      <linearGradient id={refColor.current} x1={String(x / Imitation.state.refCanvas.current.offsetWidth)} y1={String(y / Imitation.state.refCanvas.current.offsetHeight)} x2={String(x_ / Imitation.state.refCanvas.current.offsetWidth)} y2={String(y_ / Imitation.state.refCanvas.current.offsetHeight)}>
+      <linearGradient id={refColor.current} x1={String(x / Imitation.state.eventRootRef.offsetWidth)} y1={String(y / Imitation.state.eventRootRef.offsetHeight)} x2={String(x_ / Imitation.state.eventRootRef.offsetWidth)} y2={String(y_ / Imitation.state.eventRootRef.offsetHeight)}>
         <stop offset='20%' stopColor={color[0]} />
         <stop offset='80%' stopColor={color[1]} />
       </linearGradient>
@@ -127,24 +131,33 @@ function NeuronLink(props) {
     <path d={d} style={{ fill: 'transparent', stroke: `url(#${refColor.current})`, strokeWidth: strokeWidth, strokeDasharray: strokeDasharray, cursor: 'pointer', transitionDuration: '0.5s', transitionProperty: 'stroke-dasharray, stroke-width' }} onClick={openRemoveDialog} />
 
     {
-      removeDialog ? <RemoveDialog neuronLink={props.neuronLink} onClick={remove} onClose={() => setRemoveDialog()} /> : null
+      // removeDialog ? <RemoveDialog neuronLink={props.neuronLink} onClick={remove} onClose={() => setRemoveDialog()} /> : null
     }
   </>
 }
 
-function NeuronLinks() {
-  return Imitation.state.context.neuronLink.map((i) => <NeuronLink key={i.id} from={offsetNeuronLine(Imitation.state.context.neuron.find(i_ => i_.id === i.from))} to={offsetNeuronLine(Imitation.state.context.neuron.find(i_ => i_.id === i.to))} neuronLink={i} />)
+function Links(props) {
+  const result = React.useMemo(() => {
+    const r = []
+
+    props.graphEvent.filter(i => i.eventType === 'trigger').forEach(i => {
+      props.graphEvent.filter(i_ => i_.eventType === 'monitor' && i_.event.monitorName === i.event.monitorName).forEach(i_ => {
+        r.push({ from: { ...i, x: i.translateX, y: i.translateY }, to: { ...i_, x: i_.translateX, y: i_.translateY }, id: i.eventType + i.elementId + i.eventId + i_.eventType + i_.elementId + i_.eventId })
+      })
+    })
+
+    return r
+  }, [props.graphEvent])
+
+  return result.map((i) => <Link key={i.id} from={offsetLink(i.from)} to={offsetLink(i.to)} />)
 }
 
 function Event(props) {
-  const event = getEventById(Imitation.state.graphContent, props.content.eventId, props.content.eventType)
-  const element = getElementById(Imitation.state.graphContent, props.content.elementId)
-
-  const { information } = React.useMemo(() => graphElementSearch(element.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => graphElementSearch(props.element.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   const onMouseDown = e => {
     try {
-      Imitation.assignState({ eventMouseDownTarget: props.content, eventMouseDownPosition: [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY] })
+      Imitation.assignState({ eventMouseDownTarget: Imitation.state.graphEvent.find(i => i.elementId === props.elementId && i.eventId === props.eventId), eventMouseDownPosition: [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY] })
     } catch { }
 
     e.stopPropagation()
@@ -159,28 +172,29 @@ function Event(props) {
       width: 240,
       height: 'fit-content',
       padding: 16,
-      transform: `translate(${props.content.translateX}px, ${props.content.translateY}px) scale(1)`,
-      cursor: 'default'
+      transform: `translate(${props.translateX}px, ${props.translateY}px) scale(1)`,
+      cursor: 'default',
+      opacity: 0.5,
     }}
     onMouseDown={onMouseDown}
     onTouchStart={onMouseDown}
   >
     <div style={{ position: 'absolute', right: 4, top: 4, fontSize: 12, opacity: 0.5, color: 'red' }}>
       {
-        props.content.eventType
+        props.eventType
       }
     </div>
 
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
         {
-          element.name
+          props.element.name
         }
       </div>
     </div>
 
     {
-      props.content.eventType === 'hook' ? //{ id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
+      props.eventType === 'hook' ? //{ id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
         <>
 
         </>
@@ -188,24 +202,24 @@ function Event(props) {
     }
 
     {
-      props.content.eventType === 'monitor' ? //{ id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
+      props.eventType === 'monitor' ? //{ id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
         <>
           <div>
             Monitor Name:
             {
-              event.monitorName
+              props.event.monitorName
             }
           </div>
           <div>
             Monitor Type:
             {
-              event.monitorType
+              props.event.monitorType
             }
           </div>
           <div>
             Monitor key:
             {
-              information.monitor.find(i => i.value === event.monitorKey) ? information.monitor.find(i => i.value === event.monitorKey).label : '...'
+              information.monitor.find(i => i.value === props.event.monitorKey) ? information.monitor.find(i => i.value === props.event.monitorKey).label : '...'
             }
           </div>
         </>
@@ -213,30 +227,30 @@ function Event(props) {
     }
 
     {
-      props.content.eventType === 'trigger' ? //{ id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
+      props.eventType === 'trigger' ? //{ id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
         <>
           <div>
             Trigger Name:
             {
-              event.triggerName
+              props.event.triggerName
             }
           </div>
           <div>
             Trigger Type:
             {
-              event.triggerType
+              props.event.triggerType
             }
           </div>
           <div>
             Link Monitor Name:
             {
-              event.monitorName
+              props.event.monitorName
             }
           </div>
           <div>
             Trigger key:
             {
-              information.trigger.find(i => i.value === event.triggerKey) ? information.trigger.find(i => i.value === event.triggerKey).label : '...'
+              information.trigger.find(i => i.value === props.event.triggerKey) ? information.trigger.find(i => i.value === props.event.triggerKey).label : '...'
             }
           </div>
         </>
@@ -246,11 +260,13 @@ function Event(props) {
   </Paper>
 }
 
-function Events() {
-  return Imitation.state.graphEvent.map(i => <Event key={i.eventId} content={i} />)
+function Events(props) {
+  return props.graphEvent.map(i => <Event key={i.eventType + i.elementId + i.eventId} {...i} />)
 }
 
 function App() {
+  const [update, setUpdate] = React.useState(0)
+
   const onMouseDown = e => {
     try {
       Imitation.assignState({ eventMouseDownTarget: Imitation.state.graphConfig.screenEvent, eventMouseDownPosition: [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY] })
@@ -279,6 +295,26 @@ function App() {
 
     Imitation.assignState({ graphConfigUpdate: hash(), graphEventUpdate: hash() })
   }
+
+  const graphEvent = React.useMemo(() => {
+    return Imitation.state.graphEvent.map(i => {
+      const element = getElementById(Imitation.state.graphContent, i.elementId)
+      const event = getEventById(Imitation.state.graphContent, i.eventId, i.eventType)
+      return { ...i, element, event }
+    })
+  }, [Imitation.state.graphEventUpdate, Imitation.state.graphContentUpdate])
+
+  React.useEffect(() => {
+    const event = () => setUpdate(pre => pre + 1)
+
+    window.addEventListener('resize', event)
+
+    return () => window.removeEventListener('resize', event)
+  }, [])
+
+  React.useEffect(() => {
+    if (Imitation.state.eventRootRef) setUpdate(pre => pre + 1)
+  }, [])
 
   return <Paper
     className='font'
@@ -315,14 +351,17 @@ function App() {
       onTouchStart={onMouseDown}
       onTouchMove={onMouseMove}
       onTouchEnd={onMouseUp}
+      ref={el => Imitation.state.eventRootRef = el}
     >
-      <Events />
+      <Events graphEvent={graphEvent} />
+      {
+        Imitation.state.eventRootRef ?
+          <svg style={{ position: 'absolute', inset: 0, margin: 'auto', zIndex: 1 }} width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <Links graphEvent={graphEvent} />
+          </svg>
+          : null
+      }
     </Paper>
-
-    {/* <svg style={{ position: 'absolute', inset: 0, margin: 'auto', zIndex: 1 }} width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <NeuronLinkAction />
-      <NeuronLinks />
-    </svg> */}
 
     <Paper style={{ position: 'absolute', bottom: 16, left: 0, right: 0, margin: 'auto', width: 480, maxWidth: 'calc(100% - 32px)', padding: '8px 24px' }}>
       <Slider className='font' value={Imitation.state.graphConfig.screenEvent.scale} onChange={(e, v) => { Imitation.state.graphConfig.screenEvent.scale = v; Imitation.assignState({ graphConfigUpdate: hash() }) }} min={0} max={2} step={0.01} valueLabelDisplay='auto' />
@@ -331,4 +370,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphEventUpdate, state.graphConfigUpdate, state.navigationTabsValue, state.eventMouseDownTarget, state.eventMouseDownPosition])
+export default Imitation.withBindRender(App, state => [state.graphContentUpdate, state.graphEventUpdate, state.graphConfigUpdate, state.eventMouseDownTarget, state.eventMouseDownPosition])
