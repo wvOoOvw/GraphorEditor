@@ -6,11 +6,15 @@ import { Divider } from '@mui/material'
 import { Tooltip } from '@mui/material'
 import { Paper } from '@mui/material'
 import { Slider } from '@mui/material'
-import GraphDev from './View.Graph.Dev'
-import EventDev from './View.Event.Dev'
+import { IconButton } from '@mui/material'
+
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 
 import Imitation from './utils.imitation'
-import { hash, getElementById, getEventById, graphElementSearch } from './utils.common'
+import { hash, getElementById, getEventById, graphElementSearch, getMonitorOptionsAll, updateTriggerLink, convertCamelCase } from './utils.common'
+
+import { EventDialog } from './View.Component.EventDialog'
 
 const offsetLink = (item) => {
   return { ...item, x: item.x + Imitation.state.eventRootRef.offsetWidth / 2, y: item.y + Imitation.state.eventRootRef.offsetHeight / 2 }
@@ -106,7 +110,7 @@ function Link(props) {
 
   const color = React.useMemo(() => {
     // if (props.color) return props.color
-    return ['black', 'red']
+    return ['green', 'red']
   })
 
   const strokeDasharray = React.useMemo(() => {
@@ -155,6 +159,24 @@ function Links(props) {
 function Event(props) {
   const { information } = React.useMemo(() => graphElementSearch(props.element.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
+  const [eventDialog, setEventDialog] = React.useState()
+
+  const hoverStyle = (id) => {
+    return Imitation.state.elementHover === id ? { background: 'rgb(25, 118, 210)', color: 'white', fill: 'white' } : {}
+  }
+
+  const typeStyle = () => {
+    var background = ''
+
+    if (props.eventType === 'monitor') background = 'red'
+    if (props.eventType === 'trigger') background = 'green'
+    if (props.eventType === 'hook') background = 'blue'
+
+    var opacity = props.event.use ? 1 : 0.25
+
+    return { background, opacity }
+  }
+
   const onMouseDown = e => {
     try {
       Imitation.assignState({ eventMouseDownTarget: Imitation.state.graphEvent.find(i => i.elementId === props.elementId && i.eventId === props.eventId), eventMouseDownPosition: [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY] })
@@ -163,101 +185,131 @@ function Event(props) {
     e.stopPropagation()
   }
 
-  return <Paper
-    style={{
-      position: 'absolute',
-      inset: 0,
-      margin: 'auto',
-      zIndex: 2,
-      width: 240,
-      height: 'fit-content',
-      padding: 16,
-      transform: `translate(${props.translateX}px, ${props.translateY}px) scale(1)`,
-      cursor: 'default',
-      opacity: 0.5,
-    }}
-    onMouseDown={onMouseDown}
-    onTouchStart={onMouseDown}
-  >
-    <div style={{ position: 'absolute', right: 4, top: 4, fontSize: 12, opacity: 0.5, color: 'red' }}>
-      {
-        props.eventType
-      }
-    </div>
+  const handleChange = (value, update) => {
+    setEventDialog(undefined)
+    if (update === true) {
+      updateTriggerLink(Imitation.state.graphContent, props.event.monitorName, value.monitorName)
+    }
+    const index = props.element[props.eventType].findIndex(i => i.id === props.eventId)
+    props.element[props.eventType][index] = value
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+  }
 
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+  const handleDelete = (value, update) => {
+    setEventDialog(undefined)
+    if (update === true) {
+      updateTriggerLink(Imitation.state.graphContent, props.event.monitorName, '')
+    }
+    props.element[props.eventType] = props.element[props.eventType].filter(i => i.id !== props.eventId)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== props.elementId || i.eventId !== props.eventId)
+    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+  }
+
+  const onClick = () => {
+    const params = {}
+
+    params.type = props.eventType
+    params.value = props.event
+
+    if (props.eventType === 'monitor') {
+      params.monitorOptions = [{ value: '_Use', label: 'Use' }, { value: '_Nonuse', label: 'Nonuse' }, ...information.monitor]
+    }
+
+    if (props.eventType === 'trigger') {
+      params.triggerOptions = information.trigger
+      params.monitorOptionsAll = getMonitorOptionsAll(Imitation.state.graphContent)
+    }
+
+    setEventDialog(params)
+  }
+
+  return <>
+
+    <Paper
+      style={{
+        position: 'absolute',
+        inset: 0,
+        margin: 'auto',
+        zIndex: 2,
+        width: 240,
+        height: 'fit-content',
+        padding: 16,
+        overflow: 'hidden',
+        transform: `translate(${props.translateX}px, ${props.translateY}px) scale(1)`,
+        transitionProperty: 'background,height',
+        transitionDuration: '0.5s',
+        cursor: 'default',
+        ...hoverStyle(props.elementId)
+      }}
+      onMouseDown={onMouseDown}
+      onTouchStart={onMouseDown}
+    >
+      <div style={{ position: 'absolute', right: 4, top: 4, width: 8, height: 8, borderRadius: 4, ...typeStyle() }}></div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
+          {
+            props.element.name
+          }
+        </div>
+        <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+          <IconButton size='small'><EditIcon fontSize='small' style={{ fill: 'inherit' }} onClick={() => onClick()} /></IconButton>
+        </div>
+      </div>
+
+      <Divider style={{ margin: '8px 0' }} />
+
+      <div style={{ opacity: 0.5 }}>
         {
-          props.element.name
+          props.eventType === 'hook' ?
+            <>
+              {
+                convertCamelCase(props.event.hookType)
+              }
+            </> : null
+        }
+        {
+          props.eventType === 'monitor' ?
+            <>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
+                  {
+                    props.event.monitorName
+                  }
+                </div>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  {
+                    information.monitor.find(i => i.value === props.event.monitorKey) ? information.monitor.find(i => i.value === props.event.monitorKey).label : null
+                  }
+                </div>
+              </div>
+            </> : null
+        }
+        {
+          props.eventType === 'trigger' ?
+            <>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
+                  {
+                    props.event.monitorName
+                  }
+                </div>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  {
+                    information.trigger.find(i => i.value === props.event.triggerKey) ? information.trigger.find(i => i.value === props.event.triggerKey).label : '...'
+                  }
+                </div>
+              </div>
+            </> : null
         }
       </div>
-    </div>
+
+    </Paper>
 
     {
-      props.eventType === 'hook' ? //{ id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
-        <>
-
-        </>
-        : null
+      eventDialog ? <EventDialog {...eventDialog} onChange={handleChange} onDelete={handleDelete} onClose={() => setEventDialog(undefined)} /> : null
     }
-
-    {
-      props.eventType === 'monitor' ? //{ id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
-        <>
-          <div>
-            Monitor Name:
-            {
-              props.event.monitorName
-            }
-          </div>
-          <div>
-            Monitor Type:
-            {
-              props.event.monitorType
-            }
-          </div>
-          <div>
-            Monitor key:
-            {
-              information.monitor.find(i => i.value === props.event.monitorKey) ? information.monitor.find(i => i.value === props.event.monitorKey).label : '...'
-            }
-          </div>
-        </>
-        : null
-    }
-
-    {
-      props.eventType === 'trigger' ? //{ id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
-        <>
-          <div>
-            Trigger Name:
-            {
-              props.event.triggerName
-            }
-          </div>
-          <div>
-            Trigger Type:
-            {
-              props.event.triggerType
-            }
-          </div>
-          <div>
-            Link Monitor Name:
-            {
-              props.event.monitorName
-            }
-          </div>
-          <div>
-            Trigger key:
-            {
-              information.trigger.find(i => i.value === props.event.triggerKey) ? information.trigger.find(i => i.value === props.event.triggerKey).label : '...'
-            }
-          </div>
-        </>
-        : null
-    }
-
-  </Paper>
+  </>
 }
 
 function Events(props) {
@@ -370,4 +422,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphContentUpdate, state.graphEventUpdate, state.graphConfigUpdate, state.eventMouseDownTarget, state.eventMouseDownPosition])
+export default Imitation.withBindRender(App, state => [state.graphContentUpdate, state.graphEventUpdate, state.graphConfigUpdate, state.elementHover, state.eventMouseDownTarget, state.eventMouseDownPosition])

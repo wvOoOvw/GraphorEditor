@@ -34,7 +34,7 @@ import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault 
 import { graphElementSearch } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
-import { HookDialog, MonitorDialog, TriggerDialog } from './View.Component.EventDialog'
+import { HookConfig as HookConfigComponent, MonitorConfig as MonitorConfigComponenent, TriggerConfig as TriggerConfigComponent } from './View.Component.EventDialog'
 import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
@@ -60,19 +60,19 @@ function BasicConfig(props) {
             <Switch checked={currentGraphElement.use} onChange={e => { currentGraphElement.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }); }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Name' disabled value={information.name} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Name' disabled value={information.name} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Id' disabled value={currentGraphElement.id} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={currentGraphElement.id} />
           </Grid>
           {
             currentGraphElement.description ?
               <Grid item xs={12}>
-                <TextField {...TextFieldSX} fullWidth label='Description' value={currentGraphElement.description} multiline />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Description' value={currentGraphElement.description} multiline />
               </Grid> : null
           }
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Custom Name' value={currentGraphElement.name} onChange={e => handleChange(e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Custom Name' value={currentGraphElement.name} onChange={e => handleChange(e.target.value)} />
           </Grid>
           {
             license.dependencies && license.dependencies.length ?
@@ -297,104 +297,24 @@ function ChildrenConfig(props) {
 function HookConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
-  const [dialog, setDialog] = React.useState()
-
-  const handleAdd = () => {
-    const item = { id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
-    currentGraphElement.hook.push(item)
-    Imitation.state.graphEvent.push({ eventType: 'hook', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleChange = (index, value, update) => {
-    setDialog(undefined)
-    currentGraphElement.hook[index] = value
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleDelete = (index, value, update) => {
-    setDialog(undefined)
-    currentGraphElement.hook.splice(index, 1)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'hook' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Hook</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={1}>
-          {
-            currentGraphElement.hook.map((i, index) => {
-              return <Grid item xs={12} key={index}>
-                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{convertCamelCase(i.hookType)}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
-                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
-                  </div>
-                </Paper>
-              </Grid>
-            })
-          }
-          <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
-          </Grid>
-        </Grid>
+        <HookConfigComponent currentGraphElement={currentGraphElement} />
       </AccordionDetails>
     </Accordion>
-
-    {
-      dialog ?
-        <HookDialog
-          value={dialog.data}
-          onChange={(value, update) => handleChange(dialog.index, value, update)}
-          onDelete={(value, update) => handleDelete(dialog.index, update)}
-          onClose={() => setDialog(undefined)}
-        />
-        : null
-    }
   </Grid>
 }
 
 function MonitorConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
-  const [dialog, setDialog] = React.useState()
-
   if (!currentGraphElement.monitor) return null
 
   const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
-
-  const handleAdd = () => {
-    const item = { id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
-    currentGraphElement.monitor.push(item)
-    Imitation.state.graphEvent.push({ eventType: 'monitor', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleChange = (index, value, update) => {
-    setDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, value.monitorName)
-    }
-    currentGraphElement.monitor[index] = value
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleDelete = (index, value, update) => {
-    setDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, '')
-    }
-    currentGraphElement.monitor.splice(index, 1)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'monitor' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
-    Imitation.assignState({ graphContentUpdate: hash() })
-  }
 
   const monitorOptions = [{ value: '_Use', label: 'Use' }, { value: '_Nonuse', label: 'Nonuse' }, ...information.monitor]
 
@@ -404,46 +324,14 @@ function MonitorConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Monitor</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={1}>
-          {
-            currentGraphElement.monitor.map((i, index) => {
-              return <Grid item xs={12} key={index}>
-                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{i.monitorName}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
-                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
-                  </div>
-                </Paper>
-              </Grid>
-            })
-          }
-          <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
-          </Grid>
-        </Grid>
+        <MonitorConfigComponenent currentGraphElement={currentGraphElement} />
       </AccordionDetails>
     </Accordion>
-    {
-      dialog ?
-        <MonitorDialog
-          value={dialog.data}
-          onChange={(value, update) => handleChange(dialog.index, value, update)}
-          onDelete={(update) => handleDelete(dialog.index, update)}
-          onClose={() => setDialog(undefined)}
-          monitorOptions={monitorOptions}
-        />
-        : null
-    }
   </Grid>
 }
 
 function TriggerConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
-
-  const [dialog, setDialog] = React.useState()
 
   if (!currentGraphElement.trigger) return null
 
@@ -451,29 +339,7 @@ function TriggerConfig(props) {
 
   if (!information) return null
 
-  const handleAdd = () => {
-    const item = { id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
-    currentGraphElement.trigger.push(item)
-    Imitation.state.graphEvent.push({ eventType: 'trigger', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleChange = (index, value, update) => {
-    setDialog(undefined)
-    currentGraphElement.trigger[index] = value
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
-  const handleDelete = (index, value, update) => {
-    setDialog(undefined)
-    currentGraphElement.trigger.splice(index, 1)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'trigger' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
-    Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
-  }
-
   const triggerOptions = information.trigger
-
-  const monitorOptionsAll = getMonitorOptionsAll(Imitation.state.graphContent)
 
   if (!triggerOptions || triggerOptions.length === 0) return null
 
@@ -481,40 +347,9 @@ function TriggerConfig(props) {
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Trigger</AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={1}>
-          {
-            currentGraphElement.trigger.map((i, index) => {
-              return <Grid item xs={12} key={index}>
-                <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
-                  <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    <span>{triggerOptions.find(i_ => i_.value === i.triggerKey) ? triggerOptions.find(i_ => i_.value === i.triggerKey).label : null}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
-                    <Switch checked={i.use} onChange={e => { i.use = e.target.checked; Imitation.assignState({ graphContentUpdate: hash() }) }} />
-                  </div>
-                </Paper>
-              </Grid>
-            })
-          }
-          <Grid item xs={12}>
-            <Button variant='outlined' fullWidth style={{ textTransform: 'none' }} onClick={handleAdd}><AddIcon /></Button>
-          </Grid>
-        </Grid>
+        <TriggerConfigComponent currentGraphElement={currentGraphElement} />
       </AccordionDetails>
     </Accordion>
-    {
-      dialog ?
-        <TriggerDialog
-          value={dialog.data}
-          onChange={(v) => handleChange(dialog.index, v)}
-          onDelete={() => handleDelete(dialog.index)}
-          onClose={() => setDialog(undefined)}
-          triggerOptions={triggerOptions}
-          monitorOptionsAll={monitorOptionsAll}
-        />
-        : null
-    }
   </Grid>
 }
 
@@ -573,5 +408,3 @@ function App() {
 }
 
 export default App
-
-export { HookConfig, MonitorConfig, TriggerConfig }

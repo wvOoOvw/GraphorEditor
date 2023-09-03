@@ -129,10 +129,10 @@ export function Size(props) {
       value.width !== undefined && value.height !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Width' value={value.width} onChange={e => onChange(() => value.width = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Width' value={value.width} onChange={e => onChange(() => value.width = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Height' value={value.height} onChange={e => onChange(() => value.height = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Height' value={value.height} onChange={e => onChange(() => value.height = e.target.value)} />
           </Grid>
         </> : null
     }
@@ -169,20 +169,20 @@ export function SizeLimit(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Min Width' value={value.minWidth} onChange={e => onChange(() => value.minWidth = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Min Width' value={value.minWidth} onChange={e => onChange(() => value.minWidth = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Min Height' value={value.minHeight} onChange={e => onChange(() => value.minHeight = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Min Height' value={value.minHeight} onChange={e => onChange(() => value.minHeight = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Max Width' value={value.maxWidth} onChange={e => onChange(() => value.maxWidth = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Max Width' value={value.maxWidth} onChange={e => onChange(() => value.maxWidth = e.target.value)} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Max Height' value={value.maxHeight} onChange={e => onChange(() => value.maxHeight = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Max Height' value={value.maxHeight} onChange={e => onChange(() => value.maxHeight = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -252,16 +252,16 @@ export function Inset(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Top' value={value.inset[0]} onChange={e => onChange(() => value.inset[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Top' value={value.inset[0]} onChange={e => onChange(() => value.inset[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Right' value={value.inset[1]} onChange={e => onChange(() => value.inset[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Right' value={value.inset[1]} onChange={e => onChange(() => value.inset[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Bottom' value={value.inset[2]} onChange={e => onChange(() => value.inset[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Bottom' value={value.inset[2]} onChange={e => onChange(() => value.inset[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Left' value={value.inset[3]} onChange={e => onChange(() => value.inset[3] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Left' value={value.inset[3]} onChange={e => onChange(() => value.inset[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -330,7 +330,7 @@ export function ZIndex(props) {
       value.zIndex !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Z-Index' value={value.zIndex} onChange={e => onChange(() => value.zIndex = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Z-Index' value={value.zIndex} onChange={e => onChange(() => value.zIndex = e.target.value)} type='number' />
           </Grid>
         </> : null
     }
@@ -471,16 +471,16 @@ export function Padding(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Top' value={value.padding[0]} onChange={e => onChange(() => value.padding[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Top' value={value.padding[0]} onChange={e => onChange(() => value.padding[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Right' value={value.padding[1]} onChange={e => onChange(() => value.padding[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Right' value={value.padding[1]} onChange={e => onChange(() => value.padding[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Bottom' value={value.padding[2]} onChange={e => onChange(() => value.padding[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Bottom' value={value.padding[2]} onChange={e => onChange(() => value.padding[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Left' value={value.padding[3]} onChange={e => onChange(() => value.padding[3] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Left' value={value.padding[3]} onChange={e => onChange(() => value.padding[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -513,16 +513,16 @@ export function Margin(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='top' value={value.margin[0]} onChange={e => onChange(() => value.margin[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='top' value={value.margin[0]} onChange={e => onChange(() => value.margin[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='right' value={value.margin[1]} onChange={e => onChange(() => value.margin[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='right' value={value.margin[1]} onChange={e => onChange(() => value.margin[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='bottom' value={value.margin[2]} onChange={e => onChange(() => value.margin[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='bottom' value={value.margin[2]} onChange={e => onChange(() => value.margin[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='left' value={value.margin[3]} onChange={e => onChange(() => value.margin[3] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='left' value={value.margin[3]} onChange={e => onChange(() => value.margin[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -611,13 +611,13 @@ export function Flex(props) {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <TextField {...TextFieldSX} fullWidth label='Flex Grow' value={value.flex.flexGrow} onChange={e => onChange(() => value.flex.flexGrow = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Flex Grow' value={value.flex.flexGrow} onChange={e => onChange(() => value.flex.flexGrow = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={6}>
-            <TextField {...TextFieldSX} fullWidth label='Flex Shrink' value={value.flex.flexShrink} onChange={e => onChange(() => value.flex.flexShrink = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Flex Shrink' value={value.flex.flexShrink} onChange={e => onChange(() => value.flex.flexShrink = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Flex Basis' value={value.flex.flexBasis} onChange={e => onChange(() => value.flex.flexBasis = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Flex Basis' value={value.flex.flexBasis} onChange={e => onChange(() => value.flex.flexBasis = e.target.value)} />
           </Grid>
         </> : null
     }
@@ -655,31 +655,31 @@ export function Transform(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Perspective' value={value.transform.perspective} onChange={e => onChange(() => value.transform.perspective = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Perspective' value={value.transform.perspective} onChange={e => onChange(() => value.transform.perspective = e.target.value)} />
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Origin X' value={value.transform.transformOrigin[0]} onChange={e => onChange(() => value.transform.transformOrigin[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Origin X' value={value.transform.transformOrigin[0]} onChange={e => onChange(() => value.transform.transformOrigin[0] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Origin Y' value={value.transform.transformOrigin[1]} onChange={e => onChange(() => value.transform.transformOrigin[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Origin Y' value={value.transform.transformOrigin[1]} onChange={e => onChange(() => value.transform.transformOrigin[1] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Origin Z' value={value.transform.transformOrigin[2]} onChange={e => onChange(() => value.transform.transformOrigin[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Origin Z' value={value.transform.transformOrigin[2]} onChange={e => onChange(() => value.transform.transformOrigin[2] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Translate X' value={value.transform.transformTranslate[0]} onChange={e => onChange(() => value.transform.transformTranslate[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Translate X' value={value.transform.transformTranslate[0]} onChange={e => onChange(() => value.transform.transformTranslate[0] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Translate Y' value={value.transform.transformTranslate[1]} onChange={e => onChange(() => value.transform.transformTranslate[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Translate Y' value={value.transform.transformTranslate[1]} onChange={e => onChange(() => value.transform.transformTranslate[1] = e.target.value)} />
               </Grid>
               <Grid item xs={4}>
-                <TextField {...TextFieldSX} fullWidth label='Transform Translate Z' value={value.transform.transformTranslate[2]} onChange={e => onChange(() => value.transform.transformTranslate[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Transform Translate Z' value={value.transform.transformTranslate[2]} onChange={e => onChange(() => value.transform.transformTranslate[2] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -804,13 +804,13 @@ export function Border(props) {
       value.border !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Border Width' value={value.border.borderWidth} onChange={e => onChange(() => value.border.borderWidth = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Border Width' value={value.border.borderWidth} onChange={e => onChange(() => value.border.borderWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Border Color' value={value.border.borderColor} onChange={e => onChange(() => value.border.borderColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Border Color' value={value.border.borderColor} onChange={e => onChange(() => value.border.borderColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Border Color' value={value.border.borderColor} onChange={e => onChange(() => value.border.borderColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Border Color' value={value.border.borderColor} onChange={e => onChange(() => value.border.borderColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
             <FormControl {...SelectSX} fullWidth>
@@ -863,16 +863,16 @@ export function BorderRadius(props) {
           <Grid item xs={12}>
             <Grid container alignItems='center'>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Left Top' value={value.borderRadius[0]} onChange={e => onChange(() => value.borderRadius[0] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Left Top' value={value.borderRadius[0]} onChange={e => onChange(() => value.borderRadius[0] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Right Top' value={value.borderRadius[1]} onChange={e => onChange(() => value.borderRadius[1] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Right Top' value={value.borderRadius[1]} onChange={e => onChange(() => value.borderRadius[1] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Right Bottom' value={value.borderRadius[2]} onChange={e => onChange(() => value.borderRadius[2] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Right Bottom' value={value.borderRadius[2]} onChange={e => onChange(() => value.borderRadius[2] = e.target.value)} />
               </Grid>
               <Grid item xs={3}>
-                <TextField {...TextFieldSX} fullWidth label='Left Bottom' value={value.borderRadius[3]} onChange={e => onChange(() => value.borderRadius[3] = e.target.value)} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Left Bottom' value={value.borderRadius[3]} onChange={e => onChange(() => value.borderRadius[3] = e.target.value)} />
               </Grid>
             </Grid>
           </Grid>
@@ -907,19 +907,19 @@ export function BoxShadow(props) {
             <Switch checked={value.boxShadow.boxShadowInset} onChange={e => onChange(() => value.boxShadow.boxShadowInset = e.target.checked)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Box Shadow Position X' value={value.boxShadow.boxShadowPosition[0]} onChange={e => onChange(() => value.boxShadow.boxShadowPosition[0] = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Box Shadow Position X' value={value.boxShadow.boxShadowPosition[0]} onChange={e => onChange(() => value.boxShadow.boxShadowPosition[0] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Box Shadow Position Y' value={value.boxShadow.boxShadowPosition[1]} onChange={e => onChange(() => value.boxShadow.boxShadowPosition[1] = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Box Shadow Position Y' value={value.boxShadow.boxShadowPosition[1]} onChange={e => onChange(() => value.boxShadow.boxShadowPosition[1] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Box Shadow Size' value={value.boxShadow.boxShadowSize} onChange={e => onChange(() => value.boxShadow.boxShadowSize = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Box Shadow Size' value={value.boxShadow.boxShadowSize} onChange={e => onChange(() => value.boxShadow.boxShadowSize = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Box Shadow Color' value={value.boxShadow.boxShadowColor} onChange={e => onChange(() => value.boxShadow.boxShadowColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Box Shadow Color' value={value.boxShadow.boxShadowColor} onChange={e => onChange(() => value.boxShadow.boxShadowColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Box Shadow Color' value={value.boxShadow.boxShadowColor} onChange={e => onChange(() => value.boxShadow.boxShadowColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Box Shadow Color' value={value.boxShadow.boxShadowColor} onChange={e => onChange(() => value.boxShadow.boxShadowColor = e.target.value)} type='color' />
           </Grid>
 
         </> : null
@@ -949,13 +949,13 @@ export function Outline(props) {
       value.outline !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Outline Width' value={value.outline.outlineWidth} onChange={e => onChange(() => value.outline.outlineWidth = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Outline Width' value={value.outline.outlineWidth} onChange={e => onChange(() => value.outline.outlineWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Outline Color' value={value.outline.outlineColor} onChange={e => onChange(() => value.outline.outlineColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Outline Color' value={value.outline.outlineColor} onChange={e => onChange(() => value.outline.outlineColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Outline Color' value={value.outline.outlineColor} onChange={e => onChange(() => value.outline.outlineColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Outline Color' value={value.outline.outlineColor} onChange={e => onChange(() => value.outline.outlineColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
             <FormControl {...SelectSX} fullWidth>
@@ -995,31 +995,31 @@ export function Background(props) {
       value.background !== undefined ?
         <>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Background Color' value={value.background.backgroundColor} onChange={e => onChange(() => value.background.backgroundColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Color' value={value.background.backgroundColor} onChange={e => onChange(() => value.background.backgroundColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Background Color' value={value.background.backgroundColor} onChange={e => onChange(() => value.background.backgroundColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Color' value={value.background.backgroundColor} onChange={e => onChange(() => value.background.backgroundColor = e.target.value)} type='color' />
           </Grid>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Background Image' value={value.background.backgroundImage} onChange={e => onChange(() => value.background.backgroundImage = e.target.value)} multiline maxRows={4} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Image' value={value.background.backgroundImage} onChange={e => onChange(() => value.background.backgroundImage = e.target.value)} multiline maxRows={4} />
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Background Position X' value={value.background.backgroundPosition[0]} onChange={e => onChange(() => value.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Position X' value={value.background.backgroundPosition[0]} onChange={e => onChange(() => value.background.backgroundPosition[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Background Position Y' value={value.background.backgroundPosition[1]} onChange={e => onChange(() => value.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Position Y' value={value.background.backgroundPosition[1]} onChange={e => onChange(() => value.background.backgroundPosition[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Background Size X' value={value.background.backgroundSize[0]} onChange={e => onChange(() => value.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Size X' value={value.background.backgroundSize[0]} onChange={e => onChange(() => value.background.backgroundSize[0] = e.target.value)} multiline maxRows={4} />
               </Grid>
               <Grid item xs={6}>
-                <TextField {...TextFieldSX} fullWidth label='Background Size Y' value={value.background.backgroundSize[1]} onChange={e => onChange(() => value.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
+                <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Background Size Y' value={value.background.backgroundSize[1]} onChange={e => onChange(() => value.background.backgroundSize[1] = e.target.value)} multiline maxRows={4} />
               </Grid>
             </Grid>
           </Grid>
@@ -1153,10 +1153,10 @@ export function Text(props) {
             </FormControl>
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.text.color} onChange={e => onChange(() => value.text.color = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.text.color} onChange={e => onChange(() => value.text.color = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.text.color} onChange={e => onChange(() => value.text.color = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.text.color} onChange={e => onChange(() => value.text.color = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1207,10 +1207,10 @@ export function TextDecoration(props) {
             </FormControl>
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.textDecoration.textDecorationColor} onChange={e => onChange(() => value.textDecoration.textDecorationColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.textDecoration.textDecorationColor} onChange={e => onChange(() => value.textDecoration.textDecorationColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.textDecoration.textDecorationColor} onChange={e => onChange(() => value.textDecoration.textDecorationColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.textDecoration.textDecorationColor} onChange={e => onChange(() => value.textDecoration.textDecorationColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1239,19 +1239,19 @@ export function TextShadow(props) {
       value.textShadow !== undefined ?
         <>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Text Shadow Position X' value={value.textShadow.textShadowPosition[0]} onChange={e => onChange(() => value.textShadow.textShadowPosition[0] = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Shadow Position X' value={value.textShadow.textShadowPosition[0]} onChange={e => onChange(() => value.textShadow.textShadowPosition[0] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Text Shadow Position Y' value={value.textShadow.textShadowPosition[1]} onChange={e => onChange(() => value.textShadow.textShadowPosition[1] = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Shadow Position Y' value={value.textShadow.textShadowPosition[1]} onChange={e => onChange(() => value.textShadow.textShadowPosition[1] = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Text Shadow Size' value={value.textShadow.textShadowSize} onChange={e => onChange(() => value.textShadow.textShadowSize = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Shadow Size' value={value.textShadow.textShadowSize} onChange={e => onChange(() => value.textShadow.textShadowSize = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.textShadow.textShadowColor} onChange={e => onChange(() => value.textShadow.textShadowColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.textShadow.textShadowColor} onChange={e => onChange(() => value.textShadow.textShadowColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Color' value={value.textShadow.textShadowColor} onChange={e => onChange(() => value.textShadow.textShadowColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Color' value={value.textShadow.textShadowColor} onChange={e => onChange(() => value.textShadow.textShadowColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }
@@ -1280,13 +1280,13 @@ export function TextStroke(props) {
       value.textStroke !== undefined ?
         <>
           <Grid item xs={12}>
-            <TextField {...TextFieldSX} fullWidth label='Text Stroke Width' value={value.textStroke.textStrokeWidth} onChange={e => onChange(() => value.textStroke.textStrokeWidth = e.target.value)} type='number' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Stroke Width' value={value.textStroke.textStrokeWidth} onChange={e => onChange(() => value.textStroke.textStrokeWidth = e.target.value)} type='number' />
           </Grid>
           <Grid item xs={8}>
-            <TextField {...TextFieldSX} fullWidth label='Text Stroke Color' value={value.textStroke.textStrokeColor} onChange={e => onChange(() => value.textStroke.textStrokeColor = e.target.value)} />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Stroke Color' value={value.textStroke.textStrokeColor} onChange={e => onChange(() => value.textStroke.textStrokeColor = e.target.value)} />
           </Grid>
           <Grid item xs={4}>
-            <TextField {...TextFieldSX} fullWidth label='Text Stroke Color' value={value.textStroke.textStrokeColor} onChange={e => onChange(() => value.textStroke.textStrokeColor = e.target.value)} type='color' />
+            <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Text Stroke Color' value={value.textStroke.textStrokeColor} onChange={e => onChange(() => value.textStroke.textStrokeColor = e.target.value)} type='color' />
           </Grid>
         </> : null
     }

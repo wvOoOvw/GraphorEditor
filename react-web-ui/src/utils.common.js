@@ -127,7 +127,7 @@ const getEventById = (target, id, type) => {
     if (i[type]) current = current ? current : i[type].find(i_ => i_.id === id)
 
     if (i.children) {
-      Object.values(i.children).forEach(i => current = current ? current : getEventById(i, id))
+      Object.values(i.children).forEach(i => current = current ? current : getEventById(i, id, type))
     }
   })
 

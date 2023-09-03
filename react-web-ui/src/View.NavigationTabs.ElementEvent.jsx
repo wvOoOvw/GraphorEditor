@@ -3,8 +3,6 @@ import React from 'react'
 import { Grid } from '@mui/material'
 import { Divider } from '@mui/material'
 import { IconButton } from '@mui/material'
-import { Dialog } from '@mui/material'
-import { DialogContent } from '@mui/material'
 import { Badge } from '@mui/material'
 
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
@@ -13,29 +11,9 @@ import AlarmIcon from '@mui/icons-material/Alarm'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import Imitation from './utils.imitation'
-import { graphElementSearch } from './utils.graph.common'
+import { graphElementSearch } from './utils.common'
 
-import { MonitorConfig, TriggerConfig, HookConfig } from './View.NavigationTabs.ElementConfig'
-
-function EventDialog(props) {
-  const { content, onClose } = props
-
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 520, maxWidth: 'none' } }} className='font'>
-    <DialogContent>
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <HookConfig currentGraphElement={content} />
-        </Grid>
-        <Grid item xs={12}>
-          <MonitorConfig currentGraphElement={content} />
-        </Grid>
-        <Grid item xs={12}>
-          <TriggerConfig currentGraphElement={content} />
-        </Grid>
-      </Grid>
-    </DialogContent>
-  </Dialog>
-}
+import { EventConfigDialog } from './View.Component.EventDialog'
 
 function ItemRender(props) {
   const { license, id, name, children, monitor, trigger, parentId, hook } = props
@@ -45,7 +23,7 @@ function ItemRender(props) {
   if (!information) return null
 
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
-  const [eventDialog, setEventDialog] = React.useState(false)
+  const [eventConfigDialog, setEventConfigDialog] = React.useState()
 
   const hoverStyle = (id) => {
     return Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
@@ -55,46 +33,37 @@ function ItemRender(props) {
     return information.children.find(i => i.value === value)?.label
   }
 
-  const handleMouseEnter = (id) => {
-    Imitation.assignState({ elementHover: id })
-  }
-
-  const handleMouseLeave = () => {
-    Imitation.assignState({ elementHover: undefined })
-  }
-
   const handleChildrenExpand = (item) => {
     setChildrenVisible(pre => pre.includes(item[0]) ? pre.filter(i => i !== item[0]) : [...pre, item[0]])
   }
 
-  const hookNumber = () => {
-    var r = 0
-    if (hook.useBeforeRenderHook) r = r + 1
-    return r
+  const onMouseOver = (e, id) => {
+    Imitation.assignState({ elementHover: id })
+
+    e.stopPropagation()
   }
 
   return <>
     <div
       style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
-      onMouseEnter={() => handleMouseEnter(id)}
-      onMouseLeave={handleMouseLeave}
+      onMouseOver={(e) => onMouseOver(e, id)}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
         {
           monitor ?
             <Badge badgeContent={monitor.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventDialog(props)}><HeadsetIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'monitor' })}><HeadsetIcon fontSize='small' /></IconButton>
             </Badge> : null
         }
         {
           trigger ?
             <Badge badgeContent={trigger.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventDialog(props)}><AlarmIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'trigger' })}><AlarmIcon fontSize='small' /></IconButton>
             </Badge> : null
         }
-        <Badge badgeContent={hookNumber()} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-          <IconButton size='small' onClick={() => setEventDialog(props)}><BookmarkBorderIcon fontSize='small' /></IconButton>
+        <Badge badgeContent={hook.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
+          <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'hook' })}><BookmarkBorderIcon fontSize='small' /></IconButton>
         </Badge>
       </div>
     </div >
@@ -103,8 +72,7 @@ function ItemRender(props) {
         return <React.Fragment key={index}>
           <div
             style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
-            onMouseEnter={() => handleMouseEnter(id + '@' + i[0])}
-            onMouseLeave={handleMouseLeave}
+            onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
               {
@@ -131,7 +99,7 @@ function ItemRender(props) {
       }) : null
     }
     {
-      eventDialog ? <EventDialog content={eventDialog} onClose={() => setEventDialog(undefined)} /> : null
+      eventConfigDialog ? <EventConfigDialog element={eventConfigDialog.element} type={eventConfigDialog.type} onClose={() => setEventConfigDialog(undefined)} /> : null
     }
   </>
 }

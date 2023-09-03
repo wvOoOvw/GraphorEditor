@@ -104,4 +104,4 @@ function App() {
 
 }
 
-export default Imitation.withBindRender(App, state => [state.navigationTabsValue, state.navigationTabsElementValue, state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])
+export default Imitation.withBindRender(App, state => [state.elementHover, state.navigationTabsValue, state.navigationTabsElementValue, state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])

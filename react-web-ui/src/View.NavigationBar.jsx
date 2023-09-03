@@ -321,7 +321,7 @@ function DialogPublish(props) {
     <DialogContent dividers>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
