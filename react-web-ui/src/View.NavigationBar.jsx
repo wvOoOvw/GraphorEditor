@@ -25,8 +25,6 @@ import { GraphElement, GraphExample } from './utils.package'
 import { downloadFile, baseIp, hash } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
-import example from '../src-example/index'
-
 const getLicenseAll = (content) => {
   const list = []
 
