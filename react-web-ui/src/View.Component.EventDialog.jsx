@@ -38,17 +38,17 @@ function HookConfig(props) {
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleChange = (index, value, update) => {
-    setDialog(undefined)
+  const handleChange = (index, value) => {
     currentGraphElement.hook[index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
-  const handleDelete = (index, value, update) => {
-    setDialog(undefined)
+  const handleDelete = (index, value) => {
     currentGraphElement.hook.splice(index, 1)
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'hook' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
   return <>
@@ -77,8 +77,8 @@ function HookConfig(props) {
       dialog ?
         <HookDialog
           value={dialog.data}
-          onChange={(value, update) => handleChange(dialog.index, value, update)}
-          onDelete={(value, update) => handleDelete(dialog.index, update)}
+          onChange={(value) => handleChange(dialog.index, value)}
+          onDelete={(value) => handleDelete(dialog.index, dialog.data)}
           onClose={() => setDialog(undefined)}
         />
         : null
@@ -106,17 +106,17 @@ function MonitorConfig(props) {
   }
 
   const handleChange = (index, value) => {
-    setDialog(undefined)
     currentGraphElement.monitor[index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
   const handleDelete = (index, value) => {
-    setDialog(undefined)
     updateTriggerLink(Imitation.state.graphContent, value.id)
     currentGraphElement.monitor.splice(index, 1)
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'monitor' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
   const monitorOptions = [{ value: '_Use', label: 'Use' }, { value: '_Nonuse', label: 'Nonuse' }, ...information.monitor]
@@ -149,7 +149,7 @@ function MonitorConfig(props) {
         <MonitorDialog
           value={dialog.data}
           onChange={(value) => handleChange(dialog.index, value)}
-          onDelete={() => handleDelete(dialog.index)}
+          onDelete={() => handleDelete(dialog.index, dialog.data)}
           onClose={() => setDialog(undefined)}
           monitorOptions={monitorOptions}
         />
@@ -222,7 +222,7 @@ function TriggerConfig(props) {
         <TriggerDialog
           value={dialog.data}
           onChange={(v) => handleChange(dialog.index, v)}
-          onDelete={() => handleDelete(dialog.index)}
+          onDelete={() => handleDelete(dialog.index, dialog.data)}
           onClose={() => setDialog(undefined)}
           triggerOptions={triggerOptions}
           monitorOptionsAll={monitorOptionsAll}

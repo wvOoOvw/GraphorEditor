@@ -387,7 +387,7 @@ function Action(props) {
 function App() {
   if (!Imitation.state.navigationTabsElementValue) return null
 
-  const [currentGraphElement, parentGraphElement] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue)
+  const [currentGraphElement, parentGraphElement] = React.useMemo(() => deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue), [Imitation.state.graphContent])
 
   if (!currentGraphElement) return null
 

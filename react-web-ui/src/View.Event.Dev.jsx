@@ -222,7 +222,6 @@ function Event(props) {
   }
 
   return <>
-
     <Paper
       style={{
         position: 'absolute',

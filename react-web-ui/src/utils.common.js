@@ -69,9 +69,10 @@ const deleteArrayItem = (target, item) => {
 const deepCopyElement = (target) => {
   const deepCopyElementHelp = (t) => {
     t.id = hash()
-    if (t.children) Object.values(t.children).forEach(i => {
-      i.forEach(i => deepCopyElementHelp(i))
-    })
+    if (t.hook) t.hook = []
+    if (t.monitor) t.monitor = []
+    if (t.trigger) t.trigger = []
+    if (t.children) Object.values(t.children).forEach(i => i.forEach(i => deepCopyElementHelp(i)))
     return t
   }
 
