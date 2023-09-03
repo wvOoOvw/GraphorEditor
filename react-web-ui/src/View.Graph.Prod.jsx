@@ -28,7 +28,9 @@ function ElementRender(props) {
     })
     Object.entries(r).forEach(i => {
       r[i[0]] = (data, $event) => i[1].forEach(i => {
-        graphEvent.triggerEvent({ name: i.monitorName, event: i.triggerType === 'eval' ? i.triggerEval : undefined, env: { ...env, event: $event }, data })
+        i.linkId.forEach(linkId => {
+          graphEvent.triggerEvent({ id: linkId, event: i.triggerType === 'eval' ? i.triggerEval : undefined, env: { ...env, event: $event }, data })
+        })
       })
     })
     return r
@@ -45,7 +47,7 @@ function ElementRender(props) {
     Object.entries(r).forEach(i => {
       r[i[0]] = (event) => {
         const remove = i[1].map(i => {
-          return graphEvent.addEventMonitor({ name: i.monitorName, event, env })
+          return graphEvent.addEventMonitor({ id: i.id, event, env })
         })
         return () => remove.forEach(i => i())
       }
@@ -57,13 +59,13 @@ function ElementRender(props) {
     if (!monitor) return
     const remove = [
       ...monitor.filter(i => i.use && i.monitorType === 'eval').map(i => {
-        return graphEvent.addEventMonitor({ name: i.monitorName, event: i.monitorEval, env })
+        return graphEvent.addEventMonitor({ id: i.id, event: i.monitorEval, env })
       }),
       ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '_Use').map(i => {
-        return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = false; update() } })
+        return graphEvent.addEventMonitor({ id: i.id, event: v => { props.element.use = false; update() } })
       }),
       ...monitor.filter(i => i.use && i.monitorType === 'default' && i.monitorKey === '_Nonuse').map(i => {
-        return graphEvent.addEventMonitor({ name: i.monitorName, event: v => { props.element.use = true; update() } })
+        return graphEvent.addEventMonitor({ id: i.id, event: v => { props.element.use = true; update() } })
       }),
     ]
     return () => remove.forEach(i => i())

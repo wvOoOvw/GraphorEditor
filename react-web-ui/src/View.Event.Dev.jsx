@@ -144,9 +144,12 @@ function Links(props) {
   const result = React.useMemo(() => {
     const r = []
 
-    props.graphEvent.filter(i => i.eventType === 'trigger').forEach(i => {
-      props.graphEvent.filter(i_ => i_.eventType === 'monitor' && i_.event.monitorName === i.event.monitorName).forEach(i_ => {
-        r.push({ from: { ...i, x: i.translateX, y: i.translateY }, to: { ...i_, x: i_.translateX, y: i_.translateY }, id: i.eventType + i.elementId + i.eventId + i_.eventType + i_.elementId + i_.eventId })
+    props.graphEvent.filter(i => i.eventType === 'trigger').forEach(trigger => {
+      console.log(trigger)
+      trigger.event.linkId.forEach(linkId => {
+        const monitor = props.graphEvent.find(i => i.eventId === linkId)
+
+        r.push({ from: { ...trigger, x: trigger.translateX, y: trigger.translateY }, to: { ...monitor, x: monitor.translateX, y: monitor.translateY }, id: trigger.eventId + monitor.eventId })
       })
     })
 
@@ -185,21 +188,16 @@ function Event(props) {
     e.stopPropagation()
   }
 
-  const handleChange = (value, update) => {
+  const handleChange = (value) => {
     setEventDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, props.event.monitorName, value.monitorName)
-    }
     const index = props.element[props.eventType].findIndex(i => i.id === props.eventId)
     props.element[props.eventType][index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleDelete = (value, update) => {
+  const handleDelete = (value) => {
     setEventDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, props.event.monitorName, '')
-    }
+    if (props.eventType === 'monitor') updateTriggerLink(Imitation.state.graphContent, props.event.id)
     props.element[props.eventType] = props.element[props.eventType].filter(i => i.id !== props.eventId)
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== props.elementId || i.eventId !== props.eventId)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -263,9 +261,18 @@ function Event(props) {
         {
           props.eventType === 'hook' ?
             <>
-              {
-                convertCamelCase(props.event.hookType)
-              }
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
+                  {
+                    props.event.name
+                  }
+                </div>
+                <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  {
+                    convertCamelCase(props.event.hookType)
+                  }
+                </div>
+              </div>
             </> : null
         }
         {
@@ -274,7 +281,7 @@ function Event(props) {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
                   {
-                    props.event.monitorName
+                    props.event.name
                   }
                 </div>
                 <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
@@ -291,7 +298,7 @@ function Event(props) {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginRight: 8 }}>
                   {
-                    props.event.monitorName
+                    props.event.name
                   }
                 </div>
                 <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>

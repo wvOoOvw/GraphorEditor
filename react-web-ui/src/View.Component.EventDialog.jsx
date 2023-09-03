@@ -20,7 +20,8 @@ import AddIcon from '@mui/icons-material/Add'
 import ReactAce from 'react-ace'
 
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
-import { getMonitorOptionsAll, updateTriggerLink, hash, graphElementSearch, convertCamelCase } from './utils.common'
+import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
+import { getMonitorOptionsAll, updateTriggerLink, hash, graphElementSearch } from './utils.common'
 
 import Imitation from './utils.imitation'
 
@@ -30,7 +31,8 @@ function HookConfig(props) {
   const [dialog, setDialog] = React.useState()
 
   const handleAdd = () => {
-    const item = { id: hash(), use: true, hookType: '', hookEval: evalEventMonitorDefault }
+    const id = hash()
+    const item = { id: id, name: id, use: true, hookType: '', hookEval: evalEventMonitorDefault }
     currentGraphElement.hook.push(item)
     Imitation.state.graphEvent.push({ eventType: 'hook', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -56,7 +58,7 @@ function HookConfig(props) {
           return <Grid item xs={12} key={index}>
             <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
               <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                <span>{convertCamelCase(i.hookType)}</span>
+                <span>{i.name}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
@@ -96,26 +98,22 @@ function MonitorConfig(props) {
   if (!information) return null
 
   const handleAdd = () => {
-    const item = { id: hash(), use: true, monitorName: hash(), monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
+    const id = hash()
+    const item = { id: id, name: id, use: true, monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
     currentGraphElement.monitor.push(item)
     Imitation.state.graphEvent.push({ eventType: 'monitor', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleChange = (index, value, update) => {
+  const handleChange = (index, value) => {
     setDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, value.monitorName)
-    }
     currentGraphElement.monitor[index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleDelete = (index, value, update) => {
+  const handleDelete = (index, value) => {
     setDialog(undefined)
-    if (update === true) {
-      updateTriggerLink(Imitation.state.graphContent, currentGraphElement.monitor[index].monitorName, '')
-    }
+    updateTriggerLink(Imitation.state.graphContent, value.id)
     currentGraphElement.monitor.splice(index, 1)
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'monitor' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -132,7 +130,7 @@ function MonitorConfig(props) {
           return <Grid item xs={12} key={index}>
             <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
               <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                <span>{i.monitorName}</span>
+                <span>{i.name}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
@@ -150,8 +148,8 @@ function MonitorConfig(props) {
       dialog ?
         <MonitorDialog
           value={dialog.data}
-          onChange={(value, update) => handleChange(dialog.index, value, update)}
-          onDelete={(update) => handleDelete(dialog.index, update)}
+          onChange={(value) => handleChange(dialog.index, value)}
+          onDelete={() => handleDelete(dialog.index)}
           onClose={() => setDialog(undefined)}
           monitorOptions={monitorOptions}
         />
@@ -172,19 +170,20 @@ function TriggerConfig(props) {
   if (!information) return null
 
   const handleAdd = () => {
-    const item = { id: hash(), use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', monitorName: '' }
+    const id = hash()
+    const item = { id: id, name: id, use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', linkId: [] }
     currentGraphElement.trigger.push(item)
     Imitation.state.graphEvent.push({ eventType: 'trigger', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleChange = (index, value, update) => {
+  const handleChange = (index, value) => {
     setDialog(undefined)
     currentGraphElement.trigger[index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleDelete = (index, value, update) => {
+  const handleDelete = (index, value) => {
     setDialog(undefined)
     currentGraphElement.trigger.splice(index, 1)
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'trigger' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
@@ -204,7 +203,7 @@ function TriggerConfig(props) {
           return <Grid item xs={12} key={index}>
             <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
               <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                <span>{triggerOptions.find(i_ => i_.value === i.triggerKey) ? triggerOptions.find(i_ => i_.value === i.triggerKey).label : null}</span>
+                <span>{i.name}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton onClick={e => setDialog({ index: index, data: i })}><EditIcon style={{ fontSize: 22 }} /></IconButton>
@@ -261,7 +260,11 @@ function HookDialog(props) {
       <Grid container spacing={2}>
 
         <Grid item xs={12} className='font'>
-          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={value.id} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={data.id} />
+        </Grid>
+
+        <Grid item xs={12} className='font'>
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Name' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
         </Grid>
 
         <Grid item xs={12} className='font'>
@@ -303,7 +306,6 @@ function HookDialog(props) {
 function MonitorDialog(props) {
   const { monitorOptions, value, onChange, onDelete, onClose } = props
 
-  const [update, setUpdate] = React.useState(true)
   const [data, setData] = React.useState(value)
 
   return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: data.monitorType === 'default' ? 720 : 1080, maxWidth: 'none' } }}>
@@ -311,11 +313,11 @@ function MonitorDialog(props) {
       <Grid container spacing={2}>
 
         <Grid item xs={12} className='font'>
-          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={value.id} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={data.id} />
         </Grid>
 
         <Grid item xs={12} className='font'>
-          <TextField {...TextFieldSX} fullWidth value={data.monitorName} label='Monitor Name' onChange={e => setData(Object.assign({}, data, { monitorName: e.target.value }))} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Name' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
         </Grid>
 
         <Grid item xs={12} className='font'>
@@ -372,16 +374,11 @@ function MonitorDialog(props) {
           <Switch checked={data.use} onChange={e => setData(Object.assign({}, data, { use: e.target.checked }))} />
         </Grid>
 
-        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8 }} className='font'>
-          <div>Update Trigger Link</div>
-          <Switch checked={update} onChange={e => setUpdate(e.target.checked)} />
-        </Grid>
-
       </Grid>
     </DialogContent>
     <DialogActions className='font'>
-      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(data, update)}>Delete</Button>
-      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data, update)}>Save</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' color='error' onClick={() => onDelete(data)}>Delete</Button>
+      <Button style={{ textTransform: 'none' }} variant='contained' onClick={() => onChange(data)}>Save</Button>
     </DialogActions>
   </Dialog >
 }
@@ -396,16 +393,20 @@ function TriggerDialog(props) {
       <Grid container spacing={2}>
 
         <Grid item xs={12} className='font'>
-          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={value.id} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Id' disabled value={data.id} />
+        </Grid>
+
+        <Grid item xs={12} className='font'>
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Name' value={data.name} onChange={e => setData(Object.assign({}, data, { name: e.target.value }))} />
         </Grid>
 
         <Grid item xs={12} className='font'>
           <FormControl {...SelectSX} fullWidth>
-            <InputLabel>Link Monitor Name</InputLabel>
-            <Select {...SelectSX} label='Link Monitor Name' value={data.monitorName} onChange={e => setData(Object.assign({}, data, { monitorName: e.target.value }))}>
+            <InputLabel>Monitor Link Id</InputLabel>
+            <Select {...SelectSX} multiple label='Monitor Link Id' value={data.linkId} onChange={e => setData(Object.assign({}, data, { linkId: e.target.value }))}>
               {
-                [...new Set(monitorOptionsAll.map(i => i.monitorName))].map((i, index) => {
-                  return <MenuItem key={index} value={i}>{i}</MenuItem>
+                monitorOptionsAll.map((i, index) => {
+                  return <MenuItem key={index} value={i.id}>{i.name}</MenuItem>
                 })
               }
             </Select>

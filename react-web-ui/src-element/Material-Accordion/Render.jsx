@@ -74,7 +74,7 @@ function Render(props) {
   }
 
   if (env === 'prod') {
-    return <Accordion expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={{ '.MuiAccordion-root': style.accordion, '.MuiAccordionSummary-root': style.accordionSummary, '.MuiCollapse-root': style.accordionDetails }} onChange={onChange}>
+    return <Accordion expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={{ '.MuiAccordion-root': style.accordion, '.MuiAccordionSummary-root': style.accordionSummary, '.MuiAccordionDetails-root': style.accordionDetails }} onChange={onChange}>
 
       <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {

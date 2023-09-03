@@ -134,11 +134,11 @@ const getEventById = (target, id, type) => {
   return current
 }
 
-const updateTriggerLink = (content, pre, current) => {
+const updateTriggerLink = (content, id) => {
   content.forEach((i) => {
     if (i.trigger) {
       i.trigger.forEach(i => {
-        if (i.monitorName === pre) i.monitorName = current
+        i.linkId = i.linkId.filter(i => i !== id)
       })
     }
     if (i.children) {

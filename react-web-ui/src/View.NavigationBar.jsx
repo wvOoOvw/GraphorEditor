@@ -25,6 +25,8 @@ import { GraphElement, GraphExample } from './utils.package'
 import { downloadFile, baseIp, hash } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
+import example from '../src-example/index'
+
 const getLicenseAll = (content) => {
   const list = []
 
@@ -321,7 +323,7 @@ function DialogPublish(props) {
     <DialogContent dividers>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Source Origin' autoComplete='off' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
+          <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Source Origin' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
@@ -382,11 +384,32 @@ function App() {
     window.open(location.origin + location.pathname + '#/prod')
   }
 
+  const handleGuide = async () => {
+    Imitation.state.loading = Imitation.state.loading + 1
+
+    Imitation.dispatch()
+
+    const example = await import('../src-example/index').then(res => res.default)
+
+    const guide = example.find(i => i.label === 'Guide').value
+
+    Imitation.state.graphContent = guide.graphContent
+    Imitation.state.graphEvent = guide.graphEvent
+    Imitation.state.graphConfig = guide.graphConfig
+    Imitation.state.graphContentUpdate = hash()
+    Imitation.state.graphEventUpdate = hash()
+    Imitation.state.graphConfigUpdate = hash()
+
+    Imitation.state.loading = Imitation.state.loading - 1
+
+    Imitation.dispatch()
+  }
+
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
         <Button style={{ textTransform: 'none', marginRight: 8 }} color='inherit'>GRAPHOR</Button>
-        <Button style={{ textTransform: 'none', marginRight: 8 }} variant='outlined' onClick={() => setDialogDocument(true)}>Document</Button>
+        <Button style={{ textTransform: 'none', marginRight: 8 }} variant='outlined' onClick={() => handleGuide()}>Guide</Button>
       </Grid>
     </div>
     <div>
