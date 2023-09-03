@@ -4,7 +4,8 @@ import NavigationBar from './View.NavigationBar'
 import NavigationTabs from './View.NavigationTabs'
 import NavigationContent from './View.NavigationContent'
 
-import { GraphElement, GraphExample } from './utils.package'
+import GraphElement from '../src-element/index'
+
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
 

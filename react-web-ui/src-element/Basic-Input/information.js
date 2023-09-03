@@ -14,7 +14,7 @@ const information = {
     { value: 'content', label: 'Content' }
   ],
   property: {
-    value: 'Input',
+    value: '',
     placeholder: '',
     type: 'text',
     disabled: false,

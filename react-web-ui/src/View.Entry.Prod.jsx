@@ -2,7 +2,8 @@ import React from 'react'
 
 import GraphProd from './View.Graph.Prod'
 
-import { GraphElement } from './utils.package'
+import GraphElement from '../src-element/index'
+
 import Imitation from './utils.imitation'
 import { hash, clone } from './utils.common'
 

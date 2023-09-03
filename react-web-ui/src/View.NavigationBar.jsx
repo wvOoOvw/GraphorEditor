@@ -1,12 +1,10 @@
 
 import React from 'react'
 
-import { IconButton } from '@mui/material'
 import { Tooltip } from '@mui/material'
 import { Button } from '@mui/material'
 import { Grid } from '@mui/material'
 import { Paper } from '@mui/material'
-import { Divider } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { DialogTitle } from '@mui/material'
 import { DialogContent } from '@mui/material'
@@ -18,11 +16,11 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
-import AirplayIcon from '@mui/icons-material/Airplay'
+
+import GraphElement from '../src-element/index'
 
 import Imitation, { initState } from './utils.imitation'
-import { GraphElement, GraphExample } from './utils.package'
-import { downloadFile, baseIp, hash } from './utils.common'
+import { downloadFile, hash } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 const getLicenseAll = (content) => {
