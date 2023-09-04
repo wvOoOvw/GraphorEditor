@@ -19,7 +19,7 @@ You can experience this project builder in the demonstration address and refer t
 
 To run the project locally, you can clone the project locally and execute the following command
 
-    npm i && npm run start
+    cd react-web-ui && npm i && npm run start
 
 ## How to use
 
