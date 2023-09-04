@@ -138,7 +138,7 @@ function ItemRender(props) {
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
           >
-            <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
+            <div style={{ overflow: 'hidden', fontWeight: 'bold', opacity: 0.5 }}>
               {
                 childrenLabel(i[0])
               }

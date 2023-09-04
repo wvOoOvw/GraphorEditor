@@ -17,7 +17,15 @@ function Hover() {
     const node = document.getElementById(Imitation.state.elementHover)
 
     if (node !== null) {
-      setPosition(node.getBoundingClientRect())
+      const rect_ = node.getBoundingClientRect()
+      const rect = { left: rect_.left, right: rect_.right, top: rect_.top, bottom: rect_.bottom, width: rect_.width, height: rect_.height }
+
+      rect.left = rect.left - Imitation.state.graphDevRootRef.offsetLeft
+      rect.right = rect.right - Imitation.state.graphDevRootRef.offsetLeft
+      rect.top = rect.top - Imitation.state.graphDevRootRef.offsetTop
+      rect.bottom = rect.bottom - Imitation.state.graphDevRootRef.offsetTop
+
+      setPosition(rect)
     }
     if (node === null) {
       setPosition()
@@ -58,7 +66,15 @@ function Active() {
     const node = document.getElementById(Imitation.state.navigationTabsElementValue)
 
     if (node !== null) {
-      setPosition(node.getBoundingClientRect())
+      const rect_ = node.getBoundingClientRect()
+      const rect = { left: rect_.left, right: rect_.right, top: rect_.top, bottom: rect_.bottom, width: rect_.width, height: rect_.height }
+
+      rect.left = rect.left - Imitation.state.graphDevRootRef.offsetLeft
+      rect.right = rect.right - Imitation.state.graphDevRootRef.offsetLeft
+      rect.top = rect.top - Imitation.state.graphDevRootRef.offsetTop
+      rect.bottom = rect.bottom - Imitation.state.graphDevRootRef.offsetTop
+
+      setPosition(rect)
     }
     if (node === null) {
       setPosition()
@@ -255,6 +271,7 @@ function App() {
       onTouchStart={onMouseDown}
       onTouchMove={onMouseMove}
       onTouchEnd={onMouseUp}
+      ref={el => Imitation.state.graphDevRootRef = el}
     >
       <Paper
         style={{
@@ -284,10 +301,10 @@ function App() {
       <Paper style={{ position: 'absolute', bottom: 16, left: 0, right: 0, margin: 'auto', width: 480, maxWidth: 'calc(100% - 32px)', padding: '8px 24px' }}>
         <Slider className='font' value={Imitation.state.graphConfig.screenGraph.scale} onChange={(e, v) => { Imitation.state.graphConfig.screenGraph.scale = v; Imitation.assignState({ graphConfigUpdate: hash() }) }} min={0} max={2} step={0.01} valueLabelDisplay='auto' onMouseDown={e => e.stopPropagation()} />
       </Paper>
-    </Paper>
 
-    <Hover />
-    <Active />
+      <Hover />
+      <Active />
+    </Paper>
   </>
 }
 

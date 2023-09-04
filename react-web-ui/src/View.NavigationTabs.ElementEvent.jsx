@@ -74,7 +74,7 @@ function ItemRender(props) {
             style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
           >
-            <div style={{ overflow: 'hidden', fontWeight: 'bold', color: 'gray' }}>
+            <div style={{ overflow: 'hidden', fontWeight: 'bold', opacity: 0.5 }}>
               {
                 childrenLabel(i[0])
               }

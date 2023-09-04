@@ -23,7 +23,8 @@ const initState = () => {
     eventMouseDownTarget: undefined,
     eventMouseDownPosition: undefined,
 
-    eventRootRef: undefined,
+    graphDevRootRef: undefined,
+    eventDevRootRef: undefined,
 
     graphContent: [],
     graphContentUpdate: undefined,
@@ -60,7 +61,7 @@ const initState = () => {
       project: {
         renderId: '$render',
         updateId: '$update',
-        sourceOrigin: 'https://github-magneto.github.io/app-graph/build-package'
+        sourceOrigin: 'https://github-magneto.github.io/project-graph/build-package'
       }
     },
     graphConfigUpdate: undefined,

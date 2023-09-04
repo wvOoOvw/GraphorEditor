@@ -17,7 +17,7 @@ import { hash, getElementById, getEventById, graphElementSearch, getMonitorOptio
 import { EventDialog } from './View.Component.EventDialog'
 
 const offsetLink = (item) => {
-  return { ...item, x: item.x + Imitation.state.eventRootRef.offsetWidth / 2, y: item.y + Imitation.state.eventRootRef.offsetHeight / 2 }
+  return { ...item, x: item.x + Imitation.state.eventDevRootRef.offsetWidth / 2, y: item.y + Imitation.state.eventDevRootRef.offsetHeight / 2 }
 }
 
 function NeuronLinkAction() {
@@ -126,7 +126,7 @@ function Link(props) {
 
   return <>
     <defs>
-      <linearGradient id={refColor.current} x1={String(x / Imitation.state.eventRootRef.offsetWidth)} y1={String(y / Imitation.state.eventRootRef.offsetHeight)} x2={String(x_ / Imitation.state.eventRootRef.offsetWidth)} y2={String(y_ / Imitation.state.eventRootRef.offsetHeight)}>
+      <linearGradient id={refColor.current} x1={String(x / Imitation.state.eventDevRootRef.offsetWidth)} y1={String(y / Imitation.state.eventDevRootRef.offsetHeight)} x2={String(x_ / Imitation.state.eventDevRootRef.offsetWidth)} y2={String(y_ / Imitation.state.eventDevRootRef.offsetHeight)}>
         <stop offset='20%' stopColor={color[0]} />
         <stop offset='80%' stopColor={color[1]} />
       </linearGradient>
@@ -371,7 +371,7 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    if (Imitation.state.eventRootRef) setUpdate(pre => pre + 1)
+    if (Imitation.state.eventDevRootRef) setUpdate(pre => pre + 1)
   }, [])
 
   return <Paper
@@ -409,11 +409,11 @@ function App() {
       onTouchStart={onMouseDown}
       onTouchMove={onMouseMove}
       onTouchEnd={onMouseUp}
-      ref={el => Imitation.state.eventRootRef = el}
+      ref={el => Imitation.state.eventDevRootRef = el}
     >
       <Events graphEvent={graphEvent} />
       {
-        Imitation.state.eventRootRef ?
+        Imitation.state.eventDevRootRef ?
           <svg style={{ position: 'absolute', inset: 0, margin: 'auto', zIndex: 1 }} width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <Links graphEvent={graphEvent} />
           </svg>
