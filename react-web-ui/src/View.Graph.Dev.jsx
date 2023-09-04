@@ -35,7 +35,7 @@ function Hover() {
   React.useEffect(() => {
     handle()
 
-    timeRef.current = setInterval(() => handle(), 500)
+    timeRef.current = setInterval(() => handle(), 1000)
 
     return () => clearInterval(timeRef.current)
   }, [Imitation.state.elementHover, Imitation.state.graphContentUpdate])
@@ -84,7 +84,7 @@ function Active() {
   React.useEffect(() => {
     handle()
 
-    timeRef.current = setInterval(() => handle(), 500)
+    timeRef.current = setInterval(() => handle(), 1000)
 
     return () => clearInterval(timeRef.current)
   }, [Imitation.state.navigationTabsElementValue, Imitation.state.graphContentUpdate])
