@@ -16,8 +16,12 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import BookIcon from '@mui/icons-material/Book'
 
 import GraphElement from '../src-element/index'
+
+import example from '../src-example/index'
 
 import Imitation, { initState } from './utils.imitation'
 import { downloadFile, hash } from './utils.common'
@@ -361,9 +365,52 @@ function DialogDocument(props) {
   </Dialog>
 }
 
+function DialogExample(props) {
+  const { onClose } = props
+
+  const use = async (example) => {
+    Imitation.state.loading = Imitation.state.loading + 1
+
+    Imitation.dispatch()
+
+    const guide = await example.value().then(res => res.default)
+
+    Imitation.state.graphContent = guide.graphContent
+    Imitation.state.graphEvent = guide.graphEvent
+    Imitation.state.graphConfig = guide.graphConfig
+    Imitation.state.graphContentUpdate = hash()
+    Imitation.state.graphEventUpdate = hash()
+    Imitation.state.graphConfigUpdate = hash()
+
+    Imitation.state.loading = Imitation.state.loading - 1
+
+    Imitation.dispatch()
+
+    onClose()
+  }
+
+  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 840 } }} onClose={onClose} className='font'>
+    <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>Example</DialogTitle>
+    <DialogContent dividers>
+      <Grid container spacing={1}>
+
+        {
+          example.map((i, index) => {
+            return <Grid key={index} xs={12}>
+              <Button fullWidth variant='contained' onClick={() => use(i)}>{i.label}</Button>
+            </Grid>
+          })
+        }
+
+      </Grid>
+    </DialogContent>
+  </Dialog>
+}
+
 function App() {
   const [dialogPublish, setDialogPublish] = React.useState()
   const [dialogDocument, setDialogDocument] = React.useState()
+  const [dialogExample, setDialogExample] = React.useState()
 
   const handleSave = () => {
     localStorage.setItem('graphCache', JSON.stringify({ graphContent: Imitation.state.graphContent, graphEvent: Imitation.state.graphEvent, graphConfig: Imitation.state.graphConfig }))
@@ -385,9 +432,7 @@ function App() {
 
     Imitation.dispatch()
 
-    const example = await import('../src-example/index').then(res => res.default)
-
-    const guide = example.find(i => i.label === 'Guide').value
+    const guide = await example.find(i => i.label === 'Guide').value().then(res => res.default)
 
     Imitation.state.graphContent = guide.graphContent
     Imitation.state.graphEvent = guide.graphEvent
@@ -409,6 +454,13 @@ function App() {
       </Grid>
     </div>
     <div>
+
+      <Tooltip {...TooltipSX} title='GitHub'>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/github-magneto/project-graph')}><GitHubIcon /></Button>
+      </Tooltip>
+      <Tooltip {...TooltipSX} title='Example'>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => setDialogExample(true)}><BookIcon /></Button>
+      </Tooltip>
       <Tooltip {...TooltipSX} title='Save'>
         <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handleSave}><SaveIcon /></Button>
       </Tooltip>
@@ -429,6 +481,10 @@ function App() {
 
     {
       dialogPublish ? <DialogPublish onClose={() => setDialogPublish()} /> : null
+    }
+
+    {
+      dialogExample ? <DialogExample onClose={() => setDialogExample()} /> : null
     }
 
   </Paper>

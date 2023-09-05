@@ -1,5 +1,5 @@
 const r = [
-  { label: 'Guide', value: require('./example-guide.json') }
+  { label: 'Guide', value: () => import('./example-guide.json') }
 ]
 
 export default r
