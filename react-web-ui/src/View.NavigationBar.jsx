@@ -456,7 +456,7 @@ function App() {
     <div>
 
       <Tooltip {...TooltipSX} title='GitHub'>
-        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/github-magneto/project-graph')}><GitHubIcon /></Button>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/github-magneto/project-graphor')}><GitHubIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Example'>
         <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => setDialogExample(true)}><BookIcon /></Button>
