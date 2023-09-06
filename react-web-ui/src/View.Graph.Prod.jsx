@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { graphEvent } from './utils.graph.event'
-import { graphElementSearch } from './utils.graph.common'
+import { searchElement } from './utils.common'
 import { caculateStyle } from './utils.graph.style'
 
 function ElementRender(props) {
@@ -11,7 +11,7 @@ function ElementRender(props) {
 
   const { license, id, use, property, style, children, monitor, trigger, hook } = props.element
 
-  const { Render } = React.useMemo(() => graphElementSearch(license, graphElement), [])
+  const { Render } = React.useMemo(() => searchElement(license, graphElement), [])
 
   if (!Render) return null
 

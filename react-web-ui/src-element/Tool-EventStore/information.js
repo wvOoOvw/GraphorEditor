@@ -2,13 +2,13 @@ const information = {
   name: 'Event Store',
   type: 'Tool',
   monitor: [
-    { value: 'monitorEvent', label: 'Monitor Event' }
+    { value: 'triggerDispatch', label: 'Trigger Dispatch' }
   ],
   trigger: [
-    { value: 'triggerEvent', label: 'Trigger Event' }
+    { value: 'Dispatch', label: 'Dispatch' }
   ],
   property: {
-    immediate: false
+    immediateDispatch: false
   }
 }
 

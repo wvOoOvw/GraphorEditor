@@ -4,11 +4,18 @@ import { Radio, FormControl, RadioGroup, FormControlLabel } from '@mui/material'
 function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
+  const onChange = (e) => {
+    property.value = e.target.value
+    update()
+    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
+  }
+
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
       const remove = monitor.setValue(data => {
         property.value = data
         update()
+        if (trigger && trigger.onChange) trigger.onChange(property.value, e)
       })
       return () => { remove() }
     }
@@ -23,12 +30,6 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-
-  const onChange = (e) => {
-    property.value = e.target.value; update()
-    update()
-    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
-  }
 
   if (env === 'dev') {
     return <RadioGroup {...devParams} value={property.value}>

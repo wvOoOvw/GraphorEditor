@@ -9,19 +9,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
-import AddIcon from '@mui/icons-material/Add'
 
 import Imitation from './utils.imitation'
-import { deepSearch, hash, deleteArrayItem } from './utils.common'
-import { graphElementSearch } from './utils.graph.common'
+import { searchElement, getElementAndParentById, hash, deleteArrayItem, updateTriggerLink, getElementsAll } from './utils.common'
 
 function ItemRender(props) {
   const { license, id, name, use, children, style, parentId, drag } = props
 
-  const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
@@ -40,7 +36,7 @@ function ItemRender(props) {
   }
 
   const handleChangeUse = (e) => {
-    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
+    const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
     currentGraphContent.use = e
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
@@ -50,10 +46,18 @@ function ItemRender(props) {
   }
 
   const handleDelete = () => {
-    const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
+    const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
+    const elementIds = getElementsAll([currentGraphContent]).map(i => i.id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== currentGraphContent.id)
-    Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
+
+    console.log(Imitation.state.graphEvent)
+
+    Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === true).forEach(i => updateTriggerLink(Imitation.state.graphContent, i.eventId))
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === false)
+
+    console.log(Imitation.state.graphEvent)
+
+    Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   const handleAdd = (current) => {
@@ -91,14 +95,14 @@ function ItemRender(props) {
     if (Imitation.state.elementDragStart && Imitation.state.elementDragEnter && Imitation.state.elementDragStart !== Imitation.state.elementDragEnter) {
       if (Imitation.state.elementDragEnter.includes('@')) {
         const [id, childrenKey] = Imitation.state.elementDragEnter.split('@')
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', id)
+        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         currentGraphContent_.children[childrenKey].push(currentGraphContent)
 
       } else {
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragEnter)
+        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnter)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         const index = parentGraphContent_.indexOf(currentGraphContent_)
         parentGraphContent_.splice(index + 1, 0, currentGraphContent)

@@ -40,14 +40,14 @@ function Render(props) {
 
   if (env === 'dev') {
     return <div {...devParams}>
-      <div>
+      <div {...children.tooltipContent.devParams}>
         {
-          children && children.tooltipContent ? children.tooltipContent() : null
+          children.tooltipContent()
         }
       </div>
-      <div>
+      <div {...children.tooltipPopup.devParams}>
         {
-          children && children.tooltipPopup ? children.tooltipPopup() : null
+          children.tooltipPopup()
         }
       </div>
     </div>
@@ -58,14 +58,14 @@ function Render(props) {
       open={property.open}
       enterDelay={property.enterDelay}
       leaveDelay={property.leaveDelay}
-      title={children && children.tooltipPopup ? children.tooltipPopup() : null}
+      title={children.tooltipPopup()}
       placement={property.placementPosition + (property.placementAlign === 'center' ? '' : '-' + property.placementAlign)}
       arrow={property.arrow}
       onOpen={onOpen}
       onClose={onClose}
     >
       {
-        children && children.tooltipContent ? children.tooltipContent() : null
+        children.tooltipContent()
       }
     </Tooltip>
   }

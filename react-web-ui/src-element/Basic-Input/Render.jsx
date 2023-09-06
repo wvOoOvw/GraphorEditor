@@ -20,7 +20,6 @@ function Render(props) {
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
       const remove = monitor.setValue(data => {
-        console.log(data)
         property.value = data
         update()
       })

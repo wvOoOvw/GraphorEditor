@@ -29,9 +29,9 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <div {...devParams} style={{ ...style.content }}>
+    return <div {...devParams} {...children.content.devParams} style={{ ...style.content }}>
       {
-        children && children.content ? children.content(prop) : null
+        children.content(prop)
       }
     </div>
   }
@@ -39,7 +39,7 @@ function Render(props) {
   if (env === 'prod') {
     return <div style={{ ...style.content }} {...dragProps}>
       {
-        children && children.content ? children.content(prop) : null
+        children.content(prop)
       }
     </div>
   }

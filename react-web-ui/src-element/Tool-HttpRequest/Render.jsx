@@ -36,11 +36,11 @@ function Render(props) {
 
     fetch(url, param)
       .then(res => {
-        if (trigger && trigger.onResponse) {
+        if (trigger && trigger.onSuccess) {
           try {
-            res.json().then(res => trigger.onResponse(res))
+            res.json().then(res => trigger.onSuccess(res))
           } catch {
-            trigger.onResponse(res)
+            trigger.onSuccess(res)
           }
         }
       })
@@ -56,7 +56,7 @@ function Render(props) {
     xhrINS.onreadystatechange = () => {
       if (xhrINS.readyState === 4) {
         if (xhrINS.status == 200) {
-          trigger.onResponse(JSON.parse(xhrINS.responseText))
+          trigger.onSuccess(JSON.parse(xhrINS.responseText))
         } else {
           trigger.onError(JSON.parse(xhrINS.responseText))
         }

@@ -13,8 +13,8 @@ function Edit(props) {
 
   return <Grid container spacing={1}>
     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>Ivmmediate Trigger Event</div>
-      <Switch checked={property.immediate} onChange={e => { property.immediate = e.target.checked; update() }} />
+      <div>Ivmmediate Dispatch</div>
+      <Switch checked={property.immediateDispatch} onChange={e => { property.immediateDispatch = e.target.checked; update() }} />
     </Grid>
   </Grid>
 }

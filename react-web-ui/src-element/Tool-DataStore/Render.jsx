@@ -5,6 +5,8 @@ function Render(props) {
 
   if (env === 'dev') return null
 
+  const [initValue, setInitValue] = React.useState(JSON.parse(JSON.stringify(property.initValue)))
+
   const bindWindow = () => {
     if (property.useWindow && property.windowName) window[property.windowName] = property.value
   }
@@ -14,7 +16,7 @@ function Render(props) {
       const remove = monitor.setValue(data => {
         property.value = data
         bindWindow()
-        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
+        if (trigger && trigger.onChange) trigger.onChange(property.value)
       })
       return () => { remove() }
     }
@@ -25,17 +27,37 @@ function Render(props) {
       const remove = monitor.assignValue(data => {
         Object.assign(property.value, data)
         bindWindow()
-        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
+        if (trigger && trigger.onChange) trigger.onChange(property.value)
       })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (property.immediate) {
+    if (monitor && monitor.initValue) {
+      const remove = monitor.initValue(data => {
+        property.value = initValue
+        bindWindow()
+        if (trigger && trigger.onChange) trigger.onChange(property.value)
+      })
+      return () => { remove() }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (monitor && monitor.triggerOutput) {
+      const remove = monitor.triggerOutput(data => {
+        if (trigger && trigger.output) trigger.output(property.value)
+      })
+      return () => { remove() }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (property.immediateOuput) {
       Promise.resolve().then(() => {
         bindWindow()
-        if (trigger && trigger.onEffect) trigger.onEffect(property.value)
+        if (trigger && trigger.output) trigger.output(property.value)
       })
     }
   }, [])

@@ -53,14 +53,14 @@ function Render(props) {
   if (env === 'dev') {
     return <>
       <div>
-        <div>
+        <div {...children.menuContent.devParams}>
           {
-            children && children.menuContent ? children.menuContent() : null
+            children.menuContent()
           }
         </div>
-        <div>
+        <div {...children.menuPopup.devParams}>
           {
-            children && children.menuPopup ? children.menuPopup() : null
+            children.menuPopup()
           }
         </div>
       </div>
@@ -71,13 +71,13 @@ function Render(props) {
     return <>
       <div {...devParams} onClick={onOpen} ref={el => ref.current = el}>
         {
-          children && children.menuContent ? children.menuContent(prop) : null
+          children.menuContent(prop)
         }
       </div>
       <Menu open={env === 'prod' && property.open} onClose={onClose} anchorEl={ref.current}>
         <div onClick={onClose}>
           {
-            children && children.menuPopup ? children.menuPopup(prop) : null
+            children.menuPopup(prop)
           }
         </div>
       </Menu>

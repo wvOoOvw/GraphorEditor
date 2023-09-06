@@ -4,11 +4,24 @@ import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
+  const onChange = (e) => {
+    property.value = e.target.value
+    update()
+    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
+  }
+
+  const onOpen = (e) => {
+    property.open = e.target.open
+    update()
+    if (trigger && trigger.onOpen) trigger.onOpen(property.open, e)
+  }
+
   React.useEffect(() => {
     if (monitor && monitor.setValue) {
       const remove = monitor.setValue(data => {
         property.value = data
         update()
+        if (trigger && trigger.onChange) trigger.onChange(property.value, e)
       })
       return () => { remove() }
     }
@@ -23,18 +36,6 @@ function Render(props) {
       return () => { remove() }
     }
   }, [])
-
-  const onChange = (e) => {
-    property.value = e.target.value; update()
-    update()
-    if (trigger && trigger.onChange) trigger.onChange(property.value, e)
-  }
-
-  const onOpen = (e) => {
-    property.open = e.target.open
-    update()
-    if (trigger && trigger.onOpen) trigger.onOpen(property.open, e)
-  }
 
   if (env === 'dev') {
     const ref = React.useRef()

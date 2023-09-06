@@ -6,18 +6,18 @@ function Render(props) {
   if (env === 'dev') return null
 
   React.useEffect(() => {
-    if (monitor && monitor.monitorEvent) {
-      const remove = monitor.monitorEvent(data => {
-        if (trigger && trigger.triggerEvent) trigger.triggerEvent(data)
+    if (monitor && monitor.triggerDispatch) {
+      const remove = monitor.triggerDispatch(data => {
+        if (trigger && trigger.triggerEvent) trigger.Dispatch(data)
       })
       return () => { remove() }
     }
   }, [])
 
   React.useEffect(() => {
-    if (property.immediate) {
+    if (property.immediateDispatch) {
       requestAnimationFrame(() => {
-        if (trigger && trigger.triggerEvent) trigger.triggerEvent()
+        if (trigger && trigger.Dispatch) trigger.Dispatch()
       })
     }
   }, [])

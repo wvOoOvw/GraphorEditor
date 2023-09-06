@@ -13,7 +13,7 @@ import { Tooltip } from '@mui/material'
 import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 
 import Imitation from './utils.imitation'
-import { deepSearch, hash } from './utils.common'
+import { getElementAndParentById, hash } from './utils.common'
 import { evalBeforeRenderHook } from './utils.const'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
@@ -36,10 +36,10 @@ function App() {
 
     if (Imitation.state.navigationTabsElementValue !== undefined) {
       const [id, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
-      const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', id)
+      const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
       currentGraphContent.children[childrenKey].push(newElement)
     }
-    
+
     if (Imitation.state.navigationTabsElementValue === undefined) {
       Imitation.state.graphContent.push(newElement)
     }

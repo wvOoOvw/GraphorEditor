@@ -21,7 +21,7 @@ import ReactAce from 'react-ace'
 
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
-import { getMonitorOptionsAll, updateTriggerLink, hash, graphElementSearch } from './utils.common'
+import { getMonitorOptionsAll, updateTriggerLink, hash, searchElement } from './utils.common'
 
 import Imitation from './utils.imitation'
 
@@ -32,7 +32,7 @@ function HookConfig(props) {
 
   const handleAdd = () => {
     const id = hash()
-    const item = { id: id, name: id, use: true, hookType: '', hookEval: evalEventMonitorDefault }
+    const item = { id: id, name: currentGraphElement.name, use: true, hookType: '', hookEval: evalEventMonitorDefault }
     currentGraphElement.hook.push(item)
     Imitation.state.graphEvent.push({ eventType: 'hook', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -93,13 +93,13 @@ function MonitorConfig(props) {
 
   if (!currentGraphElement.monitor) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
   const handleAdd = () => {
     const id = hash()
-    const item = { id: id, name: id, use: true, monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
+    const item = { id: id, name: currentGraphElement.name, use: true, monitorType: 'default', monitorEval: evalEventMonitorDefault, monitorKey: '' }
     currentGraphElement.monitor.push(item)
     Imitation.state.graphEvent.push({ eventType: 'monitor', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -114,7 +114,7 @@ function MonitorConfig(props) {
   const handleDelete = (index, value) => {
     updateTriggerLink(Imitation.state.graphContent, value.id)
     currentGraphElement.monitor.splice(index, 1)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'monitor' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
     setDialog(undefined)
   }
@@ -165,29 +165,29 @@ function TriggerConfig(props) {
 
   if (!currentGraphElement.trigger) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
   const handleAdd = () => {
     const id = hash()
-    const item = { id: id, name: id, use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', linkId: [] }
+    const item = { id: id, name: currentGraphElement.name, use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', linkId: [] }
     currentGraphElement.trigger.push(item)
     Imitation.state.graphEvent.push({ eventType: 'trigger', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
   const handleChange = (index, value) => {
-    setDialog(undefined)
     currentGraphElement.trigger[index] = value
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
   const handleDelete = (index, value) => {
-    setDialog(undefined)
     currentGraphElement.trigger.splice(index, 1)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.type !== 'trigger' || i.elementId !== currentGraphElement.id || i.eventId !== value.id)
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.eventId !== value.id)
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
+    setDialog(undefined)
   }
 
   const triggerOptions = information.trigger

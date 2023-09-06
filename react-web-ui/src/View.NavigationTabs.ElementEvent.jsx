@@ -11,14 +11,14 @@ import AlarmIcon from '@mui/icons-material/Alarm'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import Imitation from './utils.imitation'
-import { graphElementSearch } from './utils.common'
+import { searchElement } from './utils.common'
 
 import { EventConfigDialog } from './View.Component.EventDialog'
 
 function ItemRender(props) {
   const { license, id, name, children, monitor, trigger, parentId, hook } = props
 
-  const { information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 

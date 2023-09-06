@@ -42,23 +42,8 @@ const hash = (n = 4, l = 3) => {
   return new Array(l).fill(undefined).map(i => Array.from(Array(n), () => Math.floor(Math.random() * 36).toString(36)).join('')).join('-').toUpperCase()
 }
 
-function convertCamelCase(string) {
+const convertCamelCase = (string) => {
   return string.split(/(?=[A-Z])/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-}
-
-const deepSearch = (target, key, value) => {
-  var current = undefined
-  var parent = undefined
-
-  target.forEach(i => {
-    if (i[key] === value) [current, parent] = current && parent ? [current, parent] : [i, target]
-
-    if (i.children) {
-      Object.values(i.children).forEach(i => [current, parent] = current && parent ? [current, parent] : deepSearch(i, key, value))
-    }
-  })
-
-  return [current, parent]
 }
 
 const deleteArrayItem = (target, item) => {
@@ -66,17 +51,42 @@ const deleteArrayItem = (target, item) => {
   if (index > -1) target.splice(index, 1)
 }
 
-const deepCopyElement = (target) => {
-  const deepCopyElementHelp = (t) => {
-    t.id = hash()
-    if (t.hook) t.hook = []
-    if (t.monitor) t.monitor = []
-    if (t.trigger) t.trigger = []
-    if (t.children) Object.values(t.children).forEach(i => i.forEach(i => deepCopyElementHelp(i)))
-    return t
+const searchElement = (license, list) => {
+  const item = list.find(i => i.license.key === license)
+  if (item) {
+    return item
+  } else {
+    return { Render: null, Edit: null, View: null, information: null, license: null }
   }
+}
 
-  return deepCopyElementHelp(JSON.parse(JSON.stringify(target)))
+const getElementById = (content, id) => {
+  var current = undefined
+
+  content.forEach(i => {
+    if (i.id === id) current = current ? current : i
+
+    if (i.children) {
+      Object.values(i.children).forEach(i => current = current ? current : getElementById(i, id))
+    }
+  })
+
+  return current
+}
+
+const getElementAndParentById = (content, id) => {
+  var current = undefined
+  var parent = undefined
+
+  content.forEach(i => {
+    if (i.id === id) [current, parent] = current && parent ? [current, parent] : [i, content]
+
+    if (i.children) {
+      Object.values(i.children).forEach(i => [current, parent] = current && parent ? [current, parent] : getElementAndParentById(i, id))
+    }
+  })
+
+  return [current, parent]
 }
 
 const getElementsAll = (content) => {
@@ -86,11 +96,24 @@ const getElementsAll = (content) => {
     if (i) r.push(i)
 
     if (i.children) {
-      Object.values(i.children).forEach(i => r.push(...getElementAll(i)))
+      Object.values(i.children).forEach(i => r.push(...getElementsAll(i)))
     }
   })
 
   return r
+}
+
+const copyElement = (target) => {
+  const copy = (t) => {
+    t.id = hash()
+    if (t.hook) t.hook = []
+    if (t.monitor) t.monitor = []
+    if (t.trigger) t.trigger = []
+    if (t.children) Object.values(t.children).forEach(i => i.forEach(i => copy(i)))
+    return t
+  }
+
+  return copy(JSON.parse(JSON.stringify(target)))
 }
 
 const getMonitorOptionsAll = (content) => {
@@ -105,20 +128,6 @@ const getMonitorOptionsAll = (content) => {
   })
 
   return r
-}
-
-const getElementById = (target, id) => {
-  var current = undefined
-
-  target.forEach(i => {
-    if (i.id === id) current = current ? current : i
-
-    if (i.children) {
-      Object.values(i.children).forEach(i => current = current ? current : getElementById(i, id))
-    }
-  })
-
-  return current
 }
 
 const getEventById = (target, id, type) => {
@@ -138,25 +147,12 @@ const getEventById = (target, id, type) => {
 const updateTriggerLink = (content, id) => {
   content.forEach((i) => {
     if (i.trigger) {
-      i.trigger.forEach(i => {
-        i.linkId = i.linkId.filter(i => i !== id)
-      })
+      i.trigger.forEach(i => i.linkId = i.linkId.filter(i => i !== id))
     }
     if (i.children) {
-      Object.values(i.children).forEach(i => {
-        getMonitorOptionsAll(i)
-      })
+      Object.values(i.children).forEach(i => updateTriggerLink(i, id))
     }
   })
 }
 
-const graphElementSearch = (license, list) => {
-  const item = list.find(i => i.license.key === license)
-  if (item) {
-    return item
-  } else {
-    return { Render: null, Edit: null, View: null, information: null, license: null }
-  }
-}
-
-export { downloadFile, clone, copy, hash, convertCamelCase, deepSearch, deleteArrayItem, deepCopyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, graphElementSearch, getElementById, getEventById }
+export { downloadFile, clone, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, searchElement, getElementById, getEventById }

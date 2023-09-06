@@ -14,7 +14,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 
 import Imitation from './utils.imitation'
-import { hash, copy, deepCopyElement } from './utils.common'
+import { hash, copy, copyElement } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
 
 import { AceDialog } from './View.Component.Ace'
@@ -224,7 +224,7 @@ function Action(props) {
   const handleImportElement = () => {
     const v = prompt('Import Element')
     try {
-      const data = deepCopyElement(JSON.parse(v))
+      const data = copyElement(JSON.parse(v))
       Imitation.state.graphContent.push(data)
       Imitation.assignState({ graphContentUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
     } catch { }

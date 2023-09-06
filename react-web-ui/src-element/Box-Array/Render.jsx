@@ -14,9 +14,9 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <div {...devParams} style={{ ...style.content }}>
+    return <div {...devParams} {...children.content.devParams} style={{ ...style.content }}>
       {
-        children && children.content ? children.content() : null
+        children.content()
       }
     </div>
   }
@@ -24,7 +24,7 @@ function Render(props) {
   if (env === 'prod') {
     return <div style={{ ...style.main }}>
       {
-        property.value.map((i) => children && children.content ? children.content(i) : null)
+        property.value.map((i) => children.content(i))
       }
     </div>
   }

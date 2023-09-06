@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 
 import Imitation from './utils.imitation'
-import { hash, getElementById, getEventById, graphElementSearch, getMonitorOptionsAll, updateTriggerLink, convertCamelCase } from './utils.common'
+import { hash, getElementById, getEventById, searchElement, getMonitorOptionsAll, updateTriggerLink, convertCamelCase } from './utils.common'
 
 import { EventDialog } from './View.Component.EventDialog'
 
@@ -145,7 +145,6 @@ function Links(props) {
     const r = []
 
     props.graphEvent.filter(i => i.eventType === 'trigger').forEach(trigger => {
-      console.log(trigger)
       trigger.event.linkId.forEach(linkId => {
         const monitor = props.graphEvent.find(i => i.eventId === linkId)
 
@@ -160,7 +159,7 @@ function Links(props) {
 }
 
 function Event(props) {
-  const { information } = React.useMemo(() => graphElementSearch(props.element.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(props.element.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   const [eventDialog, setEventDialog] = React.useState()
 
@@ -373,6 +372,8 @@ function App() {
   React.useEffect(() => {
     if (Imitation.state.eventDevRootRef) setUpdate(pre => pre + 1)
   }, [])
+
+  console.log(graphEvent)
 
   return <Paper
     className='font'

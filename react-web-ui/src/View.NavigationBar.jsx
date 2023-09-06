@@ -389,14 +389,14 @@ function DialogExample(props) {
     onClose()
   }
 
-  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 840 } }} onClose={onClose} className='font'>
+  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 480 } }} onClose={onClose} className='font'>
     <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>Example</DialogTitle>
     <DialogContent dividers>
       <Grid container spacing={1}>
 
         {
           example.map((i, index) => {
-            return <Grid key={index} xs={12}>
+            return <Grid key={index} item xs={12}>
               <Button fullWidth variant='contained' onClick={() => use(i)}>{i.label}</Button>
             </Grid>
           })

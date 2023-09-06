@@ -5,8 +5,7 @@ import { Slider } from '@mui/material'
 
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
-import { graphElementSearch } from './utils.graph.common'
-import { deepSearch, hash, deleteArrayItem } from './utils.common'
+import { getElementAndParentById, hash, deleteArrayItem, searchElement } from './utils.common'
 
 function Hover() {
   const timeRef = React.useRef()
@@ -111,7 +110,7 @@ function ElementRender(props) {
 
   const { license, id, use, style, property, children } = props.element
 
-  const { Render, information } = React.useMemo(() => graphElementSearch(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { Render, information } = React.useMemo(() => searchElement(license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!Render) {
     console.warn(license)
@@ -130,6 +129,8 @@ function ElementRender(props) {
   }
 
   const onMouseOver = (e, id) => {
+    if (Imitation.state.elementDragStart !== undefined) return
+
     Imitation.assignState({ elementHover: id })
 
     e.stopPropagation()
@@ -157,13 +158,13 @@ function ElementRender(props) {
     if (Imitation.state.elementDragStart && Imitation.state.elementDragEnter && Imitation.state.elementDragStart !== Imitation.state.elementDragEnter) {
       if (Imitation.state.elementDragEnter.includes('@')) {
         const [id, childrenKey] = Imitation.state.elementDragEnter.split('@')
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', id)
+        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         currentGraphContent_.children[childrenKey].push(currentGraphContent)
       } else {
-        const [currentGraphContent, parentGraphContent] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = deepSearch(Imitation.state.graphContent, 'id', Imitation.state.elementDragEnter)
+        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnter)
         deleteArrayItem(parentGraphContent, currentGraphContent)
         const index = parentGraphContent_.indexOf(currentGraphContent_)
         parentGraphContent_.splice(index + 1, 0, currentGraphContent)
@@ -182,20 +183,13 @@ function ElementRender(props) {
       const title = information.children.find(i_ => i_.value === i[0]).label
 
       const params = {
+        id: id_,
         onMouseOver: e => onMouseOver(e, id_),
         onDragEnter: e => onDragEnter(e, id_)
       }
 
-      r[i[0]] = () => {
-        return <Paper style={{ width: '100%', height: '100%', boxShadow: Imitation.state.elementDragStart ? undefined : 'none', padding: Imitation.state.elementDragStart ? 8 : 0, transition: '0.5s all', boxSizing: 'border-box' }} id={id_} {...params}>
-          <Paper style={{ background: 'rgba(235,235,235)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', padding: Imitation.state.elementDragStart ? 8 : 0, height: Imitation.state.elementDragStart ? 16 : 0, transition: '0.5s all' }} className='font-single'>{title}</Paper>
-          {
-            i[1].map(i => {
-              return <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />
-            })
-          }
-        </Paper>
-      }
+      r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />)
+      r[i[0]].devParams = params
     })
     return r
   })
@@ -308,4 +302,4 @@ function App() {
   </>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementValue, state.elementHover])
+export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementValue, state.elementHover, state.elementDragStart])

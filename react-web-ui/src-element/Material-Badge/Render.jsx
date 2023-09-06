@@ -15,9 +15,9 @@ function Render(props) {
   }, [])
 
   if (env === 'env') {
-    return <Badge badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero}>
+    return <Badge {...children.content.devParams} badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero}>
       {
-        children && children.content ? children.content(prop) : null
+        children.content(prop)
       }
     </Badge>
   }
@@ -25,7 +25,7 @@ function Render(props) {
   if (env === 'prod') {
     return <Badge {...devParams} badgeContent={Number(property.badgeContent)} color={property.color} variant={property.variant} anchorOrigin={property.anchorOrigin} invisible={property.invisible} max={Number(property.max)} overlap={property.overlap} showZero={property.showZero}>
       {
-        children && children.content ? children.content(prop) : null
+        children.content(prop)
       }
     </Badge>
   }

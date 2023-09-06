@@ -29,8 +29,7 @@ import UploadIcon from '@mui/icons-material/Upload'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 import Imitation from './utils.imitation'
-import { deepSearch, deleteArrayItem, deepCopyElement, getMonitorOptionsAll, updateTriggerLink, hash, copy, convertCamelCase } from './utils.common'
-import { graphElementSearch } from './utils.graph.common'
+import { searchElement, getElementAndParentById, deleteArrayItem, copyElement, updateTriggerLink, hash, copy, getElementsAll } from './utils.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 import { HookConfig as HookConfigComponent, MonitorConfig as MonitorConfigComponenent, TriggerConfig as TriggerConfigComponent } from './View.Component.EventDialog'
@@ -40,7 +39,7 @@ import * as ElementConfigComponent from './View.Component.ElementConfig'
 function BasicConfig(props) {
   const { currentGraphElement, parentGraphElement } = props
 
-  const { information, license } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information, license } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information || !license) return null
 
@@ -95,7 +94,7 @@ function BasicConfig(props) {
 function StyleConfig(props) {
   const { currentGraphElement, parentGraphElement } = props
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!currentGraphElement.style || !information) return null
 
@@ -207,7 +206,7 @@ function PropertyConfig(props) {
 
   if (!currentGraphElement.property) return null
 
-  const { Edit } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { Edit } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!Edit) return null
 
@@ -238,7 +237,7 @@ function ChildrenConfig(props) {
 
   if (!currentGraphElement.children) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
@@ -311,7 +310,7 @@ function MonitorConfig(props) {
 
   if (!currentGraphElement.monitor) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
@@ -334,7 +333,7 @@ function TriggerConfig(props) {
 
   if (!currentGraphElement.trigger) return null
 
-  const { information } = React.useMemo(() => graphElementSearch(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!information) return null
 
@@ -356,13 +355,17 @@ function Action(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   const handleDelete = () => {
+    const elementIds = getElementsAll([currentGraphElement]).map(i => i.id)
     deleteArrayItem(parentGraphElement, currentGraphElement)
-    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => i.elementId !== currentGraphElement.id)
+
+    Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === true).forEach(i => updateTriggerLink(Imitation.state.graphContent, i.eventId))
+    Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === false)
+
     Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'ElementShop' })
   }
 
   const handleCopy = () => {
-    const newElement = deepCopyElement(currentGraphElement)
+    const newElement = copyElement(currentGraphElement)
     parentGraphElement.push(newElement)
     Imitation.assignState({ graphContentUpdate: hash() })
   }
@@ -387,7 +390,7 @@ function Action(props) {
 function App() {
   if (!Imitation.state.navigationTabsElementValue) return null
 
-  const [currentGraphElement, parentGraphElement] = React.useMemo(() => deepSearch(Imitation.state.graphContent, 'id', Imitation.state.navigationTabsElementValue), [Imitation.state.graphContent])
+  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue), [Imitation.state.graphContent])
 
   if (!currentGraphElement) return null
 

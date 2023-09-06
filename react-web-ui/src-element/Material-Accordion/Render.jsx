@@ -43,11 +43,11 @@ function Render(props) {
   if (env === 'dev') {
     return <Accordion {...devParams} expanded={property.expanded} disabled={property.disabled} disableGutters={property.disableGutters} square={property.square} sx={{ '&.MuiAccordion-root': style.accordion, '& .MuiAccordionSummary-root': style.accordionSummary, '& .MuiAccordionDetails-root': style.accordionDetails }}>
 
-      <AccordionSummary expandIcon={property.expandIcon ? <Icon /> : undefined}>
+      <AccordionSummary {...children.accordionSummary.devParams} expandIcon={property.expandIcon ? <Icon /> : undefined}>
         {
           property.customSummary === true ?
             (
-              children && children.accordionSummary ? children.accordionSummary() : null
+              children.accordionSummary()
             )
             : null
         }
@@ -64,9 +64,9 @@ function Render(props) {
         property.divider ? <Divider /> : null
       }
 
-      <AccordionDetails>
+      <AccordionDetails {...children.accordionDetails.devParams}>
         {
-          children && children.accordionDetails ? children.accordionDetails() : null
+          children.accordionDetails()
         }
       </AccordionDetails>
 
@@ -80,7 +80,7 @@ function Render(props) {
         {
           property.customSummary === true ?
             (
-              children && children.accordionSummary ? children.accordionSummary(prop) : null
+              children.accordionSummary(prop)
             )
             : null
         }
@@ -99,7 +99,7 @@ function Render(props) {
 
       <AccordionDetails>
         {
-          children && children.accordionDetails ? children.accordionDetails(prop) : null
+          children.accordionDetails(prop)
         }
       </AccordionDetails>
 

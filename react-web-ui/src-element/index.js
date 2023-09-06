@@ -53,6 +53,7 @@ l.push(load('Material-TextField'))
 l.push(load('Material-ToggleButtonGroup'))
 l.push(load('Material-Tooltip'))
 
+l.push(load('Tool-DataInterface'))
 l.push(load('Tool-DataStore'))
 l.push(load('Tool-EventStore'))
 l.push(load('Tool-HttpRequest'))

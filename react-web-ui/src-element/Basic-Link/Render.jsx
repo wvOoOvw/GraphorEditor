@@ -23,9 +23,9 @@ function Render(props) {
   }, [])
 
   if (env === 'dev') {
-    return <a {...devParams} style={{ ...style.content }}>
+    return <a {...devParams} {...children.content.devParams} style={{ ...style.content }}>
       {
-        children && children.content ? children.content(prop) : null
+        children.content(prop)
       }
     </a>
   }
@@ -34,7 +34,7 @@ function Render(props) {
     if (property.useDom === true) {
       return <a style={{ ...style.content }} href={property.href} target={property.target}>
         {
-          children && children.content ? children.content(prop) : null
+          children.content(prop)
         }
       </a>
     }
@@ -42,7 +42,7 @@ function Render(props) {
     if (property.useDom === false) {
       return <span style={{ ...style.content }} onClick={onClick}>
         {
-          children && children.content ? children.content(prop) : null
+          children.content(prop)
         }
       </span>
     }

@@ -5,8 +5,8 @@ const information = {
     { value: 'request', label: 'Request' }
   ],
   trigger: [
-    { value: 'onResponse', label: 'Request Response' },
-    { value: 'onError', label: 'Request Error' }
+    { value: 'onSuccess', label: 'On Success' },
+    { value: 'onError', label: 'On Error' }
   ],
   property: {
     mode: 'fetch',

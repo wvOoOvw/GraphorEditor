@@ -4,13 +4,17 @@ const information = {
   monitor: [
     { value: 'setValue', label: 'Set Value' },
     { value: 'assignValue', label: 'Assign Value' },
+    { value: 'initValue', label: 'Init Value' },
+    { value: 'triggerOutput', label: 'Trigger Output' },
   ],
   trigger: [
-    { value: 'onEffect', label: 'Effect' }
+    { value: 'onChange', label: 'On Change' },
+    { value: 'output', label: 'Output' }
   ],
   property: {
     value: {},
-    immediate: false,
+    initValue: {},
+    immediateOuput: false,
     useWindow: false,
     windowName: '',
   }

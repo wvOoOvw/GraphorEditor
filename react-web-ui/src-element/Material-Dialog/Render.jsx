@@ -34,21 +34,21 @@ function Render(props) {
 
   if (env === 'dev') {
     return <div {...devParams}>
-      <DialogTitle>
+      <DialogTitle {...children.dialogTitle.devParams}>
         {
-          children && children.dialogTitle ? children.dialogTitle() : null
+          children.dialogTitle()
         }
       </DialogTitle>
 
-      <DialogContent dividers={property.dividers}>
+      <DialogContent {...children.dialogContent.devParams} dividers={property.dividers}>
         {
-          children && children.dialogContent ? children.dialogContent() : null
+          children.dialogContent()
         }
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions {...children.dialogAction.devParams}>
         {
-          children && children.dialogAction ? children.dialogAction() : null
+          children.dialogAction()
         }
       </DialogActions>
     </div>
@@ -58,19 +58,19 @@ function Render(props) {
     return <Dialog {...devParams} open={property.open} onClose={onClose}>
       <DialogTitle>
         {
-          children && children.dialogTitle ? children.dialogTitle(prop) : null
+          children.dialogTitle(prop)
         }
       </DialogTitle>
 
       <DialogContent dividers={property.dividers}>
         {
-          children && children.dialogContent ? children.dialogContent(prop) : null
+          children.dialogContent(prop)
         }
       </DialogContent>
 
       <DialogActions>
         {
-          children && children.dialogAction ? children.dialogAction(prop) : null
+          children.dialogAction(prop)
         }
       </DialogActions>
     </Dialog>

@@ -5,7 +5,7 @@ function Render(props) {
   const { env, update, devParams, property, style, monitor, trigger, children, element, prop } = props
 
   const onChange = (e) => {
-    property.value = e.target.value; update()
+    property.value = e.target.value
     update()
     if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
   }
@@ -23,6 +23,7 @@ function Render(props) {
       const remove = monitor.setValue(data => {
         property.value = data
         update()
+        if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
       })
       return () => { remove() }
     }
@@ -33,6 +34,7 @@ function Render(props) {
       const remove = monitor.setValueEmpty(data => {
         property.value = ''
         update()
+        if (trigger && trigger.onChange) trigger.onChange(e.target.value, e)
       })
       return () => { remove() }
     }
