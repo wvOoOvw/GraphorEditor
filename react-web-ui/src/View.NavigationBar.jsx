@@ -205,7 +205,7 @@ function DialogPublish(props) {
       )
       .replace(
         `<replace id="graph.data"></replace>`,
-        `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)};</script>`
+        `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)}; window.graphConfig = ${JSON.stringify(data.graphConfig)};</script>`
       )
       .replace(
         `<replace id="graph.element"></replace>`,
@@ -218,12 +218,14 @@ function DialogPublish(props) {
 
     if (option.encode) {
       const graphContent = data.graphContent
+      const graphConfig = data.graphConfig
 
       const encodeContent = encodeify(graphContent)
+      const encodeConfig = encodeify(graphConfig)
 
       html = html.replace(
         /<script id="graph.data">.+?<\/script>/,
-        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)}));</script>`
+        `<script id="graph.data">window.graphContent = (${decodeifyString}(${JSON.stringify(encodeContent.data)}, ${JSON.stringify(encodeContent.map)})); window.graphConfig = (${decodeifyString}(${JSON.stringify(encodeConfig.data)}, ${JSON.stringify(encodeConfig.map)}));</script>`
       )
     }
 

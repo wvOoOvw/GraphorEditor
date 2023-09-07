@@ -61,7 +61,7 @@ const initState = () => {
       project: {
         renderId: '$render',
         updateId: '$update',
-        sourceOrigin: 'https://github-magneto.github.io/project-graphor/build-package'
+        sourceOrigin: 'https://github-magneto.github.io/project-graphor/react-web-ui/build-package'
       }
     },
     graphConfigUpdate: undefined,
