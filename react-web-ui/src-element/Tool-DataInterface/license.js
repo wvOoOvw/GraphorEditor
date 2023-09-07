@@ -1,5 +1,5 @@
 const license = {
-  key: 'Data Interface'
+  key: 'Tool-DataInterface'
 }
 
 export default license
