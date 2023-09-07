@@ -5,7 +5,8 @@ import { Slider } from '@mui/material'
 
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
-import { getElementAndParentById, hash, deleteArrayItem, searchElement } from './utils.common'
+import { getElementAndParentById, hash, deleteArrayItem } from './utils.common'
+import { searchElement } from './utils.graph.common'
 
 function Hover() {
   const timeRef = React.useRef()

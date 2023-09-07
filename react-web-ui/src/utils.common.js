@@ -51,15 +51,6 @@ const deleteArrayItem = (target, item) => {
   if (index > -1) target.splice(index, 1)
 }
 
-const searchElement = (license, list) => {
-  const item = list.find(i => i.license.key === license)
-  if (item) {
-    return item
-  } else {
-    return { Render: null, Edit: null, View: null, information: null, license: null }
-  }
-}
-
 const getElementById = (content, id) => {
   var current = undefined
 
@@ -155,4 +146,4 @@ const updateTriggerLink = (content, id) => {
   })
 }
 
-export { downloadFile, clone, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, searchElement, getElementById, getEventById }
+export { downloadFile, clone, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, getElementById, getEventById }

@@ -11,7 +11,7 @@ import AlarmIcon from '@mui/icons-material/Alarm'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import Imitation from './utils.imitation'
-import { searchElement } from './utils.common'
+import { searchElement } from './utils.graph.common'
 
 import { EventConfigDialog } from './View.Component.EventDialog'
 

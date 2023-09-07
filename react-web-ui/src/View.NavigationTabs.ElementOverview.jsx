@@ -12,7 +12,8 @@ import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
 import Imitation from './utils.imitation'
-import { searchElement, getElementAndParentById, hash, deleteArrayItem, updateTriggerLink, getElementsAll } from './utils.common'
+import { getElementAndParentById, hash, deleteArrayItem, updateTriggerLink, getElementsAll } from './utils.common'
+import { searchElement } from './utils.graph.common'
 
 function ItemRender(props) {
   const { license, id, name, use, children, style, parentId, drag } = props

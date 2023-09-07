@@ -2,15 +2,7 @@ import React from 'react'
 
 import { graphEvent } from './utils.graph.event'
 import { caculateStyle } from './utils.graph.style'
-
-const searchElement = (license, list) => {
-  const item = list.find(i => i.license.key === license)
-  if (item) {
-    return item
-  } else {
-    return { Render: null, Edit: null, View: null, information: null, license: null }
-  }
-}
+import { searchElement } from './utils.graph.common'
 
 function ElementRender(props) {
   const graphElement = window.graphElement

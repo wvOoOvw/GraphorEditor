@@ -29,7 +29,8 @@ import UploadIcon from '@mui/icons-material/Upload'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 import Imitation from './utils.imitation'
-import { searchElement, getElementAndParentById, deleteArrayItem, copyElement, updateTriggerLink, hash, copy, getElementsAll } from './utils.common'
+import { getElementAndParentById, deleteArrayItem, copyElement, updateTriggerLink, hash, copy, getElementsAll } from './utils.common'
+import { searchElement } from './utils.graph.common'
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 
 import { HookConfig as HookConfigComponent, MonitorConfig as MonitorConfigComponenent, TriggerConfig as TriggerConfigComponent } from './View.Component.EventDialog'

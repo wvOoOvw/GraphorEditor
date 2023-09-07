@@ -21,7 +21,8 @@ import ReactAce from 'react-ace'
 
 import { TooltipSX, TextFieldSX, AutocompleteSX, SelectSX } from './utils.mui.sx'
 import { evalBeforeRenderHook, evalEventMonitorDefault, evalEventTriggerDefault } from './utils.const'
-import { getMonitorOptionsAll, updateTriggerLink, hash, searchElement } from './utils.common'
+import { getMonitorOptionsAll, updateTriggerLink, hash } from './utils.common'
+import { searchElement } from './utils.graph.common'
 
 import Imitation from './utils.imitation'
 

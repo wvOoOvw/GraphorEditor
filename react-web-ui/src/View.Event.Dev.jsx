@@ -11,7 +11,8 @@ import { IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 
 import Imitation from './utils.imitation'
-import { hash, getElementById, getEventById, searchElement, getMonitorOptionsAll, updateTriggerLink, convertCamelCase } from './utils.common'
+import { hash, getElementById, getEventById, getMonitorOptionsAll, updateTriggerLink, convertCamelCase } from './utils.common'
+import { searchElement } from './utils.graph.common'
 
 import { EventDialog } from './View.Component.EventDialog'
 
