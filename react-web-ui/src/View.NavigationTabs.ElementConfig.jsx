@@ -310,14 +310,6 @@ function MonitorConfig(props) {
 
   if (!currentGraphElement.monitor) return null
 
-  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
-
-  if (!information) return null
-
-  const monitorOptions = [{ value: '_Use', label: 'Use' }, { value: '_Nonuse', label: 'Nonuse' }, ...information.monitor]
-
-  if (!monitorOptions && monitorOptions.length === 0) return null
-
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
       <AccordionSummary>Event Config / Monitor</AccordionSummary>
@@ -332,14 +324,6 @@ function TriggerConfig(props) {
   const { currentGraphElement, parentGraphElement, defaultExpanded } = props
 
   if (!currentGraphElement.trigger) return null
-
-  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
-
-  if (!information) return null
-
-  const triggerOptions = information.trigger
-
-  if (!triggerOptions || triggerOptions.length === 0) return null
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>

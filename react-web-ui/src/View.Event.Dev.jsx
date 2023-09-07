@@ -8,7 +8,6 @@ import { Paper } from '@mui/material'
 import { Slider } from '@mui/material'
 import { IconButton } from '@mui/material'
 
-import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 
 import Imitation from './utils.imitation'

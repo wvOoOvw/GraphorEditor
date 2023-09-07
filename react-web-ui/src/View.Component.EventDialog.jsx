@@ -32,7 +32,7 @@ function HookConfig(props) {
 
   const handleAdd = () => {
     const id = hash()
-    const item = { id: id, name: currentGraphElement.name, use: true, hookType: '', hookEval: evalEventMonitorDefault }
+    const item = { id: id, name: currentGraphElement.name, use: true, hookType: '', hookEval: evalBeforeRenderHook }
     currentGraphElement.hook.push(item)
     Imitation.state.graphEvent.push({ eventType: 'hook', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -171,7 +171,7 @@ function TriggerConfig(props) {
 
   const handleAdd = () => {
     const id = hash()
-    const item = { id: id, name: currentGraphElement.name, use: true, triggerType: 'default', triggerEval: evalEventMonitorDefault, triggerKey: '', linkId: [] }
+    const item = { id: id, name: currentGraphElement.name, use: true, triggerType: 'default', triggerEval: evalEventTriggerDefault, triggerKey: '', linkId: [] }
     currentGraphElement.trigger.push(item)
     Imitation.state.graphEvent.push({ eventType: 'trigger', elementId: currentGraphElement.id, eventId: item.id, translateX: 0, translateY: 0 })
     Imitation.assignState({ graphContentUpdate: hash(), graphEventUpdate: hash() })
@@ -255,7 +255,7 @@ function HookDialog(props) {
 
   const [data, setData] = React.useState(value)
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 1080, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: 1080, maxWidth: 'none' } }} onMouseDown={e => e.stopPropagation()}>
     <DialogContent>
       <Grid container spacing={2}>
 
@@ -308,7 +308,7 @@ function MonitorDialog(props) {
 
   const [data, setData] = React.useState(value)
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: data.monitorType === 'default' ? 720 : 1080, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: data.monitorType === 'default' ? 720 : 1080, maxWidth: 'none' } }} onMouseDown={e => e.stopPropagation()}>
     <DialogContent>
       <Grid container spacing={2}>
 
@@ -388,7 +388,7 @@ function TriggerDialog(props) {
 
   const [data, setData] = React.useState(value)
 
-  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: data.triggerType === 'default' ? 720 : 1080, maxWidth: 'none' } }}>
+  return <Dialog onClose={onClose} open={true} sx={{ '& .MuiDialog-paper': { width: data.triggerType === 'default' ? 720 : 1080, maxWidth: 'none' } }} onMouseDown={e => e.stopPropagation()}>
     <DialogContent>
       <Grid container spacing={2}>
 
