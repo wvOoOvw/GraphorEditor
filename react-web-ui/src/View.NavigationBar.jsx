@@ -18,6 +18,9 @@ import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import BookIcon from '@mui/icons-material/Book'
+import ImageIcon from '@mui/icons-material/Image'
+
+import html2canvas from 'html2canvas'
 
 import GraphElement from '../src-element/index'
 
@@ -269,7 +272,7 @@ function DialogPublish(props) {
             /<script id="graph.index">.+?<\/script>/,
             `<script id="graph.index" src="./index.js"></script>`,
           )
-        downloadFile('index.js', index)
+        downloadFile('index.js', index, 'text/json')
       }
       if (html.match(/<script id="graph.data">.+?<\/script>/)) {
         const data = html.match(/<script id="graph.data">.+?<\/script>/)[0]
@@ -280,7 +283,7 @@ function DialogPublish(props) {
             /<script id="graph.data">.+?<\/script>/,
             `<script id="graph.data" src="./data.js"></script>`,
           )
-        downloadFile('data.js', data)
+        downloadFile('data.js', data, 'text/json')
       }
       if (html.match(/<script id="graph.element">.+?<\/script>/)) {
         const element = html.match(/<script id="graph.element">.+?<\/script>/)[0]
@@ -291,7 +294,7 @@ function DialogPublish(props) {
             /<script id="graph.element">.+?<\/script>/,
             `<script id="graph.element" src="./element.js"></script>`,
           )
-        downloadFile('element.js', element)
+        downloadFile('element.js', element, 'text/json')
       }
       if (html.match(/<script id="graph.render">.+?<\/script>/)) {
         const render = html.match(/<script id="graph.render">.+?<\/script>/)[0]
@@ -302,7 +305,7 @@ function DialogPublish(props) {
             /<script id="graph.render">.+?<\/script>/,
             `<script id="graph.render" src="./render.js"></script>`,
           )
-        downloadFile('render.js', render)
+        downloadFile('render.js', render, 'text/json')
       }
       if (html.match(/<style id="prerender.style">.+?<\/style>/)) {
         const css = html.match(/<style id="prerender.style">.+?<\/style>/)[0]
@@ -313,11 +316,11 @@ function DialogPublish(props) {
           /<style id="prerender.style">.+?<\/style>/,
           '<link rel="stylesheet" type="text/css" href="./index.css"></link>'
         )
-        downloadFile('index.css', css)
+        downloadFile('index.css', css, 'text/json')
       }
     }
 
-    downloadFile('index.html', html)
+    downloadFile('index.html', html, 'text/json')
   }
 
   return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
@@ -448,6 +451,29 @@ function App() {
     Imitation.dispatch()
   }
 
+  const handleDownloadImage = async () => {
+    Imitation.state.loading = Imitation.state.loading + 1
+    Imitation.state.graphConfig.screenGraph.scale = 1
+    Imitation.state.graphConfigUpdate = hash()
+    Imitation.dispatch()
+
+    await new Promise(requestAnimationFrame)
+
+    const graphDevDom = document.getElementById('graph-dev')
+
+    html2canvas(graphDevDom).then(function (canvas) {
+      const aLink = document.createElement('a')
+      const evt = document.createEvent("MouseEvents")
+      evt.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+      aLink.download = 'download.png'
+      aLink.href = canvas.toDataURL('image/png')
+      aLink.dispatchEvent(evt)
+    })
+
+    Imitation.state.loading = Imitation.state.loading - 1
+    Imitation.dispatch()
+  }
+
   return <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, position: 'relative' }} className='font'>
     <div>
       <Grid item>
@@ -457,6 +483,9 @@ function App() {
     </div>
     <div>
 
+      <Tooltip {...TooltipSX} title='Download Image'>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handleDownloadImage}><ImageIcon /></Button>
+      </Tooltip>
       <Tooltip {...TooltipSX} title='GitHub'>
         <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/github-magneto/project-graphor')}><GitHubIcon /></Button>
       </Tooltip>

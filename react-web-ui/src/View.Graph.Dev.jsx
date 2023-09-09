@@ -285,6 +285,7 @@ function App() {
         }}
         onMouseDown={e => e.stopPropagation()}
         onTouchStart={e => e.stopPropagation()}
+        id='graph-dev'
       >
         <div>
           {

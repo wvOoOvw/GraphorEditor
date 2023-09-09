@@ -7,12 +7,12 @@ if (process.env === 'prod' || process.env === 'simple') {
 
 export { baseIp }
 
-const downloadFile = (fileName, content) => {
+const downloadFile = (fileName, content, type) => {
   const aLink = document.createElement('a')
   const evt = document.createEvent("MouseEvents")
   evt.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
   aLink.download = fileName
-  aLink.href = URL.createObjectURL(new Blob([content], { type: 'text/json' }))
+  aLink.href = URL.createObjectURL(new Blob([content], { type: type }))
   aLink.dispatchEvent(evt)
 }
 
