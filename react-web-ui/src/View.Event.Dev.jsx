@@ -373,8 +373,6 @@ function App() {
     if (Imitation.state.eventDevRootRef) setUpdate(pre => pre + 1)
   }, [])
 
-  console.log(graphEvent)
-
   return <Paper
     className='font'
     style={{

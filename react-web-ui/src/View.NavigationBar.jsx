@@ -34,14 +34,14 @@ const getLicenseAll = (content) => {
   const list = []
 
   content.forEach(i => {
-    if (!list.includes(i.license)) list.push(i.license)
+    list.push(i.license)
 
     if (i.children) {
       Object.values(i.children).forEach(i => list.push(...getLicenseAll(i)))
     }
   })
 
-  return list
+  return Array.from(new Set(list))
 }
 
 const styleToClass = (html) => {
