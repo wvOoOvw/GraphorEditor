@@ -33,6 +33,8 @@ function Hover() {
   }
 
   React.useEffect(() => {
+    if (Imitation.state.elementHover === undefined) { setPosition(); return; }
+
     handle()
 
     timeRef.current = setInterval(() => handle(), 1000)
@@ -63,7 +65,7 @@ function Active() {
   const [position, setPosition] = React.useState()
 
   const handle = () => {
-    const node = document.getElementById(Imitation.state.navigationTabsElementValue)
+    const node = document.getElementById(Imitation.state.navigationTabsElementValue.split('@')[0]) || document.getElementById(Imitation.state.navigationTabsElementValue)
 
     if (node !== null) {
       const rect_ = node.getBoundingClientRect()
@@ -82,6 +84,8 @@ function Active() {
   }
 
   React.useEffect(() => {
+    if (Imitation.state.navigationTabsElementValue === undefined) { setPosition(); return; }
+
     handle()
 
     timeRef.current = setInterval(() => handle(), 1000)
@@ -122,7 +126,7 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const onClick = (e) => {
+  const onClick = (e, id) => {
     Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
 
     e.stopPropagation()
@@ -181,12 +185,12 @@ function ElementRender(props) {
     const r = {}
     Object.entries(children).forEach(i => {
       const id_ = id + '@' + i[0]
-      const title = information.children.find(i_ => i_.value === i[0]).label
 
       const params = {
         id: id_,
         onMouseOver: e => onMouseOver(e, id_),
-        onDragEnter: e => onDragEnter(e, id_)
+        onDragEnter: e => onDragEnter(e, id_),
+        onClick: e => onClick(e, id_)
       }
 
       r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />)
@@ -205,7 +209,7 @@ function ElementRender(props) {
   })
 
   const devParams = {
-    onClick: e => onClick(e),
+    onClick: e => onClick(e, id),
     onMouseOver: e => onMouseOver(e, id),
     onDragStart: e => onDragStart(e),
     onDragEnd: e => onDragEnd(e),

@@ -373,9 +373,9 @@ function Action(props) {
 }
 
 function App() {
-  if (!Imitation.state.navigationTabsElementValue) return null
+  if (Imitation.state.navigationTabsElementValue === undefined) return null
 
-  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue), [Imitation.state.graphContent])
+  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue.split('@')[0]), [Imitation.state.graphContent, Imitation.state.navigationTabsElementValue])
 
   if (!currentGraphElement) return null
 

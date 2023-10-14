@@ -90,7 +90,7 @@ const encodeify = (content) => {
       } else {
         Object.entries(item).forEach(i => {
           const [k, v] = i
-          if (!array.includes(k)) array.push(k)
+          if (array.includes(k) === false) array.push(k)
           find(v)
         })
       }

@@ -51,12 +51,8 @@ function ItemRender(props) {
     const elementIds = getElementsAll([currentGraphContent]).map(i => i.id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
 
-    console.log(Imitation.state.graphEvent)
-
     Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === true).forEach(i => updateTriggerLink(Imitation.state.graphContent, i.eventId))
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === false)
-
-    console.log(Imitation.state.graphEvent)
 
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
