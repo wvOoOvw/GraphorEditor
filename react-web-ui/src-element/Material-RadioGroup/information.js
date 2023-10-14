@@ -1,5 +1,5 @@
 const information = {
-  name: 'RadioGroup',
+  name: 'Radio Group',
   type: 'Material UI Component',
   monitor: [
     { value: 'setValue', label: 'Set Value' },
