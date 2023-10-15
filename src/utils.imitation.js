@@ -61,7 +61,7 @@ const initState = () => {
       project: {
         renderId: '$render',
         updateId: '$update',
-        sourceOrigin: 'https://wvooovw.github.io/project-graphor/react-web-ui/build-package'
+        sourceOrigin: 'https://wvooovw.github.io/project-graphor/build-package'
       }
     },
     graphConfigUpdate: undefined,
