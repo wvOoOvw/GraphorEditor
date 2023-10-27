@@ -1,4 +1,4 @@
-Below is the Github Page link, you can click the link, and enter the guide mode to understand the project. (Click the Guide Button In the upper left corner)
+Below is the Github Page link, you can click the link, and enter the guide mode to understand the project. (Click the Guide Button In the upper left corner.)
 
 <https://wvooovw.github.io/project-graphor/build>
 
@@ -24,6 +24,8 @@ To run the project locally, you can clone the project locally and execute the fo
 ## How to use
 
     Tip: If using small screen devices such as laptops results in incomplete display of page content, you can press and hold down 【 Control 】 【 - 】 to adjust the browser size for a better experience.
+
+    Tip: If you want to try the guide mode,you can click the link, and enter the guide mode to understand the project. (Click the Guide Button In the upper left corner.)
 
 After entering the demonstration using the address, you can try to build it according to the following steps.
 
@@ -127,3 +129,6 @@ You can download the currently built HTML file by clicking on "Publish" in the u
 4. The process of publishing is to implement step three, which integrates various resources together, generates JS, generates HTML, binds JS to HTML, and then exports it
 
 ......
+
+
+Please wait for updating !!!
