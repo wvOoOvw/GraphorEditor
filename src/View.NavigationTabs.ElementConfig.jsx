@@ -246,7 +246,7 @@ function ChildrenConfig(props) {
   const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue.split('@')[0] + '@' + current })
   }
 
   const handleEdit = (i) => {
