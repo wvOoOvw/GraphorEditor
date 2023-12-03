@@ -142,6 +142,29 @@ const render = async () => {
   fs.unlinkSync(path.join(__dirname, `./index.js`))
 }
 
+const hydrate = async () => {
+  const webpackConfig_ = Object.assign({}, webpackConfig, {
+    entry: path.resolve(__dirname, './index.js'),
+    output: {
+      libraryTarget: 'umd',
+      filename: 'hydrate.js',
+      path: path.resolve(__dirname, '../build-package/render')
+    }
+  })
+
+  const output = `
+    import GraphProd from '../src/View.Graph.Prod'
+
+    ReactDOM.hydrate(<GraphProd />, document.getElementById(window.graphConfig.project.renderId))
+  `
+
+  fs.writeFileSync(path.join(__dirname, './index.js'), output)
+
+  await new Promise((resolve) => webpack(webpackConfig_, resolve))
+
+  fs.unlinkSync(path.join(__dirname, `./index.js`))
+}
+
 const html = async () => {
   const h = `
   <!DOCTYPE html>
@@ -179,6 +202,7 @@ const run = async () => {
   await element()
   await elements()
   await render()
+  await hydrate()
   await html()
 }
 

@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { renderToString } from 'react-dom/server'
 
 import { Tooltip } from '@mui/material'
 import { Button } from '@mui/material'
@@ -29,6 +30,8 @@ import example from '../src-example/index'
 import Imitation, { initState } from './utils.imitation'
 import { downloadFile, hash } from './utils.common'
 import { TooltipSX, TextFieldSX } from './utils.mui.sx'
+
+import GraphProd from './View.Graph.Prod'
 
 const getLicenseAll = (content) => {
   const list = []
@@ -158,14 +161,13 @@ const decodeifyString = "function(content, map) { const data = JSON.parse(JSON.s
 function DialogPublish(props) {
   const { onClose } = props
 
-  const [option, setOption] = React.useState({ spilt: false, encode: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
+  const [option, setOption] = React.useState({ ssr: false, spilt: false, encode: false, onescript: false, sourceOrigin: Imitation.state.graphConfig.project.sourceOrigin })
 
   const handlePublish = async () => {
     const data = { graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }
 
     var html = await fetch(`${option.sourceOrigin}/html/index.html`).then(res => res.text())
 
-    var render = await fetch(`${option.sourceOrigin}/render/index.js`).then(res => res.text())
 
     var element = await Promise.all(getLicenseAll(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
@@ -203,10 +205,6 @@ function DialogPublish(props) {
         dependencies
       )
       .replace(
-        `<replace id="project.renderId"></replace>`,
-        `<div id="${data.graphConfig.project.renderId}"></div>`
-      )
-      .replace(
         `<replace id="graph.data"></replace>`,
         `<script id="graph.data">window.graphContent = ${JSON.stringify(data.graphContent)}; window.graphConfig = ${JSON.stringify(data.graphConfig)};</script>`
       )
@@ -214,10 +212,34 @@ function DialogPublish(props) {
         `<replace id="graph.element"></replace>`,
         `<script id="graph.element">${element}</script>`
       )
-      .replace(
-        `<replace id="graph.render"></replace>`,
-        `<script id="graph.render">${render}</script>`
-      )
+
+    if (option.ssr === ture) {
+      const data = JSON.parse(cache)
+
+      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash() })
+
+      const { graphContent, graphConfig, graphElement } = Imitation.state
+
+      window.graphContent = clone(graphContent)
+      window.graphConfig = clone(graphConfig)
+      window.graphElement = clone(graphElement)
+
+      const doms = renderToString(<GraphProd />)
+
+      html = html.replace(`<replace id="project.renderId"></replace>`, `<div id="${data.graphConfig.project.renderId}">${doms}</div>`)
+
+      var render = await fetch(`${option.sourceOrigin}/render/hydrate.js`).then(res => res.text())
+
+      html = html.replace(`<replace id="graph.render"></replace>`, `<script id="graph.render">${render}</script>`)
+    }
+
+    if (option.ssr === false) {
+      html = html.replace(`<replace id="project.renderId"></replace>`, `<div id="${data.graphConfig.project.renderId}"></div>`)
+
+      var render = await fetch(`${option.sourceOrigin}/render/index.js`).then(res => res.text())
+
+      html = html.replace(`<replace id="graph.render"></replace>`, `<script id="graph.render">${render}</script>`)
+    }
 
     if (option.encode) {
       const graphContent = data.graphContent
@@ -329,6 +351,12 @@ function DialogPublish(props) {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Source Origin' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
+        </Grid>
+        <Grid item xs={12}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
+            <div>SSR</div>
+            <div><Switch checked={option['ssr']} onChange={e => setOption(pre => Object.assign({}, pre, { ['ssr']: e.target.checked }))}></Switch></div>
+          </div>
         </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
