@@ -216,9 +216,9 @@ function DialogPublish(props) {
     if (option.ssr === true) {
       const { graphContent, graphConfig, graphElement } = Imitation.state
 
-      window.graphContent = clone(graphContent)
-      window.graphConfig = clone(graphConfig)
-      window.graphElement = clone(graphElement)
+      window.graphContent = graphContent
+      window.graphConfig = graphConfig
+      window.graphElement = graphElement
 
       const doms = renderToString(<GraphProd />)
 

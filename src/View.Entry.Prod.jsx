@@ -5,7 +5,7 @@ import GraphProd from './View.Graph.Prod'
 import GraphElement from '../src-element/index'
 
 import Imitation from './utils.imitation'
-import { hash, clone } from './utils.common'
+import { hash } from './utils.common'
 
 function App() {
   const [visible, setVisible] = React.useState()
@@ -22,9 +22,9 @@ function App() {
 
       const { graphContent, graphConfig, graphElement } = Imitation.state
 
-      window.graphContent = clone(graphContent)
-      window.graphConfig = clone(graphConfig)
-      window.graphElement = clone(graphElement)
+      window.graphContent = graphContent
+      window.graphConfig = graphConfig
+      window.graphElement = graphElement
     }
 
     setVisible(true)

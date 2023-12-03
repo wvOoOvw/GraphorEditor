@@ -28,16 +28,6 @@ const copy = (v, callback) => {
   document.body.removeChild(input)
 }
 
-const clone = (t, useJson) => {
-  if (useJson) return JSON.parse(JSON.stringify(t))
-
-  if (t && typeof t === 'object') {
-    return Object.entries(t).reduce((l, i) => { l[i[0]] = clone(i[1]); return l }, Array.isArray(t) ? [] : {})
-  } else {
-    return t
-  }
-}
-
 const hash = (n = 4, l = 3) => {
   return new Array(l).fill(undefined).map(i => Array.from(Array(n), () => Math.floor(Math.random() * 36).toString(36)).join('')).join('-').toUpperCase()
 }
@@ -146,4 +136,4 @@ const updateTriggerLink = (content, id) => {
   })
 }
 
-export { downloadFile, clone, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, getElementById, getEventById }
+export { downloadFile, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, getElementById, getEventById }
