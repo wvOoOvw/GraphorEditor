@@ -214,10 +214,6 @@ function DialogPublish(props) {
       )
 
     if (option.ssr === true) {
-      const data = JSON.parse(cache)
-
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash() })
-
       const { graphContent, graphConfig, graphElement } = Imitation.state
 
       window.graphContent = clone(graphContent)
