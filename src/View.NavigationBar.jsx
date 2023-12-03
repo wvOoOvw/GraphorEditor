@@ -213,7 +213,7 @@ function DialogPublish(props) {
         `<script id="graph.element">${element}</script>`
       )
 
-    if (option.ssr === ture) {
+    if (option.ssr === true) {
       const data = JSON.parse(cache)
 
       Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash() })
