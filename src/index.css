@@ -24,14 +24,14 @@ body {
   height: 0;
 }
 
-.element-hover,
+/* .element-hover,
 .element-active {
   animation-name: animation-element-use;
   animation-duration: 1s;
   animation-iteration-count: infinite;
 
   transform-origin: center center;
-}
+} */
 
 @keyframes animation-element-use {
   0% {

@@ -52,9 +52,9 @@ function Hover() {
   }
 
   return <>
-    <div style={{ ...style, width: position.width, height: 2, top: position.top - 4, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: position.width, height: 2, top: position.top - 2, left: position.left }} className='element-hover' />
     <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 4 }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 2 }} className='element-hover' />
     <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
   </>
 }
@@ -103,9 +103,9 @@ function Active() {
   }
 
   return <>
-    <div style={{ ...style, width: position.width, height: 2, top: position.top - 4, left: position.left }} className='element-hover' />
+    <div style={{ ...style, width: position.width, height: 2, top: position.top - 2, left: position.left }} className='element-hover' />
     <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 4 }} className='element-hover' />
+    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 2 }} className='element-hover' />
     <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
   </>
 }
