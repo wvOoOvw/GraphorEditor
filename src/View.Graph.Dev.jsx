@@ -126,17 +126,17 @@ function ElementRender(props) {
   const [, setUpdate] = React.useState(0)
   const update = () => setUpdate(pre => pre + 1)
 
-  const onClick = (e, id) => {
-    Imitation.assignState({ navigationTabsElementValue: id, navigationTabsValue: 'ElementConfig' })
+  const onClick = (e, v) => {
+    Imitation.assignState({ navigationTabsElementValue: v, navigationTabsValue: 'ElementConfig' })
 
     e.stopPropagation()
     e.preventDefault()
   }
 
-  const onMouseOver = (e, id) => {
+  const onMouseOver = (e, v) => {
     if (Imitation.state.elementDragStart !== undefined) return
 
-    Imitation.assignState({ elementHover: id })
+    Imitation.assignState({ elementHover: v })
 
     e.stopPropagation()
     e.preventDefault()
@@ -148,11 +148,11 @@ function ElementRender(props) {
     e.stopPropagation()
   }
 
-  const onDragEnter = (e, id) => {
-    if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
-      Imitation.assignState({ elementDragEnter: id, elementHover: id })
+  const onDragEnter = (e, v) => {
+    if (parentId.includes(Imitation.state.elementDragStart) === false && v !== Imitation.state.elementDragStart && v.split('@')[0] !== Imitation.state.elementDragStart) {
+      Imitation.assignState({ elementDragEnter: v, elementHover: v })
     }
-    if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
+    if (parentId.includes(Imitation.state.elementDragStart) === true || v === Imitation.state.elementDragStart || v.split('@')[0] === Imitation.state.elementDragStart) {
       Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
     }
 
