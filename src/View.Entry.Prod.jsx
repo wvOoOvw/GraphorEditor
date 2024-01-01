@@ -2,7 +2,7 @@ import React from 'react'
 
 import GraphProd from './View.Graph.Prod'
 
-import GraphElement from '../src-element/index'
+import graphElement from '../src-element/index'
 
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
@@ -11,7 +11,7 @@ function App() {
   const [visible, setVisible] = React.useState()
 
   React.useEffect(() => {
-    Imitation.assignState({ graphElement: GraphElement, graphElementUpdate: hash() })
+    Imitation.assignState({ graphElement: graphElement, graphElementUpdate: hash() })
 
     const cache = localStorage.getItem('graphCache')
 

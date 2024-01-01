@@ -4,7 +4,7 @@ import NavigationBar from './View.NavigationBar'
 import NavigationTabs from './View.NavigationTabs'
 import NavigationContent from './View.NavigationContent'
 
-import GraphElement from '../src-element/index'
+import graphElement from '../src-element/index'
 
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
@@ -22,7 +22,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    Imitation.state.graphElement = GraphElement
+    Imitation.state.graphElement = graphElement
     Imitation.state.graphElementUpdate = hash()
 
     const cache = localStorage.getItem('graphCache') ? JSON.parse(localStorage.getItem('graphCache')) : undefined

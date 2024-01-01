@@ -23,7 +23,7 @@ import ImageIcon from '@mui/icons-material/Image'
 
 import html2canvas from 'html2canvas'
 
-import GraphElement from '../src-element/index'
+import graphElement from '../src-element/index'
 
 import example from '../src-example/index'
 
@@ -167,7 +167,6 @@ function DialogPublish(props) {
     const data = { graphContent: Imitation.state.graphContent, graphConfig: Imitation.state.graphConfig }
 
     var html = await fetch(`${option.sourceOrigin}/html/index.html`).then(res => res.text())
-
 
     var element = await Promise.all(getLicenseAll(data.graphContent).map(i => new Promise((resolve) => fetch(`${option.sourceOrigin}/element/${i}.js`).then(res => resolve(res.text()))))).then(res => res.join(''))
 
@@ -448,7 +447,7 @@ function App() {
 
   const handleClear = () => {
     initState()
-    Imitation.assignState({ message: 'Clear Success', graphElement: GraphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
+    Imitation.assignState({ message: 'Clear Success', graphElement: graphElement, graphElementUpdate: hash(), graphContentUpdate: hash() })
   }
 
   const handlePreview = () => {

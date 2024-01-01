@@ -75,7 +75,7 @@ function App() {
             }
             {
               Imitation.state.navigationTabsValue === 'ElementConfig' ?
-                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }} key={Imitation.state.navigationTabsElementValue}>
+                <div style={{ width: 360, height: 'calc(100% - 32px)', padding: 16, overflowX: 'hidden', overflowY: 'auto', flexShrink: 0 }}>
                   <NavigationTabsElementConfig />
                 </div>
                 : null

@@ -10,18 +10,12 @@ import { Button } from '@mui/material'
 import { Switch } from '@mui/material'
 import { Divider } from '@mui/material'
 import { Chip } from '@mui/material'
-import { List } from '@mui/material'
-import { ListItemButton } from '@mui/material'
-import { ListItemIcon } from '@mui/material'
-import { ListItemText } from '@mui/material'
 import { Accordion } from '@mui/material'
 import { AccordionSummary } from '@mui/material'
 import { AccordionDetails } from '@mui/material'
 import { IconButton } from '@mui/material'
 import { Paper } from '@mui/material'
 
-import CodeIcon from '@mui/icons-material/Code'
-import CodeOffIcon from '@mui/icons-material/CodeOff'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
 import DownloadIcon from '@mui/icons-material/Download'
@@ -38,11 +32,11 @@ import { AceDialog } from './View.Component.Ace'
 import * as ElementConfigComponent from './View.Component.ElementConfig'
 
 function BasicConfig(props) {
-  const { currentGraphElement, parentGraphElement } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
-  const { information, license } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  if (!information) return null
 
-  if (!information || !license) return null
+  if (!license) return null
 
   const handleChange = (value) => {
     currentGraphElement.name = value
@@ -93,11 +87,11 @@ function BasicConfig(props) {
 }
 
 function StyleConfig(props) {
-  const { currentGraphElement, parentGraphElement } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
-  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
+  if (!currentGraphElement.style) return null
 
-  if (!currentGraphElement.style || !information) return null
+  if (!information) return null
 
   const [options, setOptions] = React.useState(information.style)
   const [current, setCurrent] = React.useState(information.style[0].value)
@@ -203,11 +197,9 @@ function StyleConfig(props) {
 }
 
 function PropertyConfig(props) {
-  const { currentGraphElement, parentGraphElement } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   if (!currentGraphElement.property) return null
-
-  const { Edit } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
 
   if (!Edit) return null
 
@@ -234,12 +226,10 @@ function PropertyConfig(props) {
 }
 
 function ChildrenConfig(props) {
-  const { currentGraphElement, parentGraphElement } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   if (!currentGraphElement.children) return null
-
-  const { information } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphElementUpdate])
-
+  
   if (!information) return null
 
   const [options, setOptions] = React.useState(information.children)
@@ -294,7 +284,7 @@ function ChildrenConfig(props) {
 }
 
 function HookConfig(props) {
-  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   return <Grid item xs={12}>
     <Accordion defaultExpanded={false}>
@@ -307,7 +297,7 @@ function HookConfig(props) {
 }
 
 function MonitorConfig(props) {
-  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   if (!currentGraphElement.monitor) return null
 
@@ -322,7 +312,7 @@ function MonitorConfig(props) {
 }
 
 function TriggerConfig(props) {
-  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   if (!currentGraphElement.trigger) return null
 
@@ -337,7 +327,7 @@ function TriggerConfig(props) {
 }
 
 function Action(props) {
-  const { currentGraphElement, parentGraphElement, defaultExpanded } = props
+  const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   const handleDelete = () => {
     const elementIds = getElementsAll([currentGraphElement]).map(i => i.id)
@@ -375,22 +365,24 @@ function Action(props) {
 function App() {
   if (Imitation.state.navigationTabsElementValue === undefined) return null
 
-  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue.split('@')[0]), [Imitation.state.graphContent, Imitation.state.navigationTabsElementValue])
+  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue.split('@')[0]), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.navigationTabsElementValue])
+
+  const { information, license, Edit } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.navigationTabsElementValue])
 
   if (!currentGraphElement) return null
 
   return <Grid container spacing={2}>
     <Grid item xs={12}>Element Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
-    <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <StyleConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <PropertyConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <ChildrenConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <HookConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <MonitorConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
-    <TriggerConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <StyleConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <PropertyConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <ChildrenConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <HookConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <MonitorConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
+    <TriggerConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
     <Grid item xs={12}><Divider /></Grid>
-    <Action currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} />
+    <Action currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
   </Grid>
 }
 
