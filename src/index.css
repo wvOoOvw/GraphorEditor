@@ -7,7 +7,8 @@ body * {
   user-select: none !important;
 }
 
-.font, .font * {
+.font,
+.font * {
   font-size: 14px;
   font-weight: bold !important;
   font-family: monospace !important;

@@ -1,8 +1,11 @@
 import React from 'react'
 
+import { Button } from '@mui/material'
 import { Grid } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { DialogContent } from '@mui/material'
+import { DialogActions } from '@mui/material'
+import { DialogTitle } from '@mui/material'
 
 import NavigationBar from './View.NavigationBar'
 import NavigationTabs from './View.NavigationTabs'
@@ -13,22 +16,30 @@ import graphElement from '../src-element/index'
 import Imitation from './utils.imitation'
 import { hash } from './utils.common'
 
-function ScreenDialog() {
-  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: 'fit-content' } }}>
-    <DialogContent className='font'>
+function ScreenDialog(props) {
+  const onCloseMessage = () => {
+    Imitation.assignState({ message: 'Follow the instructions to operate' })
+  }
+
+  return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: 'fit-content' } }} onClose={onCloseMessage}>
+    <DialogTitle className='font' style={{ fontSize: 14 }}>Experience improvement suggestions</DialogTitle>
+    <DialogContent className='font' dividers>
       <Grid container spacing={2}>
-        <Grid item xs={12} className='font'>
+        <Grid item xs={12}>
           Pressing the keyboard <span style={{ color: Imitation.state.theme.palette.primary.main }}>Ctrl -</span> To zoom out screen size
         </Grid>
       </Grid>
     </DialogContent>
+    <DialogActions className='font'>
+      <Button onClick={props.onClose}>Pass it</Button>
+    </DialogActions>
   </Dialog>
 }
 
 function App() {
   const [visible, setVisible] = React.useState()
   const [height, setHeight] = React.useState()
-  const [screenDialog, setScreenDialog] = React.useState()
+  const [screenDialog, setScreenDialog] = React.useState(window.innerWidth < 1800 || window.innerHeight < 900)
 
   const onMouseOver = () => {
     Imitation.assignState({ elementHover: undefined, elementDragEnd: undefined })
@@ -58,8 +69,7 @@ function App() {
     const event = () => {
       setHeight(window.innerHeight - 32)
 
-      if (window.innerWidth < 1800 || window.innerHeight < 900) setScreenDialog(true)
-      if (window.innerWidth >= 1800 && window.innerHeight > 900) setScreenDialog(false)
+      if (window.innerWidth >= 1800 && window.innerHeight >= 900) setScreenDialog(true)
     }
 
     event()
@@ -87,7 +97,7 @@ function App() {
     </div>
 
     {
-      screenDialog ? <ScreenDialog /> : null
+      screenDialog ? <ScreenDialog onClose={() => setScreenDialog()} /> : null
     }
   </>
 }

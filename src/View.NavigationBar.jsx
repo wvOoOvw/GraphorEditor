@@ -341,32 +341,32 @@ function DialogPublish(props) {
   }
 
   return <Dialog open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 720 } }} onClose={onClose} className='font'>
-    <DialogTitle style={{ fontSize: 14, fontWeight: 'bold' }}>Publish Config</DialogTitle>
-    <DialogContent dividers>
+    <DialogTitle className='font' style={{ fontSize: 14 }}>Publish Config</DialogTitle>
+    <DialogContent className='font' dividers>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <TextField {...TextFieldSX} fullWidth autoComplete='off' label='Source Origin' value={option['sourceOrigin']} onChange={e => setOption(pre => Object.assign({}, pre, { ['sourceOrigin']: e.target.value }))} />
         </Grid>
         <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>SSR</div>
             <div><Switch checked={option['ssr']} onChange={e => setOption(pre => Object.assign({}, pre, { ['ssr']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>Encode</div>
             <div><Switch checked={option['encode']} onChange={e => setOption(pre => Object.assign({}, pre, { ['encode']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>Spilt File</div>
             <div><Switch checked={option['spilt']} onChange={e => setOption(pre => Object.assign({}, pre, { ['spilt']: e.target.checked }))}></Switch></div>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, fontWeight: 'bold' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>One Script</div>
             <div><Switch checked={option['onescript']} onChange={e => setOption(pre => Object.assign({}, pre, { ['onescript']: e.target.checked }))}></Switch></div>
           </div>

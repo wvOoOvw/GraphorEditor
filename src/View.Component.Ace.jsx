@@ -12,7 +12,7 @@ function AceDialog(props) {
   const [value, setValue] = React.useState(props.value)
 
   return <Dialog onClose={() => props.onClose()} open={true} sx={{ '& .MuiDialog-paper': { width: '100%', maxWidth: 1080 } }}>
-    <DialogTitle className='font'><div>Edit Code</div></DialogTitle>
+    <DialogTitle className='font'>Edit Code</DialogTitle>
     <DialogContent>
       <ReactAce
         style={{ width: '100%', height: 500, lineHeight: 1.5, fontWeight: 'bold', fontSize: 14, fontFamily: 'monospace' }}

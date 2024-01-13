@@ -119,7 +119,7 @@ function ItemRender(props) {
 
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStartStyle(id), ...dragEndStyle(id) }}
+      style={{ height: 42, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStartStyle(id), ...dragEndStyle(id) }}
       onMouseDown={(e) => onMouseDown(e, id)}
       onMouseMove={(e) => onMouseMove(e, id)}
       onMouseOver={(e) => onMouseOver(e, id)}
@@ -140,7 +140,7 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStartStyle(id + '@' + i[0]), ...dragEndStyle(id + '@' + i[0]) }}
+            style={{ height: 42, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStartStyle(id + '@' + i[0]), ...dragEndStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
           >
@@ -188,7 +188,7 @@ function App() {
     <Grid item xs={12}>Element Overview</Grid>
     <Grid item xs={12}><Divider /></Grid>
 
-    <Grid item xs={12}>
+    <Grid item xs={12} className='font'>
       {
         Imitation.state.graphContent.map(i => <ItemRender key={i.id} {...i} parentId={[]} />)
       }
