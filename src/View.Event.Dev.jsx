@@ -1,9 +1,6 @@
 import React from 'react'
 
-import { Tabs } from '@mui/material'
-import { Tab } from '@mui/material'
 import { Divider } from '@mui/material'
-import { Tooltip } from '@mui/material'
 import { Paper } from '@mui/material'
 import { Slider } from '@mui/material'
 import { IconButton } from '@mui/material'
@@ -164,7 +161,15 @@ function Event(props) {
   const [eventDialog, setEventDialog] = React.useState()
 
   const hoverStyle = (id) => {
-    return Imitation.state.elementHover === id ? { background: 'rgb(25, 118, 210)', color: 'white', fill: 'white' } : {}
+    if (Imitation.state.elementHover === undefined) return undefined
+
+    if (Imitation.state.elementHover === id) return { background: Imitation.state.theme.palette.primary.main, color: 'rgba(255, 255, 255, 1)', fill: 'rgba(255, 255, 255, 1)' }
+  }
+
+  const hoverStyleDivider = (id) => {
+    if (Imitation.state.elementHover === undefined) return undefined
+
+    if (Imitation.state.elementHover === id || Imitation.state.elementHover.split('@')[0] === id) return { borderColor: 'rgba(255, 255, 255, 1)' }
   }
 
   const typeStyle = () => {
@@ -222,21 +227,7 @@ function Event(props) {
 
   return <>
     <Paper
-      style={{
-        position: 'absolute',
-        inset: 0,
-        margin: 'auto',
-        zIndex: 2,
-        width: 240,
-        height: 'fit-content',
-        padding: 16,
-        overflow: 'hidden',
-        transform: `translate(${props.translateX}px, ${props.translateY}px) scale(1)`,
-        transitionProperty: 'background,height',
-        transitionDuration: '0.5s',
-        cursor: 'default',
-        ...hoverStyle(props.elementId)
-      }}
+      style={{ position: 'absolute', inset: 0, margin: 'auto', zIndex: 2, width: 240, height: 'fit-content', padding: 16, overflow: 'hidden', transform: `translate(${props.translateX}px, ${props.translateY}px) scale(1)`, transitionProperty: 'background,height', transitionDuration: '0.5s', cursor: 'default', ...hoverStyle(props.elementId) }}
       onMouseDown={onMouseDown}
       onTouchStart={onMouseDown}
     >
@@ -249,13 +240,13 @@ function Event(props) {
           }
         </div>
         <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-          <IconButton size='small'><EditIcon fontSize='small' style={{ fill: 'inherit' }} onClick={() => onClick()} /></IconButton>
+          <IconButton size='small'><EditIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} onClick={() => onClick()} /></IconButton>
         </div>
       </div>
 
-      <Divider style={{ margin: '8px 0' }} />
+      <Divider style={{ margin: '8px 0', borderColor: 'rgba(0, 0, 0, 1)', ...hoverStyleDivider(props.elementId) }} />
 
-      <div style={{ opacity: 0.5 }}>
+      <div>
         {
           props.eventType === 'hook' ?
             <>

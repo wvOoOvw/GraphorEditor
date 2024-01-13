@@ -8,12 +8,13 @@ import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import DeleteIcon from '@mui/icons-material/Delete'
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
 import Imitation from './utils.imitation'
 import { getElementAndParentById, hash, deleteArrayItem, updateTriggerLink, getElementsAll } from './utils.common'
 import { searchElement } from './utils.graph.common'
+import { scrollListener } from './utils.common.scrollListener'
 
 function ItemRender(props) {
   const { license, id, name, use, children, style, parentId, drag } = props
@@ -22,31 +23,43 @@ function ItemRender(props) {
 
   if (!information) return null
 
+  const mouseDownRef = React.useRef()
+
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
 
   const hoverStyle = (id) => {
-    return Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+    if (Imitation.state.elementHover === undefined) return undefined
+
+    if (Imitation.state.elementHover === id) return { background: Imitation.state.theme.palette.primary.main, color: 'rgba(255, 255, 255, 1)', fill: 'rgba(255, 255, 255, 1)' }
   }
 
-  const dragStyle = (id) => {
-    return Imitation.state.elementDragEnter !== Imitation.state.elementDragStart && Imitation.state.elementDragEnter === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+  const dragStartStyle = (id) => {
+    if (Imitation.state.elementDragStart === undefined) return undefined
+
+    if (Imitation.state.elementDragStart === id) return { background: Imitation.state.theme.palette.secondary.main, color: 'rgba(255, 255, 255, 1)', fill: 'rgba(255, 255, 255, 1)' }
+  }
+
+  const dragEndStyle = (id) => {
+    if (Imitation.state.elementDragEnd === undefined) return undefined
+
+    if (Imitation.state.elementDragEnd === id) return { background: Imitation.state.theme.palette.success.main, color: 'rgba(255, 255, 255, 1)', fill: 'rgba(255, 255, 255, 1)' }
   }
 
   const childrenLabel = (value) => {
     return information.children.find(i => i.value === value)?.label
   }
 
-  const handleChangeUse = (e) => {
+  const handleChangeUse = (id, value) => {
     const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
-    currentGraphContent.use = e
+    currentGraphContent.use = value
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
   }
 
-  const handleEdit = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementConfig', navigationTabsElementValue: id })
+  const handleEdit = (id) => {
+    Imitation.assignState({ navigationTabsValue: 'ElementConfig', elementSelect: id })
   }
 
-  const handleDelete = () => {
+  const handleDelete = (id) => {
     const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
     const elementIds = getElementsAll([currentGraphContent]).map(i => i.id)
     deleteArrayItem(parentGraphContent, currentGraphContent)
@@ -57,8 +70,8 @@ function ItemRender(props) {
     Imitation.assignState({ graphContent: Imitation.state.graphContent, graphContentUpdate: hash(), graphEventUpdate: hash() })
   }
 
-  const handleAdd = (current) => {
-    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: id + '@' + current })
+  const handleAdd = (id, area) => {
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', elementSelect: id + '@' + area })
   }
 
   const handleChildrenExpand = (item) => {
@@ -66,76 +79,68 @@ function ItemRender(props) {
   }
 
   const onMouseOver = (e, id) => {
-    Imitation.assignState({ elementHover: id })
-
-    e.stopPropagation()
-  }
-
-  const onDragStart = (e) => {
-    Imitation.assignState({ elementDragStart: id, elementHover: undefined })
-
-    e.stopPropagation()
-  }
-
-  const onDragEnter = (e, id) => {
-    if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
-      Imitation.assignState({ elementDragEnter: id, elementHover: id })
-    }
-    if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
-      Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
-    }
-
-    e.stopPropagation()
-  }
-
-  const onDragEnd = (e) => {
-    if (Imitation.state.elementDragStart && Imitation.state.elementDragEnter && Imitation.state.elementDragStart !== Imitation.state.elementDragEnter) {
-      if (Imitation.state.elementDragEnter.includes('@')) {
-        const [id, childrenKey] = Imitation.state.elementDragEnter.split('@')
-        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
-        deleteArrayItem(parentGraphContent, currentGraphContent)
-        currentGraphContent_.children[childrenKey].push(currentGraphContent)
-
-      } else {
-        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnter)
-        deleteArrayItem(parentGraphContent, currentGraphContent)
-        const index = parentGraphContent_.indexOf(currentGraphContent_)
-        parentGraphContent_.splice(index + 1, 0, currentGraphContent)
+    if (Imitation.state.elementDragStart !== undefined) {
+      if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
+        Imitation.state.elementDragEnd = id
+      }
+      if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
+        Imitation.state.elementDragEnd = undefined
       }
     }
-    Imitation.assignState({ elementDragStart: undefined, elementDragEnter: undefined, graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
+
+    if (Imitation.state.elementDragStart === undefined) {
+      Imitation.state.elementHover = id
+    }
+
+    Imitation.dispatch()
 
     e.stopPropagation()
   }
+
+  const onMouseDown = (e) => {
+    mouseDownRef.current = true
+
+    e.stopPropagation()
+  }
+
+  const onMouseMove = (e, id) => {
+    if (mouseDownRef.current === true) Imitation.assignState({ elementDragStart: id })
+  }
+
+  const onMouseUp = (e) => {
+    mouseDownRef.current = false
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp)
+
+    return () => window.removeEventListener('mouseup', onMouseUp)
+  }, [])
 
   return <>
     <div
-      draggable
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', margin: '1px 0', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStyle(id) }}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStartStyle(id), ...dragEndStyle(id) }}
+      onMouseDown={(e) => onMouseDown(e, id)}
+      onMouseMove={(e) => onMouseMove(e, id)}
       onMouseOver={(e) => onMouseOver(e, id)}
-      onDragStart={(e) => onDragStart(e)}
-      onDragEnd={(e) => onDragEnd(e)}
-      onDragEnter={(e) => onDragEnter(e, id)}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
         {
           use ?
-            <IconButton size='small' onClick={() => handleChangeUse(false)}><VisibilityIcon fontSize='small' /></IconButton>
+            <IconButton size='small' onClick={() => handleChangeUse(id, false)}><VisibilityIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
             :
-            <IconButton size='small' onClick={() => handleChangeUse(true)}><VisibilityOffIcon fontSize='small' /></IconButton>
+            <IconButton size='small' onClick={() => handleChangeUse(id, true)}><VisibilityOffIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
         }
-        <IconButton size='small' onClick={handleDelete}><DeleteIcon fontSize='small' /></IconButton>
-        <IconButton size='small' onClick={handleEdit}><EditIcon fontSize='small' /></IconButton>
+        <IconButton size='small' onClick={() => handleDelete(id)}><DeleteIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
+        <IconButton size='small' onClick={() => handleEdit(id)}><EditIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
       </div>
     </div>
     {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStyle(id + '@' + i[0]) }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStartStyle(id + '@' + i[0]), ...dragEndStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
           >
@@ -145,15 +150,15 @@ function ItemRender(props) {
               }
             </div>
             <div style={{ whiteSpace: 'nowrap' }}>
-              <IconButton size='small' onClick={() => handleAdd(i[0])}><AddCircleRoundedIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => handleAdd(id, i[0])}><AddCircleRoundedIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
               {
                 i[1] && i[1].length && childrenVisible.includes(i[0]) ?
-                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' style={{ fill: 'inherit', transition: 'none', transform: 'rotate(180deg)' }} /></IconButton>
                   : null
               }
               {
                 i[1] && i[1].length && !childrenVisible.includes(i[0]) ?
-                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
                   : null
               }
             </div>
@@ -168,7 +173,18 @@ function ItemRender(props) {
 }
 
 function App() {
-  return <Grid container spacing={2}>
+  const domRef = React.useRef()
+
+  React.useEffect(() => {
+    const node = domRef.current.parentNode
+    const enable = Imitation.state.elementDragStart !== undefined
+
+    const r = scrollListener(node, enable)
+
+    return () => r()
+  }, [Imitation.state.elementDragStart])
+
+  return <Grid container spacing={2} ref={el => domRef.current = el}>
     <Grid item xs={12}>Element Overview</Grid>
     <Grid item xs={12}><Divider /></Grid>
 

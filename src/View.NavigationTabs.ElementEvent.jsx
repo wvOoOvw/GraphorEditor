@@ -5,10 +5,10 @@ import { Divider } from '@mui/material'
 import { IconButton } from '@mui/material'
 import { Badge } from '@mui/material'
 
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
 import HeadsetIcon from '@mui/icons-material/Headset'
 import AlarmIcon from '@mui/icons-material/Alarm'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
 
 import Imitation from './utils.imitation'
 import { searchElement } from './utils.graph.common'
@@ -26,7 +26,9 @@ function ItemRender(props) {
   const [eventConfigDialog, setEventConfigDialog] = React.useState()
 
   const hoverStyle = (id) => {
-    return Imitation.state.elementHover === id ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px' } : {}
+    if (Imitation.state.elementHover === undefined) return undefined
+
+    if (Imitation.state.elementHover === id) return { background: Imitation.state.theme.palette.primary.main, color: 'rgba(255, 255, 255, 1)', fill: 'rgba(255, 255, 255, 1)' }
   }
 
   const childrenLabel = (value) => {
@@ -45,7 +47,7 @@ function ItemRender(props) {
 
   return <>
     <div
-      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', transition: '0.5s all', paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
+      style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id) }}
       onMouseOver={(e) => onMouseOver(e, id)}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
@@ -53,17 +55,17 @@ function ItemRender(props) {
         {
           monitor ?
             <Badge badgeContent={monitor.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'monitor' })}><HeadsetIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'monitor' })}><HeadsetIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
             </Badge> : null
         }
         {
           trigger ?
             <Badge badgeContent={trigger.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'trigger' })}><AlarmIcon fontSize='small' /></IconButton>
+              <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'trigger' })}><AlarmIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
             </Badge> : null
         }
         <Badge badgeContent={hook.length} color='default' sx={{ '& .MuiBadge-badge': { fontWeight: 'bold' } }}>
-          <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'hook' })}><BookmarkBorderIcon fontSize='small' /></IconButton>
+          <IconButton size='small' onClick={() => setEventConfigDialog({ element: props, type: 'hook' })}><BookmarkBorderIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
         </Badge>
       </div>
     </div >
@@ -71,7 +73,7 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
-            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1px 0', padding: '0 8px', paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
+            style={{ height: 42, fontSize: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', opacity: 0.5 }}>
@@ -82,12 +84,12 @@ function ItemRender(props) {
             <div style={{ whiteSpace: 'nowrap' }}>
               {
                 i[1] && i[1].length && childrenVisible.includes(i[0]) ?
-                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  <IconButton size='small' color={'primary'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' style={{ fill: 'inherit', transition: 'none', transform: 'rotate(180deg)' }} /></IconButton>
                   : null
               }
               {
                 i[1] && i[1].length && !childrenVisible.includes(i[0]) ?
-                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' /></IconButton>
+                  <IconButton size='small' color={'default'} onClick={() => handleChildrenExpand(i)}><ExpandCircleDownIcon fontSize='small' style={{ fill: 'inherit', transition: 'none' }} /></IconButton>
                   : null
               }
             </div>

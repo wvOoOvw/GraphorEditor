@@ -14,20 +14,57 @@ const caculateStyle = (style) => {
 
   const style_ = {}
 
-  if (style.visibility !== undefined) style_.visibility = style.visibility
-  if (style.display !== undefined) style_.display = style.display
-  if (style.overflow !== undefined) style_.overflow = style.overflow
-  if (style.verticalAlign !== undefined) style_.verticalAlign = style.verticalAlign
-  if (style.position !== undefined) style_.position = style.position
-  if (style.zIndex !== undefined) style_.zIndex = style.zIndex
-  if (style.cursor !== undefined) style_.cursor = style.cursor
+  if (style.visibility !== undefined) {
+    style_.visibility = style.visibility
+  }
+  
+  if (style.display !== undefined) {
+    style_.display = style.display
+  }
+  
+  if (style.overflow !== undefined) {
+    style_.overflow = style.overflow
+  }
+  
+  if (style.verticalAlign !== undefined) {
+    style_.verticalAlign = style.verticalAlign
+  }
+  
+  if (style.position !== undefined) {
+    style_.position = style.position
+  }
+  
+  if (style.zIndex !== undefined) {
+    style_.zIndex = style.zIndex
+  }
+  
+  if (style.cursor !== undefined) {
+    style_.cursor = style.cursor
+  }
 
-  if (style.width !== undefined) style_.width = translateNaN(style.width)
-  if (style.height !== undefined) style_.height = translateNaN(style.height)
-  if (style.minWidth !== undefined) style_.minWidth = translateNaN(style.minWidth)
-  if (style.minHeight !== undefined) style_.minHeight = translateNaN(style.minHeight)
-  if (style.maxWidth !== undefined) style_.maxWidth = translateNaN(style.maxWidth)
-  if (style.maxHeight !== undefined) style_.maxHeight = translateNaN(style.maxHeight)
+  if (style.width !== undefined) {
+    style_.width = translateNaN(style.width)
+  }
+  
+  if (style.height !== undefined) {
+    style_.height = translateNaN(style.height)
+  }
+  
+  if (style.minWidth !== undefined) {
+    style_.minWidth = translateNaN(style.minWidth)
+  }
+  
+  if (style.minHeight !== undefined) {
+    style_.minHeight = translateNaN(style.minHeight)
+  }
+  
+  if (style.maxWidth !== undefined) {
+    style_.maxWidth = translateNaN(style.maxWidth)
+  }
+  
+  if (style.maxHeight !== undefined) {
+    style_.maxHeight = translateNaN(style.maxHeight)
+  }
 
   if (style.padding !== undefined) {
     if (style.padding.includes('')) {
@@ -39,6 +76,7 @@ const caculateStyle = (style) => {
       style_.padding = style.padding.map(i => translateNaN(i)).join(' ')
     }
   }
+
   if (style.margin !== undefined) {
     if (style.margin.includes('')) {
       if (style.margin[0]) style_.marginTop = translateNaN(style.margin[0])
@@ -49,6 +87,7 @@ const caculateStyle = (style) => {
       style_.margin = style.margin.map(i => translateNaN(i)).join(' ')
     }
   }
+
   if (style.inset !== undefined) {
     style_.top = style.inset[0] ? translateNaN(style.inset[0]) : 'auto'
     style_.right = style.inset[1] ? translateNaN(style.inset[1]) : 'auto'

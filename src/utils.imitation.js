@@ -6,6 +6,20 @@ ImitationINS.state = {}
 
 const initState = () => {
   const state = {
+    theme: {
+      palette: {
+        primary: {
+          main: 'rgb(25, 118, 210)',
+        },
+        secondary: {
+          main: 'rgb(156, 39, 176)'
+        },
+        success: {
+          main: 'rgb(46, 125, 50)'
+        }
+      }
+    },
+
     loading: 0,
 
     message: '',
@@ -13,17 +27,21 @@ const initState = () => {
     version: '1.0.0',
 
     navigationTabsValue: 'ElementShop',
-    navigationTabsElementValue: undefined,
+
+    elementSelect: undefined,
 
     elementHover: undefined,
 
+    // elementDrag: undefined,
+
     elementDragStart: undefined,
-    elementDragEnter: undefined,
+    elementDragEnd: undefined,
 
     eventMouseDownTarget: undefined,
     eventMouseDownPosition: undefined,
 
     graphDevRootRef: undefined,
+    graphDevContentRef: undefined,
     eventDevRootRef: undefined,
 
     graphContent: [],

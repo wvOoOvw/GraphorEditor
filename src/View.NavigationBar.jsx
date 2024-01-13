@@ -482,7 +482,7 @@ function App() {
 
     await new Promise(requestAnimationFrame)
 
-    const graphDevDom = document.getElementById('graph-dev')
+    const graphDevDom = Imitation.state.graphDevContentRef
 
     html2canvas(graphDevDom).then(function (canvas) {
       const aLink = document.createElement('a')

@@ -34,13 +34,13 @@ function App() {
 
     if (e.information.created) e.information.created(newElement)
 
-    if (Imitation.state.navigationTabsElementValue !== undefined) {
-      const [id, childrenKey] = Imitation.state.navigationTabsElementValue.split('@')
+    if (Imitation.state.elementSelect !== undefined) {
+      const [id, childrenKey] = Imitation.state.elementSelect.split('@')
       const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, id)
       currentGraphContent.children[childrenKey].push(newElement)
     }
 
-    if (Imitation.state.navigationTabsElementValue === undefined) {
+    if (Imitation.state.elementSelect === undefined) {
       Imitation.state.graphContent.push(newElement)
     }
 
@@ -70,7 +70,7 @@ function App() {
           list
             .filter(i => !filter || i.information.type === filter)
             .map(i => {
-              return <Grid item xs={12} key={i.information.licenseKey}>
+              return <Grid item xs={12} key={i.license.key}>
                 <Tooltip {...TooltipSX} placement='right' title={i.View() ? <div style={{ padding: 8, width: 200, height: 200 }}><i.View /></div> : undefined}>
                   <Paper style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 4, paddingLeft: 12 }}>
                     <div>

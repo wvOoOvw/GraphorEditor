@@ -236,11 +236,11 @@ function ChildrenConfig(props) {
   const [current, setCurrent] = React.useState(information.children[0].value)
 
   const handleAdd = () => {
-    Imitation.assignState({ navigationTabsValue: 'ElementShop', navigationTabsElementValue: Imitation.state.navigationTabsElementValue.split('@')[0] + '@' + current })
+    Imitation.assignState({ navigationTabsValue: 'ElementShop', elementSelect: Imitation.state.elementSelect.split('@')[0] + '@' + current })
   }
 
   const handleEdit = (i) => {
-    Imitation.assignState({ navigationTabsElementValue: i })
+    Imitation.assignState({ elementSelect: i })
   }
 
   return <Grid item xs={12}>
@@ -336,7 +336,7 @@ function Action(props) {
     Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === true).forEach(i => updateTriggerLink(Imitation.state.graphContent, i.eventId))
     Imitation.state.graphEvent = Imitation.state.graphEvent.filter(i => elementIds.includes(i.elementId) === false)
 
-    Imitation.assignState({ graphContentUpdate: hash(), navigationTabsElementValue: undefined, navigationTabsValue: 'ElementShop' })
+    Imitation.assignState({ graphContentUpdate: hash(), elementSelect: undefined, navigationTabsValue: 'ElementShop' })
   }
 
   const handleCopy = () => {
@@ -363,11 +363,11 @@ function Action(props) {
 }
 
 function App() {
-  if (Imitation.state.navigationTabsElementValue === undefined) return null
+  if (Imitation.state.elementSelect === undefined) return null
 
-  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.navigationTabsElementValue.split('@')[0]), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.navigationTabsElementValue])
+  const [currentGraphElement, parentGraphElement] = React.useMemo(() => getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementSelect.split('@')[0]), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.elementSelect])
 
-  const { information, license, Edit } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.navigationTabsElementValue])
+  const { information, license, Edit } = React.useMemo(() => searchElement(currentGraphElement.license, Imitation.state.graphElement), [Imitation.state.graphContentUpdate, Imitation.state.graphElementUpdate, Imitation.state.elementSelect])
 
   if (!currentGraphElement) return null
 

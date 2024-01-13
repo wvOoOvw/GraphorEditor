@@ -1187,7 +1187,7 @@ export function TextDecoration(props) {
           <Grid item xs={12}>
             <FormControl {...SelectSX} fullWidth>
               <InputLabel>Text Decoration Line</InputLabel>
-              <Select {...SelectSX} value={value.textDecoration.textDecorationLine} label='位置' onChange={e => onChange(() => value.textDecoration.textDecorationLine = e.target.value)}>
+              <Select {...SelectSX} value={value.textDecoration.textDecorationLine} label='Text Decoration Line' onChange={e => onChange(() => value.textDecoration.textDecorationLine = e.target.value)}>
                 <MenuItem value='none'>none</MenuItem>
                 <MenuItem value='underline'>underline</MenuItem>
                 <MenuItem value='overline'>overline</MenuItem>

@@ -15,8 +15,8 @@ function ElementRender(props) {
 
   if (!Render) return null
 
-  const [, setUpdate] = React.useState(0)
-  const update = () => setUpdate(pre => pre + 1)
+  const [update, setUpdate] = React.useState(0)
+  const update_ = () => setUpdate(pre => pre + 1)
 
   const env = { property, style, prop, update }
 
@@ -105,7 +105,7 @@ function ElementRender(props) {
 
   if (use === false) return null
 
-  return <Render env='prod' update={update} element={props.element} property={property} style={style_exe} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} prop={prop} />
+  return <Render env='prod' update={update_} element={props.element} property={property} style={style_exe} children={children_exe} monitor={monitor_exe} trigger={trigger_exe} prop={prop} />
 }
 
 function App() {

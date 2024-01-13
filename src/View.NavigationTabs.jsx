@@ -26,10 +26,10 @@ function App() {
 
   const onChange = (e, v) => {
     if (v === '@Close') {
-      Imitation.assignState({ navigationTabsElementValue: undefined, navigationTabsValue: undefined })
+      Imitation.assignState({ elementSelect: undefined, navigationTabsValue: undefined })
       return
     }
-    Imitation.assignState({ navigationTabsElementValue: undefined, navigationTabsValue: v })
+    Imitation.assignState({ elementSelect: undefined, navigationTabsValue: v })
   }
 
   return <div style={{ display: 'flex', height: '100%' }}>
@@ -104,4 +104,4 @@ function App() {
 
 }
 
-export default Imitation.withBindRender(App, state => [state.elementHover, state.navigationTabsValue, state.navigationTabsElementValue, state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])
+export default Imitation.withBindRender(App, state => [state.elementHover, state.elementDragStart, state.elementDragEnd, state.navigationTabsValue, state.elementSelect, state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])

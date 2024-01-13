@@ -5,108 +5,110 @@ import { Slider } from '@mui/material'
 
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
-import { getElementAndParentById, hash, deleteArrayItem } from './utils.common'
+import { hash } from './utils.common'
 import { searchElement } from './utils.graph.common'
+import { scrollListener } from './utils.common.scrollListener'
 
-function Hover() {
-  const timeRef = React.useRef()
-
-  const [position, setPosition] = React.useState()
-
-  const handle = () => {
-    const node = document.getElementById(Imitation.state.elementHover)
-
-    if (node !== null) {
-      const rect_ = node.getBoundingClientRect()
-      const rect = { left: rect_.left, right: rect_.right, top: rect_.top, bottom: rect_.bottom, width: rect_.width, height: rect_.height }
-
-      rect.left = rect.left - Imitation.state.graphDevRootRef.offsetLeft
-      rect.right = rect.right - Imitation.state.graphDevRootRef.offsetLeft
-      rect.top = rect.top - Imitation.state.graphDevRootRef.offsetTop
-      rect.bottom = rect.bottom - Imitation.state.graphDevRootRef.offsetTop
-
-      setPosition(rect)
-    }
-    if (node === null) {
-      setPosition()
-    }
-  }
-
-  React.useEffect(() => {
-    if (Imitation.state.elementHover === undefined) { setPosition(); return; }
-
-    handle()
-
-    timeRef.current = setInterval(() => handle(), 1000)
-
-    return () => clearInterval(timeRef.current)
-  }, [Imitation.state.elementHover, Imitation.state.graphContentUpdate])
-
-  if (position === undefined) return null
+function HintItem(props) {
+  const base = 2
 
   const style = {
     transition: '0.5s all',
     position: 'absolute',
-    background: '#000',
-    borderRadius: '50%'
+    cursor: 'default',
+  }
+
+  const event = {
+    onMouseDown: e => e.stopPropagation(),
+    onTouchStart: e => e.stopPropagation(),
   }
 
   return <>
-    <div style={{ ...style, width: position.width, height: 2, top: position.top - 2, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 2 }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
+    <div style={{ ...style, width: props.position.width, height: base, top: props.position.top - base, left: props.position.left, background: `linear-gradient(to right, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '4px 100%' }} {...event} />
+    <div style={{ ...style, width: props.position.width, height: base, top: props.position.bottom, left: props.position.left, background: `linear-gradient(to left, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '4px 100%' }} {...event} />
+    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.left - base, background: `linear-gradient(to top, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '100% 4px' }} {...event} />
+    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.right, background: `linear-gradient(to bottom, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '100% 4px' }} {...event} />
   </>
 }
 
-function Active() {
-  const timeRef = React.useRef()
+function Hint() {
+  const rectRef = React.useRef()
 
-  const [position, setPosition] = React.useState()
+  const [hover, setHover] = React.useState()
+  const [select, setSelect] = React.useState()
+  const [dragStart, setDragStart] = React.useState()
+  const [dragEnd, setDragEnd] = React.useState()
 
-  const handle = () => {
-    const node = document.getElementById(Imitation.state.navigationTabsElementValue.split('@')[0]) || document.getElementById(Imitation.state.navigationTabsElementValue)
+  const computePosition = (node) => {
+    const rect_ = node.getBoundingClientRect()
+    const rect = { left: rect_.left, right: rect_.right, top: rect_.top, bottom: rect_.bottom, width: rect_.width, height: rect_.height }
 
-    if (node !== null) {
-      const rect_ = node.getBoundingClientRect()
-      const rect = { left: rect_.left, right: rect_.right, top: rect_.top, bottom: rect_.bottom, width: rect_.width, height: rect_.height }
+    rect.left = rect.left - rectRef.current.left
+    rect.right = rect.right - rectRef.current.left
+    rect.top = rect.top - rectRef.current.top
+    rect.bottom = rect.bottom - rectRef.current.top
 
-      rect.left = rect.left - Imitation.state.graphDevRootRef.offsetLeft
-      rect.right = rect.right - Imitation.state.graphDevRootRef.offsetLeft
-      rect.top = rect.top - Imitation.state.graphDevRootRef.offsetTop
-      rect.bottom = rect.bottom - Imitation.state.graphDevRootRef.offsetTop
-
-      setPosition(rect)
-    }
-    if (node === null) {
-      setPosition()
-    }
+    return rect
   }
 
   React.useEffect(() => {
-    if (Imitation.state.navigationTabsElementValue === undefined) { setPosition(); return; }
+    rectRef.current = Imitation.state.graphDevRootRef.getBoundingClientRect()
+  }, [Imitation.state.graphContentUpdate])
 
-    handle()
+  React.useEffect(() => {
+    if (Imitation.state.elementHover === undefined || Imitation.state.elementDragStart !== undefined || Imitation.state.elementDragEnd !== undefined) { setHover(); return; }
 
-    timeRef.current = setInterval(() => handle(), 1000)
+    const [id, id_] = Imitation.state.elementHover.split('@')
 
-    return () => clearInterval(timeRef.current)
-  }, [Imitation.state.navigationTabsElementValue, Imitation.state.graphContentUpdate])
+    const node = document.querySelector(`[data-element-id="${id}"]`) || document.querySelector(`[data-element-children-id="${id_}"]`)
 
-  if (position === undefined) return null
+    if (node !== null) setHover(computePosition(node))
+    if (node === null) setHover()
+  }, [Imitation.state.elementHover, Imitation.state.elementDragStart, Imitation.state.elementDragEnd])
 
-  const style = {
-    transition: '0.5s all',
-    position: 'absolute',
-    background: 'rgb(25, 118, 210)',
-    borderRadius: '50%'
-  }
+  React.useEffect(() => {
+    if (Imitation.state.elementSelect === undefined || Imitation.state.elementDragStart !== undefined || Imitation.state.elementDragEnd !== undefined) { setSelect(); return; }
+
+    const [id, id_] = Imitation.state.elementSelect.split('@')
+
+    const node = document.querySelector(`[data-element-id="${id}"]`) || document.querySelector(`[data-element-children-id="${id_}"]`)
+
+    if (node) setSelect(computePosition(node))
+  }, [Imitation.state.elementSelect, Imitation.state.elementDragStart, Imitation.state.elementDragEnd])
+
+  React.useEffect(() => {
+    if (Imitation.state.elementDragStart === undefined) { setDragStart(); return; }
+
+    const [id, id_] = Imitation.state.elementDragStart.split('@')
+
+    const node = document.querySelector(`[data-element-id="${id}"]`) || document.querySelector(`[data-element-children-id="${id_}"]`)
+
+    if (node) setDragStart(computePosition(node))
+  }, [Imitation.state.elementDragStart])
+
+  React.useEffect(() => {
+    if (Imitation.state.elementDragEnd === undefined) { setDragEnd(); return; }
+
+    const [id, id_] = Imitation.state.elementDragEnd.split('@')
+
+    const node = document.querySelector(`[data-element-id="${id}"]`) || document.querySelector(`[data-element-children-id="${id_}"]`)
+
+    if (node) setDragEnd(computePosition(node))
+  }, [Imitation.state.elementDragEnd])
 
   return <>
-    <div style={{ ...style, width: position.width, height: 2, top: position.top - 2, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: position.width, height: 2, top: position.bottom, left: position.left }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.left - 2 }} className='element-hover' />
-    <div style={{ ...style, width: 2, height: position.height, top: position.top, left: position.right }} className='element-hover' />
+    {
+      hover ? <HintItem position={hover} color='black' /> : null
+    }
+    {
+      select ? <HintItem position={select} color={Imitation.state.theme.palette.primary.main} /> : null
+    }
+    {
+      dragStart ? <HintItem position={dragStart} color={Imitation.state.theme.palette.secondary.main} /> : null
+    }
+    {
+      dragEnd ? <HintItem position={dragEnd} color={Imitation.state.theme.palette.success.main} /> : null
+    }
   </>
 }
 
@@ -123,62 +125,57 @@ function ElementRender(props) {
     return null
   }
 
-  const [, setUpdate] = React.useState(0)
-  const update = () => setUpdate(pre => pre + 1)
+  const mouseDownRef = React.useRef()
 
-  const onClick = (e, v) => {
-    Imitation.assignState({ navigationTabsElementValue: v, navigationTabsValue: 'ElementConfig' })
+  const [update, setUpdate] = React.useState(0)
+  const update_ = () => setUpdate(pre => pre + 1)
 
-    e.stopPropagation()
-    e.preventDefault()
-  }
-
-  const onMouseOver = (e, v) => {
-    if (Imitation.state.elementDragStart !== undefined) return
-
-    Imitation.assignState({ elementHover: v })
+  const onClick = (e, id) => {
+    Imitation.assignState({ elementSelect: id, navigationTabsValue: 'ElementConfig' })
 
     e.stopPropagation()
     e.preventDefault()
   }
 
-  const onDragStart = (e) => {
-    Imitation.assignState({ elementDragStart: id, elementHover: undefined })
-
-    e.stopPropagation()
-  }
-
-  const onDragEnter = (e, v) => {
-    if (parentId.includes(Imitation.state.elementDragStart) === false && v !== Imitation.state.elementDragStart && v.split('@')[0] !== Imitation.state.elementDragStart) {
-      Imitation.assignState({ elementDragEnter: v, elementHover: v })
-    }
-    if (parentId.includes(Imitation.state.elementDragStart) === true || v === Imitation.state.elementDragStart || v.split('@')[0] === Imitation.state.elementDragStart) {
-      Imitation.assignState({ elementDragEnter: undefined, elementHover: undefined })
-    }
-
-    e.stopPropagation()
-  }
-
-  const onDragEnd = (e) => {
-    if (Imitation.state.elementDragStart && Imitation.state.elementDragEnter && Imitation.state.elementDragStart !== Imitation.state.elementDragEnter) {
-      if (Imitation.state.elementDragEnter.includes('@')) {
-        const [id, childrenKey] = Imitation.state.elementDragEnter.split('@')
-        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
-        deleteArrayItem(parentGraphContent, currentGraphContent)
-        currentGraphContent_.children[childrenKey].push(currentGraphContent)
-      } else {
-        const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-        const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnter)
-        deleteArrayItem(parentGraphContent, currentGraphContent)
-        const index = parentGraphContent_.indexOf(currentGraphContent_)
-        parentGraphContent_.splice(index + 1, 0, currentGraphContent)
+  const onMouseOver = (e, id) => {
+    if (Imitation.state.elementDragStart !== undefined) {
+      if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
+        Imitation.state.elementDragEnd = id
+      }
+      if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
+        Imitation.state.elementDragEnd = undefined
       }
     }
-    Imitation.assignState({ elementDragStart: undefined, elementDragEnter: undefined, graphContent: Imitation.state.graphContent, graphContentUpdate: hash() })
+
+    if (Imitation.state.elementDragStart === undefined) {
+      Imitation.state.elementHover = id
+    }
+
+    Imitation.dispatch()
+
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
+  const onMouseDown = (e) => {
+    mouseDownRef.current = true
 
     e.stopPropagation()
   }
+
+  const onMouseMove = (e, id) => {
+    if (mouseDownRef.current === true) Imitation.assignState({ elementDragStart: id })
+  }
+
+  const onMouseUp = (e) => {
+    mouseDownRef.current = false
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp)
+
+    return () => window.removeEventListener('mouseup', onMouseUp)
+  }, [])
 
   const children_exe = React.useMemo(() => {
     if (!children) return
@@ -188,7 +185,10 @@ function ElementRender(props) {
 
       const params = {
         id: id_,
+        'data-element-children-id': i[0],
         onMouseOver: e => onMouseOver(e, id_),
+        onMouseDown: e => onMouseDown(e, id_),
+        onMouseMove: e => onMouseMove(e, id_),
         onDragEnter: e => onDragEnter(e, id_),
         onClick: e => onClick(e, id_)
       }
@@ -209,18 +209,17 @@ function ElementRender(props) {
   })
 
   const devParams = {
+    id: id,
+    'data-element-id': id,
     onClick: e => onClick(e, id),
     onMouseOver: e => onMouseOver(e, id),
-    onDragStart: e => onDragStart(e),
-    onDragEnd: e => onDragEnd(e),
-    onDragEnter: e => onDragEnter(e, id),
-    draggable: true,
-    id: id,
+    onMouseDown: e => onMouseDown(e, id),
+    onMouseMove: e => onMouseMove(e, id),
   }
 
   if (use === false) return null
 
-  return <Render env='dev' update={update} devParams={devParams} element={props.element} property={property} style={style_exe} children={children_exe} />
+  return <Render env='dev' update={update_} devParams={devParams} element={props.element} property={property} style={style_exe} children={children_exe} />
 }
 
 function App() {
@@ -229,10 +228,8 @@ function App() {
   const [mouseDown, setMouseDown] = React.useState(false)
 
   const onMouseDown = e => {
-    try {
-      mouseDownPosition.current = [e.pageX || e.targetTouches[0].pageX, e.pageY || e.targetTouches[0].pageY]
-      setMouseDown(true)
-    } catch { }
+    mouseDownPosition.current = [e.pageX, e.pageY]
+    setMouseDown(true)
   }
 
   const onMouseUp = e => {
@@ -250,6 +247,40 @@ function App() {
     Imitation.assignState({ graphConfigUpdate: hash() })
   }
 
+  const onTouchStart = e => {
+    mouseDownPosition.current = [e.targetTouches[0].pageX, e.targetTouches[0].pageY]
+    setMouseDown(true)
+  }
+
+  const onTouchMove = e => {
+    mouseDownPosition.current = null
+    setMouseDown(false)
+  }
+
+  const onTouchEnd = e => {
+    if (!mouseDownPosition.current) return
+    const changeX = (e.pageX || e.targetTouches[0].pageX) - mouseDownPosition.current[0]
+    const changeY = (e.pageY || e.targetTouches[0].pageY) - mouseDownPosition.current[1]
+    mouseDownPosition.current = [mouseDownPosition.current[0] + changeX, mouseDownPosition.current[1] + changeY]
+    Imitation.state.graphConfig.screenGraph.translateX = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateX) + changeX)
+    Imitation.state.graphConfig.screenGraph.translateY = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateY) + changeY)
+    Imitation.assignState({ graphConfigUpdate: hash() })
+  }
+
+  const onMouseLeave = e => {
+    mouseDownPosition.current = null
+    setMouseDown(false)
+  }
+
+  React.useEffect(() => {
+    const node = Imitation.state.graphDevContentRef
+    const enable = Imitation.state.elementDragStart !== undefined
+
+    const r = scrollListener(node, enable)
+
+    return () => r()
+  }, [Imitation.state.elementDragStart])
+
   return <>
     <Paper
       style={{
@@ -266,10 +297,10 @@ function App() {
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-      onTouchStart={onMouseDown}
-      onTouchMove={onMouseMove}
-      onTouchEnd={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onMouseLeave={onMouseLeave}
       ref={el => Imitation.state.graphDevRootRef = el}
     >
       <Paper
@@ -289,7 +320,8 @@ function App() {
         }}
         onMouseDown={e => e.stopPropagation()}
         onTouchStart={e => e.stopPropagation()}
-        id='graph-dev'
+        ref={el => Imitation.state.graphDevContentRef = el}
+        className='cursor'
       >
         <div>
           {
@@ -302,10 +334,9 @@ function App() {
         <Slider className='font' value={Imitation.state.graphConfig.screenGraph.scale} onChange={(e, v) => { Imitation.state.graphConfig.screenGraph.scale = v; Imitation.assignState({ graphConfigUpdate: hash() }) }} min={0} max={2} step={0.01} valueLabelDisplay='auto' onMouseDown={e => e.stopPropagation()} />
       </Paper>
 
-      <Hover />
-      <Active />
+      <Hint />
     </Paper>
   </>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.navigationTabsElementValue, state.elementHover, state.elementDragStart])
+export default Imitation.withBindRender(App, state => [state.graphConfigUpdate, state.graphContentUpdate, state.graphElementUpdate, state.elementSelect, state.elementHover, state.elementDragStart, state.elementDragEnd])

@@ -217,7 +217,7 @@ function Action(props) {
     const v = prompt('Import Data')
     try {
       const data = JSON.parse(v)
-      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
+      Imitation.assignState({ graphContent: data.graphContent, graphContentUpdate: hash(), graphConfig: data.graphConfig, graphConfigUpdate: hash(), message: 'Import Success', elementSelect: undefined })
     } catch { }
   }
 
@@ -226,7 +226,7 @@ function Action(props) {
     try {
       const data = copyElement(JSON.parse(v))
       Imitation.state.graphContent.push(data)
-      Imitation.assignState({ graphContentUpdate: hash(), message: 'Import Success', navigationTabsElementValue: undefined })
+      Imitation.assignState({ graphContentUpdate: hash(), message: 'Import Success', elementSelect: undefined })
     } catch { }
   }
 
