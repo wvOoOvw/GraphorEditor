@@ -244,7 +244,12 @@ function App() {
     mouseDownPosition.current = [mouseDownPosition.current[0] + changeX, mouseDownPosition.current[1] + changeY]
     Imitation.state.graphConfig.screenGraph.translateX = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateX) + changeX)
     Imitation.state.graphConfig.screenGraph.translateY = Math.floor(Number(Imitation.state.graphConfig.screenGraph.translateY) + changeY)
-    Imitation.assignState({ graphConfigUpdate: hash() })
+    Imitation.state.graphConfigUpdate = hash()
+    Imitation.state.elementHover = undefined
+    Imitation.state.elementSelect = undefined
+    Imitation.state.elementDragStart = undefined
+    Imitation.state.elementDragEnd = undefined
+    Imitation.dispatch()
   }
 
   const onTouchStart = e => {
@@ -270,6 +275,16 @@ function App() {
   const onMouseLeave = e => {
     mouseDownPosition.current = null
     setMouseDown(false)
+  }
+
+  const onChangeSlider = (e, v) => {
+    Imitation.state.graphConfig.screenGraph.scale = v
+    Imitation.state.graphConfigUpdate = hash()
+    Imitation.state.elementHover = undefined
+    Imitation.state.elementSelect = undefined
+    Imitation.state.elementDragStart = undefined
+    Imitation.state.elementDragEnd = undefined
+    Imitation.dispatch()
   }
 
   React.useEffect(() => {
@@ -331,7 +346,7 @@ function App() {
       </Paper>
 
       <Paper style={{ position: 'absolute', bottom: 16, left: 0, right: 0, margin: 'auto', width: 480, maxWidth: 'calc(100% - 32px)', padding: '8px 24px' }}>
-        <Slider className='font' value={Imitation.state.graphConfig.screenGraph.scale} onChange={(e, v) => { Imitation.state.graphConfig.screenGraph.scale = v; Imitation.assignState({ graphConfigUpdate: hash() }) }} min={0} max={2} step={0.01} valueLabelDisplay='auto' onMouseDown={e => e.stopPropagation()} />
+        <Slider className='font' value={Imitation.state.graphConfig.screenGraph.scale} onChange={onChangeSlider} min={0} max={2} step={0.01} valueLabelDisplay='auto' onMouseDown={e => e.stopPropagation()} />
       </Paper>
 
       <Hint />
