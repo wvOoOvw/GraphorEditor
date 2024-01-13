@@ -69,7 +69,7 @@ function App() {
     const event = () => {
       setHeight(window.innerHeight - 32)
 
-      if (window.innerWidth >= 1800 && window.innerHeight >= 900) setScreenDialog(true)
+      if (window.innerWidth >= 1800 && window.innerHeight >= 900) setScreenDialog(false)
     }
 
     event()

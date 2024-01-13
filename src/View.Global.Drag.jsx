@@ -1,8 +1,10 @@
 import React from 'react'
 
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
 
-import MusicNoteIcon from '@mui/icons-material/MusicNote'
+import MoveDownIcon from '@mui/icons-material/MoveDown'
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
 
 import Animation from './View.Component.Animation'
 
@@ -20,24 +22,24 @@ function App() {
 
   const onMouseUp = e => {
     if (Imitation.state.elementDragStart !== undefined && Imitation.state.elementDragEnd !== undefined) {
-        if (Imitation.state.elementDragStart && Imitation.state.elementDragEnd && Imitation.state.elementDragStart !== Imitation.state.elementDragEnd) {
-          if (Imitation.state.elementDragEnd.includes('@') === true) {
-            const [id, childrenKey] = Imitation.state.elementDragEnd.split('@')
-            const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-            const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
-            deleteArrayItem(parentGraphContent, currentGraphContent)
-            currentGraphContent_.children[childrenKey].push(currentGraphContent)
-          }
-          if (Imitation.state.elementDragEnd.includes('@') === false) {
-            const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
-            const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnd)
-            deleteArrayItem(parentGraphContent, currentGraphContent)
-            const index = parentGraphContent_.indexOf(currentGraphContent_)
-            parentGraphContent_.splice(index + 1, 0, currentGraphContent)
-          }
+      if (Imitation.state.elementDragStart && Imitation.state.elementDragEnd && Imitation.state.elementDragStart !== Imitation.state.elementDragEnd) {
+        if (Imitation.state.elementDragEnd.includes('@') === true) {
+          const [id, childrenKey] = Imitation.state.elementDragEnd.split('@')
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          currentGraphContent_.children[childrenKey].push(currentGraphContent)
         }
-        Imitation.state.graphContent = Imitation.state.graphContent
-        Imitation.state.graphContentUpdate = hash()
+        if (Imitation.state.elementDragEnd.includes('@') === false) {
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragStart)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, Imitation.state.elementDragEnd)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          const index = parentGraphContent_.indexOf(currentGraphContent_)
+          parentGraphContent_.splice(index + 1, 0, currentGraphContent)
+        }
+      }
+      Imitation.state.graphContent = Imitation.state.graphContent
+      Imitation.state.graphContentUpdate = hash()
     }
 
     Imitation.state.elementDragStart = undefined
@@ -72,12 +74,12 @@ function App() {
       }
       Imitation.state.graphContent = Imitation.state.graphContent
       Imitation.state.graphContentUpdate = hash()
-  }
+    }
 
-  Imitation.state.elementDragStart = undefined
-  Imitation.state.elementDragEnd = undefined
+    Imitation.state.elementDragStart = undefined
+    Imitation.state.elementDragEnd = undefined
 
-  Imitation.dispatch()
+    Imitation.dispatch()
   }
 
   React.useEffect(() => {
@@ -105,9 +107,9 @@ function App() {
 
   }, [Imitation.state.elementDragStart, Imitation.state.elementDragEnd])
 
-  if (Imitation.state.elementDragStart === undefined) return null
-
-  return <Animation tag={Button} restore={true} animation={[{ opacity: 0 }, { opacity: 1 }]} variant={Imitation.state.elementDragEnd ? 'contained' : 'outlined'} style={{ minWidth: 0, width: 32, height: 32, position: 'absolute', zIndex: 103, left: position[0] - 16, top: position[1] + 8, transitionDuration: '0.5s', transitionProperty: 'opacity, color, background' }}><MusicNoteIcon /></Animation>
+  if (Imitation.state.elementDragStart === undefined && Imitation.state.elementDragEnd === undefined) return null
+  if (Imitation.state.elementDragEnd !== undefined) return <Animation tag={IconButton} restore={true} animation={[{ opacity: 0 }, { opacity: 1 }]} variant={Imitation.state.elementDragEnd ? 'contained' : 'outlined'} style={{ minWidth: 0, width: 32, height: 32, position: 'absolute', zIndex: 103, left: position[0] + 8, top: position[1] + 12, color: 'black', transitionDuration: '0.5s', transitionProperty: 'opacity, color, background' }}><MoveToInboxIcon /></Animation>
+  if (Imitation.state.elementDragStart !== undefined) return <Animation tag={IconButton} restore={true} animation={[{ opacity: 0 }, { opacity: 1 }]} variant={Imitation.state.elementDragEnd ? 'contained' : 'outlined'} style={{ minWidth: 0, width: 32, height: 32, position: 'absolute', zIndex: 103, left: position[0] + 8, top: position[1] + 12, color: 'black', transitionDuration: '0.5s', transitionProperty: 'opacity, color, background' }}><MoveDownIcon /></Animation>
 }
 
 export default Imitation.withBindRender(App, state => [state.elementDragStart, state.elementDragEnd])
