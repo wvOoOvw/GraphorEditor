@@ -210,7 +210,7 @@ function Action(props) {
       graphEvent: Imitation.state.graphEvent,
       graphConfig: Imitation.state.graphConfig
     }
-    copy(JSON.stringify(data), () => { Imitation.assignState({ message: 'Copy Success' }) })
+    navigator.clipboard.writeText(JSON.stringify(data)).then(res => Imitation.assignState({ message: 'Copy Success' }))
   }
 
   const handleImport = () => {

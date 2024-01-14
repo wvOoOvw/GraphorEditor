@@ -16,18 +16,6 @@ const downloadFile = (fileName, content, type) => {
   aLink.dispatchEvent(evt)
 }
 
-const copy = (v, callback) => {
-  const input = document.createElement('input')
-  document.body.appendChild(input)
-  input.setAttribute('value', v)
-  input.select()
-  if (document.execCommand('copy')) {
-    document.execCommand('copy')
-    callback()
-  }
-  document.body.removeChild(input)
-}
-
 const hash = (n = 4, l = 3) => {
   return new Array(l).fill(undefined).map(i => Array.from(Array(n), () => Math.floor(Math.random() * 36).toString(36)).join('')).join('-').toUpperCase()
 }
@@ -37,103 +25,139 @@ const convertCamelCase = (string) => {
 }
 
 const deleteArrayItem = (target, item) => {
-  const index = target.indexOf(item)
-  if (index > -1) target.splice(index, 1)
+  target.splice(target.indexOf(item), 1)
 }
 
 const getElementById = (content, id) => {
-  var current = undefined
+  var result = undefined
+  var currentContent = content
 
-  content.forEach(i => {
-    if (i.id === id) current = current ? current : i
+  while (currentContent.length && result === undefined) {
+    const nextContent = []
 
-    if (i.children) {
-      Object.values(i.children).forEach(i => current = current ? current : getElementById(i, id))
-    }
-  })
+    currentContent.forEach(i => {
+      if (result !== undefined) return
+      if (i.id === id) result = i
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
 
-  return current
+    currentContent = nextContent
+  }
+
+  return result
 }
 
 const getElementAndParentById = (content, id) => {
-  var current = undefined
-  var parent = undefined
+  var result = undefined
+  var currentContent = [content]
 
-  content.forEach(i => {
-    if (i.id === id) [current, parent] = current && parent ? [current, parent] : [i, content]
+  while (currentContent.length && result === undefined) {
+    const nextContent = []
 
-    if (i.children) {
-      Object.values(i.children).forEach(i => [current, parent] = current && parent ? [current, parent] : getElementAndParentById(i, id))
-    }
-  })
+    currentContent.forEach(i => {
+      if (result !== undefined) return
+      i.forEach(i_ => {
+        if (result !== undefined) return
+        if (i_.id === id) result = [i_, i]
+        if (i_.children) Object.values(i_.children).forEach(i => nextContent.push(i))
+      })
+    })
 
-  return [current, parent]
+    currentContent = nextContent
+  }
+
+  return result
 }
 
 const getElementsAll = (content) => {
-  const r = []
+  var result = []
+  var currentContent = content
 
-  content.forEach(i => {
-    if (i) r.push(i)
+  while (currentContent.length) {
+    const nextContent = []
 
-    if (i.children) {
-      Object.values(i.children).forEach(i => r.push(...getElementsAll(i)))
-    }
-  })
+    currentContent.forEach(i => {
+      result.push(i)
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
 
-  return r
+    currentContent = nextContent
+  }
+
+  return result
 }
 
 const copyElement = (target) => {
-  const copy = (t) => {
-    t.id = hash()
-    if (t.hook) t.hook = []
-    if (t.monitor) t.monitor = []
-    if (t.trigger) t.trigger = []
-    if (t.children) Object.values(t.children).forEach(i => i.forEach(i => copy(i)))
-    return t
+  var result = JSON.parse(JSON.stringify(target))
+  var currentContent = [result]
+
+  while (currentContent.length) {
+    const nextContent = []
+
+    currentContent.forEach(i => {
+      i.id = hash()
+      if (i.hook) i.hook = []
+      if (i.monitor) i.monitor = []
+      if (i.trigger) i.trigger = []
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
+
+    currentContent = nextContent
   }
 
-  return copy(JSON.parse(JSON.stringify(target)))
+  return result
 }
 
 const getMonitorOptionsAll = (content) => {
-  const r = []
+  var result = []
+  var currentContent = content
 
-  content.forEach((i) => {
-    if (i.monitor) r.push(...i.monitor)
+  while (currentContent.length) {
+    const nextContent = []
 
-    if (i.children) {
-      Object.values(i.children).forEach(i => r.push(...getMonitorOptionsAll(i)))
-    }
-  })
+    currentContent.forEach(i => {
+      if (i.monitor) result.push(...i.monitor)
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
 
-  return r
+    currentContent = nextContent
+  }
+
+  return result
 }
 
-const getEventById = (target, id, type) => {
-  var current = undefined
+const getEventById = (content, id, type) => {
+  var result = undefined
+  var currentContent = content
 
-  target.forEach(i => {
-    if (i[type]) current = current ? current : i[type].find(i_ => i_.id === id)
+  while (currentContent.length && result === undefined) {
+    const nextContent = []
 
-    if (i.children) {
-      Object.values(i.children).forEach(i => current = current ? current : getEventById(i, id, type))
-    }
-  })
+    currentContent.forEach(i => {
+      if (result !== undefined) return
+      if (i[type] && i[type].find(i_ => i_.id === id)) result = i[type].find(i_ => i_.id === id)
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
 
-  return current
+    currentContent = nextContent
+  }
+
+  return result
 }
 
 const updateTriggerLink = (content, id) => {
-  content.forEach((i) => {
-    if (i.trigger) {
-      i.trigger.forEach(i => i.linkId = i.linkId.filter(i => i !== id))
-    }
-    if (i.children) {
-      Object.values(i.children).forEach(i => updateTriggerLink(i, id))
-    }
-  })
+  var currentContent = content
+
+  while (currentContent.length) {
+    const nextContent = []
+
+    currentContent.forEach(i => {
+      if (i.trigger) i.trigger.forEach(i => i.linkId = i.linkId.filter(i => i !== id))
+      if (i.children) Object.values(i.children).forEach(i => nextContent.push(...i))
+    })
+
+    currentContent = nextContent
+  }
 }
 
-export { downloadFile, copy, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, getElementById, getEventById }
+export { downloadFile, hash, convertCamelCase, getElementAndParentById, deleteArrayItem, copyElement, getElementsAll, getMonitorOptionsAll, updateTriggerLink, getElementById, getEventById }

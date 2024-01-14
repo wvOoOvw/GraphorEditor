@@ -74,7 +74,7 @@ function BasicConfig(props) {
                   <Grid item>Dependencies</Grid>
                   {
                     license.dependencies.map((i, index) => {
-                      return <Grid item><Chip key={index} label={i} color='primary' /></Grid>
+                      return <Grid item key={i}><Chip label={i} color='primary' /></Grid>
                     })
                   }
                 </Grid>
@@ -181,7 +181,7 @@ function StyleConfig(props) {
               <Select {...SelectSX} label='Area' value={current} onChange={e => setCurrent(e.target.value)}>
                 {
                   options.map(i => {
-                    return <MenuItem value={i.value}>{i.label}</MenuItem>
+                    return <MenuItem value={i.value} key={i.value}>{i.label}</MenuItem>
                   })
                 }
               </Select>
@@ -229,7 +229,7 @@ function ChildrenConfig(props) {
   const { currentGraphElement, parentGraphElement, information, license, Edit } = props
 
   if (!currentGraphElement.children) return null
-  
+
   if (!information) return null
 
   const [options, setOptions] = React.useState(information.children)
@@ -346,7 +346,7 @@ function Action(props) {
   }
 
   const handleDownload = () => {
-    copy(JSON.stringify(currentGraphElement), () => { Imitation.assignState({ message: 'Copy Success' }) })
+    navigator.clipboard.writeText(JSON.stringify(currentGraphElement)).then(res => Imitation.assignState({ message: 'Copy Success' }))
   }
 
   return <>
