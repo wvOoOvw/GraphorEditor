@@ -13,7 +13,6 @@ function HintItem(props) {
   const base = 2
 
   const style = {
-    transition: '0.5s all',
     position: 'absolute',
     cursor: 'default',
   }
@@ -24,10 +23,10 @@ function HintItem(props) {
   }
 
   return <>
-    <div style={{ ...style, width: props.position.width, height: base, top: props.position.top - base, left: props.position.left, background: `linear-gradient(to right, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '4px 100%' }} {...event} />
-    <div style={{ ...style, width: props.position.width, height: base, top: props.position.bottom, left: props.position.left, background: `linear-gradient(to left, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '4px 100%' }} {...event} />
-    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.left - base, background: `linear-gradient(to top, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '100% 4px' }} {...event} />
-    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.right, background: `linear-gradient(to bottom, ${props.color} 50%, transparent 50%) 0 100%`, backgroundSize: '100% 4px' }} {...event} />
+    <div style={{ ...style, width: props.position.width, height: base, top: props.position.top - base, left: props.position.left, background: props.color }} {...event} />
+    <div style={{ ...style, width: props.position.width, height: base, top: props.position.bottom, left: props.position.left, background: props.color }} {...event} />
+    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.left - base, background: props.color }} {...event} />
+    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.right, background: props.color }} {...event} />
   </>
 }
 

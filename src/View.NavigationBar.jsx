@@ -425,7 +425,7 @@ function DialogExample(props) {
         {
           example.map((i, index) => {
             return <Grid key={index} item xs={12}>
-              <Button fullWidth variant='contained' onClick={() => use(i)}>{i.label}</Button>
+              <Button fullWidth variant='outlined' onClick={() => use(i)}>{i.label}</Button>
             </Grid>
           })
         }
