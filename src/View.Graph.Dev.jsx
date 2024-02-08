@@ -187,7 +187,7 @@ function ElementRender(props) {
         'data-element-children-id': i[0],
         onMouseOver: e => onMouseOver(e, id_),
         onMouseDown: e => onMouseDown(e, id_),
-        onMouseMove: e => onMouseMove(e, id_),
+        onMouseMove: e => onMouseMove(e, id),
         onDragEnter: e => onDragEnter(e, id_),
         onClick: e => onClick(e, id_)
       }

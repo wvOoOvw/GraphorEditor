@@ -39,13 +39,13 @@ function Render(props) {
   }
 
   if (env === 'dev') {
-    return <Button {...devParams} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color}>
+    return <Button {...devParams} disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={{ '&.MuiButton-root': style.content }}>
       {property.value}
     </Button>
   }
 
   if (env === 'prod') {
-    return <Button disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} onClick={onClick}>
+    return <Button disabled={property.disabled} variant={property.variant} fullWidth={property.fullWidth} href={property.href} color={property.color} sx={{ '&.MuiButton-root': style.content }} onClick={onClick}>
       {property.value}
     </Button>
   }

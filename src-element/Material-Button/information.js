@@ -9,6 +9,9 @@ const information = {
   trigger: [
     { value: 'onClick', label: 'On Click' },
   ],
+  style: [
+    { value: 'content', label: 'Content' },
+  ],
   property: {
     value: 'Button',
     variant: 'contained',
