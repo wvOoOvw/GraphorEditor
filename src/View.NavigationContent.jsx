@@ -23,4 +23,4 @@ function App() {
   return null
 }
 
-export default Imitation.withBindRender(App, state => [state.navigationTabsValue])
+export default Imitation.withBindComponent(App, state => [state.navigationTabsValue])

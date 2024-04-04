@@ -28,4 +28,4 @@ function App() {
   </ThemeProvider>
 }
 
-export default Imitation.withBindRender(App, state => [JSON.stringify(state.theme)])
+export default Imitation.withBindComponent(App, state => [JSON.stringify(state.theme)])

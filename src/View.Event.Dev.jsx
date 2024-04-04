@@ -418,4 +418,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphContentUpdate, state.graphEventUpdate, state.graphConfigUpdate, state.elementHover, state.eventMouseDownTarget, state.eventMouseDownPosition])
+export default Imitation.withBindComponent(App, state => [state.graphContentUpdate, state.graphEventUpdate, state.graphConfigUpdate, state.elementHover, state.eventMouseDownTarget, state.eventMouseDownPosition])

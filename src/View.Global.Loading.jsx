@@ -25,4 +25,4 @@ function App() {
   return visible ? <Backdrop open={true} style={{ color: '#fff', zIndex: 10000 }}><CircularProgress color='inherit' /></Backdrop> : null
 }
 
-export default Imitation.withBindRender(App, state => [state.loading])
+export default Imitation.withBindComponent(App, state => [state.loading])

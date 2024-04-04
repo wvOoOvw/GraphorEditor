@@ -18,4 +18,4 @@ function App() {
   return <Snackbar open={Imitation.state.message ? true : false} message={Imitation.state.message} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} className='font'/>
 }
 
-export default Imitation.withBindRender(App, state => [state.message])
+export default Imitation.withBindComponent(App, state => [state.message])

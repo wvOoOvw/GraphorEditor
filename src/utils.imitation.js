@@ -1,4 +1,4 @@
-import Imitation from 'imitation-imm/src/index'
+import Imitation, {} from 'imitation-imm'
 
 const ImitationINS = new Imitation()
 

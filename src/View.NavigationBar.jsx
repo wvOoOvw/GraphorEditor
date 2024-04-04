@@ -544,4 +544,4 @@ function App() {
   </Paper>
 }
 
-export default Imitation.withBindRender(App, state => [state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])
+export default Imitation.withBindComponent(App, state => [state.graphElementUpdate, state.graphContentUpdate, state.graphConfigUpdate])

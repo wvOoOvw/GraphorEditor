@@ -112,4 +112,4 @@ function App() {
   if (Imitation.state.elementDragStart !== undefined) return <Animation tag={IconButton} restore={true} animation={[{ opacity: 0 }, { opacity: 1 }]} variant={Imitation.state.elementDragEnd ? 'contained' : 'outlined'} style={{ minWidth: 0, width: 32, height: 32, position: 'absolute', zIndex: 103, left: position[0] + 8, top: position[1] + 12, color: 'black', transitionDuration: '0.5s', transitionProperty: 'opacity, color, background' }}><MoveDownIcon /></Animation>
 }
 
-export default Imitation.withBindRender(App, state => [state.elementDragStart, state.elementDragEnd])
+export default Imitation.withBindComponent(App, state => [state.elementDragStart, state.elementDragEnd])
