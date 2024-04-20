@@ -510,7 +510,7 @@ function App() {
         <Button style={{ marginLeft: 8 }} variant='outlined' onClick={handleDownloadImage}><ImageIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='GitHub'>
-        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/wvOoOvw/project-graphor')}><GitHubIcon /></Button>
+        <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => window.open('https://github.com/wvOoOvw/20220805x001')}><GitHubIcon /></Button>
       </Tooltip>
       <Tooltip {...TooltipSX} title='Example'>
         <Button style={{ marginLeft: 8 }} variant='outlined' onClick={() => setDialogExample(true)}><BookIcon /></Button>

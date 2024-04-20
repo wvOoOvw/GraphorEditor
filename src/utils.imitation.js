@@ -79,7 +79,7 @@ const initState = () => {
       project: {
         renderId: '$render',
         updateId: '$update',
-        sourceOrigin: 'https://wvooovw.github.io/project-graphor/build-package'
+        sourceOrigin: 'https://wvooovw.github.io/20220805x001/build-package'
       }
     },
     graphConfigUpdate: undefined,
