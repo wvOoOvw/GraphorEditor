@@ -371,7 +371,7 @@ function App() {
 
   if (!currentGraphElement) return null
 
-  return <Grid container spacing={2}>
+  return <Grid container spacing={2} key={currentGraphElement.id}>
     <Grid item xs={12}>Element Config</Grid>
     <Grid item xs={12}><Divider /></Grid>
     <BasicConfig currentGraphElement={currentGraphElement} parentGraphElement={parentGraphElement} information={information} license={license} Edit={Edit} />
