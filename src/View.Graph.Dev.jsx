@@ -97,16 +97,16 @@ function Hint() {
 
   return <>
     {
-      hover ? <HintItem position={hover} color='black' /> : null
+      hover ? <div style={{ pointerEvents: 'none', position: 'absolute', width: hover.width, height: hover.height, top: hover.top, left: hover.left, borderWidth: 2, borderStyle: 'dashed', borderColor: 'black', opacity: 0.8 }} /> : null
     }
     {
-      select ? <HintItem position={select} color={Imitation.state.theme.palette.primary.main} /> : null
+      select ? <div style={{ pointerEvents: 'none', position: 'absolute', width: select.width, height: select.height, top: select.top, left: select.left, borderWidth: 2, borderStyle: 'dashed', borderColor: Imitation.state.theme.palette.primary.main, opacity: 0.8 }} /> : null
     }
     {
-      dragStart ? <HintItem position={dragStart} color={Imitation.state.theme.palette.secondary.main} /> : null
+      dragStart ? <div style={{ pointerEvents: 'none', position: 'absolute', width: dragStart.width, height: dragStart.height, top: dragStart.top, left: dragStart.left, borderWidth: 2, borderStyle: 'dashed', borderColor: Imitation.state.theme.palette.secondary.main, opacity: 0.8 }} /> : null
     }
     {
-      dragEnd ? <HintItem position={dragEnd} color={Imitation.state.theme.palette.success.main} /> : null
+      dragEnd ? <div style={{ pointerEvents: 'none', position: 'absolute', width: dragEnd.width, height: dragEnd.height, top: dragEnd.top, left: dragEnd.left, borderWidth: 2, borderStyle: 'dashed', borderColor: Imitation.state.theme.palette.success.main, opacity: 0.8 }} /> : null
     }
   </>
 }
@@ -139,11 +139,6 @@ function ElementRender(props) {
     Imitation.dispatch()
 
     e.stopPropagation()
-    // e.preventDefault()
-  }
-
-  const onMouseDown = (e, id) => {
-    // e.preventDefault()
   }
 
   const onDragStart = (e, id) => {
@@ -206,9 +201,8 @@ function ElementRender(props) {
         'data-element-children-id': i[0],
         onClick: e => onClick(e, id_),
         onMouseOver: e => onMouseOver(e, id_),
-        onMouseDown: e => onMouseDown(e, id_),
-        onDragOver: e => onDragOver(e, id_),
         onDragStart: e => onDragStart(e, id_),
+        onDragOver: e => onDragOver(e, id_),
         onDragEnter: e => onDragEnter(e, id_),
         onDrop: e => onDrop(e, id_),
       }
@@ -234,9 +228,8 @@ function ElementRender(props) {
     'data-element-id': id,
     onClick: e => onClick(e, id),
     onMouseOver: e => onMouseOver(e, id),
-    onMouseDown: e => onMouseDown(e, id),
-    onDragOver: e => onDragOver(e, id),
     onDragStart: e => onDragStart(e, id),
+    onDragOver: e => onDragOver(e, id),
     onDragEnter: e => onDragEnter(e, id),
     onDrop: e => onDrop(e, id),
   }

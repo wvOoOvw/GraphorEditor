@@ -23,8 +23,6 @@ function ItemRender(props) {
 
   if (!information) return null
 
-  const mouseDownRef = React.useRef()
-
   const [childrenVisible, setChildrenVisible] = React.useState(children ? Object.keys(children) : undefined)
 
   const hoverStyle = (id) => {
@@ -79,50 +77,70 @@ function ItemRender(props) {
   }
 
   const onMouseOver = (e, id) => {
-    if (Imitation.state.elementDragStart !== undefined) {
-      if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
-        Imitation.state.elementDragEnd = id
-      }
-      if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
-        Imitation.state.elementDragEnd = undefined
-      }
-    }
-
-    if (Imitation.state.elementDragStart === undefined) {
-      Imitation.state.elementHover = id
-    }
+    if (Imitation.state.elementDragStart === undefined) Imitation.state.elementHover = id
 
     Imitation.dispatch()
 
     e.stopPropagation()
   }
 
-  const onMouseDown = (e) => {
-    mouseDownRef.current = true
+  const onDragStart = (e, id) => {
+    Imitation.state.elementDragStart = id
+    Imitation.dispatch()
 
     e.stopPropagation()
   }
 
-  const onMouseMove = (e, id) => {
-    if (mouseDownRef.current === true) Imitation.assignState({ elementDragStart: id })
+  const onDragOver = (e, id) => {
+    e.preventDefault()
   }
 
-  const onMouseUp = (e) => {
-    mouseDownRef.current = false
+  const onDragEnter = (e, id) => {
+    Imitation.assignState({ elementDragEnd: id })
+
+    e.stopPropagation()
   }
 
-  React.useEffect(() => {
-    window.addEventListener('mouseup', onMouseUp)
+  const onDrop = (e, id) => {
+    const origin = Imitation.state.elementDragStart
+    const target = id
 
-    return () => window.removeEventListener('mouseup', onMouseUp)
-  }, [])
+    if (origin !== undefined && target !== undefined) {
+      if (origin && target && origin !== target) {
+        if (target.includes('@') === true) {
+          const [id, childrenKey] = target.split('@')
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, origin)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          currentGraphContent_.children[childrenKey].push(currentGraphContent)
+        }
+        if (target.includes('@') === false) {
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, origin)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, target)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          const index = parentGraphContent_.indexOf(currentGraphContent_)
+          parentGraphContent_.splice(index + 1, 0, currentGraphContent)
+        }
+      }
+      Imitation.state.graphContent = Imitation.state.graphContent
+      Imitation.state.graphContentUpdate = hash()
+    }
+
+    Imitation.state.elementDragStart = undefined
+    Imitation.state.elementDragEnd = undefined
+
+    Imitation.dispatch()
+  }
 
   return <>
     <div
+      draggable
       style={{ height: 42, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 8, ...hoverStyle(id), ...dragStartStyle(id), ...dragEndStyle(id) }}
-      onMouseDown={(e) => onMouseDown(e, id)}
-      onMouseMove={(e) => onMouseMove(e, id)}
       onMouseOver={(e) => onMouseOver(e, id)}
+      onDragStart={(e) => onDragStart(e, id)}
+      onDragOver={(e) => onDragOver(e, id)}
+      onDragEnter={(e) => onDragEnter(e, id)}
+      onDrop={(e) => onDrop(e, id)}
     >
       <div style={{ overflow: 'hidden', fontWeight: 'bold', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{name}</div>
       <div style={{ whiteSpace: 'nowrap' }}>
@@ -140,9 +158,13 @@ function ItemRender(props) {
       children ? Object.entries(children).map((i, index) => {
         return <React.Fragment key={index}>
           <div
+            draggable
             style={{ height: 42, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStartStyle(id + '@' + i[0]), ...dragEndStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
+            onDragStart={(e) => onDragStart(e, id + '@' + i[0])}
+            onDragOver={(e) => onDragOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
+            onDrop={(e) => onDrop(e, id + '@' + i[0])}
           >
             <div style={{ overflow: 'hidden', fontWeight: 'bold', opacity: 0.5 }}>
               {
