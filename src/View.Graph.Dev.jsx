@@ -5,7 +5,7 @@ import { Slider } from '@mui/material'
 
 import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
-import { hash } from './utils.common'
+import { hash, getElementAndParentById, deleteArrayItem } from './utils.common'
 import { searchElement } from './utils.graph.common'
 import { scrollListener } from './utils.common.scrollListener'
 
@@ -124,10 +124,7 @@ function ElementRender(props) {
     return null
   }
 
-  const mouseDownRef = React.useRef()
-
-  const [update, setUpdate] = React.useState(0)
-  const update_ = () => setUpdate(pre => pre + 1)
+  const setUpdate = React.useState(performance.now())[1]
 
   const onClick = (e, id) => {
     Imitation.assignState({ elementSelect: id, navigationTabsValue: 'ElementConfig' })
@@ -137,44 +134,65 @@ function ElementRender(props) {
   }
 
   const onMouseOver = (e, id) => {
-    if (Imitation.state.elementDragStart !== undefined) {
-      if (parentId.includes(Imitation.state.elementDragStart) === false && id !== Imitation.state.elementDragStart && id.split('@')[0] !== Imitation.state.elementDragStart) {
-        Imitation.state.elementDragEnd = id
-      }
-      if (parentId.includes(Imitation.state.elementDragStart) === true || id === Imitation.state.elementDragStart || id.split('@')[0] === Imitation.state.elementDragStart) {
-        Imitation.state.elementDragEnd = undefined
-      }
-    }
-
-    if (Imitation.state.elementDragStart === undefined) {
-      Imitation.state.elementHover = id
-    }
+    if (Imitation.state.elementDragStart === undefined) Imitation.state.elementHover = id
 
     Imitation.dispatch()
 
     e.stopPropagation()
-    e.preventDefault()
+    // e.preventDefault()
   }
 
-  const onMouseDown = (e) => {
-    mouseDownRef.current = true
+  const onMouseDown = (e, id) => {
+    // e.preventDefault()
+  }
+
+  const onDragStart = (e, id) => {
+    Imitation.state.elementDragStart = id
+    Imitation.dispatch()
 
     e.stopPropagation()
   }
 
-  const onMouseMove = (e, id) => {
-    if (mouseDownRef.current === true) Imitation.assignState({ elementDragStart: id })
+  const onDragOver = (e, id) => {
+    e.preventDefault()
   }
 
-  const onMouseUp = (e) => {
-    mouseDownRef.current = false
+  const onDragEnter = (e, id) => {
+    Imitation.assignState({ elementDragEnd: id })
+
+    e.stopPropagation()
   }
 
-  React.useEffect(() => {
-    window.addEventListener('mouseup', onMouseUp)
+  const onDrop = (e, id) => {
+    const origin = Imitation.state.elementDragStart
+    const target = id
 
-    return () => window.removeEventListener('mouseup', onMouseUp)
-  }, [])
+    if (origin !== undefined && target !== undefined) {
+      if (origin && target && origin !== target) {
+        if (target.includes('@') === true) {
+          const [id, childrenKey] = target.split('@')
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, origin)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, id)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          currentGraphContent_.children[childrenKey].push(currentGraphContent)
+        }
+        if (target.includes('@') === false) {
+          const [currentGraphContent, parentGraphContent] = getElementAndParentById(Imitation.state.graphContent, origin)
+          const [currentGraphContent_, parentGraphContent_] = getElementAndParentById(Imitation.state.graphContent, target)
+          deleteArrayItem(parentGraphContent, currentGraphContent)
+          const index = parentGraphContent_.indexOf(currentGraphContent_)
+          parentGraphContent_.splice(index + 1, 0, currentGraphContent)
+        }
+      }
+      Imitation.state.graphContent = Imitation.state.graphContent
+      Imitation.state.graphContentUpdate = hash()
+    }
+
+    Imitation.state.elementDragStart = undefined
+    Imitation.state.elementDragEnd = undefined
+
+    Imitation.dispatch()
+  }
 
   const children_exe = React.useMemo(() => {
     if (!children) return
@@ -183,13 +201,16 @@ function ElementRender(props) {
       const id_ = id + '@' + i[0]
 
       const params = {
+        draggable: true,
         id: id_,
         'data-element-children-id': i[0],
+        onClick: e => onClick(e, id_),
         onMouseOver: e => onMouseOver(e, id_),
         onMouseDown: e => onMouseDown(e, id_),
-        onMouseMove: e => onMouseMove(e, id),
+        onDragOver: e => onDragOver(e, id_),
+        onDragStart: e => onDragStart(e, id_),
         onDragEnter: e => onDragEnter(e, id_),
-        onClick: e => onClick(e, id_)
+        onDrop: e => onDrop(e, id_),
       }
 
       r[i[0]] = () => i[1].map(i => <ElementRender key={i.id} element={i} parentId={[...parentId, id]} />)
@@ -208,17 +229,21 @@ function ElementRender(props) {
   })
 
   const devParams = {
+    draggable: true,
     id: id,
     'data-element-id': id,
     onClick: e => onClick(e, id),
     onMouseOver: e => onMouseOver(e, id),
     onMouseDown: e => onMouseDown(e, id),
-    onMouseMove: e => onMouseMove(e, id),
+    onDragOver: e => onDragOver(e, id),
+    onDragStart: e => onDragStart(e, id),
+    onDragEnter: e => onDragEnter(e, id),
+    onDrop: e => onDrop(e, id),
   }
 
   if (use === false) return null
 
-  return <Render env='dev' update={update_} devParams={devParams} element={props.element} property={property} style={style_exe} children={children_exe} />
+  return <Render env='dev' update={() => setUpdate(performance.now())} devParams={devParams} element={props.element} property={property} style={style_exe} children={children_exe} />
 }
 
 function App() {

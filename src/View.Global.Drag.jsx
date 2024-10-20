@@ -20,7 +20,7 @@ function App() {
     setPosition([x, y])
   }
 
-  const onMouseUp = e => {
+  const onDrop = e => {
     if (Imitation.state.elementDragStart !== undefined && Imitation.state.elementDragEnd !== undefined) {
       if (Imitation.state.elementDragStart && Imitation.state.elementDragEnd && Imitation.state.elementDragStart !== Imitation.state.elementDragEnd) {
         if (Imitation.state.elementDragEnd.includes('@') === true) {

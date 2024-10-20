@@ -17,7 +17,7 @@ function App() {
     <HashRouter>
       <Loading />
       <Message />
-      <Drag />
+      {/* <Drag /> */}
 
       <Switch>
         <Route path='/' exact><EntryDev /></Route>

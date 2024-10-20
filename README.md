@@ -1,6 +1,6 @@
 Below is the Github Page link, you can click the link, and enter the guide mode to understand the project. (Click the Guide Button In the upper left corner.)
 
-<https://wvooovw.github.io/GraphorEditor/build>
+<https://wvooovw.github.io/GraphEditor/build>
 
 
 The document will be improved. There is some simple introduce.
@@ -13,7 +13,7 @@ This is a lightweight, universal, progressive, and scalable component web builde
 
 Web page development can be achieved through visual operations within the system, without the need for code or a small amount of code fragments.
 
-Github demo usage address：<https://wvooovw.github.io/GraphorEditor/build>
+Github demo usage address：<https://wvooovw.github.io/GraphEditor/build>
 
 You can experience this project builder in the demonstration address and refer to the usage methods of the builder in the next chapter
 
