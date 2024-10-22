@@ -7,28 +7,6 @@ import Imitation from './utils.imitation'
 import { caculateStyle } from './utils.graph.style'
 import { hash, getElementAndParentById, deleteArrayItem } from './utils.common'
 import { searchElement } from './utils.graph.common'
-import { scrollListener } from './utils.common.scrollListener'
-
-function HintItem(props) {
-  const base = 2
-
-  const style = {
-    position: 'absolute',
-    cursor: 'default',
-  }
-
-  const event = {
-    onMouseDown: e => e.stopPropagation(),
-    onTouchStart: e => e.stopPropagation(),
-  }
-
-  return <>
-    <div style={{ ...style, width: props.position.width, height: base, top: props.position.top - base, left: props.position.left, background: props.color }} {...event} />
-    <div style={{ ...style, width: props.position.width, height: base, top: props.position.bottom, left: props.position.left, background: props.color }} {...event} />
-    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.left - base, background: props.color }} {...event} />
-    <div style={{ ...style, width: base, height: props.position.height, top: props.position.top, left: props.position.right, background: props.color }} {...event} />
-  </>
-}
 
 function Hint() {
   const rectRef = React.useRef()
@@ -142,8 +120,7 @@ function ElementRender(props) {
   }
 
   const onDragStart = (e, id) => {
-    Imitation.state.elementDragStart = id
-    Imitation.dispatch()
+    Imitation.assignState({ elementDragStart: id })
 
     e.stopPropagation()
   }
@@ -162,7 +139,6 @@ function ElementRender(props) {
     const origin = Imitation.state.elementDragStart
     const target = id
 
-    if (origin !== undefined && target !== undefined) {
       if (origin && target && origin !== target) {
         if (target.includes('@') === true) {
           const [id, childrenKey] = target.split('@')
@@ -178,10 +154,10 @@ function ElementRender(props) {
           const index = parentGraphContent_.indexOf(currentGraphContent_)
           parentGraphContent_.splice(index + 1, 0, currentGraphContent)
         }
+
+        Imitation.state.graphContent = Imitation.state.graphContent
+        Imitation.state.graphContentUpdate = performance.now()
       }
-      Imitation.state.graphContent = Imitation.state.graphContent
-      Imitation.state.graphContentUpdate = hash()
-    }
 
     Imitation.state.elementDragStart = undefined
     Imitation.state.elementDragEnd = undefined
@@ -201,7 +177,7 @@ function ElementRender(props) {
         'data-element-children-id': i[0],
         onClick: e => onClick(e, id_),
         onMouseOver: e => onMouseOver(e, id_),
-        onDragStart: e => onDragStart(e, id_),
+        onDragStart: e => onDragStart(e, id),
         onDragOver: e => onDragOver(e, id_),
         onDragEnter: e => onDragEnter(e, id_),
         onDrop: e => onDrop(e, id_),
@@ -303,15 +279,6 @@ function App() {
     Imitation.state.elementDragEnd = undefined
     Imitation.dispatch()
   }
-
-  React.useEffect(() => {
-    const node = Imitation.state.graphDevContentRef
-    const enable = Imitation.state.elementDragStart !== undefined
-
-    const r = scrollListener(node, enable)
-
-    return () => r()
-  }, [Imitation.state.elementDragStart])
 
   return <>
     <Paper

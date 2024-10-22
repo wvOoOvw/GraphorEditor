@@ -14,7 +14,6 @@ import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
 import Imitation from './utils.imitation'
 import { getElementAndParentById, hash, deleteArrayItem, updateTriggerLink, getElementsAll } from './utils.common'
 import { searchElement } from './utils.graph.common'
-import { scrollListener } from './utils.common.scrollListener'
 
 function ItemRender(props) {
   const { license, id, name, use, children, style, parentId, drag } = props
@@ -105,7 +104,6 @@ function ItemRender(props) {
     const origin = Imitation.state.elementDragStart
     const target = id
 
-    if (origin !== undefined && target !== undefined) {
       if (origin && target && origin !== target) {
         if (target.includes('@') === true) {
           const [id, childrenKey] = target.split('@')
@@ -121,9 +119,8 @@ function ItemRender(props) {
           const index = parentGraphContent_.indexOf(currentGraphContent_)
           parentGraphContent_.splice(index + 1, 0, currentGraphContent)
         }
-      }
       Imitation.state.graphContent = Imitation.state.graphContent
-      Imitation.state.graphContentUpdate = hash()
+      Imitation.state.graphContentUpdate = performance.now()
     }
 
     Imitation.state.elementDragStart = undefined
@@ -161,7 +158,7 @@ function ItemRender(props) {
             draggable
             style={{ height: 42, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px', transition: '0.5s all', borderRadius: 4, paddingLeft: parentId.length * 8 + 16, ...hoverStyle(id + '@' + i[0]), ...dragStartStyle(id + '@' + i[0]), ...dragEndStyle(id + '@' + i[0]) }}
             onMouseOver={(e) => onMouseOver(e, id + '@' + i[0])}
-            onDragStart={(e) => onDragStart(e, id + '@' + i[0])}
+            onDragStart={(e) => onDragStart(e, id)}
             onDragOver={(e) => onDragOver(e, id + '@' + i[0])}
             onDragEnter={(e) => onDragEnter(e, id + '@' + i[0])}
             onDrop={(e) => onDrop(e, id + '@' + i[0])}
@@ -196,15 +193,6 @@ function ItemRender(props) {
 
 function App() {
   const domRef = React.useRef()
-
-  React.useEffect(() => {
-    const node = domRef.current.parentNode
-    const enable = Imitation.state.elementDragStart !== undefined
-
-    const r = scrollListener(node, enable)
-
-    return () => r()
-  }, [Imitation.state.elementDragStart])
 
   return <Grid container spacing={2} ref={el => domRef.current = el}>
     <Grid item xs={12}>Element Overview</Grid>
