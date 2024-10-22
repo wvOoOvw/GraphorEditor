@@ -36,6 +36,6 @@
     "start": "node webpack/run.js --dev",
     "build": "node webpack/run.js --prod",
     "package": "node webpack/run.js --package",
-    "commit": "git add . && git commit -m 'x' && git push github master"
+    "commit": "git add . && git commit -m 'x' && git push origin master"
   }
 }

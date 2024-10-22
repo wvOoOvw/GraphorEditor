@@ -12,6 +12,6 @@ link.rel = 'icon'
 link.href = icon
 document.head.append(link)
 
-window.addEventListener('wheel', e => e.defaultPrevented())
+window.addEventListener('wheel', e => e.preventDefault(), { passive: false })
 
 ReactDOM.render(<App />, document.getElementById('root'))
